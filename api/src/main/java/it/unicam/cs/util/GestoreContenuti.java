@@ -4,25 +4,19 @@ import it.unicam.cs.model.Evento;
 import it.unicam.cs.model.Itinerario;
 import it.unicam.cs.model.POI;
 
-import java.util.ArrayList;
-import java.util.List;
 
-/** La classe GestoreContenuti è una sorta di magazzino dei contenuti caricati sulla piattaforma
+/** La classe GestoreContenuti è una classe temporanea che serve a fissare la logica della gestione
+ * dei contenuti nella piattaforma senza essere influenzati dalla logica di implementazione della persistenza
+ * dei dati tramite database o filesystem.
  * contiene quindi POI, eventi , itinerari **/
-public class GestoreContenuti {
-    private List<POI> listaPOI = new ArrayList<>();
-    private List<Evento> listaEventi = new ArrayList<>();
-    private List<Itinerario> listaItinerari = new ArrayList<>();
+public interface GestoreContenuti {
 
-    public void aggiungiPOI(POI poi){
-        listaPOI.add(poi);
-    }
+/** Il metodo aggiungiPOI aggiunge un POI alla lista dei POI presenti nella piattaforma**/
+    void aggiungiPOI(POI poi);
 
-    public void aggiungiEvento(Evento evento){
-        listaEventi.add(evento);
-    }
+    /*** Il metodo aggiungiItinerario aggiunge un Itinerario alla lista degli itinerari presenti nella piattaforma**/
+    void aggiungiItinerario(Itinerario itinerario);
 
-    public void aggiungiItinerario(Itinerario itinerario){
-        listaItinerari.add(itinerario);
-    }
+/*** Il metodo aggiungiEvento aggiunge un Evento alla lista degli eventi presenti nella piattaforma**/
+    void aggiungiEvento(Evento evento);
 }
