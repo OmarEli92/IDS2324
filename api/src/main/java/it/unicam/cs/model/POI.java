@@ -1,21 +1,20 @@
 package it.unicam.cs.model;
 
 import it.unicam.cs.util.Posizione;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
-public class POI {
+public abstract class POI {
     private final int ID;
     private final String nome;
     private final Posizione posizione;
-    private final String descrizione;
+    private String descrizione;
     private final LocalDateTime dataCreazione;
     private final List<ContenutoMultimediale> contenutiMultimediali;
     private final int IDContributore;
+    private String tipo;
 
 
     public POI(int ID, String nome, Posizione posizione, String descrizione,
@@ -39,6 +38,8 @@ public class POI {
         return nome;
     }
 
+
+
     public int getIDContributore() {
         return IDContributore;
     }
@@ -57,5 +58,13 @@ public class POI {
 
     public List<ContenutoMultimediale> getContenutiMultimediali() {
         return contenutiMultimediali;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
     }
 }

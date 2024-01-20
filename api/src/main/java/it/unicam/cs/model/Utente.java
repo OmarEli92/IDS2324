@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 /** La classe astratta Utente definisce le informazioni comuni che sono condivise
  *  tra i diversi tipi di utente che sono registrati sulla piattaforma e i metodi principali **/
-public abstract class Utente {
+public class Utente implements InserimentoContenuto {
     private final String nome;
     private final String cognome;
     private final int id;
@@ -14,8 +14,11 @@ public abstract class Utente {
     private final String sesso;
     private String telefono;
     private int numeroDiContribuzioni;
+    private final Ruolo ruolo;
 
-    public Utente(String nome, String cognome, int id, LocalDate dataDiNascita, String email, String sesso, String telefono, int numeroDiContribuzioni) {
+    public Utente(String nome, String cognome, int id, LocalDate dataDiNascita,
+                  String email, String sesso, String telefono,
+                  int numeroDiContribuzioni,Ruolo ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.id = id;
@@ -24,8 +27,13 @@ public abstract class Utente {
         this.sesso = sesso;
         this.telefono = telefono;
         this.numeroDiContribuzioni = numeroDiContribuzioni;
+        this.ruolo = ruolo;
     }
-        /* Metodi Get*/
+
+    public void eliminaContenuto(final int idPoi, final String tipoContenuto){
+        //TODO
+    }
+    /* Metodi Get*/
     public String getNome() {
         return nome;
     }
@@ -58,13 +66,22 @@ public abstract class Utente {
         return numeroDiContribuzioni;
     }
 
-    public void aggiungiContribuzione(){
+    public void aggiungiContribuzione() {
         numeroDiContribuzioni++;
     }
 
-/** Metodo che permette di aggiungere un POI alla piattaforma **/
-    public abstract void creaPOI();
+    @Override
+    public void inserisciPOI(POI poi) {
 
-    /** Metodo che permette di aggiungere un itinerario alla piattaforma **/
-    public abstract void creaItinerario();
+    }
+
+    @Override
+    public void inserisciItinerario(Itinerario itinerario) {
+
+    }
+
+    @Override
+    public void inserisciEvento(Evento evento) {
+
+    }
 }

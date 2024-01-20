@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.util.Posizione;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,4 +25,31 @@ public class Itinerario {
         this.IDContributore = IDContributore;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public List<POI> getPuntiDiInteresse() {
+        return puntiDiInteresse;
+    }
+
+    public LocalDateTime getDataCreazione() {
+        return dataCreazione;
+    }
+
+    public List<ContenutoMultimediale> getContenutiMultimediali() {
+        return contenutiMultimediali;
+    }
+
+    public String getIDContributore() {
+        return IDContributore;
+    }
 }
