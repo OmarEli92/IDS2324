@@ -15,10 +15,11 @@ public class Utente implements InserimentoContenuto {
     private String telefono;
     private int numeroDiContribuzioni;
     private final Ruolo ruolo;
+    private final String comuneResidenza;
 
     public Utente(String nome, String cognome, int id, LocalDate dataDiNascita,
                   String email, String sesso, String telefono,
-                  int numeroDiContribuzioni,Ruolo ruolo) {
+                  int numeroDiContribuzioni,Ruolo ruolo, String comuneResidenza){
         this.nome = nome;
         this.cognome = cognome;
         this.id = id;
@@ -28,6 +29,7 @@ public class Utente implements InserimentoContenuto {
         this.telefono = telefono;
         this.numeroDiContribuzioni = numeroDiContribuzioni;
         this.ruolo = ruolo;
+        this.comuneResidenza = comuneResidenza;
     }
 
     public void eliminaContenuto(final int idPoi, final String tipoContenuto){
