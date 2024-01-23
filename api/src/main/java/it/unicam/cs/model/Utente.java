@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 /** La classe astratta Utente definisce le informazioni comuni che sono condivise
  *  tra i diversi tipi di utente che sono registrati sulla piattaforma e i metodi principali **/
-public class Utente implements InserimentoContenuto {
+public abstract class Utente {
     private final String nome;
     private final String cognome;
     private final int id;
@@ -14,12 +14,11 @@ public class Utente implements InserimentoContenuto {
     private final String sesso;
     private String telefono;
     private int numeroDiContribuzioni;
-    private final Ruolo ruolo;
-    private final String comuneResidenza;
+    private final int IDcomuneAssociato;
 
     public Utente(String nome, String cognome, int id, LocalDate dataDiNascita,
                   String email, String sesso, String telefono,
-                  int numeroDiContribuzioni,Ruolo ruolo, String comuneResidenza){
+                  int numeroDiContribuzioni, int IDcomuneAssociato){
         this.nome = nome;
         this.cognome = cognome;
         this.id = id;
@@ -28,8 +27,7 @@ public class Utente implements InserimentoContenuto {
         this.sesso = sesso;
         this.telefono = telefono;
         this.numeroDiContribuzioni = numeroDiContribuzioni;
-        this.ruolo = ruolo;
-        this.comuneResidenza = comuneResidenza;
+        this.IDcomuneAssociato = IDcomuneAssociato;
     }
 
     public void eliminaContenuto(final int idPoi, final String tipoContenuto){
@@ -72,18 +70,4 @@ public class Utente implements InserimentoContenuto {
         numeroDiContribuzioni++;
     }
 
-    @Override
-    public void inserisciPOI(POI poi) {
-
-    }
-
-    @Override
-    public void inserisciItinerario(Itinerario itinerario) {
-
-    }
-
-    @Override
-    public void inserisciEvento(Evento evento) {
-
-    }
 }

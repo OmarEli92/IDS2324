@@ -1,10 +1,5 @@
 package it.unicam.cs.controller;
 
-import it.unicam.cs.model.*;
-import it.unicam.cs.service.abstractions.IContenutiService;
-
-import java.util.Map;
-
 /**Il controller si occupa di gestire la visualizzazione dei contenuti quando un utente richiede di visionare
  * POI,Eventi, Itinerari **/
 public class ControllerConsultazioneContenuti {
