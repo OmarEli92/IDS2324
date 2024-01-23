@@ -15,12 +15,15 @@ public abstract class POI {
     private final List<ContenutoMultimediale> contenutiMultimediali;
     private final int IDContributore;
     private String tipo; //TODO: da spostare nella classe concreta che estende POI
-    private int IDComune;
+
+
+    private final int IDComune;
+
 
 
     public POI(int ID, String nome, Posizione posizione, String descrizione,
                LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
-               int IDContributore,int IDComune) {
+               int IDContributore, int IDComune) {
         this.ID = ID;
         this.nome = nome;
         this.posizione = posizione;
@@ -66,7 +69,15 @@ public abstract class POI {
         return tipo;
     }
 
+
+    public int getIDComune() {
+        return IDComune;
+    }
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
 }

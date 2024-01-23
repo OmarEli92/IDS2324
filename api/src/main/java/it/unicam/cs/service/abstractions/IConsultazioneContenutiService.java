@@ -17,20 +17,20 @@ public interface IConsultazioneContenutiService {
     POI ottieniPOIdaId(int idPOI);
 
     /** Il metodo ottieniPOIS restituisce una mappa di POI **/
-    Map<Integer,POI> ottieniPOIS();
+    Map<Integer,POI> ottieniPOIS(final int idComune);
 
     /**@param idEvento
      * Il metodo ottieniEventoDaId visualizza un evento a partire dal suo id **/
     Evento ottieniEventoDaId(int idEvento);
 
     /** Il metodo ottieniEventiDaId restituisce una mappa di eventi **/
-    Map<Integer, Evento> ottieniEventi();
+    Map<Integer, Evento> ottieniEventi(final int idComune);
 
     /**@param idItinerario
      *  Il metodo ottieniItinerarioDaId visualizza un itinerario a partire dal suo id **/
      Itinerario ottieniItinerarioDaId(int idItinerario);
 
-    Map<Integer, Itinerario> ottieniItinerari();
+    Map<Integer, Itinerario> ottieniItinerari(final int idComune);
 
 
 }

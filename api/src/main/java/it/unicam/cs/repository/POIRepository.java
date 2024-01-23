@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface POIRepository {
     /** Il metodo ottieniPOIS restituisce una mappa di POI **/
-    Map<Integer, POI> ottieniPOIS();
+    Map<Integer, POI> ottieniPOIS(int idComune);
     /** Il metodo ottieniPOIDaID restituisce un POI a partire dal suo id **/
-    POI ottieniPOIDaID(int idPOI);
+    POI ottieniPOIdaID(int idPOI);
 }

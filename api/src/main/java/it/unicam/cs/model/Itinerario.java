@@ -12,10 +12,11 @@ public class Itinerario {
     private final List<POI> puntiDiInteresse;
     private final LocalDateTime dataCreazione;
     private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final String IDContributore;
+    private final int IDContributore;
+    private final int idComune;
     public Itinerario(int ID, String nome, String descrizione, List<POI> puntiDiInteresse,
                       LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
-                      String IDContributore) {
+                      int IDContributore,int idComune){
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -23,6 +24,7 @@ public class Itinerario {
         this.dataCreazione = dataCreazione;
         this.contenutiMultimediali = contenutiMultimediali;
         this.IDContributore = IDContributore;
+        this.idComune = idComune;
     }
 
     public int getID() {
@@ -49,7 +51,11 @@ public class Itinerario {
         return contenutiMultimediali;
     }
 
-    public String getIDContributore() {
+    public int getIDContributore() {
         return IDContributore;
+    }
+
+    public int getIdComune() {
+        return idComune;
     }
 }

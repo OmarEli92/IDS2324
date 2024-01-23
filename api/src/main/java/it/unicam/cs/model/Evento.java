@@ -1,6 +1,8 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.util.Posizione;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,22 +12,28 @@ public abstract class Evento {
     private final String nome;
     private String descrizione;
     private LocalDateTime dataInizio;
+    private final Posizione posizione;
     private LocalDateTime dataFine;
     private final int idContributore;
     private final int idPOIAssociato;
     private List<ContenutoMultimediale> contenutiMultimediali;
+    private final int idComune;
+
 
     public Evento(int ID, String nome, String descrizione, LocalDateTime dataInizio,
-                  LocalDateTime dataFine, int idContributore, int idPOIAssociato,
-                  List<ContenutoMultimediale> contenutiMultimediali) {
+                  LocalDateTime dataFine, Posizione posizione, int idContributore, int idPOIAssociato,
+                  List<ContenutoMultimediale> contenutiMultimediali,
+                  int idComune){
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
+        this.posizione = posizione;
         this.idContributore = idContributore;
         this.idPOIAssociato = idPOIAssociato;
         this.contenutiMultimediali = contenutiMultimediali;
+        this.idComune = idComune;
     }
 
     public int getID() {
@@ -62,5 +70,20 @@ public abstract class Evento {
 
     public int getIdContributore() {
         return idContributore;
+    }
+    public int getIdPOIAssociato() {
+        return idPOIAssociato;
+    }
+
+    public List<ContenutoMultimediale> getContenutiMultimediali() {
+        return contenutiMultimediali;
+    }
+
+    public int getIdComune() {
+        return idComune;
+    }
+
+    public Posizione getPosizione() {
+        return posizione;
     }
 }

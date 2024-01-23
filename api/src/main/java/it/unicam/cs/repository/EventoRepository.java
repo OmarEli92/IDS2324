@@ -8,7 +8,7 @@ import java.util.Map;
  * nella piattaforma e fornisce metodi adibiti a tale scopo **/
 public interface EventoRepository {
     /** Il metodo ottieniEventi restituisce una mappa di eventi **/
-    Map<Integer, Evento> ottieniEventi();
+    Map<Integer, Evento> ottieniEventi(int idComune);
     /** Il metodo ottieniEventoDaID restituisce un evento a partire dal suo id **/
-    Evento ottieniEventoDaID(int idEvento) throws EventoNotFoundException;
+    Evento ottieniEventoDaID(int idEvento);
 }
