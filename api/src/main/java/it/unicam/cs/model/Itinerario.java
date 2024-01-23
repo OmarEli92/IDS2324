@@ -14,16 +14,19 @@ public class Itinerario {
     private final String descrizione;
     private final List<POI> puntiDiInteresse;
     private final LocalDateTime dataCreazione;
-    private final String IDContributore;
+    private final Utente utenteAssociato;
+    private final Comune comuneAssociato;
+
     public Itinerario(int ID, String nome, String descrizione, List<POI> puntiDiInteresse,
                       LocalDateTime dataCreazione,
-                      String IDContributore) {
+                      Utente utenteAssociato, Comune comuneAssociato) {
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
         this.puntiDiInteresse = puntiDiInteresse;
         this.dataCreazione = dataCreazione;
-        this.IDContributore = IDContributore;
+        this.utenteAssociato = utenteAssociato;
+        this.comuneAssociato=comuneAssociato;
     }
 
     public int getID() {
@@ -46,8 +49,11 @@ public class Itinerario {
         return dataCreazione;
     }
 
-    public String getIDContributore() {
-        return IDContributore;
+    public Utente getUtenteAssociato() {
+        return utenteAssociato;
+    }
+    public Comune getComuneAssociato() {
+        return comuneAssociato;
     }
 
 

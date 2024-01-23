@@ -1,30 +1,20 @@
 package it.unicam.cs.model;
+
+import java.time.LocalDate;
+
+
 /** La classe Curatore rappresenta colui che si occupa di verificare che i POI,gli itinerari e i contenuti
  *  aggiunti siano consoni**/
-public class Curatore implements InserimentoContenuto{
-    private final String nome;
-    private final String cognome;
-    private final String email;
-    private final int idComuneAssociato;
-    private final int dataDiNascita;
-    private final String ID;
-    private final String telefono;
-    private final String sesso;
+public class Curatore extends Utente implements InserimentoContenuto{
 
-    public Curatore(String nome, String cognome, String email, String ID,
-                    int dataDiNascita, String telefono, String sesso, int idComuneAssociato) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.email = email;
-        this.ID = ID;
-        this.dataDiNascita = dataDiNascita;
-        this.telefono = telefono;
-        this.sesso = sesso;
-        this.idComuneAssociato = idComuneAssociato;
+
+    public Curatore(String nome, String cognome, String email, int ID,
+                    LocalDate dataDiNascita, String telefono, String sesso, int idComuneAssociato) {
+        super(nome, cognome, ID, dataDiNascita,email,sesso,telefono,0, idComuneAssociato);
+
     }
 
     public void verificaContenuto(){
-
     }
 
     public void eliminaContenuto(int idContenuto,String tipoContenuto){
@@ -32,21 +22,22 @@ public class Curatore implements InserimentoContenuto{
     }
 
     @Override
-    public void InserisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale,Comune comune) {
-
-    }
-    @Override
-    public void inserisciPOI(POI poi,Comune comune) {
+    public void inserisciPOI(POI poi) {
 
     }
 
     @Override
-    public void inserisciItinerario(Itinerario itinerario,Comune comune) {
+    public void inserisciItinerario(Itinerario itinerario) {
 
     }
 
     @Override
-    public void inserisciEvento(Evento evento,Comune comune) {
+    public void inserisciEvento(Evento evento) {
+
+    }
+
+    @Override
+    public void inserimentoContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
 
     }
 }

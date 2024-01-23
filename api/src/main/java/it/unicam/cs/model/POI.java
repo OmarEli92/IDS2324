@@ -18,13 +18,13 @@ public abstract class POI {
     private final Comune comuneAssociato;
     private final List<ContenutoMultimediale> contenutiMultimediali;
     private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
-    private final int IDContributore;
+    private final Utente utenteAssociato;
     private final Tipo tipoPOI;
 
 
     public POI(int ID, String nome, Posizione posizione, String descrizione,
                LocalDateTime dataCreazione,Comune comuneAssociato, List<ContenutoMultimediale> contenutiMultimediali,List<ContenutoMultimediale>contenutiMultimedialiInPending,
-               int IDContributore, Tipo tipoPOI) {
+               Utente utenteAssociato, Tipo tipoPOI) {
         this.ID = ID;
         this.nome = nome;
         this.posizione = posizione;
@@ -33,7 +33,7 @@ public abstract class POI {
         this.comuneAssociato=comuneAssociato;
         this.contenutiMultimediali = contenutiMultimediali;
         this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
-        this.IDContributore = IDContributore;
+        this.utenteAssociato = utenteAssociato;
         this.tipoPOI=tipoPOI;
     }
 
@@ -46,10 +46,8 @@ public abstract class POI {
         return nome;
     }
 
-
-
-    public int getIDContributore() {
-        return IDContributore;
+    public Utente getUtenteAssociato() {
+        return utenteAssociato;
     }
 
     public Posizione getPosizione() {
@@ -81,16 +79,7 @@ public abstract class POI {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    public void addContenutiMultimediale(ContenutoMultimediale contenutoMultimediale){
-        contenutiMultimediali.add(contenutoMultimediale);
-    }
-    public void addContenutiMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
-        contenutiMultimedialiInPending.add(contenutoMultimediale);
-        comuneAssociato.getCuratore().verificaContenuto();
-    }
-    public void eliminaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
 
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

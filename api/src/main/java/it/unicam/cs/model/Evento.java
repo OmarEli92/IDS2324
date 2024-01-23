@@ -12,17 +12,17 @@ public abstract class Evento {
     private String descrizione;
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
-    private final int idContributore;
+    private final Utente utenteAssociato;
     private final POI poiAssociato;
 
     public Evento(int ID, String nome, String descrizione, LocalDateTime dataInizio,
-                  LocalDateTime dataFine, int idContributore, POI poiAssociato) {
+                  LocalDateTime dataFine, Utente utenteAssociato, POI poiAssociato) {
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-        this.idContributore = idContributore;
+        this.utenteAssociato = utenteAssociato;
         this.poiAssociato=poiAssociato;
     }
 
@@ -58,8 +58,8 @@ public abstract class Evento {
         this.dataFine = dataFine;
     }
 
-    public int getIdContributore() {
-        return idContributore;
+    public Utente getUtenteAssociato() {
+        return utenteAssociato;
     }
 
     public POI getPoiAssociato() {

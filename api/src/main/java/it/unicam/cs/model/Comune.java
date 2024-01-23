@@ -1,5 +1,7 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.exception.POINotFoundException;
+
 import java.util.List;
 
 public class Comune {
@@ -11,12 +13,13 @@ public class Comune {
     private final List<Evento> eventiInPending;
     private final List<POI> POISInPending;
     private final List<Itinerario> ItinerariInPending;
+    private final List<Utente> listaUtenti;
     private final Curatore curatore;
-
+    private final Territorio territorio;
 
     public Comune(String nome, int ID, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
-                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,
-                  Curatore curatore) {
+                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,List<Utente>listaUtenti,
+                  Curatore curatore, Territorio territorio) {
         this.nome = nome;
         this.ID = ID;
         this.POIS = POIS;
@@ -25,8 +28,9 @@ public class Comune {
         this.eventiInPending = eventiInPending;
         this.POISInPending = POISInPending;
         this.ItinerariInPending = itinerariInPending;
+        this.listaUtenti=listaUtenti;
         this.curatore = curatore;
-
+        this.territorio=territorio;
     }
     public List<Evento> getEventi() {
         return eventi;
@@ -62,25 +66,7 @@ public class Comune {
     public int getID() {
         return ID;
     }
-    public void addPoiInPending(POI poi){
-        POISInPending.add(poi);
-        curatore.verificaContenuto();
-    }
-    public void addItinerarioInPending(Itinerario itinerario){
-        ItinerariInPending.add(itinerario);
-        curatore.verificaContenuto();
-    }
-    public void addEventoInPending(Evento evento){
-        eventiInPending.add(evento);
-        curatore.verificaContenuto();
-    }
-    public void addPOI(POI poi){
-        POIS.add(poi);
-    }
-    public void addEvento(Evento evento){
-        eventi.add(evento);
-    }
-    public void addItinerario(Itinerario itinerario){
-        itinerari.add(itinerario);
+    public void verificaCoordinate(POI poi) throws POINotFoundException {
+    //TODO
     }
 }

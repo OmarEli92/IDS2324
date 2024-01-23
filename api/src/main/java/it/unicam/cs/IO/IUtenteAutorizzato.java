@@ -1,9 +1,6 @@
 package it.unicam.cs.IO;
 
-import it.unicam.cs.model.Utente;
-import it.unicam.cs.util.ControllerInserimentoContenuti;
-
-import java.util.Scanner;
+import it.unicam.cs.controller.ControllerInserimentoContenuti;
 
 public class IUtenteAutorizzato {
 
