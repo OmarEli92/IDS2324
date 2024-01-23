@@ -1,13 +1,15 @@
-package it.unicam.cs.controllers;
+package it.unicam.cs.controller;
 
 import it.unicam.cs.model.*;
+import it.unicam.cs.service.abstractions.IContenutiService;
 
-import java.util.List;
 import java.util.Map;
 
 /**Il controller si occupa di gestire la visualizzazione dei contenuti quando un utente richiede di visionare
  * POI,Eventi, Itinerari **/
 public class ControllerConsultazioneContenuti {
+    /* SPOSTARE LA LOGICA
+    private final IContenutiService contenutiService;
     private final ListaComuni listaComuni;
     private Comune comune;
     public ControllerConsultazioneContenuti(ListaComuni listaComuni){
@@ -61,7 +63,6 @@ public class ControllerConsultazioneContenuti {
         if(listaItinerari.containsKey(idItinerario)){
             Itinerario itinerario = comune.getItinerari().get(idItinerario);
         }
-        else throw new IllegalArgumentException("L'itinerario non esiste");
 
     }
 
@@ -74,5 +75,5 @@ public class ControllerConsultazioneContenuti {
     private Map<Integer, Itinerario> ottieniItinerari(final Comune comune){
         return comune.getItinerari();
     }
-
+*/
 }

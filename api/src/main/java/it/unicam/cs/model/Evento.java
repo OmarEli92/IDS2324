@@ -1,7 +1,8 @@
 package it.unicam.cs.model;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
 public abstract class Evento {
@@ -12,9 +13,11 @@ public abstract class Evento {
     private LocalDateTime dataFine;
     private final int idContributore;
     private final int idPOIAssociato;
+    private List<ContenutoMultimediale> contenutiMultimediali;
 
     public Evento(int ID, String nome, String descrizione, LocalDateTime dataInizio,
-                  LocalDateTime dataFine, int idContributore, int idPOIAssociato) {
+                  LocalDateTime dataFine, int idContributore, int idPOIAssociato,
+                  List<ContenutoMultimediale> contenutiMultimediali) {
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -22,6 +25,7 @@ public abstract class Evento {
         this.dataFine = dataFine;
         this.idContributore = idContributore;
         this.idPOIAssociato = idPOIAssociato;
+        this.contenutiMultimediali = contenutiMultimediali;
     }
 
     public int getID() {

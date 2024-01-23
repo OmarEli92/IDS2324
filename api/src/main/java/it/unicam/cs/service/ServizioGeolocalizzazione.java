@@ -1,4 +1,4 @@
-package it.unicam.cs.services;
+package it.unicam.cs.service;
 
 public interface ServizioGeolocalizzazione {
 }
