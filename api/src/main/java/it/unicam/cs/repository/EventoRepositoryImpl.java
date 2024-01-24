@@ -3,12 +3,11 @@ package it.unicam.cs.repository;
 import it.unicam.cs.exception.EventoNotFoundException;
 import it.unicam.cs.model.DTO.EventoDto;
 import it.unicam.cs.model.Evento;
-
-
 import java.util.Map;
+import java.util.stream.Collectors;
+
 /** Implementazione pre-SpringBoot della respository per gli eventi**/
 public class EventoRepositoryImpl implements EventoRepository{
-
     private final Map<Integer, Evento> eventi;
 
     public EventoRepositoryImpl(Map<Integer, Evento> eventi){
@@ -16,17 +15,16 @@ public class EventoRepositoryImpl implements EventoRepository{
     }
 
     @Override
-    public Map<Integer, Evento> ottieniEventi() {
-        return eventi;
+    public Map<Integer, Evento> ottieniEventi(int idComune) {
+        return eventi.values()
+                .stream()
+                .filter(evento -> evento.getIdComune() == idComune)
+                .collect(Collectors.toMap(Evento::getID, evento -> evento));
     }
 
     @Override
-    public Evento ottieniEventoDaID(int idEvento) throws EventoNotFoundException {
-        if(eventi.containsKey(idEvento)){
-            return eventi.get(idEvento);
-        }
-        else throw new EventoNotFoundException("L'evento non esiste");
-    }
+    public Evento ottieniEventoDaID(int idEvento){
+        return eventi.get(idEvento);
 
     @Override
     public void aggiungiEvento(Evento evento) {
@@ -36,5 +34,6 @@ public class EventoRepositoryImpl implements EventoRepository{
     @Override
     public void aggiungiEventoInPending(Evento evento) {
     evento.getPoiAssociato().getComuneAssociato().getEventiInPending().add(evento);
+
     }
 }

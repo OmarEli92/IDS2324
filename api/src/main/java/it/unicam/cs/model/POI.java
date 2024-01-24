@@ -15,16 +15,16 @@ public abstract class POI {
     private final Posizione posizione;
     private String descrizione;
     private final LocalDateTime dataCreazione;
-    private final Comune comuneAssociato;
+    private final int IDComune;
     private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
-    private final Utente utenteAssociato;
     private final Tipo tipoPOI;
+    private final int IDContributore;
 
 
     public POI(int ID, String nome, Posizione posizione, String descrizione,
-               LocalDateTime dataCreazione,Comune comuneAssociato, List<ContenutoMultimediale> contenutiMultimediali,List<ContenutoMultimediale>contenutiMultimedialiInPending,
-               Utente utenteAssociato, Tipo tipoPOI) {
+               LocalDateTime dataCreazione,int IDComune, List<ContenutoMultimediale> contenutiMultimediali,
+                Tipo tipoPOI, int IDContributore) {
+
         this.ID = ID;
         this.nome = nome;
         this.posizione = posizione;
@@ -33,8 +33,10 @@ public abstract class POI {
         this.comuneAssociato=comuneAssociato;
         this.contenutiMultimediali = contenutiMultimediali;
         this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
-        this.utenteAssociato = utenteAssociato;
+        this.IDContributore = IDContributore;
         this.tipoPOI=tipoPOI;
+        this.IDComune = IDComune;
+
     }
 
 /* Metodi Get*/
@@ -76,6 +78,11 @@ public abstract class POI {
     public Tipo getTipoPOI() {
         return tipoPOI;
     }
+  
+  public int getIDComune() {
+        return IDComune;
+    }
+
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
@@ -92,4 +99,5 @@ public abstract class POI {
     public int hashCode() {
         return Objects.hash(ID, tipoPOI);
     }
+
 }

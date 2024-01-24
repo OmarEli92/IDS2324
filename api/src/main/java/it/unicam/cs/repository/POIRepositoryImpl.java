@@ -1,23 +1,32 @@
 package it.unicam.cs.repository;
 
+
+import it.unicam.cs.exception.POINotFoundException;
 import it.unicam.cs.model.POI;
-
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class POIRepositoryImpl implements POIRepository {
+public class POIRepositoryImpl implements POIRepository{
 
-    @Override
-    public Map<Integer, POI> ottieniPOIS() {
-        return null;
+    private final Map<Integer, POI> pois;
+
+    public POIRepositoryImpl(Map<Integer, POI> pois){
+        this.pois = pois;
     }
 
     @Override
-    public POI ottieniPOIDaID(int idPOI) {
-        return null;
+    public Map<Integer, POI> ottieniPOIS(int idComune) {
+        return pois.values()
+                .stream()
+                .filter(poi -> poi.getIDComune() == idComune)
+                .collect(Collectors.toMap(POI::getID, poi-> poi));
     }
 
     @Override
+    public POI ottieniPOIdaID(int idPOI){
+            return pois.get(idPOI);
+        }
+  @Override
     public void aggiungiPOI(POI poi) {
         poi.getComuneAssociato().getPOISInPending().add(poi);
     }
@@ -26,5 +35,6 @@ public class POIRepositoryImpl implements POIRepository {
     public void aggiungiPOIInPending(POI poi) {
         poi.getComuneAssociato().getPOIS().add(poi);
     }
+
 
 }

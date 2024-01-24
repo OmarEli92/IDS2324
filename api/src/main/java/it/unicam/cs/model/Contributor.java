@@ -1,6 +1,8 @@
 package it.unicam.cs.model;
 
+
 import it.unicam.cs.util.Ruolo;
+
 
 import java.time.LocalDate;
 
@@ -17,6 +19,7 @@ public class Contributor extends Utente implements InserimentoContenuto{
     public Ruolo getRuolo() {
         return ruolo;
     }
+
 
     @Override
     public void inserisciPOI(POI poi) {

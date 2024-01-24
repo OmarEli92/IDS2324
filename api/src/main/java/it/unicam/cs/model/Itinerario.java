@@ -14,19 +14,21 @@ public class Itinerario {
     private final String descrizione;
     private final List<POI> puntiDiInteresse;
     private final LocalDateTime dataCreazione;
-    private final Utente utenteAssociato;
-    private final Comune comuneAssociato;
-
+    private final List<ContenutoMultimediale> contenutiMultimediali;
+    private final int IDContributore;
+    private final int idComune;
     public Itinerario(int ID, String nome, String descrizione, List<POI> puntiDiInteresse,
-                      LocalDateTime dataCreazione,
-                      Utente utenteAssociato, Comune comuneAssociato) {
+                      LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
+                      int IDContributore,int idComune){
+
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
         this.puntiDiInteresse = puntiDiInteresse;
         this.dataCreazione = dataCreazione;
-        this.utenteAssociato = utenteAssociato;
-        this.comuneAssociato=comuneAssociato;
+        this.contenutiMultimediali = contenutiMultimediali;
+        this.IDContributore = IDContributore;
+        this.idComune = idComune;
     }
 
     public int getID() {
@@ -49,13 +51,6 @@ public class Itinerario {
         return dataCreazione;
     }
 
-    public Utente getUtenteAssociato() {
-        return utenteAssociato;
-    }
-    public Comune getComuneAssociato() {
-        return comuneAssociato;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -65,8 +60,16 @@ public class Itinerario {
         return ID == that.ID && Objects.equals(puntiDiInteresse, that.puntiDiInteresse);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(ID, puntiDiInteresse);
+
+    public int getIDContributore() {
+        return IDContributore;
+    }
+
+    public int getIdComune() {
+        return idComune;
     }
 }
