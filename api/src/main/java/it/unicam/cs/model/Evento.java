@@ -1,10 +1,11 @@
 package it.unicam.cs.model;
 
 
+import java.util.Objects;
 import it.unicam.cs.util.Posizione;
-
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
 public abstract class Evento {
@@ -19,11 +20,11 @@ public abstract class Evento {
     private List<ContenutoMultimediale> contenutiMultimediali;
     private final int idComune;
 
-
     public Evento(int ID, String nome, String descrizione, LocalDateTime dataInizio,
                   LocalDateTime dataFine, Posizione posizione, int idContributore, int idPOIAssociato,
                   List<ContenutoMultimediale> contenutiMultimediali,
                   int idComune){
+
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -68,8 +69,18 @@ public abstract class Evento {
         this.dataFine = dataFine;
     }
 
-    public int getIdContributore() {
-        return idContributore;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return ID == evento.ID && Objects.equals(poiAssociato, evento.poiAssociato);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, poiAssociato);
     }
     public int getIdPOIAssociato() {
         return idPOIAssociato;

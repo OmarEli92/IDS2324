@@ -1,4 +1,4 @@
-package it.unicam.cs.model;
+package it.unicam.cs.util;
 
 public enum Ruolo {
     CONTRIBUTORE("contributore"),

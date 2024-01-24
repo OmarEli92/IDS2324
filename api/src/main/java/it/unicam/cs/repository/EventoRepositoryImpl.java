@@ -3,8 +3,6 @@ package it.unicam.cs.repository;
 import it.unicam.cs.exception.EventoNotFoundException;
 import it.unicam.cs.model.DTO.EventoDto;
 import it.unicam.cs.model.Evento;
-
-
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -22,11 +20,20 @@ public class EventoRepositoryImpl implements EventoRepository{
                 .stream()
                 .filter(evento -> evento.getIdComune() == idComune)
                 .collect(Collectors.toMap(Evento::getID, evento -> evento));
-
     }
 
     @Override
     public Evento ottieniEventoDaID(int idEvento){
         return eventi.get(idEvento);
+
+    @Override
+    public void aggiungiEvento(Evento evento) {
+    evento.getPoiAssociato().getComuneAssociato().getEventi().add(evento);
+    }
+
+    @Override
+    public void aggiungiEventoInPending(Evento evento) {
+    evento.getPoiAssociato().getComuneAssociato().getEventiInPending().add(evento);
+
     }
 }

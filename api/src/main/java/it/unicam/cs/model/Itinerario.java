@@ -1,8 +1,11 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.util.Tipo;
+
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
 public class Itinerario {
@@ -17,6 +20,7 @@ public class Itinerario {
     public Itinerario(int ID, String nome, String descrizione, List<POI> puntiDiInteresse,
                       LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
                       int IDContributore,int idComune){
+
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -47,9 +51,19 @@ public class Itinerario {
         return dataCreazione;
     }
 
-    public List<ContenutoMultimediale> getContenutiMultimediali() {
-        return contenutiMultimediali;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Itinerario that = (Itinerario) o;
+        return ID == that.ID && Objects.equals(puntiDiInteresse, that.puntiDiInteresse);
     }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, puntiDiInteresse);
 
     public int getIDContributore() {
         return IDContributore;

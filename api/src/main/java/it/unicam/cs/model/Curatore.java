@@ -15,7 +15,6 @@ public class Curatore extends Utente implements InserimentoContenuto{
     }
 
     public void verificaContenuto(){
-
     }
 
     public void eliminaContenuto(int idContenuto,String tipoContenuto){

@@ -1,8 +1,6 @@
 package it.unicam.cs.controller;
-
 import it.unicam.cs.model.*;
 import it.unicam.cs.service.abstractions.IConsultazioneContenutiService;
-
 import java.util.Map;
 import java.util.Optional;
 
@@ -17,6 +15,7 @@ public class ControllerConsultazioneContenuti {
                                             ListaComuni listaComuni){
 
         this.consultazioneContenutiService = consultazioneContenutiService;
+
         this.listaComuni = listaComuni;
     }
 
@@ -26,6 +25,7 @@ public class ControllerConsultazioneContenuti {
         }
         else throw new IllegalArgumentException("Il comune non esiste");
     }
+  
     public void visualizzaPOI(int idPOI){
         Optional<POI> poi = Optional.of(consultazioneContenutiService.ottieniPOIdaId(idPOI));
         if(poi.isPresent())
@@ -61,9 +61,12 @@ public class ControllerConsultazioneContenuti {
 
     public void visualizzaItinerari(){
         Map<Integer,Itinerario> itinerari = consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato);
+
         for(Itinerario itinerario : itinerari.values()){
             System.out.println(itinerario.toString());
         }
     }
 
+ 
 }
+

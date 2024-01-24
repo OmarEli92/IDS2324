@@ -5,3 +5,4 @@ public class EventoNotFoundException extends Exception{
         super(message);
     }
 }
+

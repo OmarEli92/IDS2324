@@ -6,3 +6,4 @@ public interface InserimentoContenuto {
     void inserisciEvento(Evento evento);
     void inserimentoContenutoMultimediale(ContenutoMultimediale contenutoMultimediale);
 }
+

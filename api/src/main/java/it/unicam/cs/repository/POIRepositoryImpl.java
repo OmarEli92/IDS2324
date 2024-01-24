@@ -1,5 +1,6 @@
 package it.unicam.cs.repository;
 
+
 import it.unicam.cs.exception.POINotFoundException;
 import it.unicam.cs.model.POI;
 import java.util.Map;
@@ -25,5 +26,15 @@ public class POIRepositoryImpl implements POIRepository{
     public POI ottieniPOIdaID(int idPOI){
             return pois.get(idPOI);
         }
+  @Override
+    public void aggiungiPOI(POI poi) {
+        poi.getComuneAssociato().getPOISInPending().add(poi);
+    }
+
+    @Override
+    public void aggiungiPOIInPending(POI poi) {
+        poi.getComuneAssociato().getPOIS().add(poi);
+    }
+
 
 }

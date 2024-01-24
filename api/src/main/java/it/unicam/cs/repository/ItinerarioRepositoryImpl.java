@@ -25,6 +25,16 @@ public class ItinerarioRepositoryImpl implements ItinerarioRepository{
     @Override
     public Itinerario ottieniItinerarioDaID(int idItinerario){
         return itinerari.get(idItinerario);
+      
+    @Override
+    public void aggiungiItinerario(Itinerario itinerario) {
+        itinerario.getComuneAssociato().getItinerari().add(itinerario);
+    }
+
+    @Override
+    public void aggiungiItinerrarioInPending(Itinerario itinerario) {
+        itinerario.getComuneAssociato().getItinerariInPending().add(itinerario);
+
 
     }
 }

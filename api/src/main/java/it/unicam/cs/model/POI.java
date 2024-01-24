@@ -1,8 +1,11 @@
 package it.unicam.cs.model;
 
 import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.Tipo;
+
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
@@ -12,26 +15,28 @@ public abstract class POI {
     private final Posizione posizione;
     private String descrizione;
     private final LocalDateTime dataCreazione;
-    private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final int IDContributore;
-    private String tipo; //TODO: da spostare nella classe concreta che estende POI
-
-
     private final int IDComune;
-
+    private final List<ContenutoMultimediale> contenutiMultimediali;
+    private final Tipo tipoPOI;
+    private final int IDContributore;
 
 
     public POI(int ID, String nome, Posizione posizione, String descrizione,
-               LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
-               int IDContributore, int IDComune) {
+               LocalDateTime dataCreazione,int IDComune, List<ContenutoMultimediale> contenutiMultimediali,
+                Tipo tipoPOI, int IDContributore) {
+
         this.ID = ID;
         this.nome = nome;
         this.posizione = posizione;
         this.descrizione = descrizione;
         this.dataCreazione = dataCreazione;
+        this.comuneAssociato=comuneAssociato;
         this.contenutiMultimediali = contenutiMultimediali;
+        this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
         this.IDContributore = IDContributore;
+        this.tipoPOI=tipoPOI;
         this.IDComune = IDComune;
+
     }
 
 /* Metodi Get*/
@@ -43,10 +48,8 @@ public abstract class POI {
         return nome;
     }
 
-
-
-    public int getIDContributore() {
-        return IDContributore;
+    public Utente getUtenteAssociato() {
+        return utenteAssociato;
     }
 
     public Posizione getPosizione() {
@@ -61,23 +64,40 @@ public abstract class POI {
         return dataCreazione;
     }
 
+    public Comune getComuneAssociato() {
+        return comuneAssociato;
+    }
+
     public List<ContenutoMultimediale> getContenutiMultimediali() {
         return contenutiMultimediali;
     }
 
-    public String getTipo() {
-        return tipo;
+    public List<ContenutoMultimediale> getContenutiMultimedialiInPending() {
+        return contenutiMultimedialiInPending;
     }
-
-
-    public int getIDComune() {
+    public Tipo getTipoPOI() {
+        return tipoPOI;
+    }
+  
+  public int getIDComune() {
         return IDComune;
     }
+
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        POI poi = (POI) o;
+        return ID == poi.ID && tipoPOI == poi.tipoPOI;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, tipoPOI);
     }
 
 }
