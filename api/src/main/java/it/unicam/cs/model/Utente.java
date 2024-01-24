@@ -1,5 +1,7 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.util.Ruolo;
+
 import java.time.LocalDate;
 
 

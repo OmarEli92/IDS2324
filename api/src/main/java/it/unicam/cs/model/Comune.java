@@ -1,9 +1,9 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.exception.POINotFoundException;
+import it.unicam.cs.util.Ruolo;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 public class Comune {
     private final String nome;
@@ -34,21 +34,6 @@ public class Comune {
         this.curatore = curatore;
         this.IDGestorePiattaforma = IDGestorePiattaforma;
     }
-    public List<Evento> getEventi() {
-        return eventi;
-    }
-    public List<Evento> getEventiInPending() {
-        return eventiInPending;
-    }
-
-    public List<POI> getPOISInPending() {
-        return POISInPending;
-    }
-
-    public List<POI> getPOIS() {
-        return POIS;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -57,21 +42,38 @@ public class Comune {
         return curatore;
     }
 
-    public List<Itinerario> getItinerariInPending() {
-        return ItinerariInPending;
-    }
-
-    public List<Itinerario> getItinerari() {
-        return itinerari;
-    }
-
     public int getID() {
         return ID;
     }
    public int getIDGestorePiattaforma() {
-        return IDGestorePiattaforma;
-     
-    public void verificaCoordinate(POI poi) throws POINotFoundException {
+       return IDGestorePiattaforma;
+   }
+    public void verificaCoordinate (POI poi)  {
     //TODO
+    }
+
+    public Optional<Ruolo> getRuoloUtente(int id){
+        return Optional.ofNullable(((Contributor) this.listaUtenti.get(id)).getRuolo());
+    }
+    public void aggiungiEvento (Evento evento){
+        this.eventi.add(evento);
+    }
+
+    public void aggiungiEventoInPending(Evento evento){
+        this.eventiInPending.add(evento);
+    }
+    public void rimuoviEventoInPending (Evento evento){
+        this.eventiInPending.remove(evento);
+    }
+    public void aggiungiPOI(POI poi){
+        this.POISInPending.add(poi);
+    }
+
+    public void aggiungiPOIInPending(POI poi) {
+    this.POIS.add(poi);
+    }
+
+    public void rimoviPOIInPending(POI poi) {
+    this.POISInPending.remove(poi);
     }
 }

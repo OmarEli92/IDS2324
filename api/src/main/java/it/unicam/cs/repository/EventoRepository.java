@@ -18,7 +18,5 @@ public interface EventoRepository {
   
 /** Il metodo aggiungiEventoInPending aggiunge un evento non ancora verificato alla lista di pending**/
     void aggiungiEventoInPending(Evento evento);
-=======
-   
 
 }

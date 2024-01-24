@@ -2,6 +2,8 @@ package it.unicam.cs.repository;
 
 
 import it.unicam.cs.exception.POINotFoundException;
+import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Curatore;
 import it.unicam.cs.model.POI;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,9 +11,11 @@ import java.util.stream.Collectors;
 public class POIRepositoryImpl implements POIRepository{
 
     private final Map<Integer, POI> pois;
+    private final Comune comune;
 
-    public POIRepositoryImpl(Map<Integer, POI> pois){
+    public POIRepositoryImpl(Map<Integer, POI> pois, Comune comune){
         this.pois = pois;
+        this.comune=comune;
     }
 
     @Override
@@ -28,13 +32,25 @@ public class POIRepositoryImpl implements POIRepository{
         }
   @Override
     public void aggiungiPOI(POI poi) {
-        poi.getComuneAssociato().getPOISInPending().add(poi);
+        this.comune.aggiungiPOI(POI poi);
     }
 
     @Override
     public void aggiungiPOIInPending(POI poi) {
-        poi.getComuneAssociato().getPOIS().add(poi);
+        this.comune.aggiungiPOIInPending(poi);
     }
 
 
+
+    public Curatore getCuratore(){
+        return this.comune.getCuratore();
+    }
+
+    public Comune getComune() {
+        return comune;
+    }
+
+    public void rimuoviPOIInPending(POI poi) {
+        this.comune.rimoviPOIInPending(poi);
+    }
 }

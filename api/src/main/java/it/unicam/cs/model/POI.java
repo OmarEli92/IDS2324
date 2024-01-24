@@ -30,9 +30,7 @@ public abstract class POI {
         this.posizione = posizione;
         this.descrizione = descrizione;
         this.dataCreazione = dataCreazione;
-        this.comuneAssociato=comuneAssociato;
         this.contenutiMultimediali = contenutiMultimediali;
-        this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
         this.IDContributore = IDContributore;
         this.tipoPOI=tipoPOI;
         this.IDComune = IDComune;
@@ -48,8 +46,8 @@ public abstract class POI {
         return nome;
     }
 
-    public Utente getUtenteAssociato() {
-        return utenteAssociato;
+    public int getIDContributore() {
+        return IDContributore;
     }
 
     public Posizione getPosizione() {
@@ -64,17 +62,10 @@ public abstract class POI {
         return dataCreazione;
     }
 
-    public Comune getComuneAssociato() {
-        return comuneAssociato;
-    }
-
     public List<ContenutoMultimediale> getContenutiMultimediali() {
         return contenutiMultimediali;
     }
 
-    public List<ContenutoMultimediale> getContenutiMultimedialiInPending() {
-        return contenutiMultimedialiInPending;
-    }
     public Tipo getTipoPOI() {
         return tipoPOI;
     }
@@ -98,6 +89,10 @@ public abstract class POI {
     @Override
     public int hashCode() {
         return Objects.hash(ID, tipoPOI);
+    }
+
+    public boolean verificaEvento(POI poi, Evento evento){
+        return true;
     }
 
 }

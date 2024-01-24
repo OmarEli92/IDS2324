@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 /** La classe Curatore rappresenta colui che si occupa di verificare che i POI,gli itinerari e i contenuti
  *  aggiunti siano consoni**/
-public class Curatore extends Utente implements InserimentoContenuto{
+public class Curatore extends Utente {
 
 
     public Curatore(String nome, String cognome, String email, int ID,
@@ -14,9 +14,7 @@ public class Curatore extends Utente implements InserimentoContenuto{
 
     }
 
-    public void verificaContenuto(){
-    }
-
+/*
     public void eliminaContenuto(int idContenuto,String tipoContenuto){
 
     }
@@ -39,5 +37,15 @@ public class Curatore extends Utente implements InserimentoContenuto{
     @Override
     public void inserimentoContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
 
+    }*/
+
+    public void verificaEvento(Evento evento) {
+    //TODO
+    }
+    public void verificaPOI(POI poi){
+        //TODO
+    }
+    public void verificaItinerario(Itinerario itinerario){
+        //TODO
     }
 }

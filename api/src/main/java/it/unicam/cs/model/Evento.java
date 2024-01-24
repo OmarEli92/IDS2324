@@ -69,19 +69,6 @@ public abstract class Evento {
         this.dataFine = dataFine;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Evento evento = (Evento) o;
-        return ID == evento.ID && Objects.equals(poiAssociato, evento.poiAssociato);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ID, poiAssociato);
-    }
     public int getIdPOIAssociato() {
         return idPOIAssociato;
     }
@@ -97,4 +84,8 @@ public abstract class Evento {
     public Posizione getPosizione() {
         return posizione;
     }
+    public int getIdContributore() {
+        return idContributore;
+    }
+
 }

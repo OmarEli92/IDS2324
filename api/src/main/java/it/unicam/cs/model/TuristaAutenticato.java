@@ -1,8 +1,7 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.util.Ruolo;
 
-public class TuristaAutenticato {
-=======
 import java.time.LocalDate;
 
 public class TuristaAutenticato extends Utente{

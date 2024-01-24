@@ -46,7 +46,7 @@ public class ControllerInserimentoContenuti  {
             throw new IllegalArgumentException("contenuto multimediale già presente");
         //utente.InserisciContenutoMultimediale(contenutoMultimediale,comune);
     }*/
-    public void inserisciPOI(Utente utente, POI poi) throws POINotFoundException {
+   /* public void inserisciPOI(Utente utente, POI poi) throws POINotFoundException {
         inserimentoContenutiService.aggiungiPOI(poi);
     }
     public void inserisciEvento(Evento evento){
@@ -57,5 +57,5 @@ public class ControllerInserimentoContenuti  {
     }
     public void InserisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
         inserimentoContenutiService.aggiungiContenutoMultimediale(contenutoMultimediale);
-    }
+    }*/
 }
