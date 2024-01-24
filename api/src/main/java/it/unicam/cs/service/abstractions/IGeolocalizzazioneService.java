@@ -8,6 +8,7 @@ import it.unicam.cs.util.Posizione;
 import java.util.List;
 
 public interface IGeolocalizzazioneService {
+    Posizione getPosizioneComune(String comune);
     /** Metodo che restituisce la posizione del punto selezionato*/
     void getPosizione();
 /** Metodo che restituisce l'indirizzo del punto selezionato*/
