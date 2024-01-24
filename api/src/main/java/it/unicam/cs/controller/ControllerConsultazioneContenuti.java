@@ -12,7 +12,7 @@ public class ControllerConsultazioneContenuti {
 
     private final IConsultazioneContenutiService consultazioneContenutiService;
     private final ListaComuni listaComuni;
-    private Comune comune;
+    private int IDcomuneSelezionato;
     public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
                                             ListaComuni listaComuni){
 
@@ -22,7 +22,7 @@ public class ControllerConsultazioneContenuti {
 
     public void selezionaComune(String nomeComune){
         if(listaComuni.getComune(nomeComune) != null){
-            comune = listaComuni.getComune(nomeComune);
+            this.IDcomuneSelezionato = listaComuni.getComune(nomeComune).getID();
         }
         else throw new IllegalArgumentException("Il comune non esiste");
     }
@@ -34,7 +34,7 @@ public class ControllerConsultazioneContenuti {
     }
 
     public void visualizzaPOIS(){
-        Map<Integer,POI> listaPOI = consultazioneContenutiService.ottieniPOIS(comune.getID());
+        Map<Integer,POI> listaPOI = consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato);
         for(POI poi : listaPOI.values()){
             System.out.println(poi.toString());
         }
@@ -47,7 +47,7 @@ public class ControllerConsultazioneContenuti {
     }
 
     public void visualizzaEventi(){
-        Map<Integer,Evento> eventi = consultazioneContenutiService.ottieniEventi(comune.getID());
+        Map<Integer,Evento> eventi = consultazioneContenutiService.ottieniEventi(IDcomuneSelezionato);
         for(Evento evento : eventi.values()){
             System.out.println(evento.toString());
         }
@@ -60,7 +60,7 @@ public class ControllerConsultazioneContenuti {
     }
 
     public void visualizzaItinerari(){
-        Map<Integer,Itinerario> itinerari = consultazioneContenutiService.ottieniItinerari(comune.getID());
+        Map<Integer,Itinerario> itinerari = consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato);
         for(Itinerario itinerario : itinerari.values()){
             System.out.println(itinerario.toString());
         }

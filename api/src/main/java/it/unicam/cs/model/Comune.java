@@ -20,8 +20,8 @@ public class Comune {
                   Map<Integer,Curatore> listaCuratori, int IDGestorePiattaforma){
         this.nome = nome;
         this.ID = ID;
-        this.POIS = POIS;
-        this.itinerari = itinerari;
+        this.POIS = POIS; //TODO da rimodellare quando si integra spring e persistenta nel db
+        this.itinerari = itinerari; //TODO stessa cosa per eventi ,itinerari
         this.eventi = eventi;
         this.eventiInPending = eventiInPending;
         this.POISInPending = POISInPending;

@@ -16,8 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerConsultazioneContenutiTest {
 
-
-
     POITuristico poi1 = new POITuristico(1, "POI 1", new Posizione(42.345, 12.456), "Descrizione POI 1", LocalDateTime.now(), Arrays.asList(new ContenutoMultimediale[0]), 1, 1);
     POITuristico poi2 = new POITuristico(2, "POI 2", new Posizione(43.345, 13.456), "Descrizione POI 2", LocalDateTime.now(), Arrays.asList(new ContenutoMultimediale[0]), 2, 2);
     POITuristico poi3 = new POITuristico(3, "POI 3", new Posizione(44.345, 14.456), "Descrizione POI 3", LocalDateTime.now(), Arrays.asList(new ContenutoMultimediale[0]), 3, 3);
@@ -49,6 +47,7 @@ class ControllerConsultazioneContenutiTest {
             itinerario2.getID(),itinerario2,
             itinerario3.getID(),itinerario3
     );
+
     Comune comune = new Comune("SBT",1, pois,itinerari,eventi,null,null,null,null,1);
     ListaComuni listaComuni = new ListaComuni(List.of(comune),null);
     POIRepository poiRepository = new POIRepositoryImpl(pois);
@@ -56,7 +55,6 @@ class ControllerConsultazioneContenutiTest {
     ItinerarioRepository itinerarioRepository = new ItinerarioRepositoryImpl(itinerari);
     IConsultazioneContenutiService consultazioneContenutiService = new ConsultazioneContenutiService(poiRepository, itinerarioRepository, eventoRepository);
     ControllerConsultazioneContenuti controllerConsultazioneContenuti = new ControllerConsultazioneContenuti(consultazioneContenutiService, listaComuni);
-
 
     @Test
     void visualizzaPOI() {
@@ -81,7 +79,6 @@ class ControllerConsultazioneContenutiTest {
         controllerConsultazioneContenuti.visualizzaEvento(3);
 
         assertThrows(NullPointerException.class,() -> controllerConsultazioneContenuti.visualizzaEvento(30));
-
     }
 
     @Test
