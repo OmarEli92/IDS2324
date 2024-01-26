@@ -8,68 +8,25 @@ import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
-public class Itinerario {
-    private final int ID;
-    private final String nome;
-    private final String descrizione;
-    private final List<POI> puntiDiInteresse;
-    private final LocalDateTime dataCreazione;
-    private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final int IDContributore;
-    private final int idComune;
-    public Itinerario(int ID, String nome, String descrizione, List<POI> puntiDiInteresse,
-                      LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
-                      int IDContributore,int idComune){
+public class Itinerario extends Contenuto{
+    private final List<POI> poisAssociati;
 
-        this.ID = ID;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.puntiDiInteresse = puntiDiInteresse;
-        this.dataCreazione = dataCreazione;
-        this.contenutiMultimediali = contenutiMultimediali;
-        this.IDContributore = IDContributore;
-        this.idComune = idComune;
+    public Itinerario(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, List<POI> poisAssociati) {
+        super(comuneAssociato, id, nome, utenteCreatore);
+        this.poisAssociati = poisAssociati;
     }
-
-    public int getID() {
-        return ID;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public List<POI> getPuntiDiInteresse() {
-        return puntiDiInteresse;
-    }
-
-    public LocalDateTime getDataCreazione() {
-        return dataCreazione;
-    }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Itinerario that = (Itinerario) o;
-        return ID == that.ID && Objects.equals(puntiDiInteresse, that.puntiDiInteresse);
+        return Objects.equals(poisAssociati, that.poisAssociati);
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, puntiDiInteresse);
-
-    public int getIDContributore() {
-        return IDContributore;
-    }
-
-    public int getIdComune() {
-        return idComune;
+        return Objects.hash(super.hashCode(), poisAssociati);
     }
 }

@@ -9,90 +9,15 @@ import java.util.Objects;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
-public abstract class POI {
-    private final int ID;
-    private final String nome;
+public abstract class POI extends Contenuto {
     private final Posizione posizione;
-    private String descrizione;
-    private final LocalDateTime dataCreazione;
-    private final int IDComune;
-    private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final Tipo tipoPOI;
-    private final int IDContributore;
+    private final Tipo tipo;
 
-
-    public POI(int ID, String nome, Posizione posizione, String descrizione,
-               LocalDateTime dataCreazione,int IDComune, List<ContenutoMultimediale> contenutiMultimediali,
-                Tipo tipoPOI, int IDContributore) {
-
-        this.ID = ID;
-        this.nome = nome;
+    public POI(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione, Tipo tipo) {
+        super(comuneAssociato, id, nome, utenteCreatore);
         this.posizione = posizione;
-        this.descrizione = descrizione;
-        this.dataCreazione = dataCreazione;
-        this.contenutiMultimediali = contenutiMultimediali;
-        this.IDContributore = IDContributore;
-        this.tipoPOI=tipoPOI;
-        this.IDComune = IDComune;
-
+        this.tipo = tipo;
     }
-
-/* Metodi Get*/
-    public int getID() {
-        return ID;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public int getIDContributore() {
-        return IDContributore;
-    }
-
-    public Posizione getPosizione() {
-        return posizione;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public LocalDateTime getDataCreazione() {
-        return dataCreazione;
-    }
-
-    public List<ContenutoMultimediale> getContenutiMultimediali() {
-        return contenutiMultimediali;
-    }
-
-    public Tipo getTipoPOI() {
-        return tipoPOI;
-    }
-  
-  public int getIDComune() {
-        return IDComune;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        POI poi = (POI) o;
-        return ID == poi.ID && tipoPOI == poi.tipoPOI;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(ID, tipoPOI);
-    }
-
-    public boolean verificaEvento(POI poi, Evento evento){
-        return true;
-    }
-
 }
+
+

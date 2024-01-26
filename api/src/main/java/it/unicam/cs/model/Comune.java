@@ -1,9 +1,6 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.util.Ruolo;
-
 import java.util.List;
-import java.util.Optional;
 
 public class Comune {
     private final String nome;
@@ -14,12 +11,12 @@ public class Comune {
     private final List<Evento> eventiInPending;
     private final List<POI> POISInPending;
     private final List<Itinerario> ItinerariInPending;
-    private final List<Utente> listaUtenti;
+    private final List<UtenteAutorizzato> listaUtenti;
     private final Curatore curatore;
     private final int IDGestorePiattaforma;
 
     public Comune(String nome, int ID, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
-                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,List<Utente>listaUtenti,
+                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,List<UtenteAutorizzato>listaUtenti,
                   Curatore curatore, int IDGestorePiattaforma) {
 
         this.nome = nome;
@@ -52,9 +49,6 @@ public class Comune {
     //TODO
     }
 
-    public Optional<Ruolo> getRuoloUtente(int id){
-        return Optional.ofNullable(((Contributor) this.listaUtenti.get(id)).getRuolo());
-    }
     public void aggiungiEvento (Evento evento){
         this.eventi.add(evento);
     }
