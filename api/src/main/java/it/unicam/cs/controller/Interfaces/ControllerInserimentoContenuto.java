@@ -1,5 +1,6 @@
-package it.unicam.cs.controller.abstractions;
+package it.unicam.cs.controller.Interfaces;
 
+import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Contenuto;
 
 public interface ControllerInserimentoContenuto {

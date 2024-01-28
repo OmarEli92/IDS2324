@@ -1,27 +1,23 @@
 package it.unicam.cs.service;
 
-import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Contenuto;
 import it.unicam.cs.model.Evento;
-import it.unicam.cs.repository.EventoRepository;
 import it.unicam.cs.repository.EventoRepositoryImpl;
-import it.unicam.cs.util.Tipo;
-import it.unicam.cs.model.POI;
+import it.unicam.cs.service.Interfaces.IInserimentoContenutiService;
 
-public class InserimentoEventiService {
+public class InserimentoEventiService implements IInserimentoContenutiService {
 private final EventoRepositoryImpl eventoRepository;
 
     public InserimentoEventiService(EventoRepositoryImpl eventoRepository) {
         this.eventoRepository = eventoRepository;
     }
 
-    public void aggiungiEvento(Evento evento) {
-        this.eventoRepository.aggiungiEvento(evento);
+    public void aggiungiContenuto(Contenuto evento) {
+        this.eventoRepository.aggiungiEvento((Evento) evento);
     }
 
-    public void aggiungiEventoInPending(Evento evento){
-    this.eventoRepository.aggiungiEventoInPending(evento);
+    public void aggiungiContenutoInPending(Contenuto evento){
+    this.eventoRepository.aggiungiEventoInPending((Evento) evento);
     }
-
-
 
 }

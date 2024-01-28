@@ -29,4 +29,8 @@ public abstract class Evento extends Contenuto{
     public int hashCode() {
         return Objects.hash(super.hashCode(), poiAssociato);
     }
+
+    public int get1(){
+        return 1;
+    }
 }

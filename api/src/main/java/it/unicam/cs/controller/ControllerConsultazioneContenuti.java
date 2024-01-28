@@ -1,6 +1,6 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
-import it.unicam.cs.service.abstractions.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import java.util.Map;
 import java.util.Optional;
 

@@ -4,13 +4,12 @@ import it.unicam.cs.controller.ControllerConsultazioneContenuti;
 import it.unicam.cs.model.*;
 import it.unicam.cs.repository.*;
 import it.unicam.cs.service.ConsultazioneContenutiService;
-import it.unicam.cs.service.abstractions.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.util.Posizione;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 

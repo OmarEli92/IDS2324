@@ -7,7 +7,7 @@ import it.unicam.cs.model.POI;
 import it.unicam.cs.repository.EventoRepository;
 import it.unicam.cs.repository.ItinerarioRepository;
 import it.unicam.cs.repository.POIRepository;
-import it.unicam.cs.service.abstractions.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import java.util.Map;
 
 public class ConsultazioneContenutiService implements IConsultazioneContenutiService {

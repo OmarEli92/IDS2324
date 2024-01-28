@@ -1,4 +1,4 @@
-package it.unicam.cs.controller.abstractions;
+package it.unicam.cs.controller.Interfaces;
 
 import it.unicam.cs.model.Contenuto;
 

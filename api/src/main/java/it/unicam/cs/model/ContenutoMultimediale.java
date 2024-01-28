@@ -5,11 +5,16 @@ import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
 
-public class ContenutoMultimediale extends Contenuto{
+public class ContenutoMultimediale {
+    private final int id;
+    private String nome;
+    private final UtenteAutenticato utenteCreatore;
     private final POI poiAssociato;
 
-    public ContenutoMultimediale(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, POI poiAssociato) {
-        super(comuneAssociato, id, nome, utenteCreatore);
+    public ContenutoMultimediale(int id, String nome, UtenteAutenticato utenteCreatore, POI poiAssociato) {
+        this.id = id;
+        this.nome = nome;
+        this.utenteCreatore = utenteCreatore;
         this.poiAssociato = poiAssociato;
     }
 

@@ -12,11 +12,22 @@ import java.util.Objects;
 public abstract class POI extends Contenuto {
     private final Posizione posizione;
     private final Tipo tipo;
+    private final List<ContenutoMultimediale> contenutiMultimediali;
+    private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
 
-    public POI(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione, Tipo tipo) {
+    public POI(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione, Tipo tipo,List<ContenutoMultimediale> contenutiMultimediali,List<ContenutoMultimediale> contenutiMultimedialiInPending) {
         super(comuneAssociato, id, nome, utenteCreatore);
         this.posizione = posizione;
         this.tipo = tipo;
+        this.contenutiMultimediali=contenutiMultimediali;
+        this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
+    }
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
+    }
+
+    public void aggiungiContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
+        this.contenutiMultimedialiInPending.add(contenutoMultimediale);
     }
 }
 

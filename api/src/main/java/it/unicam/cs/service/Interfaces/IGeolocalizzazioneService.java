@@ -1,4 +1,4 @@
-package it.unicam.cs.service.abstractions;
+package it.unicam.cs.service.Interfaces;
 
 import it.unicam.cs.model.Evento;
 import it.unicam.cs.model.Itinerario;

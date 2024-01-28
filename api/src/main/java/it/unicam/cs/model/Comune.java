@@ -10,7 +10,7 @@ public class Comune {
     private final List<Evento> eventi;
     private final List<Evento> eventiInPending;
     private final List<POI> POISInPending;
-    private final List<Itinerario> ItinerariInPending;
+    private final List<Itinerario> itinerariInPending;
     private final List<UtenteAutorizzato> listaUtenti;
     private final Curatore curatore;
     private final int IDGestorePiattaforma;
@@ -26,7 +26,7 @@ public class Comune {
         this.eventi = eventi;
         this.eventiInPending = eventiInPending;
         this.POISInPending = POISInPending;
-        this.ItinerariInPending = itinerariInPending;
+        this.itinerariInPending = itinerariInPending;
         this.listaUtenti=listaUtenti;
         this.curatore = curatore;
         this.IDGestorePiattaforma = IDGestorePiattaforma;
@@ -70,4 +70,12 @@ public class Comune {
     public void rimoviPOIInPending(POI poi) {
     this.POISInPending.remove(poi);
     }
+
+    public void aggiungiItinerario(Itinerario itinerario){
+        this.itinerari.add(itinerario);
+    }
+    public void aggiungiItinerarioInPending(Itinerario itinerario){
+        this.itinerariInPending.add(itinerario);
+    }
+
 }

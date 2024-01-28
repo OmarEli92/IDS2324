@@ -14,6 +14,6 @@ public interface ItinerarioRepository {
   
     void aggiungiItinerario(Itinerario itinerario);
 
-    void aggiungiItinerrarioInPending(Itinerario itinerario);
+    void aggiungiItinerarioInPending(Itinerario itinerario);
 
 }
