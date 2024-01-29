@@ -1,6 +1,9 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Interfaces.InserimentoContenutoInPending;
+
 import java.time.LocalDate;
 
 public class Contributor extends UtenteAutenticato implements InserimentoContenutoInPending {

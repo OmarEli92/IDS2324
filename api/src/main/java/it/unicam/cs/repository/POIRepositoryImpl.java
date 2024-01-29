@@ -1,24 +1,25 @@
 package it.unicam.cs.repository;
 
 
-import it.unicam.cs.exception.POINotFoundException;
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Contenuto;
 import it.unicam.cs.model.Curatore;
 import it.unicam.cs.model.POI;
+import it.unicam.cs.repository.Abstractions.AbstractContenutoRepository;
+import it.unicam.cs.repository.Interfaces.POIRepository;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class POIRepositoryImpl implements POIRepository{
+public class POIRepositoryImpl extends AbstractContenutoRepository {
 
     private final Map<Integer, POI> pois;
-    private final Comune comune;
 
-    public POIRepositoryImpl(Map<Integer, POI> pois, Comune comune){
+    public POIRepositoryImpl(Comune comune, Map<Integer, POI> pois) {
+        super(comune);
         this.pois = pois;
-        this.comune=comune;
     }
 
-    @Override
     public Map<Integer, POI> ottieniPOIS(int idComune) {
         return pois.values()
                 .stream()
@@ -26,31 +27,23 @@ public class POIRepositoryImpl implements POIRepository{
                 .collect(Collectors.toMap(POI::getID, poi-> poi));
     }
 
-    @Override
     public POI ottieniPOIdaID(int idPOI){
             return pois.get(idPOI);
         }
   @Override
-    public void aggiungiPOI(POI poi) {
-        this.comune.aggiungiPOI(POI poi);
+    public void aggiungiContenuto(Contenuto poi) {
+        this.comune.aggiungiPOI((POI) poi);
     }
 
     @Override
-    public void aggiungiPOIInPending(POI poi) {
-        this.comune.aggiungiPOIInPending(poi);
+    public void aggiungiContenutoInPending(Contenuto poi) {
+        this.comune.aggiungiPOIInPending((POI) poi);
     }
 
-
-
-    public Curatore getCuratore(){
-        return this.comune.getCuratore();
+    public void rimuoviContenutoInPending(POI poi) {
+        this.comune.rimoviPOIInPending((POI) poi);
     }
-
-    public Comune getComune() {
-        return comune;
-    }
-
-    public void rimuoviPOIInPending(POI poi) {
-        this.comune.rimoviPOIInPending(poi);
+    public Comune getComune(){
+        return this.comune;
     }
 }

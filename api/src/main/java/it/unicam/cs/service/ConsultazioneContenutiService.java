@@ -4,9 +4,9 @@ package it.unicam.cs.service;
 import it.unicam.cs.model.Evento;
 import it.unicam.cs.model.Itinerario;
 import it.unicam.cs.model.POI;
-import it.unicam.cs.repository.EventoRepository;
-import it.unicam.cs.repository.ItinerarioRepository;
-import it.unicam.cs.repository.POIRepository;
+import it.unicam.cs.repository.Interfaces.EventoRepository;
+import it.unicam.cs.repository.Interfaces.ItinerarioRepository;
+import it.unicam.cs.repository.Interfaces.POIRepository;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import java.util.Map;
 

@@ -1,27 +1,18 @@
 package it.unicam.cs.service;
 
+import it.unicam.cs.model.Contenuto;
 import it.unicam.cs.model.POI;
+import it.unicam.cs.repository.Abstractions.AbstractContenutoRepository;
 import it.unicam.cs.repository.POIRepositoryImpl;
+import it.unicam.cs.service.Abstractions.AbstractVerificaContenutoService;
+import it.unicam.cs.service.Interfaces.IVerificaContenutiService;
+import it.unicam.cs.util.Posizione;
 
-public class VerificaPOIService {
-private final POIRepositoryImpl poiRepository;
-
-    public VerificaPOIService(POIRepositoryImpl poiRepository) {
-        this.poiRepository = poiRepository;
+public class VerificaPOIService extends AbstractVerificaContenutoService {
+    public VerificaPOIService(AbstractContenutoRepository abstractContenutoRepository) {
+        super(abstractContenutoRepository);
     }
-    public void verificaCoordinate(POI poi){
-        this.poiRepository.getComune().verificaCoordinate(poi);
-    }
-
-    public void verificaPOI(POI poi) {
-        this.poiRepository.getCuratore().verificaPOI(poi);
-    }
-
-    public void validaPOI(POI poi) {
-        this.poiRepository.rimuoviPOIInPending(poi);
-        this.poiRepository.aggiungiPOI(poi);
-    }
-    public void invalidaPOI(POI poi){
-        this.poiRepository.rimuoviPOIInPending(poi);
+    public void verificaCoordinate(Posizione posizione){
+        ((POIRepositoryImpl)this.abstractContenutoRepository).getComune().verificaCoordinate(posizione);
     }
 }

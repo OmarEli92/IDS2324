@@ -1,5 +1,7 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
+
 import java.time.LocalDate;
 
 public class ContributorAutorizzato extends UtenteAutorizzato {

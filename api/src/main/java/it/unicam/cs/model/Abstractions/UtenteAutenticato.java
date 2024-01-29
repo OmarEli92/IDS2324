@@ -1,8 +1,12 @@
-package it.unicam.cs.model;
+package it.unicam.cs.model.Abstractions;
+
+import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Interfaces.InserimentoContenuto;
+import it.unicam.cs.model.Interfaces.InserimentoContenutoInPending;
 
 import java.time.LocalDate;
 
-public abstract class UtenteAutenticato {
+public abstract class UtenteAutenticato implements InserimentoContenutoInPending {
     private String nome;
     private String cognome;
     private final int id;

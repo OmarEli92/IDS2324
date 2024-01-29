@@ -2,9 +2,8 @@ package it.unicam.cs.model;
 
 
 import java.util.Objects;
-import it.unicam.cs.util.Posizione;
-import java.time.LocalDateTime;
-import java.util.List;
+
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/

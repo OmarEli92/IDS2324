@@ -1,5 +1,8 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
+import it.unicam.cs.model.Interfaces.VerificaContenuto;
+
 import java.time.LocalDate;
 
 
@@ -15,21 +18,10 @@ public class Curatore extends UtenteAutorizzato implements VerificaContenuto {
     }
 
     @Override
-    public void verificaPOI(POI poi) {
+    public void verificaContenuto(Contenuto contenuto) {
         //TODO
     }
 
-    @Override
-    public void verificaEvento(Evento evento) {
-        //TODO
-    }
-
-    @Override
-    public void verificaItinerario(Itinerario itinerario) {
-        //TODO
-    }
-
-    @Override
     public void verificaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
         //TODO
     }

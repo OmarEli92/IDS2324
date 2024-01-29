@@ -1,6 +1,7 @@
 package it.unicam.cs.model;
 
-import java.time.LocalDateTime;
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+
 import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/

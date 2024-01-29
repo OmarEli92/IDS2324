@@ -1,5 +1,8 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
+import it.unicam.cs.util.Posizione;
+
 import java.util.List;
 
 public class Comune {
@@ -45,7 +48,7 @@ public class Comune {
    public int getIDGestorePiattaforma() {
        return IDGestorePiattaforma;
    }
-    public void verificaCoordinate (POI poi)  {
+    public void verificaCoordinate (Posizione posizione)  {
     //TODO
     }
 
@@ -76,6 +79,9 @@ public class Comune {
     }
     public void aggiungiItinerarioInPending(Itinerario itinerario){
         this.itinerariInPending.add(itinerario);
+    }
+    public void rimuoviItinerartioInPending(Itinerario itinerario){
+        this.itinerariInPending.remove(itinerario);
     }
 
 }

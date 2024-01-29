@@ -1,9 +1,8 @@
 package it.unicam.cs.model;
 
 
-import it.unicam.cs.util.Tipo;
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,5 +27,9 @@ public class Itinerario extends Contenuto{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), poisAssociati);
+    }
+
+    public List<POI> getPoisAssociati() {
+        return poisAssociati;
     }
 }

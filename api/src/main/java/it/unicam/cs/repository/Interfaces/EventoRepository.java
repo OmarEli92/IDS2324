@@ -1,4 +1,4 @@
-package it.unicam.cs.repository;
+package it.unicam.cs.repository.Interfaces;
 
 import it.unicam.cs.exception.EventoNotFoundException;
 import it.unicam.cs.model.Evento;

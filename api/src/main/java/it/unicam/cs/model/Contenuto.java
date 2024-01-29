@@ -1,12 +1,14 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+
 import java.util.Objects;
 
 public abstract class Contenuto {
-    private final Comune comuneAssociato;
-    private final int id;
-    private String nome;
-    private final UtenteAutenticato utenteCreatore;
+    protected final Comune comuneAssociato;
+    protected final int id;
+    protected String nome;
+    protected final UtenteAutenticato utenteCreatore;
 
     public Contenuto(Comune comuneAssociato,int id, String nome, UtenteAutenticato utenteCreatore) {
         this.comuneAssociato=comuneAssociato;

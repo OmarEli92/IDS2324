@@ -1,4 +1,7 @@
-package it.unicam.cs.model;
+package it.unicam.cs.model.Abstractions;
+
+import it.unicam.cs.model.*;
+import it.unicam.cs.model.Interfaces.InserimentoContenuto;
 
 import java.time.LocalDate;
 
