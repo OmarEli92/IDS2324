@@ -4,7 +4,7 @@ import it.unicam.cs.model.Contenuto;
 import it.unicam.cs.repository.Abstractions.AbstractContenutoRepository;
 import it.unicam.cs.service.Interfaces.IVerificaContenutiService;
 
-public class AbstractVerificaContenutoService implements IVerificaContenutiService {
+public abstract class AbstractVerificaContenutoService implements IVerificaContenutiService {
     protected final AbstractContenutoRepository abstractContenutoRepository;
 
     public AbstractVerificaContenutoService(AbstractContenutoRepository abstractContenutoRepository) {
