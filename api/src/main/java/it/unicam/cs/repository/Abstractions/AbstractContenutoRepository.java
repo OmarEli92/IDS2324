@@ -5,7 +5,7 @@ import it.unicam.cs.model.Contenuto;
 import it.unicam.cs.model.Curatore;
 import it.unicam.cs.repository.Interfaces.ContenutoRepository;
 
-public class AbstractContenutoRepository implements ContenutoRepository {
+public abstract class AbstractContenutoRepository implements ContenutoRepository {
 protected final Comune comune;
 
     public AbstractContenutoRepository(Comune comune) {
