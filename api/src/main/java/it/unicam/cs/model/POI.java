@@ -1,83 +1,43 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.Posizione;
-import java.time.LocalDateTime;
+import it.unicam.cs.util.Tipo;
+
 import java.util.List;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
-public abstract class POI {
-    private final int ID;
-    private final String nome;
+public abstract class POI extends Contenuto {
     private final Posizione posizione;
-    private String descrizione;
-    private final LocalDateTime dataCreazione;
+    private final Tipo tipo;
     private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final int IDContributore;
-    private String tipo; //TODO: da spostare nella classe concreta che estende POI
+    private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
 
-
-    private final int IDComune;
-
-
-
-    public POI(int ID, String nome, Posizione posizione, String descrizione,
-               LocalDateTime dataCreazione, List<ContenutoMultimediale> contenutiMultimediali,
-               int IDContributore, int IDComune) {
-        this.ID = ID;
-        this.nome = nome;
+    public POI(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione, Tipo tipo, List<ContenutoMultimediale> contenutiMultimediali, List<ContenutoMultimediale> contenutiMultimedialiInPending) {
+        super(comuneAssociato, id, nome, utenteCreatore);
         this.posizione = posizione;
-        this.descrizione = descrizione;
-        this.dataCreazione = dataCreazione;
-        this.contenutiMultimediali = contenutiMultimediali;
-        this.IDContributore = IDContributore;
-        this.IDComune = IDComune;
+        this.tipo = tipo;
+        this.contenutiMultimediali=contenutiMultimediali;
+        this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
+    }
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
     }
 
-/* Metodi Get*/
-    public int getID() {
-        return ID;
+    public void aggiungiContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
+        this.contenutiMultimedialiInPending.add(contenutoMultimediale);
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-
-
-    public int getIDContributore() {
-        return IDContributore;
-    }
-
-    public Posizione getPosizione() {
-        return posizione;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public LocalDateTime getDataCreazione() {
-        return dataCreazione;
+    public void rimuoviContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.remove(contenutoMultimediale);
     }
 
     public List<ContenutoMultimediale> getContenutiMultimediali() {
         return contenutiMultimediali;
     }
-
-    public String getTipo() {
-        return tipo;
+    public Comune getComune(){
+        return this.comuneAssociato;
     }
-
-
-    public int getIDComune() {
-        return IDComune;
-    }
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
 }
+
+

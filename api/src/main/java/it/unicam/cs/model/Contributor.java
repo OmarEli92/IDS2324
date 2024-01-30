@@ -1,34 +1,37 @@
 package it.unicam.cs.model;
 
+
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Interfaces.InserimentoContenutoInPending;
+
 import java.time.LocalDate;
 
-public class Contributor extends Utente implements InserimentoContenuto{
+public class Contributor extends UtenteAutenticato implements InserimentoContenutoInPending {
 
-    private final Ruolo ruolo;
     public Contributor(String nome, String cognome, int id, LocalDate dataDiNascita, String email,
-                       String sesso, String telefono, int numeroDiContribuzioni, int IDcomuneAssociato,
-                       Ruolo ruolo) {
-        super(nome, cognome, id, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, IDcomuneAssociato);
-        this.ruolo = ruolo;
+                       String sesso, String telefono, int numeroDiContribuzioni, Comune comune
+                       ) {
+        super(nome, cognome, id, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, comune);
+    }
+
+
+    @Override
+    public void inserisciPOIInPending(POI poi) {
+        //TODO
     }
 
     @Override
-    public void inserisciPOI(POI poi) {
-
+    public void InserisciEventoInPending(Evento evento) {
+        //TODO
     }
 
     @Override
-    public void inserisciItinerario(Itinerario itinerario) {
-
+    public void InserisciItinerarioInPending(Itinerario itinerario) {
+        //TODO
     }
 
     @Override
-    public void inserisciEvento(Evento evento) {
-
-    }
-
-    @Override
-    public void inserimentoContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
-
+    public void InserisciContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
+        //TODO
     }
 }

@@ -1,23 +1,27 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
+import it.unicam.cs.util.Posizione;
+
 import java.util.List;
-import java.util.Map;
 
 public class Comune {
     private final String nome;
     private final int ID;
-    private final Map<Integer,POI> POIS;
-    private final Map<Integer,Itinerario> itinerari;
-    private final Map<Integer,Evento> eventi;
-    private final Map<Integer,Evento> eventiInPending;
-    private final Map<Integer,POI> POISInPending;
-    private final Map<Integer,Itinerario> ItinerariInPending;
-    private final Map<Integer,Curatore> listaCuratori;
+    private final List<POI> POIS;
+    private final List<Itinerario> itinerari;
+    private final List<Evento> eventi;
+    private final List<Evento> eventiInPending;
+    private final List<POI> POISInPending;
+    private final List<Itinerario> itinerariInPending;
+    private final List<UtenteAutorizzato> listaUtenti;
+    private final Curatore curatore;
     private final int IDGestorePiattaforma;
 
-    public Comune(String nome, int ID, Map<Integer,POI> POIS, Map<Integer,Itinerario> itinerari, Map<Integer,Evento> eventi,
-                  Map<Integer,Evento> eventiInPending, Map<Integer,POI> POISInPending, Map<Integer,Itinerario> itinerariInPending,
-                  Map<Integer,Curatore> listaCuratori, int IDGestorePiattaforma){
+    public Comune(String nome, int ID, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
+                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,List<UtenteAutorizzato>listaUtenti,
+                  Curatore curatore, int IDGestorePiattaforma) {
+
         this.nome = nome;
         this.ID = ID;
         this.POIS = POIS; //TODO da rimodellare quando si integra spring e persistenta nel db
@@ -25,65 +29,59 @@ public class Comune {
         this.eventi = eventi;
         this.eventiInPending = eventiInPending;
         this.POISInPending = POISInPending;
-        this.ItinerariInPending = itinerariInPending;
-        this.listaCuratori = listaCuratori;
+        this.itinerariInPending = itinerariInPending;
+        this.listaUtenti=listaUtenti;
+        this.curatore = curatore;
         this.IDGestorePiattaforma = IDGestorePiattaforma;
-
     }
-
-    public void inserisciPOIInListaPending(int id,POI poi){
-        POISInPending.put(id,poi);
-    }
-
-    public void inserisciItinerarioInListaPending(int id,Itinerario itinerario){
-        ItinerariInPending.put(id,itinerario);
-    }
-
-    public void inserisciEventoInListaPending(int id, Evento evento){
-        eventiInPending.put(id,evento);
-    }
-
-    public void inserisciPOI(int id, POI poi){
-        POIS.put(id, poi);
-    }
-
     public String getNome() {
         return nome;
+    }
+
+    public Curatore getCuratore() {
+        return curatore;
     }
 
     public int getID() {
         return ID;
     }
-
-    public Map<Integer,POI> getPOIS() {
-        return POIS;
+   public int getIDGestorePiattaforma() {
+       return IDGestorePiattaforma;
+   }
+    public void verificaCoordinate (Posizione posizione)  {
+    //TODO
     }
 
-    public Map<Integer,Itinerario> getItinerari() {
-        return itinerari;
+    public void aggiungiEvento (Evento evento){
+        this.eventi.add(evento);
     }
 
-    public Map<Integer,Evento> getEventi() {
-        return eventi;
+    public void aggiungiEventoInPending(Evento evento){
+        this.eventiInPending.add(evento);
+    }
+    public void rimuoviEventoInPending (Evento evento){
+        this.eventiInPending.remove(evento);
+    }
+    public void aggiungiPOI(POI poi){
+        this.POISInPending.add(poi);
     }
 
-    public Map<Integer,Evento> getEventiInPending() {
-        return eventiInPending;
+    public void aggiungiPOIInPending(POI poi) {
+    this.POIS.add(poi);
     }
 
-    public Map<Integer,POI> getPOISInPending() {
-        return POISInPending;
+    public void rimoviPOIInPending(POI poi) {
+    this.POISInPending.remove(poi);
     }
 
-    public Map<Integer,Itinerario> getItinerariInPending() {
-        return ItinerariInPending;
+    public void aggiungiItinerario(Itinerario itinerario){
+        this.itinerari.add(itinerario);
+    }
+    public void aggiungiItinerarioInPending(Itinerario itinerario){
+        this.itinerariInPending.add(itinerario);
+    }
+    public void rimuoviItinerartioInPending(Itinerario itinerario){
+        this.itinerariInPending.remove(itinerario);
     }
 
-    public Map<Integer,Curatore> getListaCuratori() {
-        return listaCuratori;
-    }
-
-    public int getIDGestorePiattaforma() {
-        return IDGestorePiattaforma;
-    }
 }

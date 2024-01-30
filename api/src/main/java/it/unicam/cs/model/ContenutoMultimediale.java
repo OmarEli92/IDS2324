@@ -1,14 +1,35 @@
 package it.unicam.cs.model;
 
-import java.time.LocalDateTime;
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+
+import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
 
-public interface ContenutoMultimediale {
-    Long getId();
-    String getNomeFile();
-    String getTipoContenuto();
-    byte[] getContenuto();
-    LocalDateTime getDataCreazione();
+public class ContenutoMultimediale {
+    private final int id;
+    private String nome;
+    private final UtenteAutenticato utenteCreatore;
+    private final POI poiAssociato;
 
+    public ContenutoMultimediale(int id, String nome, UtenteAutenticato utenteCreatore, POI poiAssociato) {
+        this.id = id;
+        this.nome = nome;
+        this.utenteCreatore = utenteCreatore;
+        this.poiAssociato = poiAssociato;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ContenutoMultimediale that = (ContenutoMultimediale) o;
+        return Objects.equals(poiAssociato, that.poiAssociato);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), poiAssociato);
+    }
 }

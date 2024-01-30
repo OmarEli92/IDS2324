@@ -1,4 +1,4 @@
-package it.unicam.cs.service.abstractions;
+package it.unicam.cs.service.Interfaces;
 
 
 import it.unicam.cs.model.Evento;
@@ -11,9 +11,8 @@ import java.util.Map;
  * dei contenuti nella piattaforma e fornisce metodi adibiti a tale scopo **/
 public interface IConsultazioneContenutiService {
 
-
-/**@param idPOI
- * Il metodo ottieniPOIdaId recupera un POI a partire dal suo id **/
+   /**@param idPOI
+   * Il metodo ottieniPOIdaId recupera un POI a partire dal suo id **/
     POI ottieniPOIdaId(int idPOI);
 
     /** Il metodo ottieniPOIS restituisce una mappa di POI **/
@@ -29,7 +28,7 @@ public interface IConsultazioneContenutiService {
     /**@param idItinerario
      *  Il metodo ottieniItinerarioDaId visualizza un itinerario a partire dal suo id **/
      Itinerario ottieniItinerarioDaId(int idItinerario);
-
+    /** Il metodo ottieniItinerari restituisce la lista di itinerari associati al comune**/
     Map<Integer, Itinerario> ottieniItinerari(final int idComune);
 
 

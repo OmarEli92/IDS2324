@@ -1,6 +1,7 @@
 package it.unicam.cs.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /** Un gestore della piattaforma comunale gestisce un solo comune**/
 public class GestorePiattaforma {
@@ -10,17 +11,17 @@ public class GestorePiattaforma {
     private String email;
     private final String telefono;
     private final LocalDate dataNascita;
-    public final int IDComuneAssociato;
+    public final List<Comune> comuni;
 
     public GestorePiattaforma(int ID, String nome, String cognome, String email,
-                              String telefono, LocalDate dataNascita,int IDComuneAssociato){
+                              String telefono, LocalDate dataNascita, List<Comune> comuni){
         this.ID = ID;
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
         this.telefono = telefono;
         this.dataNascita = dataNascita;
-        this.IDComuneAssociato = IDComuneAssociato;
+        this.comuni=comuni;
     }
 
 
@@ -54,4 +55,5 @@ public class GestorePiattaforma {
     public LocalDate getDataNascita() {
         return dataNascita;
     }
+
 }
