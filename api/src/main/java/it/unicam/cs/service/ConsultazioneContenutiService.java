@@ -1,9 +1,9 @@
 package it.unicam.cs.service;
 
 
-import it.unicam.cs.model.Evento;
+import it.unicam.cs.model.Abstractions.Evento;
 import it.unicam.cs.model.Itinerario;
-import it.unicam.cs.model.POI;
+import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.repository.Interfaces.EventoRepository;
 import it.unicam.cs.repository.Interfaces.ItinerarioRepository;
 import it.unicam.cs.repository.Interfaces.POIRepository;

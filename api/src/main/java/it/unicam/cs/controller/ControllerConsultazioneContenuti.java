@@ -1,5 +1,7 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
+import it.unicam.cs.model.Abstractions.Evento;
+import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import java.util.Map;
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package it.unicam.cs.model;
+package it.unicam.cs.model.Abstractions;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Comune;
 
 import java.util.Objects;
 

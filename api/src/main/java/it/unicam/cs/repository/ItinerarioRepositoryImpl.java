@@ -2,8 +2,8 @@ package it.unicam.cs.repository;
 
 
 import it.unicam.cs.model.*;
+import it.unicam.cs.model.Abstractions.Contenuto;
 import it.unicam.cs.repository.Abstractions.AbstractContenutoRepository;
-import it.unicam.cs.repository.Interfaces.ItinerarioRepository;
 
 import java.util.Map;
 import java.util.stream.Collectors;

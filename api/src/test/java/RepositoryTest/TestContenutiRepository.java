@@ -1,12 +1,10 @@
 package RepositoryTest;
-import it.unicam.cs.exception.EventoNotFoundException;
-import it.unicam.cs.model.Evento;
+import it.unicam.cs.model.Abstractions.Evento;
 import it.unicam.cs.model.EventoTuristico;
 import it.unicam.cs.repository.EventoRepositoryImpl;
 import it.unicam.cs.util.Posizione;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class TestContenutiRepository {
         eventi.put(1,evento1);
         eventi.put(2,evento2);
         eventi.put(3,evento3);
-        eventoRepository = new EventoRepositoryImpl(eventi);
+        eventoRepository = new EventoRepositoryImpl(eventi,null);
         assertEquals(eventoRepository.ottieniEventi(1).size(),3);
     }
 
@@ -39,7 +37,7 @@ public class TestContenutiRepository {
         eventi.put(1,evento1);
         eventi.put(2,evento2);
         eventi.put(3,evento3);
-        eventoRepository = new EventoRepositoryImpl(eventi);
+        eventoRepository = new EventoRepositoryImpl(eventi,null);
         assertEquals(eventoRepository.ottieniEventoDaID(1),evento1);
         assertEquals(eventoRepository.ottieniEventoDaID(2),evento2);
         assertEquals(eventoRepository.ottieniEventoDaID(3),evento3);
