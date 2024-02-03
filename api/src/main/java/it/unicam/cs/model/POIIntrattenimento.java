@@ -8,28 +8,28 @@ import it.unicam.cs.util.*;
 import java.util.List;
 
 public class POIIntrattenimento extends POI {
-    private String etàConsigliata;
+    private int etaConsigliata;
     private String orariApertura;
     private List<Servizio> serviziOfferti;
     private Contatti contatti;
     public POIIntrattenimento(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione,
                               TipoIntrattenimento tipo, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
                               List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventi,
-                              String etàConsigliata, String orariApertura,
+                              int etaConsigliata, String orariApertura,
                               List<Servizio> serviziOfferti, Contatti contatti) {
         super(comuneAssociato, id, nome, utenteCreatore, posizione, tipo,indirizzo, contenutiMultimediali, contenutiMultimedialiInPending,eventi);
-        this.etàConsigliata = etàConsigliata;
+        this.etaConsigliata = etaConsigliata;
         this.orariApertura = orariApertura;
         this.serviziOfferti = serviziOfferti;
         this.contatti = contatti;
     }
 
-    public String getEtàConsigliata() {
-        return etàConsigliata;
+    public int getEtaConsigliata() {
+        return etaConsigliata;
     }
 
-    public void setEtàConsigliata(String etàConsigliata) {
-        this.etàConsigliata = etàConsigliata;
+    public void setEtaConsigliata(int etàConsigliata) {
+        this.etaConsigliata = etaConsigliata;
     }
 
     public String getOrariApertura() {
