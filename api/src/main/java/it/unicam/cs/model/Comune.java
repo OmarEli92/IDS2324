@@ -1,5 +1,7 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.Evento;
+import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
 import it.unicam.cs.util.Posizione;
 

@@ -1,7 +1,7 @@
 package it.unicam.cs.repository.Abstractions;
 
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.Contenuto;
+import it.unicam.cs.model.Abstractions.Contenuto;
 import it.unicam.cs.model.Curatore;
 import it.unicam.cs.repository.Interfaces.ContenutoRepository;
 

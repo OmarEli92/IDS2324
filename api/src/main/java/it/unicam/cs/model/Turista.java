@@ -1,23 +1,37 @@
 package it.unicam.cs.model;
 
-public class Turista {
-    private final Comune comune;
-    private final int id;
+import it.unicam.cs.model.Abstractions.Evento;
+import it.unicam.cs.model.Abstractions.POI;
+import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Interfaces.InserimentoContenutoInPending;
 
-    public Turista(Comune comune, int id) {
-        this.comune = comune;
-        this.id = id;
+import java.time.LocalDate;
+
+public class Turista extends UtenteAutenticato {
+    public Turista(String nome, String cognome, int id, LocalDate dataDiNascita, String email, String sesso, String telefono, int numeroDiContribuzioni, Comune comune) {
+        super(nome, cognome, id, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, comune);
     }
-    public void visualizzaPOI(){
-        //TODO
+
+    @Override
+    public void inserisciPOIInPending(POI poi) {
+
     }
-    public void visualizzaEvento(){
-        //TODO
+
+    @Override
+    public void InserisciEventoInPending(Evento evento) {
+
     }
-    public void visualizzaItinerario(){
-        //TODO
+
+    @Override
+    public void InserisciItinerarioInPending(Itinerario itinerario) {
+
     }
-    public void visualizzaContenutoMultimediale(){
-        //TODO
+
+    @Override
+    public void InserisciContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
+
     }
 }
+
+
+

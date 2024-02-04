@@ -1,6 +1,6 @@
 package it.unicam.cs.controller.Interfaces;
 
-import it.unicam.cs.model.Contenuto;
+import it.unicam.cs.model.Abstractions.Contenuto;
 
 public interface ControllerVerificaContenuto {
     public void verificaContenuto(Contenuto contenuto);

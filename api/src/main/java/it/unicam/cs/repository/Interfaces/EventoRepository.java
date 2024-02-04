@@ -1,7 +1,6 @@
 package it.unicam.cs.repository.Interfaces;
 
-import it.unicam.cs.exception.EventoNotFoundException;
-import it.unicam.cs.model.Evento;
+import it.unicam.cs.model.Abstractions.Evento;
 
 import java.util.Map;
 /** L'interfaccia EventoRepository è un repository che gestisce la persistenza dei dati relativi agli eventi

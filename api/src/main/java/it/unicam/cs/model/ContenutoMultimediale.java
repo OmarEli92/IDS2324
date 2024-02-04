@@ -1,5 +1,6 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 
 import java.util.Objects;

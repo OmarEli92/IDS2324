@@ -1,6 +1,6 @@
 package it.unicam.cs.repository.Interfaces;
 
-import it.unicam.cs.model.POI;
+import it.unicam.cs.model.Abstractions.POI;
 
 import java.util.Map;
 

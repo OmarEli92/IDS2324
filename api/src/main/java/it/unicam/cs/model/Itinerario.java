@@ -1,13 +1,15 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.model.Abstractions.Contenuto;
+import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 
 import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
-public class Itinerario extends Contenuto{
+public class Itinerario extends Contenuto {
     private final List<POI> poisAssociati;
 
     public Itinerario(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, List<POI> poisAssociati) {

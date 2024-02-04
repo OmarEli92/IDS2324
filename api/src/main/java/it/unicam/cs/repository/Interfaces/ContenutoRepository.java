@@ -1,6 +1,6 @@
 package it.unicam.cs.repository.Interfaces;
 
-import it.unicam.cs.model.Contenuto;
+import it.unicam.cs.model.Abstractions.Contenuto;
 import it.unicam.cs.model.Curatore;
 
 public interface ContenutoRepository {

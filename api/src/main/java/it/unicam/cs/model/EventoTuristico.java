@@ -1,11 +1,12 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.Evento;
 import it.unicam.cs.util.Posizione;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class EventoTuristico extends Evento{
+public class EventoTuristico extends Evento {
     private final String tipo = "EventoTuristico";
 
     public EventoTuristico(int ID, String nome, String descrizione, LocalDateTime dataInizio,

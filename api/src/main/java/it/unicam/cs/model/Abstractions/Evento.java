@@ -1,13 +1,13 @@
-package it.unicam.cs.model;
+package it.unicam.cs.model.Abstractions;
 
 
 import java.util.Objects;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Comune;
 
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
-public abstract class Evento extends Contenuto{
+public abstract class Evento extends Contenuto {
     private POI poiAssociato;
 
     public Evento(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, POI poiAssociato) {
