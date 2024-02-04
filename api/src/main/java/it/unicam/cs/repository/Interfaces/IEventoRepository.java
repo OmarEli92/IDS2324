@@ -1,11 +1,11 @@
 package it.unicam.cs.repository.Interfaces;
 
-import it.unicam.cs.model.Abstractions.Evento;
+import it.unicam.cs.model.Evento;
 
 import java.util.Map;
 /** L'interfaccia EventoRepository è un repository che gestisce la persistenza dei dati relativi agli eventi
  * nella piattaforma e fornisce metodi adibiti a tale scopo **/
-public interface EventoRepository {
+public interface IEventoRepository {
     /** Il metodo ottieniEventi restituisce una mappa di eventi **/
      Map<Integer, Evento> ottieniEventi(int idComune);
   

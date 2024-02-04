@@ -1,6 +1,5 @@
 package it.unicam.cs.service;
 
-import it.unicam.cs.repository.Abstractions.AbstractContenutoRepository;
 import it.unicam.cs.repository.POIRepositoryImpl;
 import it.unicam.cs.service.Abstractions.AbstractVerificaContenutoService;
 import it.unicam.cs.util.Posizione;

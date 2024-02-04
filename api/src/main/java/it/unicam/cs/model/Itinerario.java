@@ -1,19 +1,22 @@
 package it.unicam.cs.model;
 
 
-import it.unicam.cs.model.Abstractions.Contenuto;
-import it.unicam.cs.model.Abstractions.POI;
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
-
 import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
-public class Itinerario extends Contenuto {
+public class Itinerario{
+    private final int id;
+    private final String nome;
+    private final int idContributore;
+    private final int idComune;
     private final List<POI> poisAssociati;
 
-    public Itinerario(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, List<POI> poisAssociati) {
-        super(comuneAssociato, id, nome, utenteCreatore);
+    public Itinerario(int id, String nome, int idContributore,int idComune, List<POI> poisAssociati) {
+        this.id = id;
+        this.nome = nome;
+        this.idContributore = idContributore;
+        this.idComune = idComune;
         this.poisAssociati = poisAssociati;
     }
 
@@ -29,6 +32,22 @@ public class Itinerario extends Contenuto {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), poisAssociati);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getIdContributore() {
+        return idContributore;
+    }
+
+    public int getIdComune() {
+        return idComune;
     }
 
     public List<POI> getPoisAssociati() {

@@ -1,9 +1,9 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.model.Evento;
-import it.unicam.cs.model.Itinerario;
 import it.unicam.cs.model.POI;
-import it.unicam.cs.service.abstractions.IGeolocalizzazioneService;
+import it.unicam.cs.model.Itinerario;
+import it.unicam.cs.service.Interfaces.IGeolocalizzazioneService;
 import it.unicam.cs.util.Posizione;
 
 import java.util.List;
@@ -48,6 +48,7 @@ public class GeolocalizzazioneService implements IGeolocalizzazioneService {
     public void visualizzaEventiComune(List<Evento> eventi) {
 
     }
+
 
     @Override
     public void visualizzaItinerari(List<Itinerario> itinerari) {

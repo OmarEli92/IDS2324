@@ -1,7 +1,5 @@
-package it.unicam.cs.model.Abstractions;
+package it.unicam.cs.model;
 
-import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.ContenutoMultimediale;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
 
@@ -9,20 +7,27 @@ import java.util.List;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
-public abstract class POI<T> extends Contenuto {
+public abstract class POI<T>{
+    private final int id;
+    private final String nome;
     private final Posizione posizione;
     private final T tipo;
+    private final int idContributore;
+    private final int idComuneAssociato;
     private final Indirizzo indirizzo;
     private final List<ContenutoMultimediale> contenutiMultimediali;
     private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
     private final List<Evento> eventiAssociati;
 
-    public POI(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore,
-               Posizione posizione, T tipo, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
+    public POI(int id, String nome,Posizione posizione, T tipo, int idContributore,
+               int idComuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
                List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventiAssociati) {
-        super(comuneAssociato, id, nome, utenteCreatore);
+        this.id = id;
+        this.nome = nome;
         this.posizione = posizione;
         this.tipo = tipo;
+        this.idContributore = idContributore;
+        this.idComuneAssociato = idComuneAssociato;
         this.indirizzo = indirizzo;
         this.contenutiMultimediali=contenutiMultimediali;
         this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
@@ -42,8 +47,41 @@ public abstract class POI<T> extends Contenuto {
     public List<ContenutoMultimediale> getContenutiMultimediali() {
         return contenutiMultimediali;
     }
-    public Comune getComune(){
-        return this.comuneAssociato;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Posizione getPosizione() {
+        return posizione;
+    }
+
+    public T getTipo() {
+        return tipo;
+    }
+
+    public int getIdContributore() {
+        return idContributore;
+    }
+
+    public int getIdComuneAssociato() {
+        return idComuneAssociato;
+    }
+
+    public Indirizzo getIndirizzo() {
+        return indirizzo;
+    }
+
+    public List<ContenutoMultimediale> getContenutiMultimedialiInPending() {
+        return contenutiMultimedialiInPending;
+    }
+
+    public List<Evento> getEventiAssociati() {
+        return eventiAssociati;
     }
 }
 

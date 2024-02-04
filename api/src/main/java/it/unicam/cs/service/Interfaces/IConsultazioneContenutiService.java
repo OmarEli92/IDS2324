@@ -1,9 +1,9 @@
 package it.unicam.cs.service.Interfaces;
 
 
-import it.unicam.cs.model.Abstractions.Evento;
+import it.unicam.cs.model.Evento;
 import it.unicam.cs.model.Itinerario;
-import it.unicam.cs.model.Abstractions.POI;
+import it.unicam.cs.model.POI;
 
 import java.util.Map;
 

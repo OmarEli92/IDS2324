@@ -1,15 +1,11 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.Evento;
-import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.model.Abstractions.UtenteAutenticato;
-import it.unicam.cs.util.Indirizzo;
-import it.unicam.cs.util.Posizione;
-import it.unicam.cs.util.CollezioniMuseo;
+import it.unicam.cs.util.*;
 
 import java.util.List;
 
-public class Monumento extends POI {
+public final class Monumento extends POI {
 
     private int annoRealizzazione;
     private String descrizione;
@@ -17,18 +13,21 @@ public class Monumento extends POI {
     private int altezza;
     private int lunghezza;
     private String architettura;
-    public Monumento(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore,
-                     Posizione posizione, CollezioniMuseo tipo, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
-                     List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventi,
+    public Monumento(int id, String nome, Posizione posizione, TipoTuristico tipo,
+                     int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+                     List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
                      int annoRealizzazione, String descrizione, String autore, int altezza,
                      int lunghezza, String architettura) {
-        super(comuneAssociato, id, nome, utenteCreatore, posizione, tipo, indirizzo, contenutiMultimediali, contenutiMultimedialiInPending, eventi);
+
+        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
+                contenutiMultimedialiInPending, eventiAssociati);
         this.annoRealizzazione = annoRealizzazione;
         this.descrizione = descrizione;
         this.autore = autore;
         this.altezza = altezza;
         this.lunghezza = lunghezza;
         this.architettura = architettura;
+
 
     }
 
