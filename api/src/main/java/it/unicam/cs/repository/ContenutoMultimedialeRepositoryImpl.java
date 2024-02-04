@@ -2,7 +2,7 @@ package it.unicam.cs.repository;
 
 import it.unicam.cs.model.ContenutoMultimediale;
 import it.unicam.cs.model.Curatore;
-import it.unicam.cs.model.Abstractions.POI;
+import it.unicam.cs.model.POI;
 import it.unicam.cs.repository.Interfaces.ContenutoMultimedialeRepository;
 
 public class ContenutoMultimedialeRepositoryImpl implements ContenutoMultimedialeRepository {

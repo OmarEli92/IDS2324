@@ -1,23 +1,5 @@
 package RepositoryTest;
 
-import it.unicam.cs.controller.ControllerConsultazioneContenuti;
-import it.unicam.cs.model.*;
-import it.unicam.cs.model.Abstractions.Evento;
-import it.unicam.cs.model.Abstractions.POI;
-import it.unicam.cs.repository.*;
-import it.unicam.cs.repository.Interfaces.EventoRepository;
-import it.unicam.cs.repository.Interfaces.ItinerarioRepository;
-import it.unicam.cs.repository.Interfaces.POIRepository;
-import it.unicam.cs.service.ConsultazioneContenutiService;
-import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
-import it.unicam.cs.util.Posizione;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class ControllerConsultazioneContenutiTest {
     /*
     Monumento monumento1 = new Monumento(null, 1,"nome1",null, new Posizione(42.345, 12.456),

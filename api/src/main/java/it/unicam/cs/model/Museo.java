@@ -1,21 +1,22 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.*;
 
 import java.util.List;
 
-public class Museo extends POI {
+public final class Museo extends POI {
     private String orariApertura;
     private String responsabile;
     private Contatti contatti;
     private int numeroSale;
     private List<CollezioniMuseo> collezioni;
-    public Museo(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione,
-                 TipoTuristico tipo, Indirizzo indirizzo, List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+    public Museo(int id, String nome, Posizione posizione, TipoTuristico tipo,
+                 int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+                 List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
                  String orariApertura, String responsabile, Contatti contatti, int numeroSale, List<CollezioniMuseo> collezioni) {
-        super(comuneAssociato, id, nome, utenteCreatore, posizione, tipo,indirizzo, contenutiMultimediali, contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
+                contenutiMultimedialiInPending, eventiAssociati);
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;
         this.contatti = contatti;

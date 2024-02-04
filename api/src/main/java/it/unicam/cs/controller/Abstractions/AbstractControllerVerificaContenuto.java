@@ -1,7 +1,6 @@
 package it.unicam.cs.controller.Abstractions;
 
 import it.unicam.cs.controller.Interfaces.ControllerVerificaContenuto;
-import it.unicam.cs.model.Abstractions.Contenuto;
 import it.unicam.cs.service.Abstractions.AbstractVerificaContenutoService;
 
 public abstract class AbstractControllerVerificaContenuto implements ControllerVerificaContenuto {

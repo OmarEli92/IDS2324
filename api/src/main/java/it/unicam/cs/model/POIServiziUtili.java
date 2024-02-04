@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.POI;
 import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.Contatti;
 import it.unicam.cs.util.Indirizzo;
@@ -9,13 +8,20 @@ import it.unicam.cs.util.ServiziUtili;
 
 import java.util.List;
 
-public class POIServiziUtili extends POI {
+public final class POIServiziUtili extends POI {
 
     private Contatti contatti;
     private String orariApertura;
 
-    public POIServiziUtili(Comune comuneAssociato, int id, String nome, UtenteAutenticato utenteCreatore, Posizione posizione,
-                           ServiziUtili tipo, Indirizzo indirizzo, List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati) {
-        super(comuneAssociato, id, nome, utenteCreatore, posizione, tipo, indirizzo, contenutiMultimediali, contenutiMultimedialiInPending, eventiAssociati);
+    public POIServiziUtili(int id, String nome, Posizione posizione, ServiziUtili tipo,
+                           int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+                           List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                           Contatti contatti, String orariApertura) {
+
+        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
+                contenutiMultimedialiInPending, eventiAssociati);
+        this.contatti = contatti;
+        this.orariApertura = orariApertura;
     }
+
 }

@@ -1,7 +1,5 @@
 package it.unicam.cs.service.Interfaces;
 
-import it.unicam.cs.model.Abstractions.Contenuto;
-
 /** L'interfaccia IInserimentoContenutiService è un servizio che gestisce tutta la logica di business relativa all'inserimento
  * dei contenuti nella piattaforma e fornisce metodi adibiti a tale scopo **/
 

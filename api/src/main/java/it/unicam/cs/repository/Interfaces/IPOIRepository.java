@@ -1,10 +1,10 @@
 package it.unicam.cs.repository.Interfaces;
 
-import it.unicam.cs.model.Abstractions.POI;
+import it.unicam.cs.model.POI;
 
 import java.util.Map;
 
-public interface POIRepository {
+public interface IPOIRepository {
   
     /** Il metodo ottieniPOIS restituisce una mappa di POI **/
     Map<Integer, POI> ottieniPOIS(int idComune);

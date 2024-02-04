@@ -1,8 +1,7 @@
 package it.unicam.cs.controller;
 
-import it.unicam.cs.model.Abstractions.Contenuto;
 import it.unicam.cs.model.ContenutoMultimediale;
-import it.unicam.cs.model.Abstractions.POI;
+import it.unicam.cs.model.POI;
 import it.unicam.cs.service.InserimentoContenutiMultimedialiService;
 
 public class ControllerInserimentoContenutoMultimediale  {

@@ -2,7 +2,6 @@ package it.unicam.cs.controller.Abstractions;
 
 import it.unicam.cs.controller.Interfaces.ControllerInserimentoContenuto;
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.Abstractions.Contenuto;
 import it.unicam.cs.service.Abstractions.AbstractinserimentoContenutoService;
 
 public abstract class AbstractControllerInserimentoContenuti implements ControllerInserimentoContenuto {
