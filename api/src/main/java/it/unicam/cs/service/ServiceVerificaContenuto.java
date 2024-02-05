@@ -72,7 +72,7 @@ private EventoRepositoryImpl eventoRepository;
     }
 
     public void verificaItinerario(Itinerario itinerario) {
-
+        itinerario.getComuneAssociato().verificaItinerario(itinerario);
     }
 
     public void verificaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {

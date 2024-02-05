@@ -46,8 +46,14 @@ public abstract class POI<T>{
         this.contenutiMultimediali.remove(contenutoMultimediale);
     }
 
+    public void aggiungiEvento(Evento evento){
+        this.eventiAssociati.add(evento);
+    }
     public void aggiungiEventoInPending(Evento evento){
         this.eventiassociatiInPending.add(evento);
+    }
+    public void rimuoviEventoInPending(Evento evento){
+        this.eventiassociatiInPending.remove(evento);
     }
 
     public List<ContenutoMultimediale> getContenutiMultimediali() {
