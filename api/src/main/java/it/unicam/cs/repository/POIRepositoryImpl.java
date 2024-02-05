@@ -19,7 +19,7 @@ public class POIRepositoryImpl implements IPOIRepository {
     public Map<Integer, POI> ottieniPOIS(int idComune) {
         return pois.values()
                 .stream()
-                .filter(poi -> poi.getIdComuneAssociato() == idComune)
+                .filter(poi -> poi.getComuneAssociato().getID() == idComune)
                 .collect(Collectors.toMap(POI::getId, poi-> poi));
     }
 
@@ -27,14 +27,16 @@ public class POIRepositoryImpl implements IPOIRepository {
             return pois.get(idPOI);
         }
 
-    @Override
+
     public void aggiungiPOI(POI poi) {
 
     }
 
-    @Override
     public void aggiungiPOIInPending(POI poi) {
 
     }
 
+    public void rimuoviPOIInPenidng(POI poi) {
+
+    }
 }

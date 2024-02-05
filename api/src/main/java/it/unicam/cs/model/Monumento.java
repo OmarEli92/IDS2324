@@ -14,13 +14,13 @@ public final class Monumento extends POI {
     private int lunghezza;
     private String architettura;
     public Monumento(int id, String nome, Posizione posizione, TipoTuristico tipo,
-                     int idContributore, int idComuneAssociato, Indirizzo indirizzo,
-                     List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                     int idContributore, Comune comuneAssociato, Indirizzo indirizzo,
+                     List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,List eventiAssociatiInPending,
                      int annoRealizzazione, String descrizione, String autore, int altezza,
                      int lunghezza, String architettura) {
 
-        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, tipo, idContributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                contenutiMultimedialiInPending, eventiAssociati, eventiAssociatiInPending);
         this.annoRealizzazione = annoRealizzazione;
         this.descrizione = descrizione;
         this.autore = autore;

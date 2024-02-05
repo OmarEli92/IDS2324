@@ -8,7 +8,6 @@ import java.util.Objects;
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
 public abstract class Evento{
     private final int id;
-    private final int idcomuneAssociato;
     private final String nome;
     private final String descrizione;
     private final int idContributore;
@@ -22,7 +21,6 @@ public abstract class Evento{
                    LocalDateTime dataFine) {
         this.id = id;
         this.nome = nome;
-        this.idcomuneAssociato = idcomuneAssociato;
         this.descrizione = descrizione;
         this.idContributore = idContributore;
         this.poiAssociato = poiAssociato;
@@ -34,9 +32,6 @@ public abstract class Evento{
         return id;
     }
 
-    public int getIdcomuneAssociato() {
-        return idcomuneAssociato;
-    }
 
     public String getNome() {
         return nome;
@@ -76,7 +71,5 @@ public abstract class Evento{
         return Objects.hash(super.hashCode(), poiAssociato);
     }
 
-    public int get1(){
-        return 1;
-    }
+
 }

@@ -48,7 +48,7 @@ public class Comune {
    public int getIDGestorePiattaforma() {
        return IDGestorePiattaforma;
    }
-    public void verificaCoordinate (Posizione posizione)  {
+    public void verificaCoordinate (POI poi)  {
     //TODO
     }
 

@@ -17,14 +17,7 @@ public class Curatore extends UtenteAutorizzato implements VerificaContenuto {
 
     }
 
-    @Override
-    public void verificaContenuto(Contenuto contenuto) {
-        //TODO
-    }
 
-    public void verificaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
-        //TODO
-    }
 
     @Override
     public void inserisciPOI(POI poi) {
@@ -42,4 +35,23 @@ public class Curatore extends UtenteAutorizzato implements VerificaContenuto {
     }
 
 
+    @Override
+    public void validaPOI(POI poi) {
+
+    }
+
+    @Override
+    public void validaEvento(Evento evento) {
+
+    }
+
+    @Override
+    public void validaItinerario(Itinerario itinerario) {
+
+    }
+
+    @Override
+    public void validaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
+
+    }
 }

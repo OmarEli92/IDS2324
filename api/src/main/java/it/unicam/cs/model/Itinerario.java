@@ -9,14 +9,14 @@ public class Itinerario{
     private final int id;
     private final String nome;
     private final int idContributore;
-    private final int idComune;
+    private final Comune comuneAssociato;
     private final List<POI> poisAssociati;
 
-    public Itinerario(int id, String nome, int idContributore,int idComune, List<POI> poisAssociati) {
+    public Itinerario(int id, String nome, int idContributore,Comune comuneAssociato, List<POI> poisAssociati) {
         this.id = id;
         this.nome = nome;
         this.idContributore = idContributore;
-        this.idComune = idComune;
+        this.comuneAssociato = comuneAssociato;
         this.poisAssociati = poisAssociati;
     }
 
@@ -46,8 +46,8 @@ public class Itinerario{
         return idContributore;
     }
 
-    public int getIdComune() {
-        return idComune;
+    public Comune getComuneAssociato() {
+        return comuneAssociato;
     }
 
     public List<POI> getPoisAssociati() {

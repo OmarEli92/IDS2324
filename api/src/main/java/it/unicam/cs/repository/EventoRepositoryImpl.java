@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class EventoRepositoryImpl implements IEventoRepository {
     private final Map<Integer, Evento> eventi;
 
-    public EventoRepositoryImpl(Map<Integer, Evento> eventi,Comune comune){
+    public EventoRepositoryImpl(Map<Integer, Evento> eventi){
         this.eventi=eventi;
     }
 
@@ -19,7 +19,7 @@ public class EventoRepositoryImpl implements IEventoRepository {
     public Map<Integer, Evento> ottieniEventi(int idComune) {
         return eventi.values()
                 .stream()
-                .filter(evento -> evento.getIdcomuneAssociato() == idComune)
+                .filter(evento -> evento.getPoiAssociato().getComuneAssociato().getID() == idComune)
                 .collect(Collectors.toMap(Evento::getId, evento -> evento));
     }
 
@@ -37,4 +37,7 @@ public class EventoRepositoryImpl implements IEventoRepository {
 
     }
 
+    public void rimuoviEventoInPending(Evento evento) {
+
+    }
 }
