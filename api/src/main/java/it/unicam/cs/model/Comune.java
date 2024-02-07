@@ -48,8 +48,7 @@ public class Comune {
    public int getIDGestorePiattaforma() {
        return IDGestorePiattaforma;
    }
-    public void verificaCoordinate (Posizione posizione)  {
-    //TODO
+    public void verificaCoordinate (POI poi)  {
     }
 
     public void aggiungiEvento (Evento evento){
@@ -84,4 +83,6 @@ public class Comune {
         this.itinerariInPending.remove(itinerario);
     }
 
+    public void verificaItinerario(Itinerario itinerario) {
+    }
 }

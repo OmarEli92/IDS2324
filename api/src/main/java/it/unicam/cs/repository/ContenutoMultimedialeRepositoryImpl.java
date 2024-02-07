@@ -6,26 +6,19 @@ import it.unicam.cs.model.POI;
 import it.unicam.cs.repository.Interfaces.ContenutoMultimedialeRepository;
 
 public class ContenutoMultimedialeRepositoryImpl implements ContenutoMultimedialeRepository {
-    private final POI poi;
 
-    public ContenutoMultimedialeRepositoryImpl(POI poi) {
-        this.poi=poi;
-    }
 
     @Override
     public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
-        this.poi.aggiungiContenutoMultimediale(contenutoMultimediale);
+        contenutoMultimediale.getPoiAssociato().aggiungiContenutoMultimediale(contenutoMultimediale);
     }
 
     @Override
     public void aggiungiContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
-        this.poi.aggiungiContenutoMultimedialeInPending(contenutoMultimediale);
-    }
-    public Curatore getCuratore(){
-        return this.poi.getComune().getCuratore();
+        contenutoMultimediale.getPoiAssociato().aggiungiContenutoMultimedialeInPending(contenutoMultimediale);
     }
     @Override
     public void rimuoviContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
-        this.poi.rimuoviContenutoMultimedialeInPending(contenutoMultimediale);
+        contenutoMultimediale.getPoiAssociato().rimuoviContenutoMultimedialeInPending(contenutoMultimediale);
     }
 }

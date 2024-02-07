@@ -11,13 +11,13 @@ public final class POIIntrattenimento extends POI {
     private List<Servizio> serviziOfferti;
     private Contatti contatti;
     public POIIntrattenimento(int id, String nome, Posizione posizione, TipoIntrattenimento tipo,
-                              int idContributore, int idComuneAssociato, Indirizzo indirizzo,
-                              List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                              int idContributore, Comune comuneAssociato, Indirizzo indirizzo,
+                              List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati, List eventiAssociatiInPending,
                               int etaConsigliata, String orariApertura,
                               List<Servizio> serviziOfferti, Contatti contatti) {
 
-        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, tipo, idContributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                contenutiMultimedialiInPending, eventiAssociati, eventiAssociatiInPending);
 
         this.etaConsigliata = etaConsigliata;
         this.orariApertura = orariApertura;

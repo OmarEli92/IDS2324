@@ -10,13 +10,13 @@ public class POIAmministrativo extends POI {
     private String responsabile;
     private Contatti contatti;
     public POIAmministrativo(int id, String nome, Posizione posizione, TipoAmministrativo tipo,
-                             int idContributore, int idComuneAssociato, Indirizzo indirizzo,
-                             List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                             int idContributore, Comune comuneAssociato, Indirizzo indirizzo,
+                             List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati, List eventiAssociatiInPending,
                              String orariApertura, String responsabile, Contatti contatti) {
 
 
-        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, tipo, idContributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                contenutiMultimedialiInPending, eventiAssociati, eventiAssociatiInPending);
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;
         this.contatti = contatti;

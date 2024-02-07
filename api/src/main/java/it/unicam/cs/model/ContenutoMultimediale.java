@@ -32,4 +32,8 @@ public class ContenutoMultimediale {
     public int hashCode() {
         return Objects.hash(super.hashCode(), poiAssociato);
     }
+
+    public POI getPoiAssociato() {
+        return poiAssociato;
+    }
 }

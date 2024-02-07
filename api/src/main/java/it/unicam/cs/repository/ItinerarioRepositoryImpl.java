@@ -17,7 +17,7 @@ public class ItinerarioRepositoryImpl implements IItinerarioRepository {
     public Map<Integer, Itinerario> ottieniItinerari(int idComune) {
         return itinerari.values()
                 .stream()
-                .filter(itinerario -> itinerario.getIdComune() == idComune)
+                .filter(itinerario -> itinerario.getComuneAssociato().getID() == idComune)
                 .collect(Collectors.toMap(Itinerario::getId, itinerario -> itinerario));
 
     }
@@ -37,4 +37,6 @@ public class ItinerarioRepositoryImpl implements IItinerarioRepository {
 
     }
 
+    public void rimuoviItinerarioInPending(Itinerario itinerario) {
+    }
 }
