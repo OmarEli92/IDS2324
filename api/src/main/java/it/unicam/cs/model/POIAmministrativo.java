@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.*;
 
 import java.util.List;
@@ -9,8 +8,8 @@ public class POIAmministrativo extends POI {
     private String orariApertura;
     private String responsabile;
     private Contatti contatti;
-    public POIAmministrativo(int id, String nome, Posizione posizione, TipoAmministrativo tipo,
-                             int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+    public POIAmministrativo(String id, String nome, Posizione posizione, TipoAmministrativo tipo,
+                             String idContributore, String idComuneAssociato, Indirizzo indirizzo,
                              List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
                              String orariApertura, String responsabile, Contatti contatti) {
 

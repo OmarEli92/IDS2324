@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.*;
 
 import java.util.List;
@@ -10,8 +9,8 @@ public final class POIIntrattenimento extends POI {
     private String orariApertura;
     private List<Servizio> serviziOfferti;
     private Contatti contatti;
-    public POIIntrattenimento(int id, String nome, Posizione posizione, TipoIntrattenimento tipo,
-                              int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+    public POIIntrattenimento(String id, String nome, Posizione posizione, TipoIntrattenimento tipo,
+                              String idContributore, String idComuneAssociato, Indirizzo indirizzo,
                               List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
                               int etaConsigliata, String orariApertura,
                               List<Servizio> serviziOfferti, Contatti contatti) {

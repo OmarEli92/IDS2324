@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
 import it.unicam.cs.util.TipoTuristico;
@@ -14,8 +13,8 @@ public final class Parco extends POI {
     private boolean presenzaAnimali;
     private int estensione;
 
-    public Parco(int id, String nome, Posizione posizione, TipoTuristico tipo,
-                 int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+    public Parco(String id, String nome, Posizione posizione, TipoTuristico tipo,
+                 String idContributore, String idComuneAssociato, Indirizzo indirizzo,
                  List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati, boolean presenzaSpecieProtetta,
                  String orarioApertura, List<Itinerario> percorsi, boolean presenzaAnimali, int estensione) {
 

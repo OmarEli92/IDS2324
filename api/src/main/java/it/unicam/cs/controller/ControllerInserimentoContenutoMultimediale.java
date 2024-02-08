@@ -16,7 +16,7 @@ public class ControllerInserimentoContenutoMultimediale  {
     }
 
 
-    public void aggiungiContenutoInPending(Contenuto contenuto) {
+    public void aggiungiContenutoInPending(ContenutoMultimediale contenutoMultimediale) {
 
     }
 }

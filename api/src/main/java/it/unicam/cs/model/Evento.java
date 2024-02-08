@@ -6,35 +6,35 @@ import java.util.Objects;
 
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
-public abstract class Evento{
-    private final int id;
-    private final int idcomuneAssociato;
+public abstract class Evento {
+    private final String id;
+    private final String idcomuneAssociato;
     private final String nome;
     private final String descrizione;
-    private final int idContributore;
-    private final POI poiAssociato;
+    private final String idContributore;
+    private final String idPoiAssociato;
     private final LocalDateTime dataInizio;
     private final LocalDateTime dataFine;
 
 
-    public Evento( int id, String nome,int idcomuneAssociato, String descrizione,
-                   int idContributore, POI poiAssociato, LocalDateTime dataInizio,
-                   LocalDateTime dataFine) {
+    public Evento(String id, String nome, String idcomuneAssociato, String descrizione,
+                  String idContributore, String idPoiAssociato, LocalDateTime dataInizio,
+                  LocalDateTime dataFine) {
         this.id = id;
         this.nome = nome;
         this.idcomuneAssociato = idcomuneAssociato;
         this.descrizione = descrizione;
         this.idContributore = idContributore;
-        this.poiAssociato = poiAssociato;
+        this.idPoiAssociato = idPoiAssociato;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public int getIdcomuneAssociato() {
+    public String getIdcomuneAssociato() {
         return idcomuneAssociato;
     }
 
@@ -42,12 +42,12 @@ public abstract class Evento{
         return nome;
     }
 
-    public int getIdContributore() {
+    public String getIdContributore() {
         return idContributore;
     }
 
-    public POI getPoiAssociato() {
-        return poiAssociato;
+    public String getIdPoiAssociato() {
+        return idPoiAssociato;
     }
 
     public LocalDateTime getDataInizio() {
@@ -62,21 +62,5 @@ public abstract class Evento{
         return descrizione;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Evento evento = (Evento) o;
-        return Objects.equals(poiAssociato, evento.poiAssociato);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), poiAssociato);
-    }
-
-    public int get1(){
-        return 1;
-    }
 }
+

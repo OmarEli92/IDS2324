@@ -7,11 +7,14 @@ import java.util.List;
 
 public class EventoTuristico extends Evento {
     private final String tipo = "EventoTuristico";
+    List<ContenutoMultimediale> contenutiMultimediali;
 
-    public EventoTuristico(int ID, String nome,int idComuneAssociato, String descrizione, LocalDateTime dataInizio,
-                           LocalDateTime dataFine, Posizione posizione,int idContributore, POI POIAssociato,
+    public EventoTuristico(String ID, String nome,String idComuneAssociato, String descrizione,
+                           LocalDateTime dataInizio, LocalDateTime dataFine, Posizione posizione,
+                           String idContributore, String idPOIAssociato,
                            List<ContenutoMultimediale> contenutiMultimediali){
-        super(ID, nome,idComuneAssociato, descrizione,idContributore,POIAssociato, dataInizio, dataFine);
+        super(ID, nome,idComuneAssociato, descrizione,idContributore,idPOIAssociato, dataInizio, dataFine);
+        this.contenutiMultimediali = contenutiMultimediali;
 
 
     }

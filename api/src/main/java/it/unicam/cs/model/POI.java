@@ -8,19 +8,19 @@ import java.util.List;
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
 public abstract class POI<T>{
-    private final int id;
+    private final String id;
     private final String nome;
     private final Posizione posizione;
     private final T tipo;
-    private final int idContributore;
-    private final int idComuneAssociato;
+    private final String idContributore;
+    private final String idComuneAssociato;
     private final Indirizzo indirizzo;
     private final List<ContenutoMultimediale> contenutiMultimediali;
     private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
     private final List<Evento> eventiAssociati;
 
-    public POI(int id, String nome,Posizione posizione, T tipo, int idContributore,
-               int idComuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
+    public POI(String id, String nome,Posizione posizione, T tipo, String idContributore,
+               String idComuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
                List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventiAssociati) {
         this.id = id;
         this.nome = nome;
@@ -48,7 +48,7 @@ public abstract class POI<T>{
         return contenutiMultimediali;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -64,11 +64,11 @@ public abstract class POI<T>{
         return tipo;
     }
 
-    public int getIdContributore() {
+    public String getIdContributore() {
         return idContributore;
     }
 
-    public int getIdComuneAssociato() {
+    public String getIdComuneAssociato() {
         return idComuneAssociato;
     }
 

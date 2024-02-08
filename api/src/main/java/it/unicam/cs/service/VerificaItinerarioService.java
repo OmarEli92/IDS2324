@@ -1,9 +1,10 @@
 package it.unicam.cs.service;
 
-import it.unicam.cs.service.Abstractions.AbstractVerificaContenutoService;
+import it.unicam.cs.repository.IItinerarioRepository;
 
-public class VerificaItinerarioService extends AbstractVerificaContenutoService {
-    public VerificaItinerarioService(AbstractContenutoRepository abstractContenutoRepository) {
-        super(abstractContenutoRepository);
+public class VerificaItinerarioService{
+    IItinerarioRepository itinerarioRepository;
+    public VerificaItinerarioService(IItinerarioRepository itinerarioRepository) {
+        this.itinerarioRepository = itinerarioRepository;
     }
 }

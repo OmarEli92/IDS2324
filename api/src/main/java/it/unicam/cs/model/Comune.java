@@ -1,31 +1,31 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
+import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.Posizione;
 
 import java.util.List;
 
 public class Comune {
     private final String nome;
-    private final int ID;
+    private final String id;
     private final List<POI> POIS;
     private final List<Itinerario> itinerari;
     private final List<Evento> eventi;
     private final List<Evento> eventiInPending;
     private final List<POI> POISInPending;
     private final List<Itinerario> itinerariInPending;
-    private final List<UtenteAutorizzato> listaUtenti;
+    private final List<Utente> listaUtenti;
     private final Curatore curatore;
     private final int IDGestorePiattaforma;
 
-    public Comune(String nome, int ID, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
-                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,List<UtenteAutorizzato>listaUtenti,
-                  Curatore curatore, int IDGestorePiattaforma) {
+    public Comune(String nome, String id, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
+                  List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,
+                  List<Utente>listaUtenti, Curatore curatore, int IDGestorePiattaforma) {
 
         this.nome = nome;
-        this.ID = ID;
-        this.POIS = POIS; //TODO da rimodellare quando si integra spring e persistenta nel db
-        this.itinerari = itinerari; //TODO stessa cosa per eventi ,itinerari
+        this.id = id;
+        this.POIS = POIS;
+        this.itinerari = itinerari;
         this.eventi = eventi;
         this.eventiInPending = eventiInPending;
         this.POISInPending = POISInPending;
@@ -42,15 +42,13 @@ public class Comune {
         return curatore;
     }
 
-    public int getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
    public int getIDGestorePiattaforma() {
        return IDGestorePiattaforma;
    }
-    public void verificaCoordinate (Posizione posizione)  {
-    //TODO
-    }
+
 
     public void aggiungiEvento (Evento evento){
         this.eventi.add(evento);

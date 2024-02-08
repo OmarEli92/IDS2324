@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
 import it.unicam.cs.util.Contatti;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
@@ -13,8 +12,8 @@ public final class POIServiziUtili extends POI {
     private Contatti contatti;
     private String orariApertura;
 
-    public POIServiziUtili(int id, String nome, Posizione posizione, ServiziUtili tipo,
-                           int idContributore, int idComuneAssociato, Indirizzo indirizzo,
+    public POIServiziUtili(String id, String nome, Posizione posizione, ServiziUtili tipo,
+                           String idContributore, String idComuneAssociato, Indirizzo indirizzo,
                            List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
                            Contatti contatti, String orariApertura) {
 

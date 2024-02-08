@@ -1,9 +1,10 @@
 package it.unicam.cs.service;
 
-import it.unicam.cs.service.Abstractions.AbstractVerificaContenutoService;
+import it.unicam.cs.repository.IEventoRepository;
 
-public class VerificaEventiService extends AbstractVerificaContenutoService {
-    public VerificaEventiService(AbstractContenutoRepository abstractContenutoRepository) {
-        super(abstractContenutoRepository);
+public class VerificaEventiService{
+    IEventoRepository eventoRepository;
+    public VerificaEventiService(IEventoRepository eventoRepository) {
+        this.eventoRepository = eventoRepository;
     }
 }

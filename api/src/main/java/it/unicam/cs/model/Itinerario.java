@@ -1,23 +1,32 @@
 package it.unicam.cs.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
+@Entity
 public class Itinerario{
-    private final int id;
-    private final String nome;
-    private final int idContributore;
-    private final int idComune;
-    private final List<POI> poisAssociati;
+    @Id
+    private  String id;
+    private  String nome;
+    private  String idContributore;
+    private  String idComune;
+    private  List<POI> poisAssociati;
 
-    public Itinerario(int id, String nome, int idContributore,int idComune, List<POI> poisAssociati) {
+    public Itinerario(String id, String nome, String idContributore,String idComune, List<POI> poisAssociati) {
         this.id = id;
         this.nome = nome;
         this.idContributore = idContributore;
         this.idComune = idComune;
         this.poisAssociati = poisAssociati;
+    }
+
+    public Itinerario() {
+
     }
 
     @Override
@@ -34,7 +43,7 @@ public class Itinerario{
         return Objects.hash(super.hashCode(), poisAssociati);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -42,11 +51,11 @@ public class Itinerario{
         return nome;
     }
 
-    public int getIdContributore() {
+    public String getIdContributore() {
         return idContributore;
     }
 
-    public int getIdComune() {
+    public String getIdComune() {
         return idComune;
     }
 
