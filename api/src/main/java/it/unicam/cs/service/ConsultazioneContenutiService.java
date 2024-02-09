@@ -1,55 +1,63 @@
 package it.unicam.cs.service;
 
 
+import it.unicam.cs.model.ContenutoMultimediale;
 import it.unicam.cs.model.Evento;
 import it.unicam.cs.model.Itinerario;
 import it.unicam.cs.model.POI;
-import it.unicam.cs.repository.Interfaces.IEventoRepository;
-import it.unicam.cs.repository.Interfaces.IItinerarioRepository;
-import it.unicam.cs.repository.Interfaces.IPOIRepository;
+import it.unicam.cs.repository.IEventoRepository;
+import it.unicam.cs.repository.IItinerarioRepository;
+import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+
+import java.util.List;
 import java.util.Map;
 
 public class ConsultazioneContenutiService implements IConsultazioneContenutiService {
+    private final IConsultazioneContenutiService consultazioneContenutiService;
 
-    private final IPOIRepository IPOIRepository;
-    private final IItinerarioRepository IItinerarioRepository;
-    private final IEventoRepository IEventoRepository;
 
-    public ConsultazioneContenutiService(IPOIRepository IPOIRepository, IItinerarioRepository IItinerarioRepository,
-                                         IEventoRepository IEventoRepository) {
-        this.IPOIRepository = IPOIRepository;
-        this.IItinerarioRepository = IItinerarioRepository;
-        this.IEventoRepository = IEventoRepository;
+    public ConsultazioneContenutiService(IConsultazioneContenutiService consultazioneContenutiService) {
+        this.consultazioneContenutiService = consultazioneContenutiService;
     }
 
     @Override
-    public POI ottieniPOIdaId(int idPOI){
-            return IPOIRepository.ottieniPOIdaID(idPOI);
+    public POI ottieniPOIdaId(String idPOI){
+        return null;
     }
 
     @Override
-    public Map<Integer, POI> ottieniPOIS(final int idComune) {
-        return IPOIRepository.ottieniPOIS(idComune);
+    public List<POI> ottieniPOIS(final String idComune) {
+        return null;
     }
 
     @Override
-    public Evento ottieniEventoDaId(int idEvento) {
-        return IEventoRepository.ottieniEventoDaID(idEvento);
+    public Evento ottieniEventoDaId(String idEvento) {
+    return null;
     }
 
     @Override
-    public Map<Integer, Evento> ottieniEventi(final int idComune) {
-        return IEventoRepository.ottieniEventi(idComune);
+    public List<Evento> ottieniEventi(final String idComune) {
+        return null;
     }
 
     @Override
-    public Itinerario ottieniItinerarioDaId(int idItinerario){
-        return IItinerarioRepository.ottieniItinerarioDaID(idItinerario);
+    public Itinerario ottieniItinerarioDaId(String idItinerario){
+        return null;
     }
 
     @Override
-    public Map<Integer, Itinerario> ottieniItinerari(final int idComune) {
-        return IItinerarioRepository.ottieniItinerari(idComune);
+    public List<Itinerario> ottieniItinerari(final String idComune) {
+        return null;
+    }
+
+    @Override
+    public ContenutoMultimediale ottieniContenutoMultimedialeDaId(String id) {
+        return null;
+    }
+
+    @Override
+    public List<ContenutoMultimediale> ottieniCotenutiMultimedialiPOI(String idPOI) {
+        return null;
     }
 }

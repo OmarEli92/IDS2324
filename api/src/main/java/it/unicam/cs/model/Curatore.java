@@ -1,6 +1,7 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutorizzato;
+import it.unicam.cs.model.Abstractions.Utente;
+import it.unicam.cs.model.Interfaces.InserimentoContenuto;
 import it.unicam.cs.model.Interfaces.VerificaContenuto;
 
 import java.time.LocalDate;
@@ -8,16 +9,19 @@ import java.time.LocalDate;
 
 /** La classe Curatore rappresenta colui che si occupa di verificare che i POI,gli itinerari e i contenuti
  *  aggiunti siano consoni**/
-public class Curatore extends UtenteAutorizzato implements VerificaContenuto {
+public class Curatore extends Utente implements VerificaContenuto, InserimentoContenuto {
 
 
-    public Curatore(String nome, String cognome, String email, int ID,
-                    LocalDate dataDiNascita, String telefono, String sesso, Comune comune) {
-        super(nome, cognome, ID, dataDiNascita,email,sesso,telefono,0, comune);
+    public Curatore(String nome, String cognome, String email, String id,
+                    LocalDate dataDiNascita, String telefono, String sesso, String idComune) {
+        super(nome, cognome, id, dataDiNascita,email,sesso,telefono,0, idComune);
 
     }
 
 
+    public void verificaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
+        //TODO
+    }
 
     @Override
     public void inserisciPOI(POI poi) {
@@ -34,24 +38,24 @@ public class Curatore extends UtenteAutorizzato implements VerificaContenuto {
         //TODO
     }
 
+    @Override
+    public void inserisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
+
+    }
+
 
     @Override
-    public void validaPOI(POI poi) {
+    public void verificaPOI(POI poi) {
 
     }
 
     @Override
-    public void validaEvento(Evento evento) {
+    public void verificaEvento(Evento evento) {
 
     }
 
     @Override
-    public void validaItinerario(Itinerario itinerario) {
-
-    }
-
-    @Override
-    public void validaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
+    public void verificaItinerario(Itinerario itinerario) {
 
     }
 }

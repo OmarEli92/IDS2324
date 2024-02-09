@@ -1,6 +1,6 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Abstractions.Utente;
 
 import java.util.Objects;
 
@@ -9,10 +9,10 @@ import java.util.Objects;
 public class ContenutoMultimediale {
     private final int id;
     private String nome;
-    private final UtenteAutenticato utenteCreatore;
+    private final Utente utenteCreatore;
     private final POI poiAssociato;
 
-    public ContenutoMultimediale(int id, String nome, UtenteAutenticato utenteCreatore, POI poiAssociato) {
+    public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, POI poiAssociato) {
         this.id = id;
         this.nome = nome;
         this.utenteCreatore = utenteCreatore;

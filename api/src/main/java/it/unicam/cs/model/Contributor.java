@@ -1,17 +1,17 @@
 package it.unicam.cs.model;
 
 
-import it.unicam.cs.model.Abstractions.UtenteAutenticato;
+import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.model.Interfaces.InserimentoContenutoInPending;
 
 import java.time.LocalDate;
 
-public class Contributor extends UtenteAutenticato implements InserimentoContenutoInPending {
+public class Contributor extends Utente implements InserimentoContenutoInPending {
 
-    public Contributor(String nome, String cognome, int id, LocalDate dataDiNascita, String email,
-                       String sesso, String telefono, int numeroDiContribuzioni, Comune comune
+    public Contributor(String nome, String cognome, String id, LocalDate dataDiNascita, String email,
+                       String sesso, String telefono, int numeroDiContribuzioni, String idComune
                        ) {
-        super(nome, cognome, id, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, comune);
+        super(nome, cognome, id, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, idComune);
     }
 
 
