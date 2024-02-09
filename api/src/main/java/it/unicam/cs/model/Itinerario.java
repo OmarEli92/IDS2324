@@ -15,7 +15,7 @@ public class Itinerario{
     private  String nome;
     private  String idContributore;
     private  String idComune;
-    private  List<POI> poisAssociati; // TODO questo problema è da risolvere
+    private  List<POI> poisAssociati; // TODO questo problema è da risolvere!!
 
     public Itinerario(String id, String nome, String idContributore,String idComune, List<POI> poisAssociati) {
         this.id = id;
