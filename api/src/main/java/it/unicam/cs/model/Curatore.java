@@ -3,6 +3,7 @@ package it.unicam.cs.model;
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.model.Interfaces.InserimentoContenuto;
 import it.unicam.cs.model.Interfaces.VerificaContenuto;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 /** La classe Curatore rappresenta colui che si occupa di verificare che i POI,gli itinerari e i contenuti
  *  aggiunti siano consoni**/
 @Entity
+@DiscriminatorValue("Curatore")
 public class Curatore extends Utente implements VerificaContenuto, InserimentoContenuto {
 
 

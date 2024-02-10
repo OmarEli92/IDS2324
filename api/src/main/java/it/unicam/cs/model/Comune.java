@@ -11,6 +11,8 @@ public class Comune {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Embedded
+    private Posizione posizione;
     @OneToMany(mappedBy = "comuneAssociato")
     private List<POI> POIS;
     @OneToMany(mappedBy = "comuneAssociato")
@@ -30,14 +32,14 @@ public class Comune {
     @OneToOne(fetch = FetchType.LAZY)
     private GestorePiattaforma gestorePiattaforma;
 
-    public Comune(String nome, Integer id, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
+    public Comune(String nome, Integer id,Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
                   List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,
                   List<Utente>listaUtenti, List<Curatore> curatori, GestorePiattaforma gestorePiattaforma) {
 
         this.nome = nome;
         this.id = id;
         this.POIS = POIS;
-
+        this.posizione = posizione;
         this.itinerari = itinerari;
         this.eventi = eventi;
         this.eventiInPending = eventiInPending;

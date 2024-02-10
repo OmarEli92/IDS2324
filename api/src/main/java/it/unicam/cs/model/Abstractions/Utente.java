@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "RUOLO")
 public abstract class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
