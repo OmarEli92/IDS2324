@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
-@Entity
+
 public class Itinerario{
-    @Id
+
     private  String id;
     private  String nome;
     private  String idContributore;
