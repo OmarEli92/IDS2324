@@ -25,7 +25,7 @@ public class ControllerConsultazioneContenuti {
 
     public void selezionaComune(String nomeComune){
         if(listaComuni.getComune(nomeComune) != null){
-            this.IDcomuneSelezionato = listaComuni.getComune(nomeComune).getId();
+            //this.IDcomuneSelezionato = listaComuni.getComune(nomeComune).getId();
         }
         else throw new IllegalArgumentException("Il comune non esiste");
     }

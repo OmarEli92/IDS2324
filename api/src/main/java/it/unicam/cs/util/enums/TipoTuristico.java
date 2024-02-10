@@ -1,4 +1,4 @@
-package it.unicam.cs.util;
+package it.unicam.cs.util.enums;
 
 public enum TipoTuristico {
     MUSEO("Museo"),

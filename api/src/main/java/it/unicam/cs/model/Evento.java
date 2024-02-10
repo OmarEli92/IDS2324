@@ -1,53 +1,71 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.model.Abstractions.Utente;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
+@Entity
 public abstract class Evento {
-    private final String id;
-    private final String idcomuneAssociato;
-    private final String nome;
-    private final String descrizione;
-    private final String idContributore;
-    private final String idPoiAssociato;
-    private final LocalDateTime dataInizio;
-    private final LocalDateTime dataFine;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
+    private String nome;
+    private String descrizione;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contributore", referencedColumnName = "id")
+    private Utente contributore;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
+    private POI poiAssociato;
+    @Column(name = "data_inizio")
+    private LocalDateTime dataInizio;
+    @Column(name = "data_fine")
+    private LocalDateTime dataFine;
 
 
-    public Evento(String id, String nome, String idcomuneAssociato, String descrizione,
-                  String idContributore, String idPoiAssociato, LocalDateTime dataInizio,
+    public Evento(Integer id, String nome, Comune idcomuneAssociato, String descrizione,
+                  Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
                   LocalDateTime dataFine) {
         this.id = id;
         this.nome = nome;
-        this.idcomuneAssociato = idcomuneAssociato;
+        this.comuneAssociato = comuneAssociato;
         this.descrizione = descrizione;
-        this.idContributore = idContributore;
-        this.idPoiAssociato = idPoiAssociato;
+        this.contributore = contributore;
+        this.poiAssociato = poiAssociato;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
     }
 
-    public String getId() {
+    public Evento() {
+
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public String getIdcomuneAssociato() {
-        return idcomuneAssociato;
+    public Comune getComuneAssociato() {
+        return comuneAssociato;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public String getIdContributore() {
-        return idContributore;
+    public Utente getContributore() {
+        return contributore;
     }
 
-    public String getIdPoiAssociato() {
-        return idPoiAssociato;
+    public POI getPoiAssociato() {
+        return poiAssociato;
     }
 
     public LocalDateTime getDataInizio() {

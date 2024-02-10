@@ -1,8 +1,8 @@
 package it.unicam.cs.model.Abstractions;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import it.unicam.cs.model.Comune;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -10,22 +10,24 @@ import java.time.LocalDate;
 @Entity
 public abstract class Utente {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @NotNull
     private  String nome;
     @NotNull
     private  String cognome;
-
     private  LocalDate dataDiNascita;
     @NotNull
     private String email;
     private  String sesso;
     private String telefono;
     private int numeroDiContribuzioni;
-    private  String idComune;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
 
-    public Utente(String id, String nome, String cognome, LocalDate dataDiNascita,
-                  String email, String sesso, String telefono, int numeroDiContribuzioni, String idComune) {
+    public Utente(Integer id, String nome, String cognome, LocalDate dataDiNascita,
+                  String email, String sesso, String telefono, int numeroDiContribuzioni, Comune comuneAssociato) {
         this.nome = nome;
         this.cognome = cognome;
         this.id = id;
@@ -34,7 +36,7 @@ public abstract class Utente {
         this.sesso = sesso;
         this.telefono = telefono;
         this.numeroDiContribuzioni = numeroDiContribuzioni;
-        this.idComune = idComune;
+        this.comuneAssociato = comuneAssociato;
     }
 
     public Utente() {
@@ -57,7 +59,7 @@ public abstract class Utente {
         return cognome;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -81,11 +83,11 @@ public abstract class Utente {
         return numeroDiContribuzioni;
     }
 
-    public String getIdComune() {
-        return idComune;
+    public Comune getComune() {
+        return comuneAssociato;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -109,7 +111,4 @@ public abstract class Utente {
         this.numeroDiContribuzioni = numeroDiContribuzioni;
     }
 
-    public void setIdComune(String idComune) {
-        this.idComune = idComune;
-    }
 }

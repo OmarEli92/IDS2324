@@ -1,27 +1,33 @@
 package it.unicam.cs.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import it.unicam.cs.model.Abstractions.Utente;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
-
+@Entity
 public class Itinerario{
-
-    private  String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private  Integer id;
     private  String nome;
-    private  String idContributore;
-    private  String idComune;
-    private  List<POI> poisAssociati; // TODO questo problema è da risolvere!!
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contributore", referencedColumnName = "id")
+    private Utente contributore;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
+    @OneToMany
+    private  List<POI> poisAssociati;
 
-    public Itinerario(String id, String nome, String idContributore,String idComune, List<POI> poisAssociati) {
+    public Itinerario(Integer id, String nome, Utente contributore,Comune comuneAssociato, List<POI> poisAssociati) {
         this.id = id;
         this.nome = nome;
-        this.idContributore = idContributore;
-        this.idComune = idComune;
+        this.contributore = contributore;
+        this.comuneAssociato = comuneAssociato;
         this.poisAssociati = poisAssociati;
     }
 
@@ -43,7 +49,7 @@ public class Itinerario{
         return Objects.hash(super.hashCode(), poisAssociati);
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -51,12 +57,12 @@ public class Itinerario{
         return nome;
     }
 
-    public String getIdContributore() {
-        return idContributore;
+    public Utente getContributore() {
+        return contributore;
     }
 
-    public String getIdComune() {
-        return idComune;
+    public Comune getComuneAssociato() {
+        return comuneAssociato;
     }
 
     public List<POI> getPoisAssociati() {

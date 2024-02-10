@@ -1,6 +1,9 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.*;
+import it.unicam.cs.util.enums.Servizio;
+import it.unicam.cs.util.enums.TipoIntrattenimento;
 
 import java.util.List;
 
@@ -9,13 +12,13 @@ public final class POIIntrattenimento extends POI {
     private String orariApertura;
     private List<Servizio> serviziOfferti;
     private Contatti contatti;
-    public POIIntrattenimento(String id, String nome, Posizione posizione, TipoIntrattenimento tipo,
-                              String idContributore, String idComuneAssociato, Indirizzo indirizzo,
+    public POIIntrattenimento(Integer id, String nome, Posizione posizione, String tipo,
+                              Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
                               List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
                               int etaConsigliata, String orariApertura,
                               List<Servizio> serviziOfferti, Contatti contatti) {
 
-        super(id, nome, posizione, tipo, idContributore, idComuneAssociato, indirizzo, contenutiMultimediali,
+        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
                 contenutiMultimedialiInPending, eventiAssociati);
 
         this.etaConsigliata = etaConsigliata;

@@ -1,15 +1,17 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.Utente;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventoIntrattimento extends Evento{
     private final String tipo = "EventoIntrattimento";
     private final List<ContenutoMultimediale> contenutiMultimediali;
-    public EventoIntrattimento(String id, String nome, String idcomuneAssociato, String descrizione,
-                               String idContributore, String idPoiAssociato, LocalDateTime dataInizio,
+    public EventoIntrattimento(Integer id, String nome, Comune comuneAssociato, String descrizione,
+                               Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
                                LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
-        super(id, nome, idcomuneAssociato, descrizione, idContributore, idPoiAssociato, dataInizio, dataFine);
+        super(id, nome, comuneAssociato, descrizione, contributore, poiAssociato, dataInizio, dataFine);
         this.contenutiMultimediali = contenutiMultimediali;
     }
 }

@@ -1,22 +1,32 @@
 package it.unicam.cs.model;
 
 import it.unicam.cs.model.Abstractions.Utente;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
-
+@Entity
 public class ContenutoMultimediale {
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
     private String nome;
-    private final Utente utenteCreatore;
-    private final POI poiAssociato;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Utente utenteCreatore;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
+    private POI poiAssociato;
 
     public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, POI poiAssociato) {
         this.id = id;
         this.nome = nome;
         this.utenteCreatore = utenteCreatore;
         this.poiAssociato = poiAssociato;
+    }
+
+    public ContenutoMultimediale() {
+
     }
 
     @Override
