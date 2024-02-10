@@ -10,7 +10,7 @@ import java.util.List;
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
 @Entity
-
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class POI{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

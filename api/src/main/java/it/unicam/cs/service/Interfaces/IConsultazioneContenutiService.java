@@ -15,33 +15,33 @@ public interface IConsultazioneContenutiService {
 
    /**@param idPOI
    * Il metodo ottieniPOIdaId recupera un POI a partire dal suo id **/
-    POI ottieniPOIdaId(String idPOI);
+    POI ottieniPOIdaId(Integer idPOI);
 
     /** Il metodo ottieniPOIS restituisce una mappa di POI **/
-    List<POI> ottieniPOIS(final String idComune);
+    List<POI> ottieniPOIS(final Integer idComune);
 
     /**@param idEvento
      * Il metodo ottieniEventoDaId visualizza un evento a partire dal suo id **/
-    Evento ottieniEventoDaId(String idEvento);
+    Evento ottieniEventoDaId(Integer idEvento);
 
     /** Il metodo ottieniEventiDaId restituisce una mappa di eventi **/
-    List<Evento> ottieniEventi(final String idComune);
+    List<Evento> ottieniEventi(final Integer idComune);
 
     /**@param idItinerario
      *  Il metodo ottieniItinerarioDaId visualizza un itinerario a partire dal suo id **/
-     Itinerario ottieniItinerarioDaId(String idItinerario);
+     Itinerario ottieniItinerarioDaId(Integer idItinerario);
     /** Il metodo ottieniItinerari restituisce la lista di itinerari associati al comune**/
-    List<Itinerario> ottieniItinerari(final String idComune);
+    List<Itinerario> ottieniItinerari(final Integer idComune);
 
  /** Il metodo ottieniContenutoMultimediale restituisce un contenuto multimediale
   *  @param id
   *  @return ContenutoMultimediale contenuto**/
- ContenutoMultimediale ottieniContenutoMultimedialeDaId(String id);
+ ContenutoMultimediale ottieniContenutoMultimedialeDaId(Integer id);
 
  /** Il metodo ottieniCotenutiMultimedialiPOI restituisce una lista di contenuti multimediali
   *  @param idPOI
   *  @return List<ContenutoMultimediale> contenuti**/
- List<ContenutoMultimediale> ottieniCotenutiMultimedialiPOI(String idPOI);
+ List<ContenutoMultimediale> ottieniCotenutiMultimedialiPOI(Integer idPOI);
 
 
 }

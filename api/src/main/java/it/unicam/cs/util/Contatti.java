@@ -1,5 +1,8 @@
 package it.unicam.cs.util;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Contatti {
     private String telefono;
     private String email;
@@ -8,6 +11,10 @@ public class Contatti {
     public Contatti(String telefono, String email) {
         this.telefono = telefono;
         this.email = email;
+    }
+
+    public Contatti() {
+
     }
 
     public String getTelefono() {

@@ -14,7 +14,7 @@ public class ControllerConsultazioneContenuti {
 
     private final IConsultazioneContenutiService consultazioneContenutiService;
     private final ListaComuni listaComuni;
-    private String IDcomuneSelezionato;
+    private Integer IDcomuneSelezionato;
     public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
                                             ListaComuni listaComuni){
 
@@ -30,7 +30,7 @@ public class ControllerConsultazioneContenuti {
         else throw new IllegalArgumentException("Il comune non esiste");
     }
   
-    public void visualizzaPOI(String idPOI){
+    public void visualizzaPOI(Integer idPOI){
         Optional<POI> poi = Optional.of(consultazioneContenutiService.ottieniPOIdaId(idPOI));
         if(poi.isPresent())
             System.out.println(poi.get().toString());
@@ -44,7 +44,7 @@ public class ControllerConsultazioneContenuti {
         }
     }
 
-    public void visualizzaEvento(String idEvento){
+    public void visualizzaEvento(Integer idEvento){
         Optional<Evento> evento = Optional.of(consultazioneContenutiService.ottieniEventoDaId(idEvento));
         if(evento.isPresent())
             System.out.println(evento.get().toString());
@@ -57,7 +57,7 @@ public class ControllerConsultazioneContenuti {
         }
     }
 
-    public void visualizzaItinerario(String idItinerario){
+    public void visualizzaItinerario(Integer idItinerario){
         Optional<Itinerario> itinerario = Optional.of(consultazioneContenutiService.ottieniItinerarioDaId(idItinerario));
         if(itinerario.isPresent())
             System.out.println(itinerario.get().toString());
