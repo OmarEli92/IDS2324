@@ -1,4 +1,4 @@
-package it.unicam.cs.util;
+package it.unicam.cs.util.enums;
 /** Lista di servizi offerti nei POI di intrattenimento**/
 public enum Servizio {
     WIFI("Wi-Fi"),

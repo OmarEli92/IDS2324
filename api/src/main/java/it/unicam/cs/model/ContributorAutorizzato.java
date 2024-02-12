@@ -2,14 +2,21 @@ package it.unicam.cs.model;
 
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.model.Interfaces.InserimentoContenuto;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
-
+@Entity
+@DiscriminatorValue("ContributorAutorizzato")
 public class ContributorAutorizzato extends Utente implements InserimentoContenuto {
-    public ContributorAutorizzato(String nome, String cognome, String id, LocalDate dataDiNascita,
+    public ContributorAutorizzato(String nome, String cognome, Integer id, LocalDate dataDiNascita,
                                   String email, String sesso, String telefono, int numeroDiContribuzioni,
-                                  String idComune) {
-        super(nome, cognome, id, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, idComune);
+                                  Comune comuneAssociato) {
+        super(id,nome, cognome, dataDiNascita, email, sesso, telefono, numeroDiContribuzioni, comuneAssociato);
+    }
+
+    public ContributorAutorizzato() {
+
     }
 
     @Override

@@ -9,55 +9,56 @@ import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IItinerarioRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class ConsultazioneContenutiService implements IConsultazioneContenutiService {
-    private final IConsultazioneContenutiService consultazioneContenutiService;
+    private final IPOIRepository poiRepository;
 
 
-    public ConsultazioneContenutiService(IConsultazioneContenutiService consultazioneContenutiService) {
-        this.consultazioneContenutiService = consultazioneContenutiService;
+    public ConsultazioneContenutiService(IPOIRepository poiRepository) {
+        this.poiRepository = poiRepository;
     }
 
     @Override
-    public POI ottieniPOIdaId(String idPOI){
+    public POI ottieniPOIdaId(Integer idPOI){
+        return poiRepository.findById(idPOI).orElse(null);
+    }
+
+    @Override
+    public List<POI> ottieniPOIS(final Integer idComune) {
         return null;
     }
 
     @Override
-    public List<POI> ottieniPOIS(final String idComune) {
-        return null;
-    }
-
-    @Override
-    public Evento ottieniEventoDaId(String idEvento) {
+    public Evento ottieniEventoDaId(Integer idEvento) {
     return null;
     }
 
     @Override
-    public List<Evento> ottieniEventi(final String idComune) {
+    public List<Evento> ottieniEventi(final Integer idComune) {
         return null;
     }
 
     @Override
-    public Itinerario ottieniItinerarioDaId(String idItinerario){
+    public Itinerario ottieniItinerarioDaId(Integer idItinerario){
         return null;
     }
 
     @Override
-    public List<Itinerario> ottieniItinerari(final String idComune) {
+    public List<Itinerario> ottieniItinerari(final Integer idComune) {
         return null;
     }
 
     @Override
-    public ContenutoMultimediale ottieniContenutoMultimedialeDaId(String id) {
+    public ContenutoMultimediale ottieniContenutoMultimedialeDaId(Integer id) {
         return null;
     }
 
     @Override
-    public List<ContenutoMultimediale> ottieniCotenutiMultimedialiPOI(String idPOI) {
+    public List<ContenutoMultimediale> ottieniCotenutiMultimedialiPOI(Integer idPOI) {
         return null;
     }
 }

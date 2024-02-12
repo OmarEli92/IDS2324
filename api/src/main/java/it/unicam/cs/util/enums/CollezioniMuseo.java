@@ -1,4 +1,4 @@
-package it.unicam.cs.util;
+package it.unicam.cs.util.enums;
 /** I tipi di collezioni presenti nel museo*/
 public enum CollezioniMuseo {
     ARTE_CONTEMPORANEA("Arte Contemporanea"),

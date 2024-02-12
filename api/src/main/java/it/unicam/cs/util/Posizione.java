@@ -1,15 +1,22 @@
 package it.unicam.cs.util;
 
+import jakarta.persistence.Embeddable;
+
 import java.util.Objects;
 
 /** La classe Posizione rappresenta la posizione di un POI o di un itinerario nel territorio comunale **/
+@Embeddable
 public class Posizione {
-    private final double latitudine;
-    private final double longitudine;
+    private double latitudine;
+    private double longitudine;
 
     public Posizione(double latitudine, double longitudine) {
         this.latitudine = latitudine;
         this.longitudine = longitudine;
+    }
+
+    public Posizione() {
+
     }
 
     public double getLatitudine() {
@@ -30,5 +37,13 @@ public class Posizione {
     @Override
     public int hashCode() {
         return Objects.hash(latitudine, longitudine);
+    }
+
+    public void setLatitudine(double latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    public void setLongitudine(double longitudine) {
+        this.longitudine = longitudine;
     }
 }

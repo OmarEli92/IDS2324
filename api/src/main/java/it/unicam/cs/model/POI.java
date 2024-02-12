@@ -1,54 +1,76 @@
 package it.unicam.cs.model;
 
+import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
-public abstract class POI<T>{
-    private final String id;
-    private final String nome;
-    private final Posizione posizione;
-    private final T tipo;
-    private final String idContributore;
-    private final String idComuneAssociato;
-    private final Indirizzo indirizzo;
-    private final List<ContenutoMultimediale> contenutiMultimediali;
-    private final List<ContenutoMultimediale> contenutiMultimedialiInPending;
-    private final List<Evento> eventiAssociati;
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class POI{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
+    private String nome;
+    @Embedded
+    private Posizione posizione;
+    private String tipo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contributore", referencedColumnName = "id")
+    private Utente contributore;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
+    @Embedded
+    private Indirizzo indirizzo;
+    @OneToMany(mappedBy = "poiAssociato")
+    private List<Evento> eventiAssociati;
+    @OneToMany(mappedBy = "poiAssociato")
+    private List<ContenutoMultimediale> contenutiMultimediali;
+    @OneToMany(mappedBy = "poiAssociato")
+    private List<ContenutoMultimediale> contenutiMultimedialiInPending;
 
-    public POI(String id, String nome,Posizione posizione, T tipo, String idContributore,
-               String idComuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
+
+    public POI(Integer id, String nome,Posizione posizione, String tipo, Utente contributore,
+               Comune comuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
                List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventiAssociati) {
         this.id = id;
         this.nome = nome;
         this.posizione = posizione;
         this.tipo = tipo;
-        this.idContributore = idContributore;
-        this.idComuneAssociato = idComuneAssociato;
+        this.contributore = contributore;
+        this.comuneAssociato = comuneAssociato;
         this.indirizzo = indirizzo;
+        this.eventiAssociati = eventiAssociati;
         this.contenutiMultimediali=contenutiMultimediali;
         this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
-        this.eventiAssociati = eventiAssociati;
     }
+
+    public POI() {
+
+    }
+
+
     public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
-        this.contenutiMultimediali.add(contenutoMultimediale);
+       this.contenutiMultimediali.add(contenutoMultimediale);
     }
 
     public void aggiungiContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
         this.contenutiMultimedialiInPending.add(contenutoMultimediale);
     }
     public void rimuoviContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
-        this.contenutiMultimediali.remove(contenutoMultimediale);
+       this.contenutiMultimediali.remove(contenutoMultimediale);
     }
 
     public List<ContenutoMultimediale> getContenutiMultimediali() {
         return contenutiMultimediali;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -60,16 +82,16 @@ public abstract class POI<T>{
         return posizione;
     }
 
-    public T getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public String getIdContributore() {
-        return idContributore;
+    public Utente getContributore() {
+        return contributore;
     }
 
-    public String getIdComuneAssociato() {
-        return idComuneAssociato;
+    public Comune getComuneAssociato() {
+        return comuneAssociato;
     }
 
     public Indirizzo getIndirizzo() {
