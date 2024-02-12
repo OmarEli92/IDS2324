@@ -1,5 +1,6 @@
 package it.unicam.cs.service;
 
+import it.unicam.cs.exception.ContenutoMultimedialeNotValidException;
 import it.unicam.cs.exception.EventoNotValidException;
 import it.unicam.cs.exception.POINotFoundException;
 import it.unicam.cs.exception.POINotValidException;
@@ -66,7 +67,20 @@ public class ServiceInserimentoContenuti {
         return true;
     }
 
-    public void inserisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
-        contenutoMultimedialeRepository.save(contenutoMultimediale);
+    public void inserisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) throws ContenutoMultimedialeNotValidException {
+        boolean verifica=verificaContenutoMultimediale(contenutoMultimediale);
+        if(verifica)
+            this.contenutoMultimedialeRepository.save(contenutoMultimediale);
+        else
+            throw new ContenutoMultimedialeNotValidException("il contenuto multimediale è" +
+                    "già stato inserito associato al POI");
+    }
+
+    private boolean verificaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale) {
+        POI poi=contenutoMultimediale.getPoiAssociato();
+        for (ContenutoMultimediale contenutoMultimediale1 : poi.getContenutiMultimediali())
+            if(contenutoMultimediale.equals(contenutoMultimediale1))
+                return false;
+        return true;
     }
 }

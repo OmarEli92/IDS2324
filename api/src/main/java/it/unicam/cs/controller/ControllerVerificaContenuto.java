@@ -12,39 +12,17 @@ public class ControllerVerificaContenuto {
     public ControllerVerificaContenuto(ServiceVerificaContenuto serviceVerificaContenuto) {
         this.serviceVerificaContenuto = serviceVerificaContenuto;
     }
-    /*
-    verifica che le coordinate del POI siano all'interno del comune associato
-     */
-    public void verificaPOI(POI poi){
-        this.serviceVerificaContenuto.verificaPOI(poi);
-    }
 
     public void validaPOI (POI poi){
         this.serviceVerificaContenuto.validaPOI(poi);
     }
-    /*
-    verifica che nel detrminato periodo dell'evento non ci siano altri eventi
-    associati al POI associato
-     */
-    public void verificaEvento (Evento evento){
-    }
+
     public void validaEvento (Evento evento){
     }
 
-    /*
-    verifica che i punti selezionati per l'itinerario siano dei POI
-     */
-    public void verificaItinerario (Itinerario itinerario){
-    }
     public void validaItinerario (Itinerario itinerario){
     }
 
-    /*
-    verifica che il contenuto multimediale non sia già stato inserito all'interno del
-    POI associato
-     */
-    public void verificaContenutoMultimediale (ContenutoMultimediale contenutoMultimediale){
-    }
     public void validaContenutoMultimediale (ContenutoMultimediale contenutoMultimediale){
     }
 

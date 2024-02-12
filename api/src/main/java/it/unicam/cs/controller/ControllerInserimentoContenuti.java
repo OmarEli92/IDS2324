@@ -1,5 +1,6 @@
 package it.unicam.cs.controller;
 
+import it.unicam.cs.exception.ContenutoMultimedialeNotValidException;
 import it.unicam.cs.exception.EventoNotValidException;
 import it.unicam.cs.exception.POINotValidException;
 import it.unicam.cs.model.ContenutoMultimediale;
@@ -24,7 +25,7 @@ public class ControllerInserimentoContenuti {
     public void inserisciEvento (Evento evento) throws EventoNotValidException {
         this.serviceInserimentoContenuti.inserisciEvento(evento);
     }
-    public void inserisciContenutoMultimediale (ContenutoMultimediale contenutoMultimediale){
+    public void inserisciContenutoMultimediale (ContenutoMultimediale contenutoMultimediale) throws ContenutoMultimedialeNotValidException {
         this.serviceInserimentoContenuti.inserisciContenutoMultimediale(contenutoMultimediale);
     }
 }

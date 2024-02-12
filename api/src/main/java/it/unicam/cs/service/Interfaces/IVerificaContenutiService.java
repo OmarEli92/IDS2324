@@ -6,7 +6,6 @@ import it.unicam.cs.model.POI;
 
 public interface IVerificaContenutiService {
 
-    void verificaPOI(POI poi);
     void validaPOI(POI poi);
     void invalidaPOI(POI itinerario);
 
