@@ -2,6 +2,7 @@ package it.unicam.cs.controller;
 
 import it.unicam.cs.exception.ContenutoMultimedialeNotValidException;
 import it.unicam.cs.exception.EventoNotValidException;
+import it.unicam.cs.exception.ItinerarioNotValidException;
 import it.unicam.cs.exception.POINotValidException;
 import it.unicam.cs.model.ContenutoMultimediale;
 import it.unicam.cs.model.Evento;
@@ -19,13 +20,13 @@ public class ControllerInserimentoContenuti {
     public void inserisciPOI (POI poi) throws POINotValidException {
         this.serviceInserimentoContenuti.inserisciPOI(poi);
     }
-    public void inserisciItinerario (Itinerario itinerario){
+    public void inserisciItinerario (Itinerario itinerario) throws ItinerarioNotValidException {
         this.serviceInserimentoContenuti.inserisciItinerario(itinerario);
     }
     public void inserisciEvento (Evento evento) throws EventoNotValidException {
-        this.serviceInserimentoContenuti.inserisciEvento(evento);
+        this.serviceInserimentoContenuti.inserisciEvento(evento.getPoiAssociato().getId(),evento);
     }
     public void inserisciContenutoMultimediale (ContenutoMultimediale contenutoMultimediale) throws ContenutoMultimedialeNotValidException {
-        this.serviceInserimentoContenuti.inserisciContenutoMultimediale(contenutoMultimediale);
+        this.serviceInserimentoContenuti.inserisciContenutoMultimediale(contenutoMultimediale.getPoiAssociato().getId(),contenutoMultimediale);
     }
 }

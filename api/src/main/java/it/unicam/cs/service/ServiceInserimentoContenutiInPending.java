@@ -37,4 +37,5 @@ public class ServiceInserimentoContenutiInPending {
     public void inserisciContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
         contenutoMultimedialeInPendingRepository.save(contenutoMultimediale);
     }
+
 }
