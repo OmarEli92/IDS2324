@@ -8,6 +8,11 @@ import it.unicam.cs.repository.IContenutoMultimedialeInPendingRepository;
 import it.unicam.cs.repository.IEventoInPendingRepository;
 import it.unicam.cs.repository.IItinerarioInPendingRepository;
 import it.unicam.cs.repository.IPOIInPendingRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public class ServiceInserimentoContenutiInPending {
     private final IPOIInPendingRepository poiInPendingRepository;
@@ -22,20 +27,28 @@ public class ServiceInserimentoContenutiInPending {
         this.contenutoMultimedialeInPendingRepository = contenutoMultimedialeInPendingRepository;
     }
 
-    public void inserisciPOIInPending(POI poi) {
-        poiInPendingRepository.save(poi);
+
+    @PostMapping("/poisInPending")
+    public ResponseEntity<Object> inserisciPOIInPending(@RequestBody POI poi){
+        this.poiInPendingRepository.save(poi);
+        return new ResponseEntity<>("poi inserito in pending", HttpStatus.OK);
     }
 
-    public void inserisciEventoInPending(Evento evento) {
-        eventoInPendingRepository.save(evento);
+    @PostMapping("/pois/{POIId}/eventiInPending")
+    public ResponseEntity<Object> inserisciEventoInPending(@PathVariable(value = "POIId") Integer POIId, @RequestBody Evento evento){
+        this.eventoInPendingRepository.save(evento);
+        return new ResponseEntity<>("evento inserito in pending", HttpStatus.OK);
     }
 
-    public void inserisciItinerarioInPending(Itinerario itinerario) {
-        itinerarioInPendingRepository.save(itinerario);
+    @PostMapping("/itinerariInPending")
+    public ResponseEntity<Object> inserisciItinerarioInPending(@RequestBody Itinerario itinerario){
+        this.itinerarioInPendingRepository.save(itinerario);
+        return new ResponseEntity<>("itinerario inserito in pending", HttpStatus.OK);
     }
 
-    public void inserisciContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
-        contenutoMultimedialeInPendingRepository.save(contenutoMultimediale);
+    @PostMapping("/pois/{POIId}/contenutiIInPenidng")
+    public ResponseEntity<Object> inserisciContenutoMultimedialeInPending(@PathVariable(value = "POIId")Integer POIId, @RequestBody ContenutoMultimediale contenutoMultimediale){
+        this.contenutoMultimedialeInPendingRepository.save(contenutoMultimediale);
+        return new ResponseEntity<>("contenuto inserito in pending", HttpStatus.OK);
     }
-
 }

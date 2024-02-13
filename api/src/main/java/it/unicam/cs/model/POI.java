@@ -6,6 +6,7 @@ import it.unicam.cs.util.Posizione;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
@@ -104,6 +105,19 @@ public abstract class POI{
 
     public List<Evento> getEventiAssociati() {
         return eventiAssociati;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        POI poi = (POI) o;
+        return Objects.equals(posizione, poi.posizione);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(posizione);
     }
 }
 

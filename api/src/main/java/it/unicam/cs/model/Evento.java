@@ -80,5 +80,17 @@ public abstract class Evento {
         return descrizione;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return Objects.equals(id, evento.id) && Objects.equals(comuneAssociato, evento.comuneAssociato) && Objects.equals(poiAssociato, evento.poiAssociato);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, comuneAssociato, poiAssociato);
+    }
 }
 

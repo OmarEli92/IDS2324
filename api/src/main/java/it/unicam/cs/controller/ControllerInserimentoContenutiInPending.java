@@ -19,9 +19,9 @@ public class ControllerInserimentoContenutiInPending {
         this.serviceInserimentoContenutiInPending.inserisciItinerarioInPending(itinerario);
     }
     public void inserisciEventoInPending(Evento evento){
-        this.serviceInserimentoContenutiInPending.inserisciEventoInPending(evento);
+        this.serviceInserimentoContenutiInPending.inserisciEventoInPending(evento.getPoiAssociato().getId(),evento);
     }
     public void inserisciContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
-        this.serviceInserimentoContenutiInPending.inserisciContenutoMultimedialeInPending(contenutoMultimediale);
+        this.serviceInserimentoContenutiInPending.inserisciContenutoMultimedialeInPending(contenutoMultimediale.getPoiAssociato().getId(),contenutoMultimediale);
     }
 }
