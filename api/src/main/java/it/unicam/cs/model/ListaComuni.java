@@ -1,17 +1,32 @@
 package it.unicam.cs.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /** Classe che gestirà la lista di tutti i comuni**/
-public class ListaComuni {
-    private final List<Comune> comuni;
-    private final List<GestorePiattaforma> gestoriPiattaforma;
 
-    public ListaComuni(List<Comune> comuni, List<GestorePiattaforma> gestoriPiattaforma){
+@Service
+public class ListaComuni {
+
+    private static ListaComuni instance;
+    private List<Comune> comuni;
+    private List<GestorePiattaforma> gestoriPiattaforma;
+
+    private ListaComuni(List<Comune> comuni, List<GestorePiattaforma> gestoriPiattaforma){
         this.comuni = comuni;
         this.gestoriPiattaforma = gestoriPiattaforma;
     }
 
+    public static  ListaComuni getInstance(List<Comune> comuni, List<GestorePiattaforma> gestoriPiattaforma) {
+        if (instance == null) {
+            instance = new ListaComuni(comuni, gestoriPiattaforma);
+        }
+        return instance;
+    }
     public List<Comune> getComuni() {
         return comuni;
     }

@@ -1,6 +1,6 @@
 package it.unicam.cs.model.DTO;
 
-import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.info.Posizione;
 
 
 /** La classe EventoDto è un Data Transfer Object per la classe Evento serve principlamente per ottenere

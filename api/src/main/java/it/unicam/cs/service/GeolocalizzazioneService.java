@@ -1,7 +1,7 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.service.Interfaces.IGeolocalizzazioneService;
-import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.info.Posizione;
 
 
 

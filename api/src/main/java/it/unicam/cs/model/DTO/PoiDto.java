@@ -1,6 +1,6 @@
 package it.unicam.cs.model.DTO;
 
-import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.info.Posizione;
 
 /** La classe PoiDTO è un Data Transfer Object per la classe Itinerario serve principlamente per ottenere
  * solo le informazioni principali sul POI del territorio quali id,nome,posizione,idComune e idContributore

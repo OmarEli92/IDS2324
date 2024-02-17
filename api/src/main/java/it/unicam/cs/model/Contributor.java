@@ -1,8 +1,12 @@
 package it.unicam.cs.model;
 
 
-import it.unicam.cs.model.Abstractions.Utente;
+import it.unicam.cs.model.abstractions.Evento;
+import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.abstractions.Utente;
 import it.unicam.cs.model.Interfaces.InserimentoContenutoInPending;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.model.contenuti.Itinerario;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 

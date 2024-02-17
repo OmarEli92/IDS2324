@@ -1,6 +1,6 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.Utente;
+import it.unicam.cs.model.abstractions.Utente;
 
 import java.time.LocalDate;
 

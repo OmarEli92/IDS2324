@@ -1,76 +1,68 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
-import it.unicam.cs.model.Evento;
-import it.unicam.cs.model.POI;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 /**Il controller si occupa di gestire la visualizzazione dei contenuti quando un utente richiede di visionare
  * POI,Eventi, Itinerari **/
+@CrossOrigin(origins = "http://localhost:63342")
+@RestController
 public class ControllerConsultazioneContenuti {
 
     private final IConsultazioneContenutiService consultazioneContenutiService;
     private final ListaComuni listaComuni;
     private Integer IDcomuneSelezionato;
+    @Autowired
     public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
                                             ListaComuni listaComuni){
 
         this.consultazioneContenutiService = consultazioneContenutiService;
-
         this.listaComuni = listaComuni;
     }
-
-    public void selezionaComune(String nomeComune){
+/*
+@GetMapping(value="/")
+    public ResponseEntity<Object> selezionaComune(String nomeComune){
         if(listaComuni.getComune(nomeComune) != null){
-            //this.IDcomuneSelezionato = listaComuni.getComune(nomeComune).getId();
+            this.IDcomuneSelezionato = listaComuni.getComune(nomeComune).getId();
+            return new ResponseEntity<>("Comune selezionato", HttpStatus.OK);
         }
-        else throw new IllegalArgumentException("Il comune non esiste");
+    return new ResponseEntity<>("Comune non trovato!", HttpStatus.BAD_REQUEST);
     }
-  
-    public void visualizzaPOI(Integer idPOI){
-        Optional<POI> poi = Optional.of(consultazioneContenutiService.ottieniPOIdaId(idPOI));
-        if(poi.isPresent())
-            System.out.println(poi.get().toString());
-        else throw new IllegalArgumentException("Il POI non esiste");
-    }
+*/
 
-    public void visualizzaPOIS(){
-        List<POI> listaPOI = consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato);
-        for(POI poi : listaPOI){
-            System.out.println(poi.toString());
-        }
+  @GetMapping(value="/poi/{idPOI}")
+    public ResponseEntity<Object> visualizzaPOI(@PathVariable("idPOI") Integer idPOI){
+        return new ResponseEntity<>(consultazioneContenutiService.ottieniPOIdaId(idPOI),HttpStatus.OK);
     }
 
-    public void visualizzaEvento(Integer idEvento){
-        Optional<Evento> evento = Optional.of(consultazioneContenutiService.ottieniEventoDaId(idEvento));
-        if(evento.isPresent())
-            System.out.println(evento.get().toString());
+    @GetMapping(value="/poi")
+    public ResponseEntity<Object> visualizzaPOIS(){
+        return new ResponseEntity<>(consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato),HttpStatus.OK);
     }
 
-    public void visualizzaEventi(){
-        List<Evento> eventi = consultazioneContenutiService.ottieniEventi(IDcomuneSelezionato);
-        for(Evento evento : eventi){
-            System.out.println(evento.toString());
-        }
+    @GetMapping(value="/evento/{idEvento}")
+    public ResponseEntity<Object> visualizzaEvento(@PathVariable("idEvento") Integer idEvento){
+        return new ResponseEntity<>(consultazioneContenutiService.ottieniEventoDaId(idEvento),HttpStatus.OK);
     }
 
-    public void visualizzaItinerario(Integer idItinerario){
-        Optional<Itinerario> itinerario = Optional.of(consultazioneContenutiService.ottieniItinerarioDaId(idItinerario));
-        if(itinerario.isPresent())
-            System.out.println(itinerario.get().toString());
+    @GetMapping(value="/eventi")
+    public ResponseEntity<Object> visualizzaEventi(){
+        return new ResponseEntity<>(consultazioneContenutiService.ottieniEventi(IDcomuneSelezionato),HttpStatus.OK);
+    }
+    @GetMapping(value="/itinerario/{idItinerario}")
+    public ResponseEntity<Object> visualizzaItinerario(@PathVariable("idItinerario") Integer idItinerario){
+       return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerarioDaId(idItinerario),HttpStatus.OK);
     }
 
-    public void visualizzaItinerari(){
-        List<Itinerario> itinerari = consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato);
-
-        for(Itinerario itinerario : itinerari){
-            System.out.println(itinerario.toString());
-        }
+    @GetMapping(value="/itinerario")
+    public ResponseEntity<Object> visualizzaItinerari(){
+        return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato),HttpStatus.OK);
     }
-
- 
 }
 
