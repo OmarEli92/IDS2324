@@ -15,13 +15,13 @@ public abstract class Utente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
-    private  String nome;
+    private String nome;
     @NotNull
-    private  String cognome;
-    private  LocalDate dataDiNascita;
+    private String cognome;
+    private LocalDate dataDiNascita;
     @NotNull
     private String email;
-    private  String sesso;
+    private String sesso;
     private String telefono;
     private int numeroDiContribuzioni;
     @ManyToOne(fetch = FetchType.LAZY)

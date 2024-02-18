@@ -1,4 +1,4 @@
-package it.unicam.cs.service;
+package it.unicam.cs.service.Interfaces;
 
 import it.unicam.cs.model.Contest;
 /**

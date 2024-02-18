@@ -1,8 +1,6 @@
 package it.unicam.cs.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import it.unicam.cs.model.ruoli.GestorePiattaforma;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

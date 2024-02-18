@@ -1,5 +1,6 @@
-package it.unicam.cs.model;
+package it.unicam.cs.model.ruoli;
 
+import it.unicam.cs.model.Comune;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

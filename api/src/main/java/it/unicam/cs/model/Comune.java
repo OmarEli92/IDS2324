@@ -4,6 +4,8 @@ import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.abstractions.Utente;
 import it.unicam.cs.model.contenuti.Itinerario;
+import it.unicam.cs.model.ruoli.Curatore;
+import it.unicam.cs.model.ruoli.GestorePiattaforma;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 

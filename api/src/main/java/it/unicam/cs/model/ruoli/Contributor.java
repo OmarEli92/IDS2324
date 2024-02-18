@@ -1,6 +1,7 @@
-package it.unicam.cs.model;
+package it.unicam.cs.model.ruoli;
 
 
+import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.abstractions.Utente;
