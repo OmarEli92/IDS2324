@@ -5,10 +5,11 @@ import it.unicam.cs.model.Evento;
 import it.unicam.cs.model.Itinerario;
 import it.unicam.cs.model.POI;
 import it.unicam.cs.repository.*;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-
+@Service
 public class ServiceVerificaContenuto {
     private final IPOIRepository poiRepository;
     private final IPOIInPendingRepository poiInPendingRepository;

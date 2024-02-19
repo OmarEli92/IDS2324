@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
 @Entity
-public abstract class Evento {
+public abstract class Evento extends Contenuto {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
 @Entity
-public class ContenutoMultimediale {
+public class ContenutoMultimediale extends Contenuto{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;

@@ -8,12 +8,13 @@ import it.unicam.cs.repository.IItinerarioRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
-
+@Service
 public class ServiceInserimentoContenuti {
     private final IPOIRepository poiRepository;
     private final IItinerarioRepository itinerarioRepository;

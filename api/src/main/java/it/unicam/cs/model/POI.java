@@ -12,7 +12,7 @@ import java.util.Objects;
  **/
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class POI{
+public abstract class POI extends Contenuto{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
