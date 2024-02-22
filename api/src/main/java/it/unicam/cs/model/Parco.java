@@ -3,24 +3,23 @@ package it.unicam.cs.model;
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.enums.StatoContenuto;
 import it.unicam.cs.util.enums.TipoTuristico;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public final class Parco extends POI {
     private boolean presenzaSpecieProtetta;
-    private String orarioApertura;
+    private LocalDateTime orarioApertura;
     private List<Itinerario> percorsi;
     private boolean presenzaAnimali;
     private int estensione;
 
-    public Parco(Integer id, String nome, Posizione posizione, String tipo,
-                 Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                 List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati, boolean presenzaSpecieProtetta,
-                 String orarioApertura, List<Itinerario> percorsi, boolean presenzaAnimali, int estensione) {
+    public Parco(String nome, Posizione posizione, Utente contributore, Comune comuneAssociato, Indirizzo indirizzo, StatoContenuto statoContenuto,boolean presenzaSpecieProtetta,
+                 LocalDateTime orarioApertura, List<Itinerario> percorsi, boolean presenzaAnimali, int estensione) {
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(nome, posizione,contributore, comuneAssociato, indirizzo,statoContenuto);
 
         this.presenzaSpecieProtetta = presenzaSpecieProtetta;
         this.orarioApertura = orarioApertura;
@@ -37,11 +36,11 @@ public final class Parco extends POI {
         this.presenzaSpecieProtetta = presenzaSpecieProtetta;
     }
 
-    public String getOrarioApertura() {
+    public LocalDateTime getOrarioApertura() {
         return orarioApertura;
     }
 
-    public void setOrarioApertura(String orarioApertura) {
+    public void setOrarioApertura(LocalDateTime orarioApertura) {
         this.orarioApertura = orarioApertura;
     }
 

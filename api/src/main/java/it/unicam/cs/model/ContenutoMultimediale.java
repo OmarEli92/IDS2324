@@ -1,13 +1,14 @@
 package it.unicam.cs.model;
 
 import it.unicam.cs.model.Abstractions.Utente;
+import it.unicam.cs.util.enums.TipoContenutoMultimediale;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
 @Entity
-public class ContenutoMultimediale extends Contenuto{
+public class ContenutoMultimediale {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
@@ -17,6 +18,13 @@ public class ContenutoMultimediale extends Contenuto{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
+    @Enumerated(EnumType.STRING)
+    private TipoContenutoMultimediale tipo;
+    @Column(name = "Foto", nullable = true)
+    private String foto;
+    @Column(name = "Link", nullable = true)
+    private String link;
+
 
     public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, POI poiAssociato) {
         this.id = id;

@@ -3,23 +3,22 @@ package it.unicam.cs.model;
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.*;
 import it.unicam.cs.util.enums.Servizio;
+import it.unicam.cs.util.enums.StatoContenuto;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public final class POIIntrattenimento extends POI {
     private int etaConsigliata;
-    private String orariApertura;
+    private LocalDateTime orariApertura;
     private List<Servizio> serviziOfferti;
     private Contatti contatti;
-    public POIIntrattenimento(Integer id, String nome, Posizione posizione, String tipo,
-                              Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                              List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
-                              int etaConsigliata, String orariApertura,
+    public POIIntrattenimento(String nome, Posizione posizione, Utente contributore, Comune comuneAssociato, Indirizzo indirizzo, StatoContenuto statoContenuto,
+                              int etaConsigliata, LocalDateTime orariApertura,
                               List<Servizio> serviziOfferti, Contatti contatti) {
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(nome, posizione, contributore, comuneAssociato, indirizzo, statoContenuto);
 
         this.etaConsigliata = etaConsigliata;
         this.orariApertura = orariApertura;
@@ -35,11 +34,11 @@ public final class POIIntrattenimento extends POI {
         this.etaConsigliata = etaConsigliata;
     }
 
-    public String getOrariApertura() {
+    public LocalDateTime getOrariApertura() {
         return orariApertura;
     }
 
-    public void setOrariApertura(String orariApertura) {
+    public void setOrariApertura(LocalDateTime orariApertura) {
         this.orariApertura = orariApertura;
     }
 

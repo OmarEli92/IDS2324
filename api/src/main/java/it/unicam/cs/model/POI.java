@@ -3,6 +3,7 @@ package it.unicam.cs.model;
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.enums.StatoContenuto;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Objects;
  **/
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class POI extends Contenuto{
+public abstract class POI {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
@@ -34,37 +35,24 @@ public abstract class POI extends Contenuto{
     private List<ContenutoMultimediale> contenutiMultimediali;
     @OneToMany(mappedBy = "poiAssociato")
     private List<ContenutoMultimediale> contenutiMultimedialiInPending;
+    private StatoContenuto statoContenuto;
 
 
-    public POI(Integer id, String nome,Posizione posizione, String tipo, Utente contributore,
-               Comune comuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
-               List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventiAssociati) {
-        this.id = id;
+    public POI( String nome,Posizione posizione,Utente contributore,
+               Comune comuneAssociato, Indirizzo indirizzo, StatoContenuto statoContenuto) {
+        //this.id = id;
         this.nome = nome;
         this.posizione = posizione;
-        this.tipo = tipo;
+        //this.tipo = tipo;
         this.contributore = contributore;
         this.comuneAssociato = comuneAssociato;
         this.indirizzo = indirizzo;
-        this.eventiAssociati = eventiAssociati;
-        this.contenutiMultimediali=contenutiMultimediali;
-        this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
+        this.statoContenuto=statoContenuto;
+
     }
 
     public POI() {
 
-    }
-
-
-    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
-       this.contenutiMultimediali.add(contenutoMultimediale);
-    }
-
-    public void aggiungiContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
-        this.contenutiMultimedialiInPending.add(contenutoMultimediale);
-    }
-    public void rimuoviContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
-       this.contenutiMultimediali.remove(contenutoMultimediale);
     }
 
     public List<ContenutoMultimediale> getContenutiMultimediali() {

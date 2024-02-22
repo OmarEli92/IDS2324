@@ -5,21 +5,20 @@ import it.unicam.cs.util.Contatti;
 import it.unicam.cs.util.Indirizzo;
 import it.unicam.cs.util.Posizione;
 import it.unicam.cs.util.enums.ServiziUtili;
+import it.unicam.cs.util.enums.StatoContenuto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public final class POIServiziUtili extends POI {
 
     private Contatti contatti;
-    private String orariApertura;
+    private LocalDateTime orariApertura;
 
-    public POIServiziUtili(Integer id, String nome, Posizione posizione, String tipo,
-                           Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                           List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
-                           Contatti contatti, String orariApertura) {
+    public POIServiziUtili(String nome, Posizione posizione, Utente contributore, Comune comuneAssociato, Indirizzo indirizzo, StatoContenuto statoContenuto,
+                           Contatti contatti, LocalDateTime orariApertura) {
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(nome, posizione, contributore, comuneAssociato, indirizzo, statoContenuto);
         this.contatti = contatti;
         this.orariApertura = orariApertura;
     }

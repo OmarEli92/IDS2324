@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
 @Entity
-public class Itinerario extends Contenuto{
+public class Itinerario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private  Integer id;

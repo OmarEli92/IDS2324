@@ -2,32 +2,32 @@ package it.unicam.cs.model;
 
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.*;
+import it.unicam.cs.util.enums.StatoContenuto;
 import it.unicam.cs.util.enums.TipoAmministrativo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class POIAmministrativo extends POI {
-    private String orariApertura;
+    private LocalDateTime orariApertura;
     private String responsabile;
     private Contatti contatti;
-    public POIAmministrativo(Integer id, String nome, Posizione posizione, String tipo,
-                             Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                             List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
-                             String orariApertura, String responsabile, Contatti contatti) {
+    public POIAmministrativo(String nome, Posizione posizione,
+                             Utente contributore, Comune comuneAssociato, Indirizzo indirizzo, StatoContenuto statoContenuto,
+                             LocalDateTime orariApertura, String responsabile, Contatti contatti) {
 
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(nome, posizione, contributore, comuneAssociato, indirizzo,statoContenuto);
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;
         this.contatti = contatti;
     }
 
-    public String getOrariApertura() {
+    public LocalDateTime getOrariApertura() {
         return orariApertura;
     }
 
-    public void setOrariApertura(String orariApertura) {
+    public void setOrariApertura(LocalDateTime orariApertura) {
         this.orariApertura = orariApertura;
     }
 

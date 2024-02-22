@@ -3,22 +3,22 @@ package it.unicam.cs.model;
 import it.unicam.cs.model.Abstractions.Utente;
 import it.unicam.cs.util.*;
 import it.unicam.cs.util.enums.CollezioniMuseo;
+import it.unicam.cs.util.enums.StatoContenuto;
 import it.unicam.cs.util.enums.TipoTuristico;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public final class Museo extends POI {
-    private String orariApertura;
+    private LocalDateTime orariApertura;
     private String responsabile;
     private Contatti contatti;
     private int numeroSale;
     private List<CollezioniMuseo> collezioni;
-    public Museo(Integer id, String nome, Posizione posizione, String tipo,
-                 Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                 List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
-                 String orariApertura, String responsabile, Contatti contatti, int numeroSale, List<CollezioniMuseo> collezioni) {
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+    public Museo(String nome, Posizione posizione,
+                 Utente contributore, Comune comuneAssociato, Indirizzo indirizzo, StatoContenuto statoContenuto,
+                 LocalDateTime orariApertura, String responsabile, Contatti contatti, int numeroSale, List<CollezioniMuseo> collezioni) {
+        super( nome, posizione, contributore, comuneAssociato, indirizzo, statoContenuto);
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;
         this.contatti = contatti;
@@ -26,11 +26,11 @@ public final class Museo extends POI {
         this.collezioni = collezioni;
     }
 
-    public String getOrariApertura() {
+    public LocalDateTime getOrariApertura() {
         return orariApertura;
     }
 
-    public void setOrariApertura(String orariApertura) {
+    public void setOrariApertura(LocalDateTime orariApertura) {
         this.orariApertura = orariApertura;
     }
 

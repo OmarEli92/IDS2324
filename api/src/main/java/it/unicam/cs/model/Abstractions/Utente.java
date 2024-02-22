@@ -2,14 +2,16 @@ package it.unicam.cs.model.Abstractions;
 
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.util.enums.Ruolo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "RUOLO")
+//@DiscriminatorColumn(name = "RUOLO")
 public abstract class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +29,8 @@ public abstract class Utente {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
+    @Column(name = "ruoli", nullable = false)
+    private Ruolo ruolo;
 
     public Utente(Integer id, String nome, String cognome, LocalDate dataDiNascita,
                   String email, String sesso, String telefono, int numeroDiContribuzioni, Comune comuneAssociato) {
@@ -87,6 +91,10 @@ public abstract class Utente {
 
     public Comune getComune() {
         return comuneAssociato;
+    }
+
+    public Ruolo getRuolo() {
+        return ruolo;
     }
 
     public void setNome(String nome) {
