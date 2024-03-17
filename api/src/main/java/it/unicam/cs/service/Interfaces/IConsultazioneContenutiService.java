@@ -1,6 +1,10 @@
 package it.unicam.cs.service.Interfaces;
 
 
+import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.DTO.EventoDto;
+import it.unicam.cs.model.DTO.ItinerarioDto;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.Itinerario;
@@ -13,25 +17,33 @@ import java.util.List;
  * dei contenuti nella piattaforma e fornisce metodi adibiti a tale scopo **/
 public interface IConsultazioneContenutiService {
 
-   /**@param idPOI
-   * Il metodo ottieniPOIdaId recupera un POI a partire dal suo id **/
+/** Il metodo ottieniComuneDaId recupera un comune a partire dal suo id
+ * @param idComune **/
+ public Comune ottieniComuneDaId(Integer idComune);
+
+/** Il metodo ottieniComune recupera un comune a partire dal suo nome
+ * @param comune **/
+ public Comune ottieniComune(String comune);
+
+  /**@param idPOI
+  * Il metodo ottieniPOIdaId recupera un POI a partire dal suo id **/
     POI ottieniPOIdaId(Integer idPOI);
 
     /** Il metodo ottieniPOIS restituisce una mappa di POI **/
-    List<POI> ottieniPOIS(final Integer idComune);
+    List<PoiDto> ottieniPOIS(final Integer idComune);
 
     /**@param idEvento
      * Il metodo ottieniEventoDaId visualizza un evento a partire dal suo id **/
     Evento ottieniEventoDaId(Integer idEvento);
 
     /** Il metodo ottieniEventiDaId restituisce una mappa di eventi **/
-    List<Evento> ottieniEventi(final Integer idComune);
+    List<EventoDto> ottieniEventi(final Integer idComune);
 
     /**@param idItinerario
      *  Il metodo ottieniItinerarioDaId visualizza un itinerario a partire dal suo id **/
      Itinerario ottieniItinerarioDaId(Integer idItinerario);
     /** Il metodo ottieniItinerari restituisce la lista di itinerari associati al comune**/
-    List<Itinerario> ottieniItinerari(final Integer idComune);
+    List<ItinerarioDto> ottieniItinerari(final Integer idComune);
 
  /** Il metodo ottieniContenutoMultimediale restituisce un contenuto multimediale
   *  @param id

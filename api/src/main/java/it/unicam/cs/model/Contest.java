@@ -1,11 +1,10 @@
 package it.unicam.cs.model;
 
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.model.abstractions.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.observer.ContestObservable;
-import it.unicam.cs.observer.ContestObserver;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -13,9 +12,11 @@ import java.util.Date;
 import java.util.List;
 /** Un contest è un evento di contribuzione organizzato da un animatore in cui partecipano degli utenti invitati
  * e che prevede la selezione di un vincitore **/
-@Data
+
 @Entity
-public class Contest implements ContestObservable {
+@Data
+@AllArgsConstructor
+public class Contest implements ContestObservable<Utente> {
     @Id
     private Integer id;
     private String oggetto;
@@ -31,11 +32,17 @@ public class Contest implements ContestObservable {
     private List<ContenutoMultimediale> contenutiCaricati;
     @OneToOne
     private ContenutoMultimediale contenutoVincitore;
-    @OneToOne
+    @ManyToOne
     private Utente organizzatore;
     private boolean attivo = true;
-    @OneToMany
-    private List<ContestObserver> partecipantiContest;
+    @ManyToOne
+    private Utente vincitore;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "partecipanti_contest",
+            joinColumns = @JoinColumn(name = "id_contest", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_utente", referencedColumnName = "id")
+    )
+    private List<Utente> partecipantiContest;
 
     public Contest() {
 
@@ -62,7 +69,8 @@ public class Contest implements ContestObservable {
 
     /*** Chiude il contest **/
     public void chiudiContest(){
-        if(LocalDate.now().isAfter(this.dataFine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()))
+        if(LocalDate.now().isAfter(this.dataFine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                || contenutoVincitore == null)
         this.attivo = false;
     }
 
@@ -71,20 +79,23 @@ public class Contest implements ContestObservable {
     public void setContenutoVincitore(ContenutoMultimediale contenutoVincitore) {
         if(this.attivo && this.contenutoVincitore == null)
             this.contenutoVincitore = contenutoVincitore;
+        chiudiContest();
     }
 
     @Override
-    public void aggiungiObserver(ContestObserver observer) {
-
+    public void aggiungiObserver(Utente osservatore) {
+        partecipantiContest.add(osservatore);
     }
 
     @Override
-    public void rimuoviObserver(ContestObserver observer) {
-
+    public void rimuoviObserver(Utente osservatore) {
+        partecipantiContest.remove(osservatore);
     }
 
     @Override
     public void notifica() {
-
+        for(Utente osservatore : partecipantiContest){
+            osservatore.update(this);
+        }
     }
 }

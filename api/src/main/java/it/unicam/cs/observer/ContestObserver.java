@@ -1,10 +1,10 @@
 package it.unicam.cs.observer;
 
-import jakarta.persistence.Entity;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
-@Component
+import it.unicam.cs.model.Contest;
+import org.springframework.stereotype.Service;
+
+@Service
 public interface ContestObserver {
-    void update();
+    void update(Contest contest);
 }

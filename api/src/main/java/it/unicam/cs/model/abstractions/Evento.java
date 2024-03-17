@@ -2,6 +2,7 @@ package it.unicam.cs.model.abstractions;
 
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Utente;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public abstract class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
     private String nome;
@@ -28,11 +29,12 @@ public abstract class Evento {
     private LocalDateTime dataInizio;
     @Column(name = "data_fine")
     private LocalDateTime dataFine;
+    private String tipo;
 
 
     public Evento(Integer id, String nome, Comune idcomuneAssociato, String descrizione,
                   Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
-                  LocalDateTime dataFine) {
+                  LocalDateTime dataFine,String tipo) {
         this.id = id;
         this.nome = nome;
         this.comuneAssociato = comuneAssociato;
@@ -41,6 +43,7 @@ public abstract class Evento {
         this.poiAssociato = poiAssociato;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
+        this.tipo = tipo;
     }
 
     public Evento() {
@@ -79,5 +82,8 @@ public abstract class Evento {
         return descrizione;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
 }
 

@@ -1,7 +1,7 @@
 package it.unicam.cs.model.contenuti;
 
 
-import it.unicam.cs.model.abstractions.Utente;
+import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.POI;
 import jakarta.persistence.*;
@@ -14,23 +14,26 @@ import java.util.Objects;
 public class Itinerario{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private  Integer id;
-    private  String nome;
+    private Integer id;
+    private String nome;
+    private String descirizione;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     private  List<POI> poisAssociati;
 
-    public Itinerario(Integer id, String nome, Utente contributore,Comune comuneAssociato, List<POI> poisAssociati) {
+    public Itinerario(Integer id, String nome, Utente contributore,Comune comuneAssociato,
+                      List<POI> poisAssociati, String descrizione) {
         this.id = id;
         this.nome = nome;
         this.contributore = contributore;
         this.comuneAssociato = comuneAssociato;
         this.poisAssociati = poisAssociati;
+        this.descirizione = descrizione;
     }
 
     public Itinerario() {
@@ -69,5 +72,9 @@ public class Itinerario{
 
     public List<POI> getPoisAssociati() {
         return poisAssociati;
+    }
+
+    public String getDescirizione() {
+        return descirizione;
     }
 }

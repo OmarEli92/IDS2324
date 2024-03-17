@@ -1,40 +1,43 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
+import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**Il controller si occupa di gestire la visualizzazione dei contenuti quando un utente richiede di visionare
  * POI,Eventi, Itinerari **/
 @CrossOrigin(origins = "http://localhost:63342")
-@RestController
+@RestController @RequestMapping(value = "/api/comune")
 public class ControllerConsultazioneContenuti {
 
     private final IConsultazioneContenutiService consultazioneContenutiService;
-    private final ListaComuni listaComuni;
     private Integer IDcomuneSelezionato;
     @Autowired
-    public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
-                                            ListaComuni listaComuni){
-
+    public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService){
         this.consultazioneContenutiService = consultazioneContenutiService;
-        this.listaComuni = listaComuni;
+
     }
-/*
-@GetMapping(value="/")
-    public ResponseEntity<Object> selezionaComune(String nomeComune){
-        if(listaComuni.getComune(nomeComune) != null){
-            this.IDcomuneSelezionato = listaComuni.getComune(nomeComune).getId();
+
+    @GetMapping(value="/home")
+    public ResponseEntity<Object> home(){
+        return new ResponseEntity<>("benvenuto nella home", HttpStatus.OK);
+    }
+@GetMapping(value="/{comune}")
+    public ResponseEntity<Object> selezionaComune(@PathVariable("comune") String nomeComune){
+        Comune comune = consultazioneContenutiService.ottieniComune(nomeComune);
+        if(comune !=null){
+            this.IDcomuneSelezionato = comune.getId();
             return new ResponseEntity<>("Comune selezionato", HttpStatus.OK);
         }
-    return new ResponseEntity<>("Comune non trovato!", HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>("Non valido!", HttpStatus.BAD_REQUEST);
     }
-*/
+
 
   @GetMapping(value="/poi/{idPOI}")
     public ResponseEntity<Object> visualizzaPOI(@PathVariable("idPOI") Integer idPOI){
@@ -43,7 +46,10 @@ public class ControllerConsultazioneContenuti {
 
     @GetMapping(value="/poi")
     public ResponseEntity<Object> visualizzaPOIS(){
-        return new ResponseEntity<>(consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato),HttpStatus.OK);
+      List<PoiDto> pois = consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato);
+      if(pois.isEmpty())
+          return new ResponseEntity<>("Nessun POI trovato",HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(pois,HttpStatus.OK);
     }
 
     @GetMapping(value="/evento/{idEvento}")
@@ -64,5 +70,7 @@ public class ControllerConsultazioneContenuti {
     public ResponseEntity<Object> visualizzaItinerari(){
         return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato),HttpStatus.OK);
     }
+
+
 }
 

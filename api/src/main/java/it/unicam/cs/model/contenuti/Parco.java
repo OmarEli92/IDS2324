@@ -1,6 +1,6 @@
 package it.unicam.cs.model.contenuti;
 
-import it.unicam.cs.model.abstractions.Utente;
+import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.info.Indirizzo;

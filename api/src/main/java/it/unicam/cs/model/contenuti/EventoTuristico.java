@@ -1,6 +1,6 @@
 package it.unicam.cs.model.contenuti;
 
-import it.unicam.cs.model.abstractions.Utente;
+import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
@@ -16,8 +16,8 @@ public class EventoTuristico extends Evento {
     public EventoTuristico(Integer ID, String nome, Comune comuneAssociato, String descrizione,
                            LocalDateTime dataInizio, LocalDateTime dataFine, Posizione posizione,
                            Utente contributore, POI poiAssociato,
-                           List<ContenutoMultimediale> contenutiMultimediali){
-        super(ID, nome,comuneAssociato, descrizione,contributore,poiAssociato, dataInizio, dataFine);
+                           List<ContenutoMultimediale> contenutiMultimediali,String tipo){
+        super(ID, nome,comuneAssociato, descrizione,contributore,poiAssociato, dataInizio, dataFine,tipo);
         this.contenutiMultimediali = contenutiMultimediali;
 
 

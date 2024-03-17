@@ -1,6 +1,7 @@
 package it.unicam.cs.model.abstractions;
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
@@ -23,7 +24,7 @@ public abstract class POI{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
     @Embedded

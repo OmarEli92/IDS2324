@@ -1,19 +1,23 @@
 package it.unicam.cs.service;
 
 
+import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.DTO.EventoDto;
+import it.unicam.cs.model.DTO.ItinerarioDto;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.repository.IContenutoMultimedialeRepository;
-import it.unicam.cs.repository.IEventoRepository;
-import it.unicam.cs.repository.IItinerarioRepository;
-import it.unicam.cs.repository.IPOIRepository;
+import it.unicam.cs.repository.*;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import jdk.jfr.Event;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ConsultazioneContenutiService implements IConsultazioneContenutiService {
@@ -21,33 +25,40 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     private final IEventoRepository eventoRepository;
     private final IItinerarioRepository itinerarioRepository;
     private final IContenutoMultimedialeRepository contenutoMultimedialeRepository;
+    private final IComuneRepository comuneRepository;
 
 
     public ConsultazioneContenutiService(IPOIRepository poiRepository,
                                          IEventoRepository eventoRepository,
                                          IItinerarioRepository itinerarioRepository,
-                                         IContenutoMultimedialeRepository contenutoMultimedialeRepository) {
+                                         IContenutoMultimedialeRepository contenutoMultimedialeRepository,
+                                         IComuneRepository comuneRepository) {
         this.poiRepository = poiRepository;
         this.eventoRepository = eventoRepository;
         this.itinerarioRepository = itinerarioRepository;
         this.contenutoMultimedialeRepository = contenutoMultimedialeRepository;
+        this.comuneRepository = comuneRepository;
     }
 
+    public Comune ottieniComuneDaId(Integer idComune){
+        return comuneRepository.findById(idComune).orElse(null);
+    }
+    public Comune ottieniComune(String nomeComune){
+        return comuneRepository.findByNome(nomeComune);
+    }
     @Override
     public POI ottieniPOIdaId(Integer idPOI){
         return poiRepository.findById(idPOI).orElse(null);
     }
 
     @Override
-    public List<POI> ottieniPOIS(final Integer idComune) {
-         Iterable<POI> it = poiRepository.findAll();
-         List<POI> pois = new ArrayList<>();
-         for(POI poi : it){
-             if(poi.getComuneAssociato().getId().equals(idComune))
-                    pois.add(poi);
-         }
-         return pois;
+    public List<PoiDto> ottieniPOIS(final Integer comuneId) {
+        List<POI> pois = poiRepository.findByComuneAssociatoId(comuneId);
+        return pois.stream()
+                .map(poi -> poiRepository.convertiPOIinPoiDto(poi))
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public Evento ottieniEventoDaId(Integer idEvento) {
@@ -55,15 +66,13 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<Evento> ottieniEventi(final Integer idComune) {
-        Iterable<Evento> it = eventoRepository.findAll();
-        List<Evento> eventi = new ArrayList<>();
-        for(Evento evento : it){
-            if(evento.getComuneAssociato().getId().equals(idComune))
-                eventi.add(evento);
-        }
-        return eventi;
+    public List<EventoDto> ottieniEventi(final Integer idComune) {
+        List<Evento> eventi = eventoRepository.findByComuneAssociatoId(idComune);
+        return eventi.stream()
+                .map(evento -> eventoRepository.convertiEventoInEventoDTO(evento))
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public Itinerario ottieniItinerarioDaId(Integer idItinerario){
@@ -71,15 +80,13 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<Itinerario> ottieniItinerari(final Integer idComune) {
-        Iterable<Itinerario> it = itinerarioRepository.findAll();
-        List<Itinerario> itinerari = new ArrayList<>();
-        for(Itinerario itinerario : it){
-            if(itinerario.getComuneAssociato().getId().equals(idComune))
-                itinerari.add(itinerario);
-        }
-        return itinerari;
+    public List<ItinerarioDto> ottieniItinerari(final Integer idComune) {
+        List<Itinerario> itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
+        return itinerari.stream()
+                .map(itinerario -> itinerarioRepository.convertiItinerarioAItinerarioDto(itinerario))
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public ContenutoMultimediale ottieniContenutoMultimedialeDaId(Integer id) {

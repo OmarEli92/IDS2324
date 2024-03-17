@@ -1,6 +1,5 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.ruoli.GestorePiattaforma;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,16 +11,16 @@ public class ListaComuni {
 
     private static ListaComuni instance;
     private List<Comune> comuni;
-    private List<GestorePiattaforma> gestoriPiattaforma;
+    private List<Utente> gestoriComuni;
 
-    private ListaComuni(List<Comune> comuni, List<GestorePiattaforma> gestoriPiattaforma){
+    private ListaComuni(List<Comune> comuni, List<Utente> gestoriComuni){
         this.comuni = comuni;
-        this.gestoriPiattaforma = gestoriPiattaforma;
+        this.gestoriComuni = gestoriComuni;
     }
 
-    public static  ListaComuni getInstance(List<Comune> comuni, List<GestorePiattaforma> gestoriPiattaforma) {
+    public static  ListaComuni getInstance(List<Comune> comuni, List<Utente> gestoriComuni) {
         if (instance == null) {
-            instance = new ListaComuni(comuni, gestoriPiattaforma);
+            instance = new ListaComuni(comuni, gestoriComuni);
         }
         return instance;
     }

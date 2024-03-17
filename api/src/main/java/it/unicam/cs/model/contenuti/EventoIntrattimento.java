@@ -1,6 +1,6 @@
 package it.unicam.cs.model.contenuti;
 
-import it.unicam.cs.model.abstractions.Utente;
+import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
@@ -13,8 +13,8 @@ public class EventoIntrattimento extends Evento {
     private final List<ContenutoMultimediale> contenutiMultimediali;
     public EventoIntrattimento(Integer id, String nome, Comune comuneAssociato, String descrizione,
                                Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
-                               LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
-        super(id, nome, comuneAssociato, descrizione, contributore, poiAssociato, dataInizio, dataFine);
+                               LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali,String tipo) {
+        super(id, nome, comuneAssociato, descrizione, contributore, poiAssociato, dataInizio, dataFine,tipo);
         this.contenutiMultimediali = contenutiMultimediali;
     }
 }
