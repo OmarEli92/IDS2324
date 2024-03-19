@@ -63,7 +63,8 @@ public class DBLoader implements CommandLineRunner {
                 new Utente(1,"Omar92","password","Omar","El Idrissi",
                         LocalDate.of(1992,11,20),
                         "omarel@hotmail.com","maschio","1234567890",
-                        0,comune2,new ArrayList<>(), new ArrayList<>(), new ArrayList<>())
+                        0,comune2,new ArrayList<>(), new ArrayList<>(),
+                        new ArrayList<>(),new ArrayList<>())
         );
 
 

@@ -54,7 +54,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html", "/webjars/**",
                                 "/swagger-resources/**","/login",
-                                "api/auth/**","/api/comune/**")
+                                "api/auth/**","/api/comune/**",
+                                "h2-console/**")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

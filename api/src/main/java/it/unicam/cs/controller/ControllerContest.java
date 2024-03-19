@@ -2,8 +2,11 @@ package it.unicam.cs.controller;
 
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.contenuti.ContenutoContest;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.service.Interfaces.IContestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class ControllerContest {
      * @param contest contest da creare
      * @return contest creato
      */
-    @PostMapping("/animatore/creaContest")
+    @PostMapping("/creaContest")
     public ResponseEntity<Object> creaContest(@RequestBody Contest contest){
         if(contestService.ottieniContest(contest.getId())!= null)
             return new ResponseEntity<>("Contest già esistente", HttpStatus.BAD_REQUEST);
@@ -37,7 +40,7 @@ public class ControllerContest {
      * @param contest contest da rimuovere
      * @return contest rimosso
      */
-    @PutMapping(value="/animatore/rimuoviContest{id}")
+    @PutMapping(value="/rimuoviContest{id}")
     public ResponseEntity<Object> rimuoviContest(@PathVariable Integer id,@RequestBody Contest contest){
         if(contestService.ottieniContest(id)!= null)
             return new ResponseEntity<>("Contest non presente", HttpStatus.BAD_REQUEST);
@@ -76,7 +79,7 @@ public class ControllerContest {
      * @param partecipanti che partecipano al contest
      * @param idContest
      */
-    @PutMapping(value="/animatore/invita{idContest}")
+    @PutMapping(value="/invita/{idContest}")
     public ResponseEntity<Object> invitaPartecipanti(@RequestBody List<Utente> partecipanti,
                                                      @PathVariable Integer idContest) {
         if(contestService.aggiungiPartecipanti(idContest,partecipanti))
@@ -85,4 +88,14 @@ public class ControllerContest {
             return new ResponseEntity<>("Non sono stati invitati i partecipanti",HttpStatus.BAD_REQUEST);
     }
 
+    /** Metodo che ottiene tutti i contenuti multimediali del contest
+     * @param idContest
+     * @param page
+     * @param size **/
+    @GetMapping(value = "/visualizza_contenuti/{idContest}")
+    public ResponseEntity<Page<ContenutoContest>> visualizzaContenuti(@PathVariable Integer idContest,
+                                                                      @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                      @RequestParam(value = "size", defaultValue = "50") int size){
+        return new ResponseEntity<>(contestService.visionaContenutiCaricati(idContest,page,size),HttpStatus.OK);
+    }
 }

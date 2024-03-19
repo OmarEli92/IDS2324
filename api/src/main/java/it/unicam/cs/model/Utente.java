@@ -1,9 +1,6 @@
 package it.unicam.cs.model;
 
 
-import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.Contest;
-import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.observer.ContestObserver;
 import it.unicam.cs.security.Token;
 import jakarta.persistence.*;
@@ -17,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 /** Un utente è un entità iscritta alla piattaforma che può partecipare ai contest e contribuire con punti di interesse, eventi e contenuti
  * multimediali e a seconda del ruolo avrà diverse autorizzazioni **/
@@ -49,9 +47,12 @@ public class Utente implements UserDetails,ContestObserver {
     private List<Contest> contestInPartecipazione = new ArrayList<>();
     @OneToMany(mappedBy = "utente")
     private List<Token> tokens;
+    @ElementCollection
+    private List<Integer> idContestVinti = new ArrayList<>();
+
     @Override
-    public void update(Contest contest) {
-        this.contestInPartecipazione.add(contest);
+    public void update(Integer idContest) {
+        this.idContestVinti.add(idContest);
     }
 
     @Override
