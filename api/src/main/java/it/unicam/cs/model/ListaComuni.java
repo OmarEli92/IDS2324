@@ -1,17 +1,29 @@
 package it.unicam.cs.model;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /** Classe che gestirà la lista di tutti i comuni**/
-public class ListaComuni {
-    private final List<Comune> comuni;
-    private final List<GestorePiattaforma> gestoriPiattaforma;
 
-    public ListaComuni(List<Comune> comuni, List<GestorePiattaforma> gestoriPiattaforma){
+@Service
+public class ListaComuni {
+
+    private static ListaComuni instance;
+    private List<Comune> comuni;
+    private List<Utente> gestoriComuni;
+
+    private ListaComuni(List<Comune> comuni, List<Utente> gestoriComuni){
         this.comuni = comuni;
-        this.gestoriPiattaforma = gestoriPiattaforma;
+        this.gestoriComuni = gestoriComuni;
     }
 
+    public static  ListaComuni getInstance(List<Comune> comuni, List<Utente> gestoriComuni) {
+        if (instance == null) {
+            instance = new ListaComuni(comuni, gestoriComuni);
+        }
+        return instance;
+    }
     public List<Comune> getComuni() {
         return comuni;
     }

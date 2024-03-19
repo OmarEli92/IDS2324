@@ -1,11 +1,16 @@
 package it.unicam.cs.model;
 
-import it.unicam.cs.model.Abstractions.Utente;
-import it.unicam.cs.util.Posizione;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import it.unicam.cs.model.abstractions.Evento;
+import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.Itinerario;
+import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-@Entity
+@Entity @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true)
 public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,31 +18,35 @@ public class Comune {
     private String nome;
     @Embedded
     private Posizione posizione;
-    @OneToMany(mappedBy = "comuneAssociato")
+    private String provincia;
+    private String regione;
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<POI> POIS;
-    @OneToMany(mappedBy = "comuneAssociato")
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Itinerario> itinerari;
-    @OneToMany(mappedBy = "comuneAssociato")
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Evento> eventi;
-    @OneToMany(mappedBy = "comuneAssociato")
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Evento> eventiInPending;
-    @OneToMany(mappedBy = "comuneAssociato")
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<POI> POISInPending;
-    @OneToMany(mappedBy = "comuneAssociato")
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Itinerario> itinerariInPending;
-    @OneToMany(mappedBy = "comuneAssociato")
-    private List<Curatore> curatori;
-    @OneToMany(mappedBy = "comuneAssociato")
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Utente> curatori;
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Utente> listaUtenti;
     @OneToOne(fetch = FetchType.LAZY)
-    private GestorePiattaforma gestorePiattaforma;
+    private Utente gestoreComune;
 
-    public Comune(String nome, Integer id,Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
+    public Comune(String nome, Integer id,String provincia,String regione,Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
                   List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,
-                  List<Utente>listaUtenti, List<Curatore> curatori, GestorePiattaforma gestorePiattaforma) {
+                  List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune) {
 
         this.nome = nome;
         this.id = id;
+        this.provincia = provincia;
+        this.regione = regione;
         this.POIS = POIS;
         this.posizione = posizione;
         this.itinerari = itinerari;
@@ -47,24 +56,22 @@ public class Comune {
         this.itinerariInPending = itinerariInPending;
         this.listaUtenti=listaUtenti;
         this.curatori = curatori;
-        this.gestorePiattaforma = gestorePiattaforma;
+        this.gestoreComune = gestoreComune;
     }
 
-    public Comune() {
 
-    }
 
     public String getNome() {
         return nome;
     }
 
 
-   public GestorePiattaforma getGestorePiattaforma() {
-       return gestorePiattaforma;
+   public Utente getGestoreComune() {
+       return gestoreComune;
    }
 
 
-    public List<Curatore> getCuratori() {
+    public List<Utente> getCuratori() {
         return curatori;
     }
 

@@ -1,7 +1,7 @@
 package it.unicam.cs.service.Interfaces;
 
 
-import it.unicam.cs.util.Posizione;
+import it.unicam.cs.util.info.Posizione;
 
 /** Interfaccia che espone i metodi per la geocodifica e la geocodifica inversa  */
 public interface IGeolocalizzazioneService {
