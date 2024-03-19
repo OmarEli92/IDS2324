@@ -47,7 +47,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/utenti/**")
-                        .hasAnyAuthority("Gestore_Comune","Animatore","Curatore"))
+                        .hasAnyAuthority("Gestore_Piattaforma","Gestore_Comune",
+                                "Animatore","Curatore"))
                 .authorizeHttpRequests(request -> request.requestMatchers(
                         "/api/contest/**").hasAnyAuthority("Gestore_Comune","Animatore"))
                 .authorizeHttpRequests(request -> request.requestMatchers("swagger-ui/**",
