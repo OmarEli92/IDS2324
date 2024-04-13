@@ -56,9 +56,6 @@ public abstract class POI{
        this.contenutiMultimediali.add(contenutoMultimediale);
     }
 
-    public void aggiungiContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale) {
-        this.contenutiMultimedialiInPending.add(contenutoMultimediale);
-    }
     public void rimuoviContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
        this.contenutiMultimediali.remove(contenutoMultimediale);
     }
@@ -89,10 +86,6 @@ public abstract class POI{
 
     public Indirizzo getIndirizzo() {
         return indirizzo;
-    }
-
-    public List<ContenutoMultimediale> getContenutiMultimedialiInPending() {
-        return contenutiMultimedialiInPending;
     }
 
     public List<Evento> getEventiAssociati() {

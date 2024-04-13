@@ -1,4 +1,4 @@
-package it.unicam.cs.model.Builder;
+package it.unicam.cs.Builder;
 
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
