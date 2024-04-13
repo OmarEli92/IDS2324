@@ -13,4 +13,5 @@ public class Ruolo {
     @Id
     private Integer id;
     private String nome;
+
 }

@@ -78,7 +78,7 @@ public class ContestService implements IContestService {
 
     @Override
     public void assegnaVincitoreContest(Contest contest, Utente utente) {
-        if(contest.isAttivo() && contest.getVincitore() == null){
+        if(contest.isAttivo()&& contest.getVincitore() == null){
             contest.setVincitore(utente);
             chiudiContest(contest);
 

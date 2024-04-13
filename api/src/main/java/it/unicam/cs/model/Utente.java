@@ -83,4 +83,5 @@ public class Utente implements UserDetails,ContestObserver {
     public boolean isEnabled() {
         return true;
     }
+
 }
