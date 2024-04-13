@@ -8,8 +8,10 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+@Component
 @Data
 public abstract class POIBuilder {
     private Integer Id;

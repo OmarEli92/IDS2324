@@ -3,7 +3,9 @@ package it.unicam.cs.Builder;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIAmministrativo;
 import it.unicam.cs.util.info.Contatti;
+import org.springframework.stereotype.Component;
 
+@Component
 public class POIAmministrativoBuilder extends POIBuilder {
     private String orariApertura;
     private String responsabile;

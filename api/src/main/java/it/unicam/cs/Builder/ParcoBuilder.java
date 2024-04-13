@@ -3,9 +3,10 @@ package it.unicam.cs.Builder;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.model.contenuti.Parco;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ParcoBuilder extends POIBuilder{
     private boolean presenzaSpecieProtetta;
     private String orarioApertura;
