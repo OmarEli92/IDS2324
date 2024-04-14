@@ -8,9 +8,11 @@ import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
  @Entity
+ @Data
 public final class POIIntrattenimento extends POI {
     private int etaConsigliata;
     private String orariApertura;
@@ -37,36 +39,5 @@ public final class POIIntrattenimento extends POI {
 
      }
 
-     public int getEtaConsigliata() {
-        return etaConsigliata;
-    }
-
-    public void setEtaConsigliata(int etàConsigliata) {
-        this.etaConsigliata = etaConsigliata;
-    }
-
-    public String getOrariApertura() {
-        return orariApertura;
-    }
-
-    public void setOrariApertura(String orariApertura) {
-        this.orariApertura = orariApertura;
-    }
-
-    public List<Servizio> getServiziOfferti() {
-        return serviziOfferti;
-    }
-
-    public void setServiziOfferti(List<Servizio> serviziOfferti) {
-        this.serviziOfferti = serviziOfferti;
-    }
-
-    public Contatti getContatti() {
-        return contatti;
-    }
-
-    public void setContatti(Contatti contatti) {
-        this.contatti = contatti;
-    }
 }
 

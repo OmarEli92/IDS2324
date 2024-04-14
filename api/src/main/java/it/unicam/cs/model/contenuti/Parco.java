@@ -5,9 +5,12 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.Entity;
+import lombok.Data;
 
 import java.util.List;
-
+@Entity
+@Data
 public final class Parco extends POI {
     private boolean presenzaSpecieProtetta;
     private String orarioApertura;
@@ -30,43 +33,4 @@ public final class Parco extends POI {
         this.estensione = estensione;
     }
 
-    public boolean isPresenzaSpecieProtetta() {
-        return presenzaSpecieProtetta;
-    }
-
-    public void setPresenzaSpecieProtetta(boolean presenzaSpecieProtetta) {
-        this.presenzaSpecieProtetta = presenzaSpecieProtetta;
-    }
-
-    public String getOrarioApertura() {
-        return orarioApertura;
-    }
-
-    public void setOrarioApertura(String orarioApertura) {
-        this.orarioApertura = orarioApertura;
-    }
-
-    public List<Itinerario> getPercorsi() {
-        return percorsi;
-    }
-
-    public void setPercorsi(List<Itinerario> percorsi) {
-        this.percorsi = percorsi;
-    }
-
-    public boolean isPresenzaAnimali() {
-        return presenzaAnimali;
-    }
-
-    public void setPresenzaAnimali(boolean presenzaAnimali) {
-        this.presenzaAnimali = presenzaAnimali;
-    }
-
-    public int getEstensione() {
-        return estensione;
-    }
-
-    public void setEstensione(int estensione) {
-        this.estensione = estensione;
-    }
 }

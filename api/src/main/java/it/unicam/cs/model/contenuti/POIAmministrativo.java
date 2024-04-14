@@ -6,9 +6,12 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.Entity;
+import lombok.Data;
 
 import java.util.List;
-
+@Entity
+@Data
 public class POIAmministrativo extends POI {
     private String orariApertura;
     private String responsabile;
@@ -26,20 +29,5 @@ public class POIAmministrativo extends POI {
         this.contatti = contatti;
     }
 
-    public String getOrariApertura() {
-        return orariApertura;
-    }
-
-    public void setOrariApertura(String orariApertura) {
-        this.orariApertura = orariApertura;
-    }
-
-    public Contatti getContatti() {
-        return contatti;
-    }
-
-    public void setContatti(Contatti contatti) {
-        this.contatti = contatti;
-    }
 }
 

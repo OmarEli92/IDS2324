@@ -6,9 +6,12 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.Entity;
+import lombok.Data;
 
 import java.util.List;
-
+@Entity
+@Data
 public final class POIServiziUtili extends POI {
 
     private Contatti contatti;

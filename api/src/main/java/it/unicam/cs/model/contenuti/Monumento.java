@@ -5,9 +5,12 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.Entity;
+import lombok.Data;
 
 import java.util.List;
-
+@Entity
+@Data
 public final class Monumento extends POI {
 
     private int annoRealizzazione;
