@@ -20,7 +20,6 @@ public interface IPOIRepository extends JpaRepository<POI, Integer> {
                 poiDTO.setIDComune(poi.getComuneAssociato() != null?poi.getComuneAssociato().getId():null);
                 poiDTO.setPosizione(poi.getPosizione());
                 poiDTO.setIDContributore(poi.getContributore() != null ?poi.getContributore().getId():null);
-                poiDTO.setTipo(poi.getTipo());
                 return poiDTO;
     }
 }
