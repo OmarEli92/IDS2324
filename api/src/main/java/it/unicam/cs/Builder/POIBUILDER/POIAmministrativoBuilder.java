@@ -1,11 +1,9 @@
-package it.unicam.cs.Builder;
+package it.unicam.cs.Builder.POIBUILDER;
 
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIAmministrativo;
 import it.unicam.cs.util.enums.TipoAmministrativo;
 import it.unicam.cs.util.info.Contatti;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component

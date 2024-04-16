@@ -40,16 +40,6 @@ public abstract class POI{
     @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
 
-
-    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
-       this.contenutiMultimediali.add(contenutoMultimediale);
-    }
-
-    public void rimuoviContenutoMultimedialeInPending(ContenutoMultimediale contenutoMultimediale){
-       this.contenutiMultimediali.remove(contenutoMultimediale);
-    }
-
-
 }
 
 

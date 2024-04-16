@@ -4,12 +4,17 @@ package it.unicam.cs.model.abstractions;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
 @Entity
+@Data
+@AllArgsConstructor @NoArgsConstructor
 public abstract class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -29,61 +34,6 @@ public abstract class Evento {
     private LocalDateTime dataInizio;
     @Column(name = "data_fine")
     private LocalDateTime dataFine;
-    private String tipo;
 
-
-    public Evento(Integer id, String nome, Comune idcomuneAssociato, String descrizione,
-                  Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
-                  LocalDateTime dataFine,String tipo) {
-        this.id = id;
-        this.nome = nome;
-        this.comuneAssociato = comuneAssociato;
-        this.descrizione = descrizione;
-        this.contributore = contributore;
-        this.poiAssociato = poiAssociato;
-        this.dataInizio = dataInizio;
-        this.dataFine = dataFine;
-        this.tipo = tipo;
-    }
-
-    public Evento() {
-
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Comune getComuneAssociato() {
-        return comuneAssociato;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Utente getContributore() {
-        return contributore;
-    }
-
-    public POI getPoiAssociato() {
-        return poiAssociato;
-    }
-
-    public LocalDateTime getDataInizio() {
-        return dataInizio;
-    }
-
-    public LocalDateTime getDataFine() {
-        return dataFine;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
 }
 

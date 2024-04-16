@@ -8,8 +8,12 @@ import it.unicam.cs.util.info.Contatti;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+@Component
+@Data
 @ApiModel("dto per poi intrattenimento")
 public class PoiIntrattenimentoDto extends PoiDto {
     private String tipo;
