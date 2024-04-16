@@ -3,6 +3,7 @@ package it.unicam.cs.model;
 
 import it.unicam.cs.observer.ContestObserver;
 import it.unicam.cs.security.Token;
+import it.unicam.cs.util.enums.RuoliUtente;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

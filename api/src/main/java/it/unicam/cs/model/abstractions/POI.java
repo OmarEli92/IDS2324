@@ -3,15 +3,21 @@ package it.unicam.cs.model.abstractions;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /** La classe POI, Point of interest rappresenta un punto di interesse presente nel territorio del comune.
  **/
 @Entity
+@Data
+@AllArgsConstructor @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class POI{
     @Id
@@ -23,6 +29,7 @@ public abstract class POI{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
+    private StatoElemento stato;
     @ManyToOne()
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
@@ -34,24 +41,6 @@ public abstract class POI{
     private List<ContenutoMultimediale> contenutiMultimediali;
 
 
-    public POI(Integer id, String nome,Posizione posizione, Utente contributore,
-               Comune comuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
-                List<Evento> eventiAssociati) {
-        this.id = id;
-        this.nome = nome;
-        this.posizione = posizione;
-        this.contributore = contributore;
-        this.comuneAssociato = comuneAssociato;
-        this.indirizzo = indirizzo;
-        this.eventiAssociati = eventiAssociati;
-        this.contenutiMultimediali = contenutiMultimediali;
-    }
-
-    public POI() {
-
-    }
-
-
     public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
        this.contenutiMultimediali.add(contenutoMultimediale);
     }
@@ -60,37 +49,7 @@ public abstract class POI{
        this.contenutiMultimediali.remove(contenutoMultimediale);
     }
 
-    public List<ContenutoMultimediale> getContenutiMultimediali() {
-        return contenutiMultimediali;
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Posizione getPosizione() {
-        return posizione;
-    }
-
-    public Utente getContributore() {
-        return contributore;
-    }
-
-    public Comune getComuneAssociato() {
-        return comuneAssociato;
-    }
-
-    public Indirizzo getIndirizzo() {
-        return indirizzo;
-    }
-
-    public List<Evento> getEventiAssociati() {
-        return eventiAssociati;
-    }
 }
 
 
