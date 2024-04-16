@@ -15,12 +15,11 @@ import java.util.List;
 @Data
 public class EventoTuristico extends Evento {
     private TipoTuristico tipo;
-    List<ContenutoMultimediale> contenutiMultimediali;
+    private List<ContenutoMultimediale> contenutiMultimediali;
 
-    public EventoTuristico(Integer ID, String nome, Comune comuneAssociato, String descrizione,
-                           LocalDateTime dataInizio, LocalDateTime dataFine, Posizione posizione,
-                           Utente contributore, POI poiAssociato, TipoTuristico tipo,
-                           List<ContenutoMultimediale> contenutiMultimediali){
+    public EventoTuristico(Integer ID, Comune comuneAssociato, String nome, String descrizione,
+                           Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,
+                           TipoTuristico tipo, List<ContenutoMultimediale> contenutiMultimediali){
         super(ID, comuneAssociato, nome, descrizione,contributore,poiAssociato, dataInizio, dataFine);
         this.contenutiMultimediali = contenutiMultimediali;
 

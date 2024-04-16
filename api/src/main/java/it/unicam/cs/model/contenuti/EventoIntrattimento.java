@@ -15,8 +15,8 @@ import java.util.List;
 @Data
 public class EventoIntrattimento extends Evento {
     private TipoIntrattenimento tipo;
-    private final List<ContenutoMultimediale> contenutiMultimediali;
-    public EventoIntrattimento(Integer id, String nome, Comune comuneAssociato, String descrizione,
+    private List<ContenutoMultimediale> contenutiMultimediali;
+    public EventoIntrattimento(Integer id, Comune comuneAssociato, String nome, String descrizione,
                                Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
                                LocalDateTime dataFine, TipoIntrattenimento tipo, List<ContenutoMultimediale> contenutiMultimediali) {
         super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine);

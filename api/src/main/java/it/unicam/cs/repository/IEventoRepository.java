@@ -22,7 +22,6 @@ public interface IEventoRepository extends JpaRepository<Evento,Integer> {
         eventoDto.setNome(evento.getNome());
         eventoDto.setDescrizione(evento.getDescrizione());
         eventoDto.setPosizione(evento.getPoiAssociato().getPosizione());
-        eventoDto.setTipo(evento.getTipo());
         eventoDto.setIDContributore(evento.getContributore() != null ?evento.getContributore().getId() :null);
         eventoDto.setIDComune(evento.getComuneAssociato() != null ? evento.getComuneAssociato().getId() :null);
         return eventoDto;
