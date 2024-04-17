@@ -16,5 +16,5 @@ import java.util.List;
 public class EventoIntrattenimentoDto extends EventoDto{
     @ApiModelProperty(value = "tipo di intrattenimento", allowableValues = "TipoIntrattenimento")
     private TipoIntrattenimento tipo;
-    private final List<ContenutoMultimediale> contenutiMultimediali;
+    private List<ContenutoMultimediale> contenutiMultimediali;
 }
