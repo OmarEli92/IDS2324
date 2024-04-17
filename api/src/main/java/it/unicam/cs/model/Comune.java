@@ -79,36 +79,5 @@ public class Comune {
     public Integer getId() {
         return id;
     }
-    public void aggiungiEvento (Evento evento){
-        this.eventi.add(evento);
-    }
-
-    public void aggiungiEventoInPending(Evento evento){
-        this.eventiInPending.add(evento);
-    }
-    public void rimuoviEventoInPending (Evento evento){
-        this.eventiInPending.remove(evento);
-    }
-    public void aggiungiPOI(POI poi){
-        this.POISInPending.add(poi);
-    }
-
-    public void aggiungiPOIInPending(POI poi) {
-    this.POIS.add(poi);
-    }
-
-    public void rimoviPOIInPending(POI poi) {
-    this.POISInPending.remove(poi);
-    }
-
-    public void aggiungiItinerario(Itinerario itinerario){
-        this.itinerari.add(itinerario);
-    }
-    public void aggiungiItinerarioInPending(Itinerario itinerario){
-        this.itinerariInPending.add(itinerario);
-    }
-    public void rimuoviItinerartioInPending(Itinerario itinerario){
-        this.itinerariInPending.remove(itinerario);
-    }
 
 }
