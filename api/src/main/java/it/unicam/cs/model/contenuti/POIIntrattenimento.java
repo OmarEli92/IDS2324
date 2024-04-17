@@ -25,6 +25,7 @@ public final class POIIntrattenimento extends POI {
      @ElementCollection
      @Enumerated(EnumType.STRING)
      private List<Servizio> serviziOfferti;
+     @Embedded
      private Contatti contatti;
 
      public POIIntrattenimento(Integer id, String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali,TipoIntrattenimento tipo, int etaConsigliata, String orariApertura, List<Servizio> serviziOfferti, Contatti contatti) {

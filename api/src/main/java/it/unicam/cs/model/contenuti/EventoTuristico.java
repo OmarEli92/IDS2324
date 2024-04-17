@@ -6,7 +6,9 @@ import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.enums.TipoTuristico;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.List;
 @Data
 public class EventoTuristico extends Evento {
     private TipoTuristico tipo;
+    @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
 
     public EventoTuristico(Integer ID, Comune comuneAssociato, String nome, String descrizione,

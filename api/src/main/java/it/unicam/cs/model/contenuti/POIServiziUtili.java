@@ -9,6 +9,8 @@ import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public final class POIServiziUtili extends POI {
     private ServiziUtili servizio;
+    @Embedded
     private Contatti contatti;
     private String orariApertura;
 

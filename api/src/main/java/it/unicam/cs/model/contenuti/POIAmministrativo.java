@@ -9,6 +9,7 @@ import it.unicam.cs.util.enums.TipoAmministrativo;
 import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class POIAmministrativo extends POI {
     private TipoAmministrativo tipo;
     private String orariApertura;
     private String responsabile;
+    @Embedded
     private Contatti contatti;
 
     public POIAmministrativo(Integer id, String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, TipoAmministrativo tipo, String orariApertura, String responsabile, Contatti contatti) {
