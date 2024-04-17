@@ -7,10 +7,11 @@ import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-@Entity @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true) @Data
 public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
