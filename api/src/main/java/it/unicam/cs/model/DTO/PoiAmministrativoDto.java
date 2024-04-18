@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import it.unicam.cs.util.enums.TipoAmministrativo;
 import it.unicam.cs.util.info.Contatti;
+import jakarta.persistence.Embedded;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -15,5 +16,6 @@ public class PoiAmministrativoDto extends PoiDto {
     private TipoAmministrativo tipo;
     private String orariApertura;
     private String responsabile;
+    @Embedded
     private Contatti contatti;
 }

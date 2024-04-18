@@ -14,7 +14,6 @@ public class PoiDto{
     private Integer ID;
     private String nome;
     private Posizione posizione;
-    private Integer IDComune;
     private Integer IDContributore;
 
 }

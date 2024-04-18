@@ -22,6 +22,7 @@ import java.util.UUID;
 @Entity @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class Utente implements UserDetails,ContestObserver {
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull @Column(unique = true)

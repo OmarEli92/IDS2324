@@ -40,11 +40,11 @@ public class DBLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Comune comune = new Comune("Camerino",1,"MC","Marche",new Posizione(12,
-                21),new ArrayList<>(),null,null,
-                null,null,null,null,null, null);
+                21),new ArrayList<>(),
+                null,null,null,null,null);
         Comune comune2 = new Comune("Grottammare",2,"MC","Marche",new Posizione(12,
                 21),new ArrayList<>(),null,null,
-                null,null,null,null,null, null);
+                null,null,null);
         comuneRepository.save(comune);
         comuneRepository.save(comune2);
         poiRepository.save(new POIIntrattenimento(1, "Cinema delle palme", new Posizione(12,
