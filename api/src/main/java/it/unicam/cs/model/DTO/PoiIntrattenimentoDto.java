@@ -17,12 +17,10 @@ import java.util.List;
 @Data
 @ApiModel("dto per poi intrattenimento")
 public class PoiIntrattenimentoDto extends PoiDto {
-    @ApiModelProperty(value = "tipo di intrattenimento", allowableValues = "TipoIntrattenimento")
-    private TipoIntrattenimento tipo;
+    private String tipo;
     private int etaConsigliata;
     private String orariApertura;
-    @ApiModelProperty(value = "tipi di servizi offerti", allowableValues = "Servizio")
-    private List<Servizio> serviziOfferti;
+    private List<String> serviziOfferti;
     @Embedded
     private Contatti contatti;
 }

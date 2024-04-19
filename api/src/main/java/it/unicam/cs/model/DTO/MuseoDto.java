@@ -19,6 +19,5 @@ public class MuseoDto extends PoiDto {
     @Embedded
     private Contatti contatti;
     private int numeroSale;
-    @ApiModelProperty(value = "tipi collezioni museo", allowableValues = "CollezioniMuseo")
-    private List<CollezioniMuseo> collezioni;
+    private List<String> collezioni;
 }

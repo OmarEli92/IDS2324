@@ -18,7 +18,7 @@ public class ControlloPOIAmministrativoService {
     private ValidationPOIExtension validationExtension;
 
     public void controllaPoiAmministrativo(PoiAmministrativoDto poiDto){
-        controllaTipoAmministrativo(poiDto.getTipo().name());
+        controllaTipoAmministrativo(poiDto.getTipo());
         validationExtension.isOrariAperturaValido(poiDto.getOrariApertura());
         validationExtension.isResponsabileValido(poiDto.getResponsabile());
         validationExtension.areContattiValidi(poiDto.getContatti());
@@ -30,7 +30,7 @@ public class ControlloPOIAmministrativoService {
             if(tipo.equalsIgnoreCase(t.name()))
                 return;
         }
-        throw new TipoAmministrativoNotValidException("tipo amministrativo non esistente");
+        throw new TipoAmministrativoNotValidException();
     }
 
 }

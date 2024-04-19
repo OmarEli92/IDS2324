@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 @Data
 @ApiModel("dto per poi amministrativo")
 public class PoiAmministrativoDto extends PoiDto {
-    @ApiModelProperty(value = "tipo di amministrazione", allowableValues = "TipoAmministrativo")
-    private TipoAmministrativo tipo;
+    private String tipo;
     private String orariApertura;
     private String responsabile;
     @Embedded
