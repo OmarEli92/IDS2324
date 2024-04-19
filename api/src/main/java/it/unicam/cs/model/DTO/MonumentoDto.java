@@ -12,7 +12,7 @@ public class MonumentoDto extends PoiDto{
     private int annoRealizzazione;
     private String descrizione;
     private String autore;
-    private int altezza;
-    private int lunghezza;
+    private double altezza;
+    private double lunghezza;
     private String architettura;
 }

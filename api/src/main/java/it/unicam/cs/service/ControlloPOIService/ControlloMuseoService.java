@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor @NoArgsConstructor
-public class ControllaMuseoService {
+public class ControlloMuseoService {
     private ValidationPOIExtension validationPOIExtension;
 
     public void controllaMuseo(MuseoDto museoDto){

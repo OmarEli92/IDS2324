@@ -1,15 +1,11 @@
 package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Factory.POIBuilderFactory;
-import it.unicam.cs.exception.POI.NamePOINotValidException;
-import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.DTO.PoiAmministrativoDto;
 import it.unicam.cs.model.DTO.PoiDto;
-import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.ControlloPOIService.ControlloPOIAmministrativoService;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
-import it.unicam.cs.util.enums.RuoliUtente;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
