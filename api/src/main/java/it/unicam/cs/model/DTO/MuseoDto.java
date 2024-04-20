@@ -1,8 +1,8 @@
 package it.unicam.cs.model.DTO;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.unicam.cs.util.enums.CollezioniMuseo;
+import it.unicam.cs.Visitor.IPoiDtoVisitor;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
 import jakarta.persistence.Embedded;
 import lombok.Data;
@@ -20,4 +20,14 @@ public class MuseoDto extends PoiDto {
     private Contatti contatti;
     private int numeroSale;
     private List<String> collezioni;
+
+    @Override
+    public String getTipoPoi() {
+        return TipoPOI.MUSEO.name();
+    }
+
+    @Override
+    public void accept(IPoiDtoVisitor poiDtoVisitor) {
+        poiDtoVisitor.visit(this);
+    }
 }

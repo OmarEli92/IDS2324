@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service @Slf4j
@@ -57,6 +58,16 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     public Utente ottieniUtente(String username) {
         log.info("Ottieni utente {} ",username);
         return utenteRepository.findByUsername(username);
+    }
+
+    @Override
+    public Utente ottieniUtenteById(Integer id) {
+        log.info("Ottieni utente dall'id",id);
+        Utente utente = utenteRepository.findUtenteById(id);
+        if(utente==null){
+            throw new NullPointerException("utente non trovato");
+        }
+        return utente;
     }
 
     @Override

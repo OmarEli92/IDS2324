@@ -1,8 +1,8 @@
 package it.unicam.cs.model.DTO;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.unicam.cs.util.enums.ServiziUtili;
+import it.unicam.cs.Visitor.IPoiDtoVisitor;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
 import jakarta.persistence.Embedded;
 import lombok.Data;
@@ -16,4 +16,14 @@ public class PoiServiziUtiliDto extends PoiDto{
     @Embedded
     private Contatti contatti;
     private String orariApertura;
+
+    @Override
+    public String getTipoPoi() {
+        return TipoPOI.SERVIZI_UTILI.name();
+    }
+
+    @Override
+    public void accept(IPoiDtoVisitor poiDtoVisitor) {
+        poiDtoVisitor.visit(this);
+    }
 }

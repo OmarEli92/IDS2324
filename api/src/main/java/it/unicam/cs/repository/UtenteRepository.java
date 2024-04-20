@@ -7,9 +7,12 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UtenteRepository extends JpaRepository<Utente,Integer> {
     Utente findByUsername(String username);
+    Utente findUtenteById(Integer id);
     @Transactional
     default UtenteDto convertiUtenteinDto(Utente utente){
         Comune comune = utente.getComuneAssociato();

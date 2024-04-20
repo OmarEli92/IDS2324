@@ -1,20 +1,23 @@
 package it.unicam.cs.service.ControlloPOIService;
 
 import it.unicam.cs.model.DTO.MuseoDto;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
 import it.unicam.cs.util.enums.CollezioniMuseo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor @NoArgsConstructor
-public class ControlloMuseoService {
+public class ControlloMuseoService extends ControlloPOIService{
+    @Autowired
     private ValidationPOIExtension validationPOIExtension;
 
-    public void controllaMuseo(MuseoDto museoDto){
+    public void controllaPOISpecifico(PoiDto poiDto){
+        MuseoDto museoDto = (MuseoDto) poiDto;
         validationPOIExtension.isOrariAperturaValido(museoDto.getOrariApertura());
         validationPOIExtension.isResponsabileValido(museoDto.getResponsabile());
         validationPOIExtension.areContattiValidi(museoDto.getContatti());

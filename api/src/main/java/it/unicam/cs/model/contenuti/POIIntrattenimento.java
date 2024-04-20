@@ -36,5 +36,6 @@ public final class POIIntrattenimento extends POI {
          this.serviziOfferti = serviziOfferti;
          this.contatti = contatti;
      }
+
  }
 

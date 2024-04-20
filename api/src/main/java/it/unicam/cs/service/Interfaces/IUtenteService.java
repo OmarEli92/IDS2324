@@ -3,7 +3,6 @@ package it.unicam.cs.service.Interfaces;
 import it.unicam.cs.model.DTO.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
-import jakarta.validation.constraints.Null;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -22,6 +21,14 @@ public interface IUtenteService {
     /** Ottieni utente tramite username
      * @param username **/
     Utente ottieniUtente(String username) throws NullPointerException;
+
+    /**
+     * ottieni utente tramite id
+     *
+     * @param id
+     * @return Utente utente
+     */
+    Utente ottieniUtenteById(Integer id);
     /**Ottieni utenti
      * @param pageNo
      * @param pageSize **/

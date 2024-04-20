@@ -5,6 +5,8 @@ import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.enums.TipoIntrattenimento;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ che estendono POI
 @AllArgsConstructor
 public class ValidationPOIExtension {
     private final UtenteRepository utenteRepository;
+
     public void isOrariAperturaValido(String orari){
         String pattern = "^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$";
         boolean match = Pattern.matches(pattern,orari);

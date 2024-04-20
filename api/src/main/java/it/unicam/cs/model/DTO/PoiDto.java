@@ -1,5 +1,6 @@
 package it.unicam.cs.model.DTO;
 
+import it.unicam.cs.Visitor.IPoiDtoVisitor;
 import it.unicam.cs.util.info.Posizione;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -9,11 +10,12 @@ import org.springframework.stereotype.Component;
  * senza dover scaricare tutte le informazioni relative ad un POI del territorio**/
 @Component
 @Data
-public class PoiDto{
-
+public abstract class PoiDto{
+    private String tipoPoi;
     private Integer ID;
     private String nome;
     private Posizione posizione;
     private Integer IDContributore;
 
+    public abstract void accept (IPoiDtoVisitor poiDtoVisitor);
 }

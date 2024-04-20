@@ -34,4 +34,8 @@ public class POIExceptionController {
     public ResponseEntity<Object> serviziUtiliNotValidException(ServiziUtiliNotValidException serviziUtiliNotValidException){
         return new ResponseEntity<>("almeno un elemento dei servizi utili non esistente", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = TipoPOINotValidException.class)
+    public ResponseEntity<Object> tipoPOINotValidException(TipoPOINotValidException tipoPOINotValidException){
+        return new ResponseEntity<>("tipo poi non esistente", HttpStatus.BAD_REQUEST);
+    }
 }

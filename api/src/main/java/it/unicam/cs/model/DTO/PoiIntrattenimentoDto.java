@@ -1,14 +1,10 @@
 package it.unicam.cs.model.DTO;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.unicam.cs.util.enums.Servizio;
-import it.unicam.cs.util.enums.TipoIntrattenimento;
+import it.unicam.cs.Visitor.IPoiDtoVisitor;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -23,4 +19,14 @@ public class PoiIntrattenimentoDto extends PoiDto {
     private List<String> serviziOfferti;
     @Embedded
     private Contatti contatti;
+
+    @Override
+    public String getTipoPoi() {
+        return TipoPOI.INTRATTENIMENTO.name();
+    }
+
+    @Override
+    public void accept(IPoiDtoVisitor poiDtoVisitor) {
+        poiDtoVisitor.visit(this);
+    }
 }

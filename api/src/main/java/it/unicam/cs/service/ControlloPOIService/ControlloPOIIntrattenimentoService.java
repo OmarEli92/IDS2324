@@ -2,6 +2,7 @@ package it.unicam.cs.service.ControlloPOIService;
 
 import it.unicam.cs.exception.POI.ServiziNotValidException;
 import it.unicam.cs.exception.POI.TipoAmministrativoNotValidException;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.DTO.PoiIntrattenimentoDto;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
 import it.unicam.cs.util.enums.Servizio;
@@ -9,17 +10,19 @@ import it.unicam.cs.util.enums.TipoAmministrativo;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.util.EnumUtils;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor @NoArgsConstructor
-public class ControlloPOIIntrattenimentoService {
+public class ControlloPOIIntrattenimentoService extends ControlloPOIService {
+    @Autowired
     private ValidationPOIExtension validationPOIExtension;
 
-    public void controllaPOIIntrattenimento(PoiIntrattenimentoDto poiIntrattenimentoDto){
+    public void controllaPOISpecifico(PoiDto poiDto){
+        PoiIntrattenimentoDto poiIntrattenimentoDto = (PoiIntrattenimentoDto)poiDto;
         controllaTipoIntrattenimento(poiIntrattenimentoDto.getTipo());
         validationPOIExtension.isEtaConsigliatiValida(poiIntrattenimentoDto.getEtaConsigliata());
         validationPOIExtension.isOrariAperturaValido(poiIntrattenimentoDto.getOrariApertura());
