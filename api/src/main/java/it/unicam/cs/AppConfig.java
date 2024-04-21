@@ -2,7 +2,9 @@ package it.unicam.cs;
 
 import it.unicam.cs.Factory.POI.DefaultPOIBuilderFactory;
 import it.unicam.cs.Factory.POI.IPOIBuilderFactory;
+import it.unicam.cs.Visitor.IPOIBuilderVisitor;
 import it.unicam.cs.Visitor.IPoiDtoVisitor;
+import it.unicam.cs.Visitor.PoiBuilderVisitor;
 import it.unicam.cs.Visitor.PoiDtoVisitor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,5 +18,9 @@ public class AppConfig {
     @Bean
     public IPoiDtoVisitor poiDtoVisitor(){
         return new PoiDtoVisitor();
+    }
+    @Bean
+    public IPOIBuilderVisitor poiBuilderVisitor(){
+        return new PoiBuilderVisitor();
     }
 }

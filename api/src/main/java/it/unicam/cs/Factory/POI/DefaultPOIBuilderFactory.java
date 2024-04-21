@@ -11,7 +11,7 @@ public class DefaultPOIBuilderFactory implements IPOIBuilderFactory{
     @Override
     public POIBuilder creaBuilder(PoiDto poiDto) {
         String poi = poiDto.getTipoPoi().toUpperCase();
-        switch (poiDto.getTipoPoi()) {
+        switch (poi) {
             case "AMMINISTRATIVO":
                 return new POIAmministrativoBuilder();
             case "INTRATTENIMENTO":

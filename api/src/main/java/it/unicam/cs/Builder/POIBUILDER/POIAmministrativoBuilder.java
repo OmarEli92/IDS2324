@@ -1,5 +1,8 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
+import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.model.DTO.PoiAmministrativoDto;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIAmministrativo;
 import it.unicam.cs.util.enums.TipoAmministrativo;
@@ -31,5 +34,10 @@ public class POIAmministrativoBuilder extends POIBuilder {
         return new POIAmministrativo(super.getId(),super.getNome(),super.getPosizione(),
                 super.getContributore(),super.getStato(),super.getComuneAssociato(),super.getIndirizzo(),
                 super.getEventiAssociati(),super.getContenutiMultimediali(),tipo,orariApertura,responsabile,contatti);
+    }
+
+    @Override
+    public void accept(IPOIBuilderVisitor ipoiBuilderVisitor, PoiDto poiDto) {
+        ipoiBuilderVisitor.visit(this, (PoiAmministrativoDto) poiDto);
     }
 }

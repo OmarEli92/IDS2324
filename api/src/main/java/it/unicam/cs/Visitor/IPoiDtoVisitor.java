@@ -1,7 +1,9 @@
 package it.unicam.cs.Visitor;
 
 import it.unicam.cs.model.DTO.*;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface IPoiDtoVisitor {
     void visit(PoiAmministrativoDto poi);
     void visit(PoiIntrattenimentoDto poi);

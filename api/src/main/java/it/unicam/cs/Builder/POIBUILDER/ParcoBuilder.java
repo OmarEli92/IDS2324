@@ -1,5 +1,8 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
+import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.model.DTO.ParcoDto;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.model.contenuti.Parco;
@@ -40,5 +43,10 @@ public class ParcoBuilder extends POIBuilder{
         return new Parco(super.getId(),super.getNome(),super.getPosizione(),super.getContributore(), super.getStato(),
                 super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),
                 presenzaSpecieProtetta,orarioApertura,percorsi,presenzaAnimali,estensione);
+    }
+
+    @Override
+    public void accept(IPOIBuilderVisitor ipoiBuilderVisitor, PoiDto poiDto) {
+        ipoiBuilderVisitor.visit(this,(ParcoDto) poiDto);
     }
 }

@@ -4,6 +4,7 @@ import it.unicam.cs.Builder.POIBUILDER.POIAmministrativoBuilder;
 import it.unicam.cs.Builder.POIBUILDER.POIBuilder;
 import it.unicam.cs.Builder.POIBUILDER.POIIntrattenimentoBuilder;
 import it.unicam.cs.Factory.POI.IPOIBuilderFactory;
+import it.unicam.cs.Visitor.IPOIBuilderVisitor;
 import it.unicam.cs.model.DTO.*;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
@@ -23,6 +24,8 @@ public class CaricamentoPOIService {
     private  ControlloPOIService controlloPOIService;
     @Autowired
     private IPOIBuilderFactory poiBuilderFactory;
+    @Autowired
+    private IPOIBuilderVisitor poiBuilderVisitor;
     public void caricaPOI(PoiDto poiDto){
         controlloPOIService.verificaPOI(poiDto);
         POIBuilder poiBuilder = poiBuilderFactory.creaBuilder(poiDto);
@@ -38,10 +41,7 @@ public class CaricamentoPOIService {
         poiBuilder.setComuneAssociato(utenteService.ottieniUtenteById(poiDto.getIDContributore()).getComuneAssociato());
         poiBuilder.setEventiAssociati(new ArrayList<Evento>());
         poiBuilder.setContenutiMultimediali(new ArrayList<ContenutoMultimediale>());
-
     }
 
-    private void costruisciPOIAmministrativo(POIAmministrativoBuilder poiBuilder, PoiAmministrativoDto poiDto) {
-    }
 
 }

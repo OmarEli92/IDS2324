@@ -1,5 +1,8 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
+import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.DTO.PoiServiziUtiliDto;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIServiziUtili;
 import it.unicam.cs.util.enums.ServiziUtili;
@@ -25,5 +28,10 @@ public class POIServiziUtiliBuilder extends POIBuilder{
     POI build() {
         return new POIServiziUtili(super.getId(),super.getNome(),super.getPosizione(),super.getContributore(), super.getStato(),
                 super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),servizio,contatti,orariApertura);
+    }
+
+    @Override
+    public void accept(IPOIBuilderVisitor ipoiBuilderVisitor, PoiDto poiDto) {
+        ipoiBuilderVisitor.visit(this,(PoiServiziUtiliDto) poiDto);
     }
 }

@@ -1,6 +1,9 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
+import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.Visitor.IPoiBuilderVisitable;
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
@@ -18,7 +21,7 @@ import java.util.List;
 @Component
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public abstract class POIBuilder {
+public abstract class POIBuilder implements IPoiBuilderVisitable {
     private Integer Id;
     private String nome;
     private Posizione posizione;
@@ -73,4 +76,7 @@ public abstract class POIBuilder {
     }
 
     abstract POI build();
+
+    @Override
+    public abstract void accept(IPOIBuilderVisitor ipoiBuilderVisitor, PoiDto poiDto);
 }
