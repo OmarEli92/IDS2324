@@ -7,8 +7,8 @@ public class MonumentoBuilder extends POIBuilder {
     private int annoRealizzazione;
     private String descrizione;
     private String autore;
-    private int altezza;
-    private int lunghezza;
+    private double altezza;
+    private double lunghezza;
     private String architettura;
 
     public void setAnnoRealizzazione(int annoRealizzazione) {
@@ -23,11 +23,11 @@ public class MonumentoBuilder extends POIBuilder {
         this.autore = autore;
     }
 
-    public void setAltezza(int altezza) {
+    public void setAltezza(double altezza) {
         this.altezza = altezza;
     }
 
-    public void setLunghezza(int lunghezza) {
+    public void setLunghezza(double lunghezza) {
         this.lunghezza = lunghezza;
     }
 

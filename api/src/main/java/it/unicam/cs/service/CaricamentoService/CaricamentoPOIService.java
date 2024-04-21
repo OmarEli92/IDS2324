@@ -38,21 +38,9 @@ public class CaricamentoPOIService {
         poiBuilder.setComuneAssociato(utenteService.ottieniUtenteById(poiDto.getIDContributore()).getComuneAssociato());
         poiBuilder.setEventiAssociati(new ArrayList<Evento>());
         poiBuilder.setContenutiMultimediali(new ArrayList<ContenutoMultimediale>());
-        if(poiBuilder instanceof POIIntrattenimentoBuilder){
-            costruisciPOIIntrattenimento((POIIntrattenimentoBuilder)poiBuilder,(PoiIntrattenimentoDto)poiDto);
-        }
-        else if(poiBuilder instanceof POIAmministrativoBuilder){
-            costruisciPOIAmministrativo((POIAmministrativoBuilder)poiBuilder,(PoiAmministrativoDto)poiDto);
-        }
 
     }
 
-    private void costruisciPOIIntrattenimento(POIIntrattenimentoBuilder poiBuilder, PoiIntrattenimentoDto poiDto) {
-        poiBuilder.setTipo(TipoIntrattenimento.valueOf(poiDto.getTipo()));
-        poiBuilder.setEtaConsigliata(poiDto.getEtaConsigliata());
-        poiBuilder.setOrariApertura(poiDto.getOrariApertura());
-        poiBuilder.setContatti(poiDto.getContatti());
-    }
     private void costruisciPOIAmministrativo(POIAmministrativoBuilder poiBuilder, PoiAmministrativoDto poiDto) {
     }
 
