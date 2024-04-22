@@ -1,16 +1,13 @@
 package it.unicam.cs.service.CaricamentoService;
 
-import it.unicam.cs.Builder.POIBUILDER.POIAmministrativoBuilder;
 import it.unicam.cs.Builder.POIBUILDER.POIBuilder;
-import it.unicam.cs.Builder.POIBUILDER.POIIntrattenimentoBuilder;
 import it.unicam.cs.Factory.POI.IPOIBuilderFactory;
-import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
 import it.unicam.cs.model.DTO.*;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
-import it.unicam.cs.service.ControlloPOIService.ControlloPOIService;
+import it.unicam.cs.service.ControlloService.ControlloPOIService;
 import it.unicam.cs.service.UtenteService;
-import it.unicam.cs.util.enums.TipoIntrattenimento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +38,7 @@ public class CaricamentoPOIService {
         poiBuilder.setComuneAssociato(utenteService.ottieniUtenteById(poiDto.getIDContributore()).getComuneAssociato());
         poiBuilder.setEventiAssociati(new ArrayList<Evento>());
         poiBuilder.setContenutiMultimediali(new ArrayList<ContenutoMultimediale>());
+        poiBuilder.accept(poiBuilderVisitor,poiDto);
     }
 
 

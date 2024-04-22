@@ -1,4 +1,4 @@
-package it.unicam.cs.exception.POI;
+package it.unicam.cs.exception;
 
 public class TipoAmministrativoNotValidException extends RuntimeException{
     public TipoAmministrativoNotValidException() {

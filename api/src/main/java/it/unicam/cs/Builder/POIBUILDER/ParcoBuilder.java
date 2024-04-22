@@ -1,6 +1,6 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
-import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
 import it.unicam.cs.model.DTO.ParcoDto;
 import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.abstractions.POI;

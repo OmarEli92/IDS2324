@@ -1,6 +1,7 @@
 package it.unicam.cs.model.contenuti;
 
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import jakarta.persistence.*;
 
@@ -18,6 +19,9 @@ public class ContenutoMultimediale {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
+    @ManyToOne
+    @JoinColumn(name = "id_evento_associato", referencedColumnName = "id")
+    private Evento eventoAssociato;
 
     public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, POI poiAssociato) {
         this.id = id;

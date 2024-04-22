@@ -16,12 +16,12 @@ import java.util.List;
 @Data
 public class EventoAmministrativo extends Evento {
     private TipoAmministrativo tipo;
-    @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ContenutoMultimediale> contenutiMultimediale;
+    private String responsabile;
 
-    public EventoAmministrativo(Integer id, Comune comuneAssociato, String nome, String descrizione, Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, TipoAmministrativo tipo, List<ContenutoMultimediale> contenutiMultimediale) {
-        super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine);
+
+    public EventoAmministrativo(Integer id, Comune comuneAssociato, String nome, String descrizione, Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,List<ContenutoMultimediale> contenutiMultimediali, TipoAmministrativo tipo, String responsabile) {
+        super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine, contenutiMultimediali);
         this.tipo = tipo;
-        this.contenutiMultimediale = contenutiMultimediale;
+        this.responsabile = responsabile;
     }
 }

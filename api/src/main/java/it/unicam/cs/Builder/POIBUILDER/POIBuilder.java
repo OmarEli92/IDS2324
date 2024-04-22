@@ -1,7 +1,7 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
-import it.unicam.cs.Visitor.IPOIBuilderVisitor;
-import it.unicam.cs.Visitor.IPoiBuilderVisitable;
+import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
+import it.unicam.cs.Visitor.POI.IPoiBuilderVisitable;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.Ruolo;

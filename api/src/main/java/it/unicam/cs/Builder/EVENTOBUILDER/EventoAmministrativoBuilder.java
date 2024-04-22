@@ -16,20 +16,20 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 public class EventoAmministrativoBuilder extends EventoBuilder{
     private TipoAmministrativo tipo;
-    private List<ContenutoMultimediale> contenutiMultimediale;
+    private String responsabile;
 
     public void setTipo(TipoAmministrativo tipo) {
         this.tipo = tipo;
     }
 
-    public void setContenutiMultimediale(List<ContenutoMultimediale> contenutiMultimediale) {
-        this.contenutiMultimediale = contenutiMultimediale;
+    public void setResponsabile(String responsabile) {
+        this.responsabile = responsabile;
     }
 
     @Override
     public Evento build() {
         return new EventoAmministrativo(super.getId(),super.getComuneAssociato(),super.getNome(),
                 super.getDescrizione(),super.getContributore(),super.getPoiAssociato(),
-                super.getDataInizio(),super.getDataFine(),tipo,contenutiMultimediale);
+                super.getDataInizio(),super.getDataFine(), super.getContenutiMultimediali(), tipo, responsabile);
     }
 }

@@ -1,5 +1,6 @@
 package it.unicam.cs.model.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.cs.util.info.Posizione;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Component;
 @Data
 public class EventoDto{
     private Integer ID;
+    @JsonIgnore
+    private String tipoEvento;
     private String nome;
     private Posizione posizione;
     private String descrizione;
-    private Integer IDComune;
+    private Integer IDPoi;
     private Integer IDContributore;
     private String tipo;
 

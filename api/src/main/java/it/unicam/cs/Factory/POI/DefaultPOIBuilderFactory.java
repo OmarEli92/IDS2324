@@ -25,7 +25,7 @@ public class DefaultPOIBuilderFactory implements IPOIBuilderFactory{
             case "SERVIZI_UTILI":
                 return new POIServiziUtiliBuilder();
             default:
-                throw new IllegalArgumentException("Tipo di PoiDto non supportato");
+                throw new IllegalArgumentException("Tipo di PoiBuilder non supportato");
         }
     }
 }

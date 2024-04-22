@@ -4,6 +4,7 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 @Data
@@ -24,13 +26,14 @@ public abstract class EventoBuilder {
     private POI poiAssociato;
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
+    private List<ContenutoMultimediale> contenutiMultimediali;
 
     public void setId(Integer id) {
         this.id = id;
     }
 
     public void setComuneAssociato(Comune comuneAssociato) {
-        this.comuneAssociato = comuneAssociato;
+        this.comuneAssociato = this.poiAssociato.getComuneAssociato();
     }
 
     public void setNome(String nome) {

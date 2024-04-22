@@ -1,4 +1,4 @@
-package it.unicam.cs.Visitor;
+package it.unicam.cs.Visitor.POI;
 
 import it.unicam.cs.Builder.POIBUILDER.*;
 import it.unicam.cs.model.DTO.*;

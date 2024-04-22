@@ -3,12 +3,14 @@ package it.unicam.cs.model.abstractions;
 
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 /** La classe Evento rappresenta un evento che si svolge in un determinato giorno e in un determinato luogo **/
@@ -34,6 +36,8 @@ public abstract class Evento {
     private LocalDateTime dataInizio;
     @Column(name = "data_fine")
     private LocalDateTime dataFine;
+    @OneToMany(mappedBy = "eventoAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ContenutoMultimediale> contenutiMultimediali;
 
 }
 

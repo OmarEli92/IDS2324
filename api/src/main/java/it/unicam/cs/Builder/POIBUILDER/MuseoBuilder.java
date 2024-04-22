@@ -1,6 +1,6 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
-import it.unicam.cs.Visitor.IPOIBuilderVisitor;
+import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
 import it.unicam.cs.model.DTO.MuseoDto;
 import it.unicam.cs.model.DTO.PoiDto;
 import it.unicam.cs.model.abstractions.POI;
@@ -16,6 +16,7 @@ public class MuseoBuilder extends POIBuilder {
     private Contatti contatti;
     private int numeroSale;
     private List<CollezioniMuseo> collezioni;
+
 
     public void setOrariApertura(String orariApertura) {
         this.orariApertura = orariApertura;

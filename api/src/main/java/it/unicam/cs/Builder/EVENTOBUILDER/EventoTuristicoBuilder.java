@@ -14,19 +14,14 @@ import java.util.List;
 @Data
 public class EventoTuristicoBuilder extends EventoBuilder {
     private TipoTuristico tipo;
-    private List<ContenutoMultimediale> contenutiMultimediali;
-
     public void setTipo(TipoTuristico tipo) {
         this.tipo = tipo;
     }
 
-    public void setContenutiMultimediali(List<ContenutoMultimediale> contenutiMultimediali) {
-        this.contenutiMultimediali = contenutiMultimediali;
-    }
 
     @Override
     public Evento build() {
         return new EventoTuristico(super.getId(),super.getComuneAssociato(),super.getNome(),super.getDescrizione(), super.getContributore(),
-                super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),tipo,contenutiMultimediali);
+                super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo);
     }
 }

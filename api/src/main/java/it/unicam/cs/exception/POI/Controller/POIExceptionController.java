@@ -1,7 +1,9 @@
 package it.unicam.cs.exception.POI.Controller;
 
 import it.unicam.cs.exception.POI.*;
-import it.unicam.cs.util.enums.ServiziUtili;
+import it.unicam.cs.exception.ServiziNotValidException;
+import it.unicam.cs.exception.TipoAmministrativoNotValidException;
+import it.unicam.cs.exception.TipoIntrattenimentoNotValidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -37,5 +39,9 @@ public class POIExceptionController {
     @ExceptionHandler(value = TipoPOINotValidException.class)
     public ResponseEntity<Object> tipoPOINotValidException(TipoPOINotValidException tipoPOINotValidException){
         return new ResponseEntity<>("tipo poi non esistente", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = TipoIntrattenimentoNotValidException.class)
+    public ResponseEntity<Object> tipoIntrattenimentoNotValidException (TipoIntrattenimentoNotValidException tipoIntrattenimentoNotValidException){
+        return new ResponseEntity<>("tipo intrattenimento non esistente", HttpStatus.BAD_REQUEST);
     }
 }

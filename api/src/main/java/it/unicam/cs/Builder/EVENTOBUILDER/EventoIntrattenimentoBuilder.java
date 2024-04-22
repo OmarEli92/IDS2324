@@ -3,6 +3,7 @@ package it.unicam.cs.Builder.EVENTOBUILDER;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.EventoIntrattimento;
+import it.unicam.cs.util.enums.Servizio;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,19 +17,25 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 public class EventoIntrattenimentoBuilder extends EventoBuilder{
     private TipoIntrattenimento tipo;
-    private List<ContenutoMultimediale> contenutiMultimediali;
+    private int etaConsigliata;
+    private List<Servizio> serviziOfferti;
 
     public void setTipo(TipoIntrattenimento tipo) {
         this.tipo = tipo;
     }
 
-    public void setContenutiMultimediali(List<ContenutoMultimediale> contenutiMultimediali) {
-        this.contenutiMultimediali = contenutiMultimediali;
+    public void setEtaConsigliata(int etaConsigliata) {
+        this.etaConsigliata = etaConsigliata;
+    }
+
+    public void setServiziOfferti(List<Servizio> serviziOfferti) {
+        this.serviziOfferti = serviziOfferti;
     }
 
     @Override
     public Evento build() {
         return new EventoIntrattimento(super.getId(),super.getComuneAssociato(),super.getNome(),super.getDescrizione(),
-                super.getContributore(),super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),tipo,contenutiMultimediali);
+                super.getContributore(),super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo,
+                etaConsigliata,serviziOfferti);
     }
 }

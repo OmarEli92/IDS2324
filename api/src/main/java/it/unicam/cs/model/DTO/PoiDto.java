@@ -1,7 +1,8 @@
 package it.unicam.cs.model.DTO;
 
-import it.unicam.cs.Visitor.IPoiDtoVisitable;
-import it.unicam.cs.Visitor.IPoiDtoVisitor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.unicam.cs.Visitor.POI.IPoiDtoVisitable;
+import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
 import it.unicam.cs.util.info.Posizione;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public abstract class PoiDto implements IPoiDtoVisitable {
+    @JsonIgnore
     private String tipoPoi;
     private Integer ID;
     private String nome;

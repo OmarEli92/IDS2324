@@ -4,11 +4,9 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.util.enums.TipoAmministrativo;
+import it.unicam.cs.util.enums.Servizio;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,13 +15,14 @@ import java.util.List;
 @Data
 public class EventoIntrattimento extends Evento {
     private TipoIntrattenimento tipo;
-    @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ContenutoMultimediale> contenutiMultimediali;
+    private int etaConsigliata;
+    private List<Servizio> serviziOfferti;
     public EventoIntrattimento(Integer id, Comune comuneAssociato, String nome, String descrizione,
-                               Utente contributore, POI poiAssociato, LocalDateTime dataInizio,
-                               LocalDateTime dataFine, TipoIntrattenimento tipo, List<ContenutoMultimediale> contenutiMultimediali) {
-        super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine);
+                               Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,
+                               List<ContenutoMultimediale> contenutiMultiediali, TipoIntrattenimento tipo, int etaConsigliata, List<Servizio> serviziOfferti ) {
+        super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine,contenutiMultiediali);
         this.tipo = tipo;
-        this.contenutiMultimediali = contenutiMultimediali;
+        this.etaConsigliata = etaConsigliata;
+        this.serviziOfferti = serviziOfferti;
     }
 }

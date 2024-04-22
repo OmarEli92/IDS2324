@@ -1,7 +1,7 @@
 package it.unicam.cs.model.DTO;
 
 import io.swagger.annotations.ApiModel;
-import it.unicam.cs.Visitor.IPoiDtoVisitor;
+import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
 import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
 import jakarta.persistence.Embedded;

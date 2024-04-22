@@ -1,9 +1,10 @@
-package it.unicam.cs.Visitor;
+package it.unicam.cs.Visitor.POI;
 
 import it.unicam.cs.exception.POI.CollezioneNotValidException;
-import it.unicam.cs.exception.POI.ServiziNotValidException;
+import it.unicam.cs.exception.ServiziNotValidException;
 import it.unicam.cs.exception.POI.ServiziUtiliNotValidException;
-import it.unicam.cs.exception.POI.TipoAmministrativoNotValidException;
+import it.unicam.cs.exception.TipoAmministrativoNotValidException;
+import it.unicam.cs.exception.TipoIntrattenimentoNotValidException;
 import it.unicam.cs.model.DTO.*;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
 import it.unicam.cs.util.enums.*;
@@ -46,7 +47,7 @@ public class PoiDtoVisitor implements IPoiDtoVisitor{
             if(tipo.equalsIgnoreCase(t.name()))
                 return;
         }
-        throw new TipoAmministrativoNotValidException();
+        throw new TipoIntrattenimentoNotValidException();
     }
     private void controllaServiziIntrattenimento(List<String> serviziOfferti) {
         boolean valid = serviziOfferti.stream().allMatch(value -> contieneValoreServizio(Servizio.class, value));

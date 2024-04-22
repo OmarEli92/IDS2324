@@ -17,16 +17,12 @@ import java.util.List;
 @Data
 public class EventoTuristico extends Evento {
     private TipoTuristico tipo;
-    @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ContenutoMultimediale> contenutiMultimediali;
 
     public EventoTuristico(Integer ID, Comune comuneAssociato, String nome, String descrizione,
-                           Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,
-                           TipoTuristico tipo, List<ContenutoMultimediale> contenutiMultimediali){
-        super(ID, comuneAssociato, nome, descrizione,contributore,poiAssociato, dataInizio, dataFine);
-        this.contenutiMultimediali = contenutiMultimediali;
-
-
+                           Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,List<ContenutoMultimediale> contenutiMultimediali,
+                           TipoTuristico tipo){
+        super(ID, comuneAssociato, nome, descrizione,contributore,poiAssociato, dataInizio, dataFine, contenutiMultimediali);
+        this.tipo = tipo;
     }
 
 
