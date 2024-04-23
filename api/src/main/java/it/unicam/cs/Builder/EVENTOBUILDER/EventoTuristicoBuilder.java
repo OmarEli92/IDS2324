@@ -23,7 +23,7 @@ public class EventoTuristicoBuilder extends EventoBuilder {
 
     @Override
     public Evento build() {
-        return new EventoTuristico(super.getComuneAssociato(),super.getNome(),super.getDescrizione(), super.getContributore(),
+        return new EventoTuristico(super.getComuneAssociato(),super.getNome(),super.getDescrizione(), super.getContributore(), super.getStato(),
                 super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo);
     }
 

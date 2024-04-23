@@ -31,9 +31,6 @@ public abstract class POIBuilder implements IPoiBuilderVisitable {
     private List<Evento> eventiAssociati;
     private List<ContenutoMultimediale> contenutiMultimediali;
 
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     public void setNome(String nome) {
         this.nome = nome;

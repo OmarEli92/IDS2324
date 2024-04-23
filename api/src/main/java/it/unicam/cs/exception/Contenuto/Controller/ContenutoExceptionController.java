@@ -52,4 +52,8 @@ public class ContenutoExceptionController {
     public ResponseEntity<Object> tipoTuristicoNotValidException(TipoTuristicoNotValidException tipoTuristicoNotValidException){
         return new ResponseEntity<>("tipo di turismo non esistente",HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = ItinerarioNotValidException.class)
+    public ResponseEntity<Object> itinerarioNotValidException(ItinerarioNotValidException itinerarioNotValidException){
+        return new ResponseEntity<>("i poi devono essere tutti all'interno dello stesso comune", HttpStatus.BAD_REQUEST);
+    }
 }

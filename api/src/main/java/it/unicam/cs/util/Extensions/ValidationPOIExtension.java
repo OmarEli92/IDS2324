@@ -7,6 +7,7 @@ import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.info.Contatti;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -18,7 +19,8 @@ che estendono POI
 @Component
 @AllArgsConstructor
 public class ValidationPOIExtension {
-    private final UtenteRepository utenteRepository;
+    @Autowired
+    private UtenteRepository utenteRepository;
 
     public void isOrariAperturaValido(String orari){
         String pattern = "^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$";

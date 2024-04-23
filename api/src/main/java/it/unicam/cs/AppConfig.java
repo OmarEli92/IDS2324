@@ -1,7 +1,13 @@
 package it.unicam.cs;
 
+import it.unicam.cs.Factory.Evento.DefaultEventoBuilderFactory;
+import it.unicam.cs.Factory.Evento.IEventoBuilderFactory;
 import it.unicam.cs.Factory.POI.DefaultPOIBuilderFactory;
 import it.unicam.cs.Factory.POI.IPOIBuilderFactory;
+import it.unicam.cs.Visitor.Evento.EventoBuilderVisitor;
+import it.unicam.cs.Visitor.Evento.EventoDtoVisitor;
+import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
+import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
 import it.unicam.cs.Visitor.POI.PoiBuilderVisitor;
@@ -23,4 +29,10 @@ public class AppConfig {
     public IPOIBuilderVisitor poiBuilderVisitor(){
         return new PoiBuilderVisitor();
     }
+    @Bean
+    public IEventoBuilderFactory eventoBuilderFactory() { return new DefaultEventoBuilderFactory(); }
+    @Bean
+    public IEventoDtoVisitor eventoDtoVisitor() { return new EventoDtoVisitor(); }
+    @Bean
+    public IEventoBuilderVisitor eventoBuilderVisitor() { return new EventoBuilderVisitor(); }
 }

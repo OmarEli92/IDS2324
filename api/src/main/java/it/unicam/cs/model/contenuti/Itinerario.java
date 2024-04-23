@@ -1,16 +1,20 @@
 package it.unicam.cs.model.contenuti;
 
 
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
 @Entity
+@Data
 public class Itinerario{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -20,17 +24,19 @@ public class Itinerario{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
+    private StatoElemento stato;
     @ManyToOne
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     private  List<POI> poisAssociati;
 
-    public Itinerario(Integer id, String nome, Utente contributore,Comune comuneAssociato,
+    public Itinerario(Integer id, String nome, Utente contributore,StatoElemento stato,Comune comuneAssociato,
                       List<POI> poisAssociati, String descrizione) {
         this.id = id;
         this.nome = nome;
         this.contributore = contributore;
+        this.stato = stato;
         this.comuneAssociato = comuneAssociato;
         this.poisAssociati = poisAssociati;
         this.descirizione = descrizione;
@@ -38,6 +44,24 @@ public class Itinerario{
 
     public Itinerario() {
 
+    }
+
+    public Itinerario(String nome, String descirizione, Utente contributore, Comune comuneAssociato, List<POI> poisAssociati) {
+        this.nome = nome;
+        this.descirizione = descirizione;
+        this.contributore = contributore;
+        this.comuneAssociato = comuneAssociato;
+        this.poisAssociati = poisAssociati;
+    }
+    public void setStato(Utente utente) {
+        for(Ruolo ruolo : utente.getRuoli()){
+            if(ruolo.getNome().equalsIgnoreCase("Curatore") || ruolo.getNome().equalsIgnoreCase("Contributore_Autorizzato")) {
+                this.stato = StatoElemento.PUBBLICATO;
+            }
+            else if (ruolo.getNome().equalsIgnoreCase("Contributore")) {
+                this.stato = StatoElemento.PENDING;
+            }
+        }
     }
 
     @Override
@@ -54,27 +78,5 @@ public class Itinerario{
         return Objects.hash(super.hashCode(), poisAssociati);
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public Utente getContributore() {
-        return contributore;
-    }
-
-    public Comune getComuneAssociato() {
-        return comuneAssociato;
-    }
-
-    public List<POI> getPoisAssociati() {
-        return poisAssociati;
-    }
-
-    public String getDescirizione() {
-        return descirizione;
-    }
 }

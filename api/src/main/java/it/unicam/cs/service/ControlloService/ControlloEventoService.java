@@ -18,6 +18,6 @@ public class ControlloEventoService {
         validationEventoExtension.isIdEventovalid(eventoDto.getIDContributore(),eventoDto.getIDPoi());
         validationEventoExtension.isEventoContributoreValid(eventoDto.getIDContributore());
         validationEventoExtension.isNomeValid(eventoDto.getNome());
-
+        eventoDto.accept(eventoDtoVisitor);
     }
 }

@@ -38,6 +38,7 @@ public class CaricamentoEventoService {
         eventoBuilder.setNome(eventoDto.getNome());
         eventoBuilder.setPosizione(eventoDto.getPosizione());
         eventoBuilder.setContributore(utenteService.ottieniUtenteById(eventoDto.getIDContributore()));
+        eventoBuilder.setStato(utenteService.ottieniUtenteById(eventoDto.getIDContributore()));
         eventoBuilder.setPoiAssociato(consultazioneContenutiService.ottieniPOIdaId(eventoDto.getIDPoi()));
         eventoBuilder.setComuneAssociato(utenteService.ottieniUtenteById(eventoDto.getIDContributore()).getComuneAssociato());
         eventoBuilder.setContenutiMultimediali(new ArrayList<ContenutoMultimediale>());

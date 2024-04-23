@@ -38,7 +38,7 @@ public class EventoIntrattenimentoBuilder extends EventoBuilder{
     @Override
     public Evento build() {
         return new EventoIntrattimento(super.getComuneAssociato(),super.getNome(),super.getDescrizione(),
-                super.getContributore(),super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo,
+                super.getContributore(),super.getStato(),super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo,
                 etaConsigliata,serviziOfferti);
     }
 

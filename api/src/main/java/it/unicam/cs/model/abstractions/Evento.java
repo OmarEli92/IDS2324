@@ -4,6 +4,7 @@ package it.unicam.cs.model.abstractions;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public abstract class Evento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
+    private StatoElemento stato;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
@@ -39,11 +41,12 @@ public abstract class Evento {
     @OneToMany(mappedBy = "eventoAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
 
-    public Evento(Comune comuneAssociato, String nome, String descrizione, Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
+    public Evento(Comune comuneAssociato, String nome, String descrizione, Utente contributore, StatoElemento stato,POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
         this.comuneAssociato = comuneAssociato;
         this.nome = nome;
         this.descrizione = descrizione;
         this.contributore = contributore;
+        this.stato = stato;
         this.poiAssociato = poiAssociato;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;

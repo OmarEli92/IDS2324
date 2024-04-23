@@ -4,6 +4,7 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoTuristico;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.CascadeType;
@@ -19,9 +20,9 @@ public class EventoTuristico extends Evento {
     private TipoTuristico tipo;
 
     public EventoTuristico(Comune comuneAssociato, String nome, String descrizione,
-                           Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,List<ContenutoMultimediale> contenutiMultimediali,
+                           Utente contributore, StatoElemento stato, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali,
                            TipoTuristico tipo){
-        super(comuneAssociato, nome, descrizione,contributore,poiAssociato, dataInizio, dataFine, contenutiMultimediali);
+        super(comuneAssociato, nome, descrizione,contributore,stato,poiAssociato, dataInizio, dataFine, contenutiMultimediali);
         this.tipo = tipo;
     }
 
