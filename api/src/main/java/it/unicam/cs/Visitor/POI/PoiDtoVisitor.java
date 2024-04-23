@@ -1,10 +1,10 @@
 package it.unicam.cs.Visitor.POI;
 
-import it.unicam.cs.exception.POI.CollezioneNotValidException;
-import it.unicam.cs.exception.ServiziNotValidException;
-import it.unicam.cs.exception.POI.ServiziUtiliNotValidException;
-import it.unicam.cs.exception.TipoAmministrativoNotValidException;
-import it.unicam.cs.exception.TipoIntrattenimentoNotValidException;
+import it.unicam.cs.exception.Contenuto.CollezioneNotValidException;
+import it.unicam.cs.exception.Contenuto.ServiziNotValidException;
+import it.unicam.cs.exception.Contenuto.ServiziUtiliNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoAmministrativoNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoIntrattenimentoNotValidException;
 import it.unicam.cs.model.DTO.*;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
 import it.unicam.cs.util.enums.*;

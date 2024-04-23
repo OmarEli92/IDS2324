@@ -26,7 +26,7 @@ public class POIServiziUtiliBuilder extends POIBuilder{
 
     @Override
     POI build() {
-        return new POIServiziUtili(super.getId(),super.getNome(),super.getPosizione(),super.getContributore(), super.getStato(),
+        return new POIServiziUtili(super.getNome(),super.getPosizione(),super.getContributore(), super.getStato(),
                 super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),servizio,contatti,orariApertura);
     }
 

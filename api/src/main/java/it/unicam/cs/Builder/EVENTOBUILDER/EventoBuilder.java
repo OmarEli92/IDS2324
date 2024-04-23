@@ -1,10 +1,15 @@
 package it.unicam.cs.Builder.EVENTOBUILDER;
 
+import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitable;
+import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
+import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.DTO.EventoDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,10 +22,11 @@ import java.util.List;
 @Component
 @Data
 @AllArgsConstructor @NoArgsConstructor
-public abstract class EventoBuilder {
+public abstract class EventoBuilder implements IEventoBuilderVisitable {
     private Integer id;
     private Comune comuneAssociato;
     private String nome;
+    private Posizione posizione;
     private String descrizione;
     private Utente contributore;
     private POI poiAssociato;
@@ -38,6 +44,10 @@ public abstract class EventoBuilder {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setPosizione(Posizione posizione) {
+        this.posizione = posizione;
     }
 
     public void setDescrizione(String descrizione) {
@@ -60,4 +70,7 @@ public abstract class EventoBuilder {
         this.dataFine = dataFine;
     }
     public abstract Evento build();
+
+    @Override
+    public abstract void accept(IEventoBuilderVisitor eventoBuilderVisitor, EventoDto eventoDto) ;
 }

@@ -1,12 +1,10 @@
 package it.unicam.cs.util.Extensions;
 
-import it.unicam.cs.exception.POI.*;
+import it.unicam.cs.exception.Contenuto.*;
 import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
-import it.unicam.cs.util.enums.TipoIntrattenimento;
-import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

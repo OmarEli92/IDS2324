@@ -24,8 +24,8 @@ public class POIAmministrativo extends POI {
     @Embedded
     private Contatti contatti;
 
-    public POIAmministrativo(Integer id, String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, TipoAmministrativo tipo, String orariApertura, String responsabile, Contatti contatti) {
-        super(id, nome, posizione, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
+    public POIAmministrativo(String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, TipoAmministrativo tipo, String orariApertura, String responsabile, Contatti contatti) {
+        super(nome, posizione, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
         this.tipo = tipo;
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;

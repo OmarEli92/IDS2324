@@ -1,4 +1,4 @@
-package it.unicam.cs.exception.POI;
+package it.unicam.cs.exception.Contenuto;
 
 public class CollezioneNotValidException extends RuntimeException{
     public CollezioneNotValidException() {

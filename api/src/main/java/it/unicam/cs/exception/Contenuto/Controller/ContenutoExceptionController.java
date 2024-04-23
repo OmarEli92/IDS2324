@@ -1,16 +1,16 @@
-package it.unicam.cs.exception.POI.Controller;
+package it.unicam.cs.exception.Contenuto.Controller;
 
-import it.unicam.cs.exception.POI.*;
-import it.unicam.cs.exception.ServiziNotValidException;
-import it.unicam.cs.exception.TipoAmministrativoNotValidException;
-import it.unicam.cs.exception.TipoIntrattenimentoNotValidException;
+import it.unicam.cs.exception.Contenuto.*;
+import it.unicam.cs.exception.Contenuto.ServiziNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoAmministrativoNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoIntrattenimentoNotValidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class POIExceptionController {
+public class ContenutoExceptionController {
     @ExceptionHandler(value = POINotFoundException.class)
     public ResponseEntity<Object> poiNotFoundException(POINotFoundException poiNotFoundException){
         return new ResponseEntity<>("poi non trovato", HttpStatus.NOT_FOUND);
@@ -43,5 +43,13 @@ public class POIExceptionController {
     @ExceptionHandler(value = TipoIntrattenimentoNotValidException.class)
     public ResponseEntity<Object> tipoIntrattenimentoNotValidException (TipoIntrattenimentoNotValidException tipoIntrattenimentoNotValidException){
         return new ResponseEntity<>("tipo intrattenimento non esistente", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = EventoNotFoundException.class)
+    public ResponseEntity<Object> eventoNotFoundException(EventoNotFoundException eventoNotFoundException){
+        return new ResponseEntity<>("evento non trovato", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = TipoTuristicoNotValidException.class)
+    public ResponseEntity<Object> tipoTuristicoNotValidException(TipoTuristicoNotValidException tipoTuristicoNotValidException){
+        return new ResponseEntity<>("tipo di turismo non esistente",HttpStatus.BAD_REQUEST);
     }
 }

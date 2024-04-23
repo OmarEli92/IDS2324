@@ -17,10 +17,10 @@ public class EventoIntrattimento extends Evento {
     private TipoIntrattenimento tipo;
     private int etaConsigliata;
     private List<Servizio> serviziOfferti;
-    public EventoIntrattimento(Integer id, Comune comuneAssociato, String nome, String descrizione,
+    public EventoIntrattimento(Comune comuneAssociato, String nome, String descrizione,
                                Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,
                                List<ContenutoMultimediale> contenutiMultiediali, TipoIntrattenimento tipo, int etaConsigliata, List<Servizio> serviziOfferti ) {
-        super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine,contenutiMultiediali);
+        super(comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine,contenutiMultiediali);
         this.tipo = tipo;
         this.etaConsigliata = etaConsigliata;
         this.serviziOfferti = serviziOfferti;

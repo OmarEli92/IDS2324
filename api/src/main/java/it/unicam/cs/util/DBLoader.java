@@ -47,12 +47,12 @@ public class DBLoader implements CommandLineRunner {
                 null,null,null);
         comuneRepository.save(comune);
         comuneRepository.save(comune2);
-        poiRepository.save(new POIIntrattenimento(1, "Cinema delle palme", new Posizione(12,
+        poiRepository.save(new POIIntrattenimento("Cinema delle palme", new Posizione(12,
                 21), null, StatoElemento.PUBBLICATO, null, null,
                 null,null,TipoIntrattenimento.CINEMA,14, "16-24",
                 null,null));
         List<POI> pois = new ArrayList<>();
-        poiRepository.save(new POIIntrattenimento(4, "Cinema a Grottammare", new Posizione(12,
+        poiRepository.save(new POIIntrattenimento( "Cinema a Grottammare", new Posizione(12,
                 21), null, StatoElemento.PUBBLICATO, null, null,
                 null,null,TipoIntrattenimento.CINEMA,14, "16-24",
                 null,null));

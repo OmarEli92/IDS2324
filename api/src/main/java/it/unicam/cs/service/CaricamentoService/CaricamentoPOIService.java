@@ -30,9 +30,8 @@ public class CaricamentoPOIService {
     }
     
     private void costrusciPOI(POIBuilder poiBuilder, PoiDto poiDto) {
-        poiBuilder.setId(poiBuilder.getId());
         poiBuilder.setNome(poiBuilder.getNome());
-        poiBuilder.setPosizione(poiBuilder.getPosizione());
+        poiBuilder.setPosizione(poiDto.getPosizione());
         poiBuilder.setContributore(utenteService.ottieniUtenteById(poiDto.getIDContributore()));
         poiBuilder.setStato(utenteService.ottieniUtenteById(poiDto.getIDContributore()));
         poiBuilder.setComuneAssociato(utenteService.ottieniUtenteById(poiDto.getIDContributore()).getComuneAssociato());

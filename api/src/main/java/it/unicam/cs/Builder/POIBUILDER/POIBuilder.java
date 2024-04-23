@@ -22,7 +22,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 public abstract class POIBuilder implements IPoiBuilderVisitable {
-    private Integer Id;
     private String nome;
     private Posizione posizione;
     private Utente contributore;

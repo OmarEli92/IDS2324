@@ -3,6 +3,7 @@ package it.unicam.cs.model.DTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.enums.TipoAmministrativo;
 import it.unicam.cs.util.enums.TipoEvento;
@@ -21,5 +22,10 @@ public class EventoAmministrativoDto extends EventoDto{
     @Override
     public String getTipoEvento() {
         return TipoEvento.AMMINISTRATIVO.name();
+    }
+
+    @Override
+    public void accept(IEventoDtoVisitor eventoDtoVisitor) {
+        eventoDtoVisitor.visit(this);
     }
 }

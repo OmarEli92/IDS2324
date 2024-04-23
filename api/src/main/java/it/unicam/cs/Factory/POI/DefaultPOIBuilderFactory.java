@@ -1,9 +1,8 @@
 package it.unicam.cs.Factory.POI;
 
 import it.unicam.cs.Builder.POIBUILDER.*;
+import it.unicam.cs.exception.Contenuto.TipoPOINotValidException;
 import it.unicam.cs.model.DTO.PoiDto;
-
-import static it.unicam.cs.util.enums.TipoPOI.*;
 
 public class DefaultPOIBuilderFactory implements IPOIBuilderFactory{
 
@@ -25,7 +24,7 @@ public class DefaultPOIBuilderFactory implements IPOIBuilderFactory{
             case "SERVIZI_UTILI":
                 return new POIServiziUtiliBuilder();
             default:
-                throw new IllegalArgumentException("Tipo di PoiBuilder non supportato");
+                throw new TipoPOINotValidException();
         }
     }
 }

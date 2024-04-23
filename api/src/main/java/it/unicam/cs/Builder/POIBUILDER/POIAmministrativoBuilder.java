@@ -7,9 +7,11 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIAmministrativo;
 import it.unicam.cs.util.enums.TipoAmministrativo;
 import it.unicam.cs.util.info.Contatti;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
+@Data
 public class POIAmministrativoBuilder extends POIBuilder {
     private TipoAmministrativo tipo;
     private String orariApertura;
@@ -31,7 +33,7 @@ public class POIAmministrativoBuilder extends POIBuilder {
 
     @Override
     POI build() {
-        return new POIAmministrativo(super.getId(),super.getNome(),super.getPosizione(),
+        return new POIAmministrativo(super.getNome(),super.getPosizione(),
                 super.getContributore(),super.getStato(),super.getComuneAssociato(),super.getIndirizzo(),
                 super.getEventiAssociati(),super.getContenutiMultimediali(),tipo,orariApertura,responsabile,contatti);
     }

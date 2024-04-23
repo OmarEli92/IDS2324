@@ -39,5 +39,15 @@ public abstract class Evento {
     @OneToMany(mappedBy = "eventoAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
 
+    public Evento(Comune comuneAssociato, String nome, String descrizione, Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
+        this.comuneAssociato = comuneAssociato;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.contributore = contributore;
+        this.poiAssociato = poiAssociato;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.contenutiMultimediali = contenutiMultimediali;
+    }
 }
 

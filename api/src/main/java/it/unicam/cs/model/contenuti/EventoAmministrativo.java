@@ -19,8 +19,8 @@ public class EventoAmministrativo extends Evento {
     private String responsabile;
 
 
-    public EventoAmministrativo(Integer id, Comune comuneAssociato, String nome, String descrizione, Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,List<ContenutoMultimediale> contenutiMultimediali, TipoAmministrativo tipo, String responsabile) {
-        super(id, comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine, contenutiMultimediali);
+    public EventoAmministrativo(Comune comuneAssociato, String nome, String descrizione, Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,List<ContenutoMultimediale> contenutiMultimediali, TipoAmministrativo tipo, String responsabile) {
+        super(comuneAssociato, nome, descrizione, contributore, poiAssociato, dataInizio, dataFine, contenutiMultimediali);
         this.tipo = tipo;
         this.responsabile = responsabile;
     }

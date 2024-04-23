@@ -3,10 +3,7 @@ package it.unicam.cs.Visitor.POI;
 import it.unicam.cs.Builder.POIBUILDER.*;
 import it.unicam.cs.model.DTO.*;
 import it.unicam.cs.model.contenuti.Itinerario;
-import it.unicam.cs.util.enums.CollezioniMuseo;
-import it.unicam.cs.util.enums.ServiziUtili;
-import it.unicam.cs.util.enums.TipoAmministrativo;
-import it.unicam.cs.util.enums.TipoIntrattenimento;
+import it.unicam.cs.util.enums.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,6 +23,9 @@ public class PoiBuilderVisitor implements IPOIBuilderVisitor{
         poiIntrattenimentoBuilder.setTipo(TipoIntrattenimento.valueOf(poiIntrattenimentoDto.getTipo().toUpperCase()));
         poiIntrattenimentoBuilder.setEtaConsigliata(poiIntrattenimentoDto.getEtaConsigliata());
         poiIntrattenimentoBuilder.setOrariApertura(poiIntrattenimentoDto.getOrariApertura());
+        poiIntrattenimentoBuilder.setServiziOfferti(poiIntrattenimentoDto.getServiziOfferti().stream()
+                .map(Servizio:: valueOf)
+                .collect(Collectors.toList()));
         poiIntrattenimentoBuilder.setContatti(poiIntrattenimentoDto.getContatti());
     }
 

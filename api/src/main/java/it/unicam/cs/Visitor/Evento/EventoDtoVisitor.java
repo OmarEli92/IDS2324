@@ -1,9 +1,9 @@
 package it.unicam.cs.Visitor.Evento;
 
-import it.unicam.cs.exception.ServiziNotValidException;
-import it.unicam.cs.exception.TipoAmministrativoNotValidException;
-import it.unicam.cs.exception.TipoIntrattenimentoNotValidException;
-import it.unicam.cs.exception.TipoTuristicoNotValidException;
+import it.unicam.cs.exception.Contenuto.ServiziNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoAmministrativoNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoIntrattenimentoNotValidException;
+import it.unicam.cs.exception.Contenuto.TipoTuristicoNotValidException;
 import it.unicam.cs.model.DTO.EventoAmministrativoDto;
 import it.unicam.cs.model.DTO.EventoIntrattenimentoDto;
 import it.unicam.cs.model.DTO.EventoTuristicoDto;

@@ -1,5 +1,8 @@
 package it.unicam.cs.Builder.EVENTOBUILDER;
 
+import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
+import it.unicam.cs.model.DTO.EventoDto;
+import it.unicam.cs.model.DTO.EventoIntrattenimentoDto;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.EventoIntrattimento;
@@ -34,8 +37,13 @@ public class EventoIntrattenimentoBuilder extends EventoBuilder{
 
     @Override
     public Evento build() {
-        return new EventoIntrattimento(super.getId(),super.getComuneAssociato(),super.getNome(),super.getDescrizione(),
+        return new EventoIntrattimento(super.getComuneAssociato(),super.getNome(),super.getDescrizione(),
                 super.getContributore(),super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo,
                 etaConsigliata,serviziOfferti);
+    }
+
+    @Override
+    public void accept(IEventoBuilderVisitor eventoBuilderVisitor, EventoDto eventoDto) {
+        eventoBuilderVisitor.visit(this,(EventoIntrattenimentoDto) eventoDto);
     }
 }

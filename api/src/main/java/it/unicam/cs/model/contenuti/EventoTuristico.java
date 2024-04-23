@@ -18,10 +18,10 @@ import java.util.List;
 public class EventoTuristico extends Evento {
     private TipoTuristico tipo;
 
-    public EventoTuristico(Integer ID, Comune comuneAssociato, String nome, String descrizione,
+    public EventoTuristico(Comune comuneAssociato, String nome, String descrizione,
                            Utente contributore, POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine,List<ContenutoMultimediale> contenutiMultimediali,
                            TipoTuristico tipo){
-        super(ID, comuneAssociato, nome, descrizione,contributore,poiAssociato, dataInizio, dataFine, contenutiMultimediali);
+        super(comuneAssociato, nome, descrizione,contributore,poiAssociato, dataInizio, dataFine, contenutiMultimediali);
         this.tipo = tipo;
     }
 

@@ -1,6 +1,6 @@
 package it.unicam.cs.util.Extensions;
 
-import it.unicam.cs.exception.POI.POINotFoundException;
+import it.unicam.cs.exception.Contenuto.POINotFoundException;
 import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
@@ -28,7 +28,7 @@ public class ValidationEventoExtension {
         }
     }
     public void isIdEventovalid(Integer idUtente,Integer idPOI){
-        Utente utente = utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
         List<POI> pois = comune.getPOIS();
         for (POI poi : pois){

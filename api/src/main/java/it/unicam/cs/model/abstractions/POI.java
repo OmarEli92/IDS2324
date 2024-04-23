@@ -40,6 +40,16 @@ public abstract class POI{
     @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
 
+    public POI(String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali) {
+        this.nome = nome;
+        this.posizione = posizione;
+        this.contributore = contributore;
+        this.stato = stato;
+        this.comuneAssociato = comuneAssociato;
+        this.indirizzo = indirizzo;
+        this.eventiAssociati = eventiAssociati;
+        this.contenutiMultimediali = contenutiMultimediali;
+    }
 }
 
 

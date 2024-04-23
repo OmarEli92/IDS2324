@@ -2,6 +2,7 @@ package it.unicam.cs.model.DTO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.enums.TipoEvento;
 import it.unicam.cs.util.enums.TipoTuristico;
@@ -19,5 +20,10 @@ public class EventoTuristicoDto extends EventoDto{
     @Override
     public String getTipoEvento() {
         return TipoEvento.TURISTICO.name();
+    }
+
+    @Override
+    public void accept(IEventoDtoVisitor eventoDtoVisitor) {
+        eventoDtoVisitor.visit(this);
     }
 }

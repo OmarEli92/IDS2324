@@ -28,8 +28,8 @@ public final class POIIntrattenimento extends POI {
      @Embedded
      private Contatti contatti;
 
-     public POIIntrattenimento(Integer id, String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali,TipoIntrattenimento tipo, int etaConsigliata, String orariApertura, List<Servizio> serviziOfferti, Contatti contatti) {
-         super(id, nome, posizione, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
+     public POIIntrattenimento(String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali,TipoIntrattenimento tipo, int etaConsigliata, String orariApertura, List<Servizio> serviziOfferti, Contatti contatti) {
+         super(nome, posizione, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
          this.tipo = tipo;
          this.etaConsigliata = etaConsigliata;
          this.orariApertura = orariApertura;

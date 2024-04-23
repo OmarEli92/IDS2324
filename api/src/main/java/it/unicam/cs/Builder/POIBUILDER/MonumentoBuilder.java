@@ -40,7 +40,7 @@ public class MonumentoBuilder extends POIBuilder {
 
     @Override
     POI build() {
-        return new Monumento(super.getId(),super.getNome(),super.getPosizione(),super.getContributore(),super.getStato(),super.getComuneAssociato(),
+        return new Monumento(super.getNome(),super.getPosizione(),super.getContributore(),super.getStato(),super.getComuneAssociato(),
                 super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),
                 annoRealizzazione,descrizione,autore,altezza,lunghezza,architettura);
     }

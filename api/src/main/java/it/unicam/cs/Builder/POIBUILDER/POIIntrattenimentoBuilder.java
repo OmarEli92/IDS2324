@@ -8,9 +8,11 @@ import it.unicam.cs.model.contenuti.POIIntrattenimento;
 import it.unicam.cs.util.enums.Servizio;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 import it.unicam.cs.util.info.Contatti;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class POIIntrattenimentoBuilder extends POIBuilder{
     private TipoIntrattenimento tipo;
     private int etaConsigliata;
@@ -37,7 +39,7 @@ public class POIIntrattenimentoBuilder extends POIBuilder{
 
     @Override
     POI build() {
-        return new POIIntrattenimento(super.getId(),super.getNome(),super.getPosizione(),
+        return new POIIntrattenimento(super.getNome(),super.getPosizione(),
                 super.getContributore(),super.getStato(),super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),
                 super.getContenutiMultimediali(),tipo, etaConsigliata,orariApertura,serviziOfferti,contatti);
     }

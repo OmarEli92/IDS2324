@@ -1,6 +1,8 @@
 package it.unicam.cs.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.unicam.cs.Visitor.Evento.IEventoDtoVisitable;
+import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.util.info.Posizione;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Component;
  * **/
 @Component
 @Data
-public class EventoDto{
-    private Integer ID;
+public abstract class EventoDto implements IEventoDtoVisitable {
+    private Integer Id;
     @JsonIgnore
     private String tipoEvento;
     private String nome;
@@ -24,5 +26,7 @@ public class EventoDto{
     private Integer IDContributore;
     private String tipo;
 
+    @Override
+    public abstract void accept(IEventoDtoVisitor eventoDtoVisitor);
 }
 
