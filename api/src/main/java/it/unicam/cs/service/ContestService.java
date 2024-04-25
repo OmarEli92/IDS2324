@@ -81,9 +81,6 @@ public class ContestService implements IContestService {
         if(contest.isAttivo()&& contest.getVincitore() == null){
             contest.setVincitore(utente);
             chiudiContest(contest);
-
-            String tipoPOI = contest.getTipoPOI();
-            //TODO costruzione del POI a seconda del design pattern utilizzato
             contest.notifica();
         }
     }

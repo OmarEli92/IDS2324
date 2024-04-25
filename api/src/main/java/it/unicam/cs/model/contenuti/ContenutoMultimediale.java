@@ -22,7 +22,6 @@ public class ContenutoMultimediale {
     @ManyToOne(fetch = FetchType.LAZY)
     private Utente utenteCreatore;
     private StatoElemento stato;
-    private TipoContenuto tipoContenuto;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
@@ -42,11 +41,10 @@ public class ContenutoMultimediale {
 
     }
 
-    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, TipoContenuto tipoContenuto, POI poiAssociato, Evento eventoAssociato) {
+    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato, Evento eventoAssociato) {
         this.nome = nome;
         this.utenteCreatore = utenteCreatore;
         this.stato = stato;
-        this.tipoContenuto=tipoContenuto;
         this.poiAssociato = poiAssociato;
         this.eventoAssociato = eventoAssociato;
     }

@@ -4,6 +4,8 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.observer.ContestObservable;
+import it.unicam.cs.util.enums.TipoInvito;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,16 +28,15 @@ import java.util.UUID;
 public class Contest implements ContestObservable<Utente> {
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Integer id;
-    private String oggetto;
     private String descrizione;
     @Column(name = "data_inizio")
     private Date dataInizio;
     @Column(name = "data_fine")
     private Date dataFine;
-    @Embedded
-    private Posizione luogo;
-    private String tipoPOI;
     private int partecipanti;
+    @ManyToOne()
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
     @OneToMany
     private List<ContenutoContest> contenutiCaricati;
     @OneToOne
@@ -43,6 +44,7 @@ public class Contest implements ContestObservable<Utente> {
     @ManyToOne
     private Utente organizzatore;
     private boolean attivo = true;
+    private TipoInvito tipoInvito;
     @ManyToOne
     private Utente vincitore;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -106,4 +108,5 @@ public class Contest implements ContestObservable<Utente> {
         partecipantiContest.stream()
                 .map(partecipante -> partecipante.getContestInPartecipazione().remove(this));
     }
+
 }

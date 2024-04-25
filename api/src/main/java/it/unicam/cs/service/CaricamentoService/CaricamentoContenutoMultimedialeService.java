@@ -27,11 +27,11 @@ public class CaricamentoContenutoMultimedialeService {
 
     public void caricaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto){
         controlloContenutoMultimedialeService.verificaContenutoMultimediale(contenutoMultimedialeDto);
-        costruisciContenutoMultimediale(contenutoMultimedialeDto);
+        ContenutoMultimediale contenutoMultimediale = new ContenutoMultimediale();
+        costruisciContenutoMultimediale(contenutoMultimediale,contenutoMultimedialeDto);
     }
 
-    private void costruisciContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto) {
-        ContenutoMultimediale contenutoMultimediale = new ContenutoMultimediale();
+    private void costruisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale,ContenutoMultimedialeDto contenutoMultimedialeDto) {
         Utente utente = utenteRepository.findUtenteById(contenutoMultimedialeDto.getIdContributore());
         POI poi = poiRepository.findPoiById(contenutoMultimedialeDto.getIdPoi());
         Evento evento = eventoRepository.findEventoById(contenutoMultimedialeDto.getIdEvento());
