@@ -1,6 +1,7 @@
 package it.unicam.cs.util.Extensions;
 
 import it.unicam.cs.exception.Contenuto.ItinerarioNotValidException;
+import it.unicam.cs.exception.Contenuto.ListaPOINotValidException;
 import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
@@ -9,11 +10,13 @@ import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+@Component
 public class ValidationItinerarioExtension {
     @Autowired
     private UtenteRepository utenteRepository;
@@ -37,9 +40,18 @@ public class ValidationItinerarioExtension {
         }
     }
     public void areIdPOISValid (List<Integer> idPois, Integer idUtente){
+        if(idPois == null){
+            throw new NullPointerException("lista dei poi interessati " +
+                    "non può essere nulla");
+        }
         Utente utente = utenteRepository.findUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
         List<POI> pois = poiRepository.findAllById(idPois);
+        Set<POI> setPois = new LinkedHashSet<>(pois);
+        List<POI> arrayPois = new ArrayList<>(setPois);
+        if(!pois.equals(arrayPois)){
+            throw new ListaPOINotValidException();
+        }
         boolean valid = pois.stream().allMatch(value -> comuneContienePOI(comune,value));
     }
 

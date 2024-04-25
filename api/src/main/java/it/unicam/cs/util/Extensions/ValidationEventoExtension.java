@@ -8,15 +8,16 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
-@AllArgsConstructor
 public class ValidationEventoExtension {
-    private final UtenteRepository utenteRepository;
+    @Autowired
+    private UtenteRepository utenteRepository;
 
     public void isNomeValid(String nome){
         if(nome.isBlank()){
@@ -28,6 +29,9 @@ public class ValidationEventoExtension {
         }
     }
     public void isIdEventovalid(Integer idUtente,Integer idPOI){
+        if(idPOI == null){
+            throw new NullPointerException("id poi non deve essere nullo");
+        }
         Utente utente = utenteRepository.findUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
         List<POI> pois = comune.getPOIS();
@@ -39,6 +43,9 @@ public class ValidationEventoExtension {
         throw new POINotFoundException();
     }
     public void isEventoContributoreValid(Integer idContributore) {
+        if(idContributore == null){
+            throw new NullPointerException("id del contributpre non può essere nullo");
+        }
         Utente utente = utenteRepository.getReferenceById(idContributore);
         if (!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
                 && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)

@@ -56,4 +56,24 @@ public class ContenutoExceptionController {
     public ResponseEntity<Object> itinerarioNotValidException(ItinerarioNotValidException itinerarioNotValidException){
         return new ResponseEntity<>("i poi devono essere tutti all'interno dello stesso comune", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = POINotValidException.class)
+    public ResponseEntity<Object> poiNotValidException (POINotValidException poiNotValidException){
+        return new ResponseEntity<>("poi non appartennente al comune dell'utente", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = EventoNotFoundException.class)
+    public ResponseEntity<Object> eventoNotValidException(EventoNotValidException eventoNotValidException){
+        return new ResponseEntity<>("evento non appartentente al poi inserito", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = ListaPOINotValidException.class)
+    public ResponseEntity<Object> listaPOINotValidException(ListaPOINotValidException listaPOINotValidException){
+        return new ResponseEntity<>("non ci possono essere poi duplicati nell'itinerario", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = TipoContenutoMultimedialeNotValidException.class)
+    public ResponseEntity<Object> tipoContenutoMultimedialeNotValidException(TipoContenutoMultimedialeNotValidException tipoContenutoMultimedialeNotValidException){
+        return new ResponseEntity<>("tipo contenuto multimediale non esistente", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = FotoNotValidExcetion.class)
+    public ResponseEntity<Object> fotoNotValidException(FotoNotValidExcetion fotoNotValidExcetion){
+        return new ResponseEntity<>("la foto deve essere un jpg, jpeg o png file",HttpStatus.BAD_REQUEST);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IPOIRepository extends JpaRepository<POI, Integer> {
+        POI findPoiById(Integer id);
         @Query(value= "SELECT p from POI p WHERE p.comuneAssociato.id = :comuneId")
         List<POI> findByComuneAssociatoId(Integer comuneId);
         default PoiDto convertiPOIinPoiDto(POI poi){

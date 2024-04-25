@@ -19,5 +19,4 @@ public abstract class ControlloPOIService {
         poiDto.accept(poiDtoVisitor);
     }
 
-    public abstract void controllaPOISpecifico(PoiDto poiDto);
 }

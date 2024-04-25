@@ -29,8 +29,8 @@ public class CaricamentoItinerarioService {
     private void costruisciItinerario(ItinerarioDto itinerarioDto) {
         Itinerario itinerario = new Itinerario();
         Utente utente = utenteRepository.findUtenteById(itinerarioDto.getIDContributore());
-        itinerario.setNome(itinerario.getNome());
-        itinerario.setDescirizione(itinerario.getDescirizione());
+        itinerario.setNome(itinerarioDto.getNome());
+        itinerario.setDescirizione(itinerarioDto.getDescrizione());
         itinerario.setContributore(utente);
         itinerario.setStato(utente);
         itinerario.setComuneAssociato(utente.getComuneAssociato());

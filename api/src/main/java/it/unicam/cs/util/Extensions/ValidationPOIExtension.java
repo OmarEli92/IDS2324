@@ -17,7 +17,6 @@ classe che serve per controllare i metodi che possono essere comuni tra le varie
 che estendono POI
  */
 @Component
-@AllArgsConstructor
 public class ValidationPOIExtension {
     @Autowired
     private UtenteRepository utenteRepository;
@@ -62,7 +61,7 @@ public class ValidationPOIExtension {
         }
     }
     public void isPOIContributoreValid(Integer idContributore) {
-        Utente utente = utenteRepository.getReferenceById(idContributore);
+        Utente utente = utenteRepository.findUtenteById(idContributore);
         if(!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
                 && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
                 && !utente.getRuoli().contains((RuoliUtente.CURATORE))){

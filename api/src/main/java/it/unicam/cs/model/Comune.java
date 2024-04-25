@@ -53,23 +53,5 @@ public class Comune {
 
 
 
-    public String getNome() {
-        return nome;
-    }
-
-
-   public Utente getGestoreComune() {
-       return gestoreComune;
-   }
-
-
-    public List<Utente> getCuratori() {
-        return curatori;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
 
 }

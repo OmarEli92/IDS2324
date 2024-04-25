@@ -1,5 +1,6 @@
 package it.unicam.cs.model.contenuti;
 
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 public class ContenutoContest {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne
-    private ContenutoMultimediale contenutoMultimediale;
-    @OneToOne
-    private Utente partecipante;
+    private String nome;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Utente utenteCreatore;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name ="id_contest_associato",referencedColumnName = "id")
+    private Contest contestAssociato;
 }

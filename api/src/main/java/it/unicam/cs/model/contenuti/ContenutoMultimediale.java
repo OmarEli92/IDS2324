@@ -1,14 +1,19 @@
 package it.unicam.cs.model.contenuti;
 
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.util.enums.StatoElemento;
+import it.unicam.cs.util.enums.TipoContenuto;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
 @Entity
+@Data
 public class ContenutoMultimediale {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -16,6 +21,8 @@ public class ContenutoMultimediale {
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY)
     private Utente utenteCreatore;
+    private StatoElemento stato;
+    private TipoContenuto tipoContenuto;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
@@ -23,15 +30,25 @@ public class ContenutoMultimediale {
     @JoinColumn(name = "id_evento_associato", referencedColumnName = "id")
     private Evento eventoAssociato;
 
-    public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, POI poiAssociato) {
+    public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato) {
         this.id = id;
         this.nome = nome;
         this.utenteCreatore = utenteCreatore;
+        this.stato = stato;
         this.poiAssociato = poiAssociato;
     }
 
     public ContenutoMultimediale() {
 
+    }
+
+    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, TipoContenuto tipoContenuto, POI poiAssociato, Evento eventoAssociato) {
+        this.nome = nome;
+        this.utenteCreatore = utenteCreatore;
+        this.stato = stato;
+        this.tipoContenuto=tipoContenuto;
+        this.poiAssociato = poiAssociato;
+        this.eventoAssociato = eventoAssociato;
     }
 
     @Override
@@ -47,8 +64,14 @@ public class ContenutoMultimediale {
     public int hashCode() {
         return Objects.hash(super.hashCode(), poiAssociato);
     }
-
-    public POI getPoiAssociato() {
-        return poiAssociato;
+    public void setStato(Utente utente) {
+        for(Ruolo ruolo : utente.getRuoli()){
+            if(ruolo.getNome().equalsIgnoreCase("Curatore") || ruolo.getNome().equalsIgnoreCase("Contributore_Autorizzato")) {
+                this.stato = StatoElemento.PUBBLICATO;
+            }
+            else if (ruolo.getNome().equalsIgnoreCase("Contributore")) {
+                this.stato = StatoElemento.PENDING;
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 /** L'interfaccia EventoRepository è un repository che gestisce la persistenza dei dati relativi agli eventi
  * nella piattaforma e fornisce metodi adibiti a tale scopo **/
 public interface IEventoRepository extends JpaRepository<Evento,Integer> {
-
+    Evento findEventoById(Integer id);
     @Query(value= "SELECT e from Evento e WHERE e.comuneAssociato.id  = :comuneId")
     List<Evento> findByComuneAssociatoId(Integer comuneId);
 
