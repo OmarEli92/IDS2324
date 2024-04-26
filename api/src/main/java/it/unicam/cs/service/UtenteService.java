@@ -3,7 +3,9 @@ package it.unicam.cs.service;
 import it.unicam.cs.model.DTO.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
@@ -125,6 +127,16 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     public void aggiungiItinerario(Integer idUtente, Itinerario itinerario){
         Utente utente = utenteRepository.getReferenceById(idUtente);
         utente.aggiungiItinerario(itinerario);
+        utenteRepository.save(utente);
+    }
+    public void aggiungiContenutoMultimediale(Integer idUtente, ContenutoMultimediale contenutoMultimediale){
+        Utente utente =utenteRepository.getReferenceById(idUtente);
+        utente.aggiungiContenutoMultimediale(contenutoMultimediale);
+        utenteRepository.save(utente);
+    }
+    public void aggiungiEvento(Integer idUtente, Evento evento){
+        Utente utente = utenteRepository.getReferenceById(idUtente);
+        utente.aggiungiEvento(evento);
         utenteRepository.save(utente);
     }
 }

@@ -2,6 +2,7 @@ package it.unicam.cs.util;
 
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,23 @@ public class VerificaSomiglianzaContenuti {
         for (Evento e : eventoList){
             if(evento.getNome().equalsIgnoreCase(e.getNome()) && evento.getPoiAssociato().equals(e.getPoiAssociato())){
                 return true;
+            }
+        }
+        return false;
+    }
+    public boolean verificaSomiglianzaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale, List<ContenutoMultimediale> contenutoMultimedialeList){
+        if(contenutoMultimediale.getEventoAssociato()!= null){
+            for(ContenutoMultimediale c : contenutoMultimedialeList){
+                if(contenutoMultimediale.getNome().equalsIgnoreCase(c.getNome()) && contenutoMultimediale.getEventoAssociato().getId().equals(c.getEventoAssociato().getId())){
+                    return true;
+                }
+            }
+        }
+        else{
+            for (ContenutoMultimediale c : contenutoMultimedialeList){
+                if(contenutoMultimediale.getNome().equalsIgnoreCase(c.getNome()) && contenutoMultimediale.getPoiAssociato().getId().equals(c.getPoiAssociato().getId())){
+                    return true;
+                }
             }
         }
         return false;

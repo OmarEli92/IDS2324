@@ -50,6 +50,13 @@ public abstract class POI{
         this.eventiAssociati = eventiAssociati;
         this.contenutiMultimediali = contenutiMultimediali;
     }
+
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
+    }
+    public void aggiungiEvento(Evento evento){
+        this.eventiAssociati.add(evento);
+    }
 }
 
 

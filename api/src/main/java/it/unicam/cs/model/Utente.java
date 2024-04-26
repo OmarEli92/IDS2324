@@ -1,7 +1,9 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.observer.ContestObserver;
 import it.unicam.cs.security.Token;
@@ -59,6 +61,12 @@ public class Utente implements UserDetails,ContestObserver {
     @OneToMany
     @JoinColumn(name = "id_itinerario_creato", referencedColumnName = "id")
     private List<Itinerario> itinerariCreati;
+    @OneToMany
+    @JoinColumn(name = "id_contenuto_multimediale_creato", referencedColumnName = "id")
+    private List<ContenutoMultimediale> contenutiMultimediali;
+    @OneToMany
+    @JoinColumn(name = "id_evento_creato", referencedColumnName = "id")
+    private List<Evento> eventiCreati;
 
 
     @Override
@@ -79,6 +87,12 @@ public class Utente implements UserDetails,ContestObserver {
     }
     public void aggiungiItinerario(Itinerario itinerario){
         this.itinerariCreati.add(itinerario);
+    }
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
+    }
+    public void aggiungiEvento(Evento evento){
+        this.eventiCreati.add(evento);
     }
 
     @Override

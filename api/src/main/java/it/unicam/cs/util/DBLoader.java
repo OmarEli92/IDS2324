@@ -63,10 +63,7 @@ public class DBLoader implements CommandLineRunner {
                         LocalDate.of(1992,11,20),
                         "omarel@hotmail.com","maschio","1234567890",
                         0,comune2,new ArrayList<>(), new ArrayList<>(),
-                        new ArrayList<>(),new ArrayList<>())
-        );
-
-
-
+                        new ArrayList<>(),new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                        new ArrayList<>()));
     }
 }

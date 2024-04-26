@@ -52,5 +52,9 @@ public abstract class Evento {
         this.dataFine = dataFine;
         this.contenutiMultimediali = contenutiMultimediali;
     }
+
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
+    }
 }
 
