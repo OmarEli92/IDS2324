@@ -32,6 +32,6 @@ public class CaricamentoContestService {
         }
         contest.setComuneAssociato(utente.getComuneAssociato());
         contest.setOrganizzatore(utente);
-        contest.setTipoInvito(TipoInvito.valueOf(contestDto.getTipoInvito()));
+        contest.setTipoInvito(TipoInvito.valueOf(contestDto.getTipoInvito().toUpperCase()));
     }
 }
