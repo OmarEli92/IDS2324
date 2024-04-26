@@ -3,6 +3,8 @@ package it.unicam.cs.service;
 import it.unicam.cs.model.DTO.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.Interfaces.IUtenteService;
@@ -115,5 +117,14 @@ public class UtenteService implements IUtenteService,UserDetailsService {
                                                                        authorities);
         }
     }
-
+    public void aggiungiPOI(Integer idUtente,POI poi){
+        Utente utente = utenteRepository.getReferenceById(idUtente);
+        utente.aggiungiPOI(poi);
+        utenteRepository.save(utente);
+    }
+    public void aggiungiItinerario(Integer idUtente, Itinerario itinerario){
+        Utente utente = utenteRepository.getReferenceById(idUtente);
+        utente.aggiungiItinerario(itinerario);
+        utenteRepository.save(utente);
+    }
 }

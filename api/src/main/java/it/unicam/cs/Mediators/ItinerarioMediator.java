@@ -1,6 +1,6 @@
 package it.unicam.cs.Mediators;
 
-import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.service.ComuneService;
 import it.unicam.cs.service.SalvataggioContenutiService;
 import it.unicam.cs.service.UtenteService;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
-public class POIMediator {
+public class ItinerarioMediator {
     private ComuneService comuneService;
     private UtenteService utenteService;
     private SalvataggioContenutiService salvataggioContenutiService;
 
-    public void salvaPOI(POI poi){
-        salvataggioContenutiService.salvaPOI(poi);
-        comuneService.aggiungiPOI(poi.getComuneAssociato().getId(),poi);
-        utenteService.aggiungiPOI(poi.getContributore().getId(),poi);
+    public void salvaItinerario(Itinerario itinerario){
+        salvataggioContenutiService.salvaItinerario(itinerario);
+        comuneService.aggiungiItinerario(itinerario.getComuneAssociato().getId(),itinerario);
+        utenteService.aggiungiItinerario(itinerario.getComuneAssociato().getId(),itinerario);
     }
 }

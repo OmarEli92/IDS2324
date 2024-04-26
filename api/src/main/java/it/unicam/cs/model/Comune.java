@@ -51,7 +51,12 @@ public class Comune {
         this.gestoreComune = gestoreComune;
     }
 
-
+    public void aggiungiPOI(POI poi){
+        this.POIS.add(poi);
+    }
+    public void aggiugniItinerario(Itinerario itinerario){
+        this.itinerari.add(itinerario);
+    }
 
 
 }

@@ -1,6 +1,8 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.observer.ContestObserver;
 import it.unicam.cs.security.Token;
 import it.unicam.cs.util.enums.RuoliUtente;
@@ -51,6 +53,13 @@ public class Utente implements UserDetails,ContestObserver {
     private List<Token> tokens;
     @ElementCollection
     private List<Integer> idContestVinti = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "id_poi_creato", referencedColumnName = "id")
+    private List<POI> poiCreati;
+    @OneToMany
+    @JoinColumn(name = "id_itinerario_creato", referencedColumnName = "id")
+    private List<Itinerario> itinerariCreati;
+
 
     @Override
     public void update(Integer idContest) {
@@ -64,6 +73,12 @@ public class Utente implements UserDetails,ContestObserver {
             authorities.add(new SimpleGrantedAuthority(ruolo.getNome()));
         }
         return authorities;
+    }
+    public void aggiungiPOI(POI poi){
+        this.poiCreati.add(poi);
+    }
+    public void aggiungiItinerario(Itinerario itinerario){
+        this.itinerariCreati.add(itinerario);
     }
 
     @Override
