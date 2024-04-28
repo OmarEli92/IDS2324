@@ -86,6 +86,13 @@ public class ContestService implements IContestService {
     }
 
     @Override
+    public void aggiungiContenutoContest(Integer idContest, ContenutoContest contenutoContest) {
+        Contest contest = contestRepository.getReferenceById(idContest);
+        contest.aggiungiContenutoCaricato(contenutoContest);
+        contestRepository.save(contest);
+    }
+
+    @Override
     public void chiudiContest(Contest contest) {
         contest.setAttivo(false);
         contestRepository.save(contest);

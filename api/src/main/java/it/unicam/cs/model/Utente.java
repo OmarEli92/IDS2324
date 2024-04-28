@@ -3,6 +3,7 @@ package it.unicam.cs.model;
 
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.observer.ContestObserver;
@@ -70,6 +71,9 @@ public class Utente implements UserDetails,ContestObserver {
     @OneToMany
     @JoinColumn(name = "id_contest_creato", referencedColumnName = "id")
     private List<Contest> contestCreati;
+    @OneToMany
+    @JoinColumn(name = "id_contenuto_contest_creato", referencedColumnName = "id")
+    private List<ContenutoContest> contenutoContestCreati;
 
     @Override
     public void update(Integer idContest) {
@@ -98,6 +102,9 @@ public class Utente implements UserDetails,ContestObserver {
     }
     public void aggiungiContestCreato(Contest contest){
         this.contestCreati.add(contest);
+    }
+    public void aggiungiContenutoContestCreato(ContenutoContest contenutoContest){
+        this.contenutoContestCreati.add(contenutoContest);
     }
 
     @Override

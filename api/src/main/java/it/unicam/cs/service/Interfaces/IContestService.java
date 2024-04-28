@@ -45,6 +45,7 @@ public interface IContestService {
 
     /**L'animatore visiona i contenuti caricati per poi decidere il vincitore**/
     Page<ContenutoContest> visionaContenutiCaricati(Integer idContest, int page, int size);
+    void aggiungiContenutoContest(Integer idContest, ContenutoContest contenutoContest);
 
     /**Chiudi il contest**/
     void chiudiContest(Contest contest);

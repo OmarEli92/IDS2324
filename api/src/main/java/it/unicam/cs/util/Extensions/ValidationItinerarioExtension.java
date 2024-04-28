@@ -9,6 +9,7 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.*;
 @Component
 public class ValidationItinerarioExtension {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService utenteService;
     @Autowired
     private IPOIRepository poiRepository;
 
@@ -44,11 +45,11 @@ public class ValidationItinerarioExtension {
             throw new NullPointerException("lista dei poi interessati " +
                     "non può essere nulla");
         }
-        Utente utente = utenteRepository.findUtenteById(idUtente);
+        Utente utente = utenteService.ottieniUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
         List<POI> pois = poiRepository.findAllById(idPois);
         Set<POI> setPois = new LinkedHashSet<>(pois);
-        List<POI> arrayPois = new ArrayList<>(setPois);
+        List<POI> arrayPois = new ArrayList<>(pois);
         if(!pois.equals(arrayPois)){
             throw new ListaPOINotValidException();
         }
@@ -63,7 +64,7 @@ public class ValidationItinerarioExtension {
         return true;
     }
     public void isItinerarioContributoreValid(Integer idContributore) {
-        Utente utente = utenteRepository.findUtenteById(idContributore);
+        Utente utente = utenteService.ottieniUtenteById(idContributore);
         if (!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
                 && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
                 && !utente.getRuoli().contains((RuoliUtente.CURATORE))) {

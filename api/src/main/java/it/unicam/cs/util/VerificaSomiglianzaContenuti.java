@@ -3,6 +3,7 @@ package it.unicam.cs.util;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import org.springframework.stereotype.Component;
@@ -64,6 +65,16 @@ public class VerificaSomiglianzaContenuti {
             if(contest.getDescrizione().trim().equalsIgnoreCase(c.getDescrizione().trim())
             && contest.getTipoInvito().name().equals(c.getTipoInvito().name()) &&
             contest.getPoiAssociato().getId().equals(c.getPoiAssociato().getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean verificaSomiglianzaContenutoContest(ContenutoContest contenutoContest, List<ContenutoContest> contenutoContestList){
+        for(ContenutoContest c : contenutoContestList){
+            if(contenutoContest.getNome().trim().equalsIgnoreCase(c.getNome()) &&
+            contenutoContest.getTipo().name().equalsIgnoreCase(c.getTipo().name()) &&
+            contenutoContest.getContestAssociato().getId().equals(c.getContestAssociato().getId())){
                 return true;
             }
         }

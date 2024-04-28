@@ -6,6 +6,7 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IRuoloRepository;
@@ -143,6 +144,11 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     public void aggiungiContest(Integer idUtente, Contest contest){
         Utente utente = utenteRepository.getReferenceById(idUtente);
         utente.aggiungiContestCreato(contest);
+        utenteRepository.save(utente);
+    }
+    public void aggiungiContenutoContest(Integer idUtente, ContenutoContest contenutoContest){
+        Utente utente = utenteRepository.getReferenceById(idUtente);
+        utente.aggiungiContenutoContestCreato(contenutoContest);
         utenteRepository.save(utente);
     }
 }

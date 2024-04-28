@@ -7,7 +7,9 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloItinerarioService;
+import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.Extensions.ValidationItinerarioExtension;
 import it.unicam.cs.util.enums.StatoElemento;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class CaricamentoItinerarioService {
     @Autowired
     private ControlloItinerarioService controlloItinerarioService;
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService utenteService;
     @Autowired
     private IPOIRepository poiRepository;
     @Autowired
@@ -35,13 +37,13 @@ public class CaricamentoItinerarioService {
 
     private void costruisciItinerario(ItinerarioDto itinerarioDto, Itinerario itinerario) {
         List<POI> pois = poiRepository.findAllById(itinerarioDto.getPoisId());
-        Utente utente = utenteRepository.findUtenteById(itinerarioDto.getIDContributore());
+        Utente utente = utenteService.ottieniUtenteById(itinerarioDto.getIDContributore());
         itinerario.setNome(itinerarioDto.getNome());
         itinerario.setDescirizione(itinerarioDto.getDescrizione());
         itinerario.setContributore(utente);
         itinerario.setStato(utente);
         itinerario.setComuneAssociato(utente.getComuneAssociato());
-        itinerario.setPoisAssociati(new ArrayList<POI>(pois));
+        itinerario.setPoisAssociati(new ArrayList<>(pois));
     }
 
 }

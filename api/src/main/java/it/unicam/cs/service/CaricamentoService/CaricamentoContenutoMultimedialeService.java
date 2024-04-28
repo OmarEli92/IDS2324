@@ -11,7 +11,10 @@ import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IItinerarioRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContenutoMultimedialeService;
+import it.unicam.cs.service.POIService;
+import it.unicam.cs.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +25,9 @@ public class CaricamentoContenutoMultimedialeService {
     @Autowired
     private ControlloContenutoMultimedialeService controlloContenutoMultimedialeService;
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService utenteService;
     @Autowired
-    private IPOIRepository poiRepository;
-    @Autowired
-    private IEventoRepository eventoRepository;
-    @Autowired
-    private IItinerarioRepository itinerarioRepository;
+    private ConsultazioneContenutiService consultazioneContenutiService;
     @Autowired
     private ContenutoMultimedialeMediator contenutoMultimedialeMediator;
 
@@ -40,10 +39,10 @@ public class CaricamentoContenutoMultimedialeService {
     }
 
     private void costruisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale,ContenutoMultimedialeDto contenutoMultimedialeDto) {
-        Utente utente = utenteRepository.findUtenteById(contenutoMultimedialeDto.getIdContributore());
-        POI poi = poiRepository.getReferenceById(contenutoMultimedialeDto.getIdPoi());
-        Evento evento = eventoRepository.getReferenceById(contenutoMultimedialeDto.getIdEvento());
-        Itinerario itinerario = itinerarioRepository.getReferenceById(contenutoMultimedialeDto.getIdItinerario());
+        Utente utente = utenteService.ottieniUtenteById(contenutoMultimedialeDto.getIdContributore());
+        POI poi = consultazioneContenutiService.ottieniPOIdaId(contenutoMultimedialeDto.getIdPoi());
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(contenutoMultimedialeDto.getIdEvento());
+        Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(contenutoMultimedialeDto.getIdItinerario());
         contenutoMultimediale.setNome(contenutoMultimedialeDto.getNome());
         contenutoMultimediale.setUtenteCreatore(utente);
         contenutoMultimediale.setStato(utente);

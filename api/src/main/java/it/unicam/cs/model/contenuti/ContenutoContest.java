@@ -15,6 +15,7 @@ public class ContenutoContest {
     private Integer id;
     private String nome;
     private TipoContenuto tipo;
+    private boolean pending = true;
     @ManyToOne(fetch = FetchType.LAZY)
     private Utente utenteCreatore;
     @ManyToOne(fetch=FetchType.LAZY)
