@@ -34,6 +34,9 @@ public class Contest implements ContestObservable<Utente> {
     @Column(name = "data_fine")
     private Date dataFine;
     private int partecipanti;
+    @ManyToOne
+    @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
+    private POI poiAssociato;
     @ManyToOne()
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;

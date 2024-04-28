@@ -1,5 +1,6 @@
 package it.unicam.cs.service;
 
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
@@ -22,6 +23,7 @@ public class SalvataggioContenutiService {
     private IItinerarioRepository itinerarioRepository;
     private IContenutoMultimedialeRepository contenutoMultimedialeRepository;
     private IEventoRepository eventoRepository;
+    private ContestService contestService;
     private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
 
     public void salvaPOI(POI poi){
@@ -51,6 +53,11 @@ public class SalvataggioContenutiService {
     public void salvaEvento(Evento evento){
         if(!verificaSomiglianzaContenuti.verificaSomiglianzaEvento(evento,eventoRepository.findAll())){
             eventoRepository.save(evento);
+        }
+    }
+    public void salvaContest(Contest contest){
+        if(!verificaSomiglianzaContenuti.verificaSomiglianzaContest(contest,contestService.ottieniContests())){
+            contestService.aggiungiContest(contest);
         }
     }
 }

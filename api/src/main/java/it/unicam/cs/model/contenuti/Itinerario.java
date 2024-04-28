@@ -30,6 +30,8 @@ public class Itinerario{
     private Comune comuneAssociato;
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     private  List<POI> poisAssociati;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContenutoMultimediale> contenutiMultimedialiAssociati;
 
     public Itinerario(Integer id, String nome, Utente contributore,StatoElemento stato,Comune comuneAssociato,
                       List<POI> poisAssociati, String descrizione) {
@@ -46,13 +48,6 @@ public class Itinerario{
 
     }
 
-    public Itinerario(String nome, String descirizione, Utente contributore, Comune comuneAssociato, List<POI> poisAssociati) {
-        this.nome = nome;
-        this.descirizione = descirizione;
-        this.contributore = contributore;
-        this.comuneAssociato = comuneAssociato;
-        this.poisAssociati = poisAssociati;
-    }
     public void setStato(Utente utente) {
         for(Ruolo ruolo : utente.getRuoli()){
             if(ruolo.getNome().equalsIgnoreCase("Curatore") || ruolo.getNome().equalsIgnoreCase("Contributore_Autorizzato")) {
@@ -76,6 +71,9 @@ public class Itinerario{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), poisAssociati);
+    }
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimedialiAssociati.add(contenutoMultimediale);
     }
 
 

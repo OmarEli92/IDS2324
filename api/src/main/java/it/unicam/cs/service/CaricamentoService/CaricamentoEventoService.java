@@ -3,6 +3,7 @@ package it.unicam.cs.service.CaricamentoService;
 import it.unicam.cs.Builder.EVENTOBUILDER.EventoBuilder;
 import it.unicam.cs.Builder.POIBUILDER.POIBuilder;
 import it.unicam.cs.Factory.Evento.IEventoBuilderFactory;
+import it.unicam.cs.Mediators.EventoMediator;
 import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
 import it.unicam.cs.model.DTO.EventoDto;
 import it.unicam.cs.model.DTO.PoiDto;
@@ -28,11 +29,14 @@ public class CaricamentoEventoService {
     private IEventoBuilderVisitor eventoBuilderVisitor;
     @Autowired
     private ConsultazioneContenutiService consultazioneContenutiService;
+    @Autowired
+    private EventoMediator eventoMediator;
 
     public void caricaEvento(EventoDto eventoDto){
         controlloEventoService.verificaEvento(eventoDto);
         EventoBuilder eventoBuilder = eventoBuilderFactory.creaBuilder(eventoDto);
         costrusciEvento(eventoBuilder,eventoDto);
+        eventoMediator.salvaEvento(eventoBuilder.build());
     }
     private void costrusciEvento(EventoBuilder eventoBuilder, EventoDto eventoDto) {
         eventoBuilder.setNome(eventoDto.getNome());

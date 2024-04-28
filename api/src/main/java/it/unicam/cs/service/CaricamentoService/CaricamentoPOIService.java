@@ -2,6 +2,7 @@ package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Builder.POIBUILDER.POIBuilder;
 import it.unicam.cs.Factory.POI.IPOIBuilderFactory;
+import it.unicam.cs.Mediators.POIMediator;
 import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
 import it.unicam.cs.model.DTO.*;
 import it.unicam.cs.model.abstractions.Evento;
@@ -23,10 +24,13 @@ public class CaricamentoPOIService {
     private IPOIBuilderFactory poiBuilderFactory;
     @Autowired
     private IPOIBuilderVisitor poiBuilderVisitor;
+    @Autowired
+    private POIMediator poiMediator;
     public void caricaPOI(PoiDto poiDto){
         controlloPOIService.verificaPOI(poiDto);
         POIBuilder poiBuilder = poiBuilderFactory.creaBuilder(poiDto);
         costrusciPOI(poiBuilder,poiDto);
+        poiMediator.salvaPOI(poiBuilder.build());
     }
     
     private void costrusciPOI(POIBuilder poiBuilder, PoiDto poiDto) {

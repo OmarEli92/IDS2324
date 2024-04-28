@@ -67,7 +67,9 @@ public class Utente implements UserDetails,ContestObserver {
     @OneToMany
     @JoinColumn(name = "id_evento_creato", referencedColumnName = "id")
     private List<Evento> eventiCreati;
-
+    @OneToMany
+    @JoinColumn(name = "id_contest_creato", referencedColumnName = "id")
+    private List<Contest> contestCreati;
 
     @Override
     public void update(Integer idContest) {
@@ -93,6 +95,9 @@ public class Utente implements UserDetails,ContestObserver {
     }
     public void aggiungiEvento(Evento evento){
         this.eventiCreati.add(evento);
+    }
+    public void aggiungiContestCreato(Contest contest){
+        this.contestCreati.add(contest);
     }
 
     @Override

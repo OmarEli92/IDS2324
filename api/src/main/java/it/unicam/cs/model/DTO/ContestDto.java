@@ -14,6 +14,7 @@ public class ContestDto {
     private Date dataInizio;
     private Date dataFine;
     private int partecipanti;
+    private Integer idPoiAssociato;
     private Integer idOrganizzatore;
     private String tipoInvito;
 }

@@ -71,7 +71,7 @@ public abstract class POIBuilder implements IPoiBuilderVisitable {
         }
     }
 
-    abstract POI build();
+    public abstract POI build();
 
     @Override
     public abstract void accept(IPOIBuilderVisitor ipoiBuilderVisitor, PoiDto poiDto);

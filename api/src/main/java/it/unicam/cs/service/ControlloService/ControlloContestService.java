@@ -1,9 +1,13 @@
 package it.unicam.cs.service.ControlloService;
 
+import it.unicam.cs.exception.Contenuto.POINotValidException;
 import it.unicam.cs.exception.Contest.TipoInvitoException;
 import it.unicam.cs.model.DTO.ContestDto;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.ConsultazioneContenutiService;
+import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +18,9 @@ import java.util.Date;
 
 public class ControlloContestService {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService utenteService;
+    @Autowired
+    private ConsultazioneContenutiService consultazioneContenutiService;
 
     public void verificaContest(ContestDto contestDto){
         verificaOrganizzatore(contestDto.getIdOrganizzatore());
@@ -22,10 +28,19 @@ public class ControlloContestService {
         verificaDateContest(contestDto.getDataInizio(),contestDto.getDataFine());
         verificaTipoInvito(contestDto.getTipoInvito());
         verificaNumeroPartecipanti(contestDto);
+        verificaIdPoi(contestDto.getIdPoiAssociato(), contestDto.getIdOrganizzatore());
+    }
+
+    private void verificaIdPoi(Integer idPoiAssociato, Integer idOrganizzatore) {
+        Utente organizzatore = utenteService.ottieniUtenteById(idOrganizzatore);
+        POI poi = consultazioneContenutiService.ottieniPOIdaId(idPoiAssociato);
+        if(organizzatore.getComuneAssociato().getId() != poi.getComuneAssociato().getId()){
+            throw new POINotValidException();
+        }
     }
 
     private void verificaOrganizzatore(Integer idOrganizzatore) {
-        Utente utente = utenteRepository.findUtenteById(idOrganizzatore);
+        Utente utente = utenteService.ottieniUtenteById(idOrganizzatore);
         if(!utente.getRuoli().contains(RuoliUtente.ANIMATORE)){
             throw new TipoInvitoException();
         }

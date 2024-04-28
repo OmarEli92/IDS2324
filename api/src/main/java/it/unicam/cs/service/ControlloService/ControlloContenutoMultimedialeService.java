@@ -10,7 +10,9 @@ import it.unicam.cs.model.DTO.ContenutoMultimedialeDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IEventoRepository;
+import it.unicam.cs.repository.IItinerarioRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
@@ -27,16 +29,19 @@ public class ControlloContenutoMultimedialeService {
     private IPOIRepository poiRepository;
     @Autowired
     private IEventoRepository eventoRepository;
+    @Autowired
+    private IItinerarioRepository itinerarioRepository;
 
     public void verificaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto){
-        Optional<POI> poi = poiRepository.findById(contenutoMultimedialeDto.getIdPoi());
-        Optional<Evento> evento = eventoRepository.findById(contenutoMultimedialeDto.getIdEvento());
+        POI poi = poiRepository.getReferenceById(contenutoMultimedialeDto.getIdPoi());
+        Evento evento = eventoRepository.getReferenceById(contenutoMultimedialeDto.getIdEvento());
         Utente utente = utenteRepository.findUtenteById(contenutoMultimedialeDto.getIdContributore());
+        Itinerario itinerario = itinerarioRepository.getReferenceById(contenutoMultimedialeDto.getIdItinerario());
         verificaIdContributore(utente);
         verificaTipoContenuto(contenutoMultimedialeDto);
         verificaIdPoi(poi, utente);
-        verificaIdEvento(evento,poi);
-
+        verificaIdEvento(evento,utente);
+        verificaIdItinerario(itinerario,utente);
     }
 
     private void verificaTipoContenuto(ContenutoMultimedialeDto contenutoMultimedialeDto) {
@@ -71,23 +76,33 @@ public class ControlloContenutoMultimedialeService {
     }
 
 
-    private void verificaIdEvento(Optional<Evento> evento, Optional<POI> poi) {
-        if(!evento.isPresent()){
-            throw new NullPointerException("evento non esistente");
-        }
-        if(!poi.get().getEventiAssociati().contains(evento)){
-            throw new EventoNotValidException();
+    private void verificaIdEvento(Evento evento, Utente utente) {
+        if(evento!=null){
+            Comune comuneEvento = evento.getComuneAssociato();
+            Comune comuneUtente = utente.getComuneAssociato();
+            if(comuneEvento.getId()!=comuneUtente.getId()){
+                throw new EventoNotValidException();
+            }
         }
     }
 
-    private void verificaIdPoi(Optional<POI> poi, Utente utente) {
-        if(!poi.isPresent()){
-            throw new NullPointerException("poi non esistente");
+    private void verificaIdPoi(POI poi, Utente utente) {
+        if(poi!=null) {
+            Comune comunePOI = poi.getComuneAssociato();
+            Comune comuneUtente = utente.getComuneAssociato();
+            if (comunePOI.getId() != comuneUtente.getId()) {
+                throw new POINotValidException();
+            }
         }
-        Comune comunePOI = poi.get().getComuneAssociato();
-        Comune comuneUtente = utente.getComuneAssociato();
-        if(comunePOI.getId() != comuneUtente.getId()){
-            throw new POINotValidException();
+    }
+    private void verificaIdItinerario(Itinerario itinerario, Utente utente) {
+        if(itinerario!=null){
+            Comune comuneItinerario = itinerario.getComuneAssociato();
+            Comune comuneUtente = utente.getComuneAssociato();
+            if(comuneItinerario.getId() != comuneUtente.getId()){
+                throw new IllegalArgumentException("comune dell'itinerario diverso dal comune " +
+                        "dell'utente");
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package it.unicam.cs.service;
 
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
@@ -137,6 +138,11 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     public void aggiungiEvento(Integer idUtente, Evento evento){
         Utente utente = utenteRepository.getReferenceById(idUtente);
         utente.aggiungiEvento(evento);
+        utenteRepository.save(utente);
+    }
+    public void aggiungiContest(Integer idUtente, Contest contest){
+        Utente utente = utenteRepository.getReferenceById(idUtente);
+        utente.aggiungiContestCreato(contest);
         utenteRepository.save(utente);
     }
 }

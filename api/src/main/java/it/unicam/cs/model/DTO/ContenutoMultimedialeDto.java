@@ -13,4 +13,5 @@ public class ContenutoMultimedialeDto {
     private String tipoContenuto;
     private Integer idPoi;
     private Integer idEvento;
+    private Integer idItinerario;
 }

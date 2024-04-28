@@ -62,7 +62,7 @@ public class ContenutoExceptionController {
     }
     @ExceptionHandler(value = EventoNotFoundException.class)
     public ResponseEntity<Object> eventoNotValidException(EventoNotValidException eventoNotValidException){
-        return new ResponseEntity<>("evento non appartentente al poi inserito", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("evento non appartentente al comune dell'utente", HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(value = ListaPOINotValidException.class)
     public ResponseEntity<Object> listaPOINotValidException(ListaPOINotValidException listaPOINotValidException){

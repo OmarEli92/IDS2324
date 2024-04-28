@@ -1,6 +1,7 @@
 package it.unicam.cs.model.abstractions;
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.enums.StatoElemento;
@@ -39,6 +40,8 @@ public abstract class POI{
     private List<Evento> eventiAssociati;
     @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
+    @OneToMany(mappedBy = "poiAssociato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contest> contestAssociati;
 
     public POI(String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali) {
         this.nome = nome;
@@ -56,6 +59,9 @@ public abstract class POI{
     }
     public void aggiungiEvento(Evento evento){
         this.eventiAssociati.add(evento);
+    }
+    public void aggiungiContest(Contest contest){
+        this.contestAssociati.add(contest);
     }
 }
 

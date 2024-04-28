@@ -1,5 +1,6 @@
 package it.unicam.cs.util;
 
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
@@ -42,11 +43,28 @@ public class VerificaSomiglianzaContenuti {
                 }
             }
         }
-        else{
+        else if(contenutoMultimediale.getPoiAssociato()!= null){
             for (ContenutoMultimediale c : contenutoMultimedialeList){
                 if(contenutoMultimediale.getNome().equalsIgnoreCase(c.getNome()) && contenutoMultimediale.getPoiAssociato().getId().equals(c.getPoiAssociato().getId())){
                     return true;
                 }
+            }
+        }
+        else {
+            for(ContenutoMultimediale c : contenutoMultimedialeList){
+                if(contenutoMultimediale.getNome().equalsIgnoreCase(c.getNome()) && contenutoMultimediale.getItinerarioAssociato().getId().equals(c.getItinerarioAssociato().getId())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean verificaSomiglianzaContest(Contest contest, List<Contest> contests){
+        for(Contest c : contests){
+            if(contest.getDescrizione().trim().equalsIgnoreCase(c.getDescrizione().trim())
+            && contest.getTipoInvito().name().equals(c.getTipoInvito().name()) &&
+            contest.getPoiAssociato().getId().equals(c.getPoiAssociato().getId())){
+                return true;
             }
         }
         return false;

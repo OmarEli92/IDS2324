@@ -28,6 +28,9 @@ public class ContenutoMultimediale {
     @ManyToOne
     @JoinColumn(name = "id_evento_associato", referencedColumnName = "id")
     private Evento eventoAssociato;
+    @ManyToOne
+    @JoinColumn(name = "id_itinerario_associato", referencedColumnName = "id")
+    private Itinerario itinerarioAssociato;
 
     public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato) {
         this.id = id;
@@ -41,13 +44,6 @@ public class ContenutoMultimediale {
 
     }
 
-    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato, Evento eventoAssociato) {
-        this.nome = nome;
-        this.utenteCreatore = utenteCreatore;
-        this.stato = stato;
-        this.poiAssociato = poiAssociato;
-        this.eventoAssociato = eventoAssociato;
-    }
 
     @Override
     public boolean equals(Object o) {
