@@ -32,5 +32,5 @@ public interface IUtenteService {
     UserDetailsService userDetailsService();
     /** Rimuove un utente**/
     void rimuoviUtente(Utente utente);
-
+    Utente ottieniUtente(int id);
 }

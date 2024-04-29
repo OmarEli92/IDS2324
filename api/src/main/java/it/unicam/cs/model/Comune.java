@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true) @Data
 public class Comune {
@@ -39,10 +40,14 @@ public class Comune {
     private List<Utente> listaUtenti;
     @OneToOne(fetch = FetchType.LAZY)
     private Utente gestoreComune;
+    private int abitanti;
+    @ElementCollection
+    @CollectionTable(name="perimetro_comune", joinColumns = @JoinColumn(name="id_comune"))
+    private List<Posizione> perimetro = new ArrayList<>();
 
     public Comune(String nome, Integer id,String provincia,String regione,Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
                   List<Evento> eventiInPending, List<POI> POISInPending, List<Itinerario> itinerariInPending,
-                  List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune) {
+                  List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune, int abitanti) {
 
         this.nome = nome;
         this.id = id;
@@ -58,6 +63,7 @@ public class Comune {
         this.listaUtenti=listaUtenti;
         this.curatori = curatori;
         this.gestoreComune = gestoreComune;
+        this.abitanti = abitanti;
     }
 
 

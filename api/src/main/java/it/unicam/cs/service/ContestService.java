@@ -77,13 +77,28 @@ public class ContestService implements IContestService {
     }
 
     @Override
-    public void assegnaVincitoreContest(Contest contest, Utente utente) {
+    public void assegnaVincitoreContest(int idContest, Utente utente) {
+        Contest contest = contestRepository.getReferenceById(idContest);
         if(contest.isAttivo() && contest.getVincitore() == null){
             contest.setVincitore(utente);
             chiudiContest(contest);
-
             String tipoPOI = contest.getTipoPOI();
-            //TODO costruzione del POI a seconda del design pattern utilizzato
+            POI poiEsistente = poiRepository.
+                    findAll()
+                    .stream()
+                    .filter(poi -> poi.getPosizione().equals(contest.getLuogo()))
+                            .findFirst()
+                    .orElse(null);
+            if(poiEsistente == null) {
+                //poiEsistente = .. il nuovo poi costruito;
+                //TODO costruzione del POI a seconda del design pattern utilizzato
+            }
+            ContenutoContest vincente = contest.getContenutiCaricati()
+                    .stream()
+                            .filter(contenuto -> contenuto.getPartecipante().equals(utente))
+                                    .findFirst().orElse(null);
+            poiEsistente.aggiungiContenutoMultimediale(vincente.getContenutoMultimediale());
+            contest.setVincitore(utente);
             contest.notifica();
         }
     }

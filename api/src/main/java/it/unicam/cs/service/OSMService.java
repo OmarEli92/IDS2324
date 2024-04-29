@@ -4,11 +4,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unicam.cs.service.Interfaces.IGeolocalizzazioneService;
 import it.unicam.cs.util.info.Posizione;
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
+@Service
 public class OSMService implements IGeolocalizzazioneService {
     private final String BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&q=";
     @Override
@@ -31,7 +36,19 @@ public class OSMService implements IGeolocalizzazioneService {
     }
 
     @Override
-    public boolean verificaPuntoNelComune(Posizione posizione, String comune) {
+    public boolean verificaPuntoNelComune(Posizione posizionePunto, Posizione[] posizioneComune) {
+        if(posizionePunto == null || posizioneComune[0] == null || posizioneComune[1] == null){
+            throw new NullPointerException("Le posizioni devono contenere un valore valido e che non sia null");
+        }
+        /** Formato posizioneComune: {min lat, min long}, {max lat, max long}**/
+        return (posizioneComune[0].getLatitudine() <= posizionePunto.getLatitudine()) &&
+                (posizionePunto.getLatitudine()<= posizioneComune[1].getLatitudine())
+                && (posizioneComune[2].getLongitudine() <= posizionePunto.getLongitudine())
+                && (posizioneComune[3].getLongitudine() >= posizionePunto.getLongitudine());
+    }
+
+    @Override
+    public List<Posizione> ottieniPerimetro(String comune) {
         double[] latAndLonRanges = new double[4];
         String risposta = ottieniRisultatoDaOSM(comune);
         ObjectMapper mapper = new ObjectMapper();
@@ -48,8 +65,10 @@ public class OSMService implements IGeolocalizzazioneService {
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return (latAndLonRanges[0] <= posizione.getLatitudine()) && (posizione.getLatitudine()<= latAndLonRanges[1])
-                && (latAndLonRanges[2] <= posizione.getLongitudine()) && (latAndLonRanges[3] <= posizione.getLongitudine());
+        List<Posizione> perimetro = new ArrayList<>();
+        perimetro.add(new Posizione(latAndLonRanges[0],latAndLonRanges[2]));
+        perimetro.add(new Posizione(latAndLonRanges[1], latAndLonRanges[3]));
+        return perimetro;
     }
 
     private String ottieniRisultatoDaOSM(String Url) {
