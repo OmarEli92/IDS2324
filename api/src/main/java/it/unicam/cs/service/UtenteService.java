@@ -170,4 +170,19 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    public void aggiornaListaItinerario(Integer idItinerario, boolean validato){
+        Utente utente = utenteRepository.findByIitinerarioId(idItinerario);
+        if(validato){
+            utente.getItinerariCreati()
+                    .stream()
+                    .filter(itinerario -> itinerario.getId().equals(idItinerario))
+                    .forEach(itinerario -> itinerario.setStato(utente));
+            utenteRepository.save(utente);
+        }
+        else{
+            Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(idItinerario);
+            utente.getItinerariCreati().remove(itinerario);
+            utenteRepository.save(utente);
+        }
+    }
 }

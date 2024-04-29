@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor_ = @Autowired)
-public class ValidazioneService {
+public class ValidazioneContenutiService {
     private POIMediator poiMediator;
     private ItinerarioMediator itinerarioMediator;
     private EventoMediator eventoMediator;
@@ -18,4 +18,5 @@ public class ValidazioneService {
     public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto){
         poiMediator.validaPOI(richiestaValidazioneDto);
     }
+
 }

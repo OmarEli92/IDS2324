@@ -18,6 +18,8 @@ public class ComuneService {
     private IComuneRepository comuneRepository;
     @Autowired
     ConsultazioneContenutiService consultazioneContenutiService;
+    @Autowired
+    private  UtenteRepository utenteRepository;
 
     public void aggiungiPOI(Integer idComune, POI poi){
         Comune comune = comuneRepository.getReferenceById(idComune);
@@ -41,6 +43,22 @@ public class ComuneService {
         else {
             POI poi = consultazioneContenutiService.ottieniPOIdaId(idPOI);
             comune.getPOIS().remove(poi);
+            comuneRepository.save(comune);
+        }
+    }
+    public void aggiornaListaItinerario(Integer idItinerario, boolean validato){
+        Comune comune = comuneRepository.findByItinerarioId(idItinerario);
+        Utente utente = utenteRepository.findByIitinerarioId(idItinerario);
+        if(validato){
+            comune.getItinerari()
+                    .stream()
+                    .filter(itinerario -> itinerario.getId().equals(idItinerario))
+                    .forEach(itinerario -> itinerario.setStato(utente));
+            comuneRepository.save(comune);
+        }
+        else {
+            Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(idItinerario);
+            comune.getItinerari().remove(itinerario);
             comuneRepository.save(comune);
         }
     }
