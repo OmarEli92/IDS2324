@@ -7,6 +7,9 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.Collection;
 
 public interface UtenteRepository extends JpaRepository<Utente,Integer> {
     Utente findByUsername(String username);
@@ -22,4 +25,8 @@ public interface UtenteRepository extends JpaRepository<Utente,Integer> {
         utenteDto.setEmail(utente.getEmail());
         return utenteDto;
     }
+    @Query(value = "SELECT u from Utente u JOIN u.ruoli r WHERE r.nome = :ruolo AND u.comuneAssociato.id = :id")
+    Collection<Utente> findByRuoli_NomeAndComuneAssociato_Nome(String ruolo, int id);
+    @Query(value= "SELECT u from Utente u WHERE u.comuneAssociato.nome = :comune")
+    Collection<Utente> findByComuneAssociato(String comune);
 }

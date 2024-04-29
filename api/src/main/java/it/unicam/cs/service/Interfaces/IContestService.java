@@ -41,7 +41,7 @@ public interface IContestService {
 
 
     /**Assegna il vincitore del contest**/
-    void assegnaVincitoreContest(Contest contest, Utente utente);
+    void assegnaVincitoreContest(int idContest, Utente utente);
 
     /**L'animatore visiona i contenuti caricati per poi decidere il vincitore**/
     Page<ContenutoContest> visionaContenutiCaricati(Integer idContest, int page, int size);
