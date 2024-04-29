@@ -1,5 +1,6 @@
 package it.unicam.cs.repository;
 
+import io.swagger.models.auth.In;
 import it.unicam.cs.model.DTO.EventoDto;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
@@ -15,7 +16,8 @@ public interface IEventoRepository extends JpaRepository<Evento,Integer> {
     Evento findEventoById(Integer id);
     @Query(value= "SELECT e from Evento e WHERE e.comuneAssociato.id  = :comuneId")
     List<Evento> findByComuneAssociatoId(Integer comuneId);
-
+    @Query(value = "SELECT e from Evento e JOIN e.contenutiMultimediali c WHERE c.id =: idRichiesta")
+    Evento findEventoByContenutoMultimedialeId(Integer idRichiesta);
     default EventoDto convertiEventoInEventoDTO(Evento evento){
         EventoDto eventoDto = new EventoDto();
         eventoDto.setID(evento.getId());

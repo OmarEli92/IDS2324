@@ -17,6 +17,8 @@ public interface IPOIRepository extends JpaRepository<POI, Integer> {
         List<POI> findByComuneAssociatoId(Integer comuneId);
         @Query(value = "SELECT p from POI p JOIN p.eventiAssociati e where e.id =: richiestaId")
         POI findPOIByIdEvento(Integer idRichiesta);
+        @Query(value = "SELECT p from POI p JOIN p.contenutiMultimediali c where c.id =: richiestaId")
+        POI findByIdContenutoMultimediale(Integer idRichiesta);
         default PoiDto convertiPOIinPoiDto(POI poi){
                 PoiDto poiDTO = new PoiDto();
                 poiDTO.setID(poi.getId());

@@ -1,12 +1,14 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.model.Contest;
+import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IPOIRepository;
+import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.StatoElemento;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class POIService {
     private IPOIRepository poiRepository;
+    private UtenteRepository utenteRepository;
     private IEventoRepository eventoRepository;
     private ConsultazioneContenutiService consultazioneContenutiService;
     public void salvaContenutoMultimediale(Integer idPoi, ContenutoMultimediale contenutoMultimediale){
@@ -55,6 +58,22 @@ public class POIService {
         else{
             Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
             poi.getEventiAssociati().remove(evento);
+            poiRepository.save(poi);
+        }
+    }
+    public void aggiornaListaContenutoMultimediale(Integer idContenutoMultimediale, boolean validato){
+        POI poi = poiRepository.findByIdContenutoMultimediale(idContenutoMultimediale);
+        Utente utente = utenteRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
+        if(validato){
+            poi.getContenutiMultimediali()
+                    .stream()
+                    .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(idContenutoMultimediale))
+                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(utente));
+            poiRepository.save(poi);
+        }
+        else {
+            ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
+            poi.getContenutiMultimediali().remove(contenutoMultimediale);
             poiRepository.save(poi);
         }
     }

@@ -15,6 +15,8 @@ public interface IItinerarioRepository extends JpaRepository<Itinerario, Integer
 
     @Query(value= "SELECT i from Itinerario i WHERE i.comuneAssociato.id  = :comuneId")
     List<Itinerario> findByComuneAssociatoId(Integer comuneId);
+    @Query(value = "SELECT i from Itinerario i JOIN i.contenutiMultimedialiAssociati c WHERE c.id =: idRichiesta")
+    Itinerario findItinerarioByContenutoMultimedialeId(Integer idRichiesta);
     default ItinerarioDto convertiItinerarioAItinerarioDto(Itinerario itinerario){
         ItinerarioDto itinerarioDto = new ItinerarioDto();
         itinerarioDto.setID(itinerario.getId());

@@ -200,4 +200,19 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    public void aggiornaListaContenutiMultimediali(Integer idContenutoMultimediale, boolean validato){
+        Utente utente = utenteRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
+        if(validato){
+            utente.getContenutiMultimediali()
+                    .stream()
+                    .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(idContenutoMultimediale))
+                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(utente));
+            utenteRepository.save(utente);
+        }
+        else {
+            ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
+            utente.getContenutiMultimediali().remove(contenutoMultimediale);
+            utenteRepository.save(utente);
+        }
+    }
 }

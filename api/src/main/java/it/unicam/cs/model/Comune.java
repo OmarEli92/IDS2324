@@ -3,6 +3,7 @@ package it.unicam.cs.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
@@ -28,6 +29,8 @@ public class Comune {
     private List<Itinerario> itinerari;
     @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Evento> eventi;
+    @OneToMany(mappedBy = "comuneAssociato", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ContenutoMultimediale> contenutiMultimediali;
     @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Utente> curatori;
     @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
@@ -56,6 +59,10 @@ public class Comune {
     }
     public void aggiugniItinerario(Itinerario itinerario){
         this.itinerari.add(itinerario);
+    }
+    public void aggiungiEvento(Evento evento){ this.eventi.add(evento); }
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
     }
 
 

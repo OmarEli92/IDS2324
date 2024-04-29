@@ -1,5 +1,6 @@
 package it.unicam.cs.model.contenuti;
 
+import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
@@ -31,6 +32,9 @@ public class ContenutoMultimediale {
     @ManyToOne
     @JoinColumn(name = "id_itinerario_associato", referencedColumnName = "id")
     private Itinerario itinerarioAssociato;
+    @ManyToOne
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
 
     public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato) {
         this.id = id;

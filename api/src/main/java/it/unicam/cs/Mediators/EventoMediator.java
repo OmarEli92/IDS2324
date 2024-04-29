@@ -1,5 +1,8 @@
 package it.unicam.cs.Mediators;
 
+import it.unicam.cs.exception.RichiestaValidazione.RichiestaValidComuneNotValidException;
+import it.unicam.cs.exception.RichiestaValidazione.RichiestaValidContenutoNotValidException;
+import it.unicam.cs.exception.RichiestaValidazione.RichiestaValidUtenteNotValidException;
 import it.unicam.cs.model.DTO.RichiestaValidazioneDto;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.service.*;
@@ -22,6 +25,7 @@ public class EventoMediator {
     public void salvaEvento(Evento evento){
         salvataggioContenutiService.salvaEvento(evento);
         poiService.salvaEvento(evento.getPoiAssociato().getId(),evento);
+        comuneService.aggiungiEvento(evento.getComuneAssociato().getId(),evento);
         utenteService.aggiungiEvento(evento.getContributore().getId(),evento);
     }
     public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto){
@@ -35,6 +39,15 @@ public class EventoMediator {
             utenteService.aggiornaListaEvento(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             poiService.aggiornaListaEvento(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             comuneService.aggiornaListaEvento(richiestaValidazioneDto.getIdContenuto() , richiestaValidazioneDto.isValidato());
+        }
+        else if(!utenteService.ottieniUtenteById((richiestaValidazioneDto.getIdUtenteValidatore())).getRuoli().contains(RuoliUtente.CURATORE)){
+            throw new RichiestaValidUtenteNotValidException();
+        }
+        else if(!utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore()).getComuneAssociato().getId().equals(consultazioneContenutiService.ottieniEventoDaId(richiestaValidazioneDto.getIdContenuto()).getComuneAssociato().getId())){
+            throw new RichiestaValidComuneNotValidException();
+        }
+        else{
+            throw new RichiestaValidContenutoNotValidException();
         }
     }
 }

@@ -4,6 +4,7 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.repository.UtenteRepository;
@@ -30,6 +31,16 @@ public class ComuneService {
     public void aggiungiItinerario(Integer idComune, Itinerario itinerario){
         Comune comune = comuneRepository.getReferenceById(idComune);
         comune.aggiugniItinerario(itinerario);
+        comuneRepository.save(comune);
+    }
+    public void aggiungiEvento(Integer idComune, Evento evento){
+        Comune comune = comuneRepository.getReferenceById(idComune);
+        comune.aggiungiEvento(evento);
+        comuneRepository.save(comune);
+    }
+    public void aggiungiContenutoMultimediale(Integer idComune, ContenutoMultimediale contenutoMultimediale){
+        Comune comune = comuneRepository.getReferenceById(idComune);
+        comune.aggiungiContenutoMultimediale(contenutoMultimediale);
         comuneRepository.save(comune);
     }
     public void aggiornaListaPOI(Integer idPOI, boolean validato){

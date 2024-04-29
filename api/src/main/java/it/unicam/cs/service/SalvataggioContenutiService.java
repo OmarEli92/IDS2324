@@ -46,7 +46,7 @@ public class SalvataggioContenutiService {
             contenutoMultimedialeRepository.save(contenutoMultimediale);
         }
         else{
-            throw new IllegalArgumentException("itinerario già esistente");
+            throw new IllegalArgumentException("contenuto multimediale già esistente");
         }
     }
     public void salvaEvento(Evento evento){
