@@ -12,6 +12,7 @@ import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.enums.StatoElemento;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,12 +33,15 @@ import java.util.stream.Collectors;
 public class UtenteService implements IUtenteService,UserDetailsService {
     private final UtenteRepository utenteRepository;
     private final IRuoloRepository ruoloRepository;
+    private final ConsultazioneContenutiService consultazioneContenutiService;
 
     public UtenteService(UtenteRepository utenteRepository,
-                         IRuoloRepository ruoloRepository)
+                         IRuoloRepository ruoloRepository,
+                         ConsultazioneContenutiService consultazioneContenutiService)
     {
         this.utenteRepository = utenteRepository;
         this.ruoloRepository = ruoloRepository;
+        this.consultazioneContenutiService = consultazioneContenutiService;
     }
 
     @Override
@@ -150,5 +154,20 @@ public class UtenteService implements IUtenteService,UserDetailsService {
         Utente utente = utenteRepository.getReferenceById(idUtente);
         utente.aggiungiContenutoContestCreato(contenutoContest);
         utenteRepository.save(utente);
+    }
+    public void aggiornaListaPOI(Integer idPOI, boolean validato){
+        Utente utente = utenteRepository.findByPOIid(idPOI);
+        if(validato){
+            utente.getPoiCreati()
+                    .stream()
+                    .filter(poi -> poi.getId().equals(idPOI))
+                    .forEach(poi -> poi.setStato(StatoElemento.PUBBLICATO));
+            utenteRepository.save(utente);
+        }
+        else{
+            POI poi = consultazioneContenutiService.ottieniPOIdaId(idPOI);
+            utente.getPoiCreati().remove(poi);
+            utenteRepository.save(utente);
+        }
     }
 }

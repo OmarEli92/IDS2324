@@ -7,6 +7,7 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,4 +26,8 @@ public interface UtenteRepository extends JpaRepository<Utente,Integer> {
         utenteDto.setEmail(utente.getEmail());
         return utenteDto;
     }
+    @Query(value = "SELECT u from Utente u JOIN u.poiCreati i WHERE i.id =: idRichiesta")
+    Utente findByPOIid(Integer idRichiesta);
+    @Query(value = "SELECT u from Utente u JOIN u.itinerariCreati WHERE i.id =: idRichiesta")
+    Utente findByIitinerarioId(Integer idRichiesta);
 }

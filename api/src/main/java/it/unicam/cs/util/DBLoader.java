@@ -64,6 +64,6 @@ public class DBLoader implements CommandLineRunner {
                         "omarel@hotmail.com","maschio","1234567890",
                         0,comune2,new ArrayList<>(), new ArrayList<>(),
                         new ArrayList<>(),new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
-                        new ArrayList<>()));
+                        new ArrayList<>(), new ArrayList<>(),new ArrayList<>()));
     }
 }

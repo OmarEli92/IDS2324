@@ -6,6 +6,7 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.util.enums.StatoElemento;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 public class ComuneService {
     @Autowired
     private IComuneRepository comuneRepository;
+    @Autowired
+    ConsultazioneContenutiService consultazioneContenutiService;
 
     public void aggiungiPOI(Integer idComune, POI poi){
         Comune comune = comuneRepository.getReferenceById(idComune);
@@ -25,5 +28,20 @@ public class ComuneService {
         Comune comune = comuneRepository.getReferenceById(idComune);
         comune.aggiugniItinerario(itinerario);
         comuneRepository.save(comune);
+    }
+    public void aggiornaListaPOI(Integer idPOI, boolean validato){
+        Comune comune = comuneRepository.findByPOIId(idPOI);
+        if(validato){
+            comune.getPOIS()
+                    .stream()
+                    .filter(poi -> poi.getId().equals(idPOI))
+                    .forEach(poi -> poi.setStato(StatoElemento.PUBBLICATO));
+            comuneRepository.save(comune);
+        }
+        else {
+            POI poi = consultazioneContenutiService.ottieniPOIdaId(idPOI);
+            comune.getPOIS().remove(poi);
+            comuneRepository.save(comune);
+        }
     }
 }
