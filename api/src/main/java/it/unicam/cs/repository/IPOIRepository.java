@@ -2,6 +2,7 @@ package it.unicam.cs.repository;
 
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,8 @@ public interface IPOIRepository extends JpaRepository<POI, Integer> {
         POI findPoiById(Integer id);
         @Query(value= "SELECT p from POI p WHERE p.comuneAssociato.id = :comuneId")
         List<POI> findByComuneAssociatoId(Integer comuneId);
+        @Query(value = "SELECT p from POI p JOIN p.eventiAssociati e where e.id =: richiestaId")
+        POI findPOIByIdEvento(Integer idRichiesta);
         default PoiDto convertiPOIinPoiDto(POI poi){
                 PoiDto poiDTO = new PoiDto();
                 poiDTO.setID(poi.getId());

@@ -18,5 +18,10 @@ public class ValidazioneContenutiService {
     public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto){
         poiMediator.validaPOI(richiestaValidazioneDto);
     }
-
+    public void validaItinerario(RichiestaValidazioneDto richiestaValidazioneDto){
+        itinerarioMediator.validaItinerario(richiestaValidazioneDto);
+    }
+    public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto){
+        eventoMediator.validaEvento(richiestaValidazioneDto);
+    }
 }

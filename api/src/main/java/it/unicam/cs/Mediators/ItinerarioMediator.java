@@ -33,7 +33,7 @@ public class ItinerarioMediator {
         else if(utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore()).getRuoli().contains(RuoliUtente.CURATORE)
                 && consultazioneContenutiService.ottieniItinerarioDaId(richiestaValidazioneDto.getIdContenuto()).getStato().equals(StatoElemento.PENDING)
                 && utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore()).getComuneAssociato().getId().equals(consultazioneContenutiService.ottieniItinerarioDaId(richiestaValidazioneDto.getIdContenuto()).getComuneAssociato().getId())){
-            itinerarioService.validaItinerario(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.getIdUtenteValidatore(),richiestaValidazioneDto.isValidato());
+            itinerarioService.validaItinerario(richiestaValidazioneDto.getIdContenuto(),richiestaValidazioneDto.isValidato());
             utenteService.aggiornaListaItinerario(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             comuneService.aggiornaListaItinerario(richiestaValidazioneDto.getIdContenuto() , richiestaValidazioneDto.isValidato());
         }

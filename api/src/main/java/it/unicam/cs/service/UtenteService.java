@@ -185,4 +185,19 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    public void aggiornaListaEvento(Integer idEvento, boolean validato){
+        Utente utente = utenteRepository.findByEventoId(idEvento);
+        if(validato){
+            utente.getEventiCreati()
+                    .stream()
+                    .filter(evento -> evento.getId().equals(idEvento))
+                    .forEach(evento -> evento.setStato(StatoElemento.PUBBLICATO));
+            utenteRepository.save(utente);
+        }
+        else {
+            Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
+            utente.getEventiCreati().remove(evento);
+            utenteRepository.save(utente);
+        }
+    }
 }

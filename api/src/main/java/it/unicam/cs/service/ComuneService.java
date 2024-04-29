@@ -2,6 +2,7 @@ package it.unicam.cs.service;
 
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IComuneRepository;
@@ -59,6 +60,22 @@ public class ComuneService {
         else {
             Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(idItinerario);
             comune.getItinerari().remove(itinerario);
+            comuneRepository.save(comune);
+        }
+    }
+    public void aggiornaListaEvento(Integer idEvento, boolean validato){
+        Comune comune = comuneRepository.findByEvento(idEvento);
+        Utente utente = utenteRepository.findByEventoId(idEvento);
+        if(validato){
+            comune.getEventi()
+                    .stream()
+                    .filter(evento -> evento.getId().equals(idEvento))
+                    .forEach(evento -> evento.setStato(StatoElemento.PUBBLICATO));
+            comuneRepository.save(comune);
+        }
+        else {
+            Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
+            comune.getEventi().remove(evento);
             comuneRepository.save(comune);
         }
     }
