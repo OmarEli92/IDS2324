@@ -32,6 +32,8 @@ public interface UtenteRepository extends JpaRepository<Utente,Integer> {
     Utente findByIitinerarioId(Integer idRichiesta);
     @Query(value = "SELECT u from Utente u JOIN u.eventiCreati i WHERE i.id =: idRichiesta")
     Utente findByEventoId(Integer idRichiesta);
-    @Query(value = "SELECT u from Utente u JOIN u.contenutiMultimediali c where c.id =: idRichiesta")
+    @Query(value = "SELECT u from Utente u JOIN u.contenutiMultimediali c WHERE c.id =: idRichiesta")
     Utente findByContenutoMultimedialeId(Integer idRichiesta);
+    @Query(value = "SELECT u from Utente u JOIN u.contenutoContestCreati c WHERE c.id =: idRichiesta")
+    Utente findByContenutoContest(Integer idRichiesta);
 }

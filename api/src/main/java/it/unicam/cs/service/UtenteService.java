@@ -1,5 +1,6 @@
 package it.unicam.cs.service;
 
+import io.swagger.models.auth.In;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.UtenteDto;
 import it.unicam.cs.model.Ruolo;
@@ -212,6 +213,21 @@ public class UtenteService implements IUtenteService,UserDetailsService {
         else {
             ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
             utente.getContenutiMultimediali().remove(contenutoMultimediale);
+            utenteRepository.save(utente);
+        }
+    }
+    public void aggiornaListaContenutiContest(Integer idContenutoContest, boolean validato){
+        Utente utente = utenteRepository.findByContenutoContest(idContenutoContest);
+        if(validato){
+            utente.getContenutoContestCreati()
+                    .stream()
+                    .filter(contenutoContest -> contenutoContest.getId().equals(idContenutoContest))
+                    .forEach(contenutoContest -> contenutoContest.setPending(false));
+            utenteRepository.save(utente);
+        }
+        else{
+            ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(idContenutoContest);
+            utente.getContenutoContestCreati().remove(contenutoContest);
             utenteRepository.save(utente);
         }
     }

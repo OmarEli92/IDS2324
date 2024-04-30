@@ -27,4 +27,7 @@ public class ValidazioneContenutiService {
     public void validaContenutoMultimediale(RichiestaValidazioneDto richiestaValidazioneDto){
         contenutoMultimedialeMediator.validaContenuto(richiestaValidazioneDto);
     }
+    public void validaContenutoContest(RichiestaValidazioneDto richiestaValidazioneDto){
+        contenutoContestMediator.validaContenutoContest(richiestaValidazioneDto);
+    }
 }

@@ -23,6 +23,7 @@ import java.util.stream.StreamSupport;
 public class ContestService implements IContestService {
     private final IContestRepository contestRepository;
     private final IPOIRepository poiRepository;
+    private ConsultazioneContenutiService consultazioneContenutiService;
     public ContestService(IContestRepository contestRepository, IPOIRepository poiRepository){
         this.contestRepository = contestRepository;
         this.poiRepository = poiRepository;
@@ -90,6 +91,21 @@ public class ContestService implements IContestService {
         Contest contest = contestRepository.getReferenceById(idContest);
         contest.aggiungiContenutoCaricato(contenutoContest);
         contestRepository.save(contest);
+    }
+    public void aggiornaListaContenutoContest(Integer idContest, boolean validato){
+        Contest contest = contestRepository.findContestByContenutoContestId(idContest);
+        if(validato){
+            contest.getContenutiCaricati()
+                    .stream()
+                    .filter(contenutoContest -> contenutoContest.getId().equals(idContest))
+                    .forEach(contenutoContest -> contenutoContest.setPending(false));
+            contestRepository.save(contest);
+        }
+        else {
+            ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(idContest);
+            contest.getContenutiCaricati().remove(contenutoContest);
+            contestRepository.save(contest);
+        }
     }
 
     @Override

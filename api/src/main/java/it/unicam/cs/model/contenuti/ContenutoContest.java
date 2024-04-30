@@ -4,12 +4,9 @@ import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.util.enums.TipoContenuto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@Entity @NoArgsConstructor  @AllArgsConstructor @Data
+@Entity @NoArgsConstructor  @AllArgsConstructor @Getter
 public class ContenutoContest {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,4 +18,16 @@ public class ContenutoContest {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name ="id_contest_associato",referencedColumnName = "id")
     private Contest contestAssociato;
+
+    public ContenutoContest(String nome, TipoContenuto tipo, Utente utenteCreatore, Contest contestAssociato) {
+        this.nome = nome;
+        this.tipo = tipo;
+        this.utenteCreatore = utenteCreatore;
+        this.contestAssociato = contestAssociato;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
+    }
+
 }

@@ -5,6 +5,7 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.EventoDto;
 import it.unicam.cs.model.DTO.ItinerarioDto;
 import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.Itinerario;
@@ -26,18 +27,20 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     private final IItinerarioRepository itinerarioRepository;
     private final IContenutoMultimedialeRepository contenutoMultimedialeRepository;
     private final IComuneRepository comuneRepository;
+    private final IContenutoContestRepository contenutoContestRepository;
 
 
     public ConsultazioneContenutiService(IPOIRepository poiRepository,
                                          IEventoRepository eventoRepository,
                                          IItinerarioRepository itinerarioRepository,
                                          IContenutoMultimedialeRepository contenutoMultimedialeRepository,
-                                         IComuneRepository comuneRepository) {
+                                         IComuneRepository comuneRepository,IContenutoContestRepository contenutoContestRepository) {
         this.poiRepository = poiRepository;
         this.eventoRepository = eventoRepository;
         this.itinerarioRepository = itinerarioRepository;
         this.contenutoMultimedialeRepository = contenutoMultimedialeRepository;
         this.comuneRepository = comuneRepository;
+        this.contenutoContestRepository=contenutoContestRepository;
     }
 
     public Comune ottieniComuneDaId(Integer idComune){
@@ -102,5 +105,8 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
                 contenutiMultimediali.add(cont);
         }
         return contenutiMultimediali;
+    }
+    public ContenutoContest ottieniContenutoContestDaid(Integer idContenutoContest){
+        return contenutoContestRepository.getReferenceById(idContenutoContest);
     }
 }

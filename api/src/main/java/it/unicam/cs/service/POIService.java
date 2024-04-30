@@ -4,6 +4,7 @@ import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.IEventoRepository;
@@ -35,6 +36,10 @@ public class POIService {
         POI poi = poiRepository.getReferenceById(idPoi);
         poi.aggiungiContest(contest);
         poiRepository.save(poi);
+    }
+    public void salvaContenutoContest(Integer idPoi, ContenutoContest contenutoContest){
+        POI poi = poiRepository.getReferenceById(idPoi);
+
     }
     public void validaPOI(Integer id, boolean validato){
         POI poi = poiRepository.getReferenceById(id);
