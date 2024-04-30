@@ -10,6 +10,7 @@ import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ import java.util.UUID;
  * e che prevede la selezione di un vincitore **/
 
 @Entity
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Contest implements ContestObservable<Utente> {
@@ -57,6 +58,20 @@ public class Contest implements ContestObservable<Utente> {
     )
     private List<Utente> partecipantiContest;
 
+    public Contest(String descrizione, Date dataInizio, Date dataFine, int partecipanti, POI poiAssociato, Comune comuneAssociato, Utente organizzatore, TipoInvito tipoInvito) {
+        this.descrizione = descrizione;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.partecipanti = partecipanti;
+        this.poiAssociato = poiAssociato;
+        this.comuneAssociato = comuneAssociato;
+        this.organizzatore = organizzatore;
+        this.tipoInvito = tipoInvito;
+    }
+
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
+    }
 
     /**Aggiunge un contenuto al contest se il contest risulta essere attivo
      * @param contenuto **/

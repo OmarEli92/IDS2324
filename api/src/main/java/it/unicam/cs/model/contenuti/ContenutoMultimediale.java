@@ -9,12 +9,13 @@ import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoContenuto;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Objects;
 
 /** L'interfaccia ContenutoMultimediale rappresenta un contenuto multimediale che può essere associato ad un POI o ad un itinerario **/
 @Entity
-@Data
+@Getter
 public class ContenutoMultimediale {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -36,12 +37,26 @@ public class ContenutoMultimediale {
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
 
-    public ContenutoMultimediale(int id, String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato) {
-        this.id = id;
+    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, POI poiAssociato,Comune comuneAssociato) {
         this.nome = nome;
         this.utenteCreatore = utenteCreatore;
         this.stato = stato;
         this.poiAssociato = poiAssociato;
+        this.comuneAssociato=comuneAssociato;
+    }
+    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, Evento eventoAssociato, Comune comuneAssociato) {
+        this.nome = nome;
+        this.utenteCreatore = utenteCreatore;
+        this.stato = stato;
+        this.eventoAssociato = eventoAssociato;
+        this.comuneAssociato=comuneAssociato;
+    }
+    public ContenutoMultimediale(String nome, Utente utenteCreatore, StatoElemento stato, Itinerario itinerarioAssociato, Comune comuneAssociato) {
+        this.nome = nome;
+        this.utenteCreatore = utenteCreatore;
+        this.stato = stato;
+        this.itinerarioAssociato = itinerarioAssociato;
+        this.comuneAssociato=comuneAssociato;
     }
 
     public ContenutoMultimediale() {

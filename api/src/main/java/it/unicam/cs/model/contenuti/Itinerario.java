@@ -8,13 +8,14 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Objects;
 
 /** La classe Itinerario rappresenta un percorso che collega più POI e può anche contenere contenuti multimediali **/
 @Entity
-@Data
+@Getter
 public class Itinerario{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -33,9 +34,8 @@ public class Itinerario{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimedialiAssociati;
 
-    public Itinerario(Integer id, String nome, Utente contributore,StatoElemento stato,Comune comuneAssociato,
+    public Itinerario(String nome, Utente contributore,StatoElemento stato,Comune comuneAssociato,
                       List<POI> poisAssociati, String descrizione) {
-        this.id = id;
         this.nome = nome;
         this.contributore = contributore;
         this.stato = stato;

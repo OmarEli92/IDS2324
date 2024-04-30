@@ -1,6 +1,7 @@
 package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ContestMediator;
+import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.ContestDto;
 import it.unicam.cs.model.Utente;
@@ -12,6 +13,8 @@ import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.TipoInvito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class CaricamentoContestService {
@@ -26,23 +29,26 @@ public class CaricamentoContestService {
 
     public void caricaContest(ContestDto contestDto){
         controlloContestService.verificaContest(contestDto);
-        Contest contest = new Contest();
-        costruisciContest(contest,contestDto);
+        Contest contest = costruisciContest(contestDto);
         contestMediator.salvaContest(contest);
     }
 
-    private void costruisciContest(Contest contest,ContestDto contestDto) {
+    private Contest costruisciContest(ContestDto contestDto) {
         Utente utente = utenteService.ottieniUtenteById(contestDto.getIdOrganizzatore());
         POI poi = consultazioneContenutiService.ottieniPOIdaId(contestDto.getIdPoiAssociato());
-        contest.setDescrizione(contestDto.getDescrizione());
-        contest.setDataInizio(contestDto.getDataInizio());
-        contest.setDataFine(contestDto.getDataFine());
-        if(contestDto.getTipoInvito().equalsIgnoreCase("invito")){
-            contest.setPartecipanti(contestDto.getPartecipanti());
+        String descrizione = contestDto.getDescrizione();
+        Date dataInizio = contestDto.getDataInizio();
+        Date dataFine = contestDto.getDataFine();
+        TipoInvito tipoInvito = TipoInvito.valueOf(contestDto.getTipoInvito().toUpperCase());
+        int partecipanti;
+        if(tipoInvito.name().equals("INVITO")){
+            partecipanti = contestDto.getPartecipanti();
         }
-        contest.setPoiAssociato(poi);
-        contest.setComuneAssociato(utente.getComuneAssociato());
-        contest.setOrganizzatore(utente);
-        contest.setTipoInvito(TipoInvito.valueOf(contestDto.getTipoInvito().toUpperCase()));
+        else {
+            partecipanti = Integer.MAX_VALUE;
+        }
+        Comune comune = poi.getComuneAssociato();
+        Contest contest = new Contest(descrizione,dataInizio,dataFine,partecipanti,poi,comune,utente,tipoInvito);
+        return contest;
     }
 }

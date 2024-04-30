@@ -10,6 +10,7 @@ import it.unicam.cs.model.DTO.ContenutoMultimedialeDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IItinerarioRepository;
@@ -18,10 +19,11 @@ import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoContenuto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
-
+@Service
 public class ControlloContenutoMultimedialeService {
     @Autowired
     private UtenteRepository utenteRepository;
@@ -39,6 +41,7 @@ public class ControlloContenutoMultimedialeService {
         Itinerario itinerario = itinerarioRepository.getReferenceById(contenutoMultimedialeDto.getIdItinerario());
         verificaIdContributore(utente);
         verificaTipoContenuto(contenutoMultimedialeDto);
+        verificaElementoComuneAssociato(poi,evento,itinerario);
         verificaIdPoi(poi, utente);
         verificaIdEvento(evento,utente);
         verificaIdItinerario(itinerario,utente);
@@ -111,6 +114,15 @@ public class ControlloContenutoMultimedialeService {
                 && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
                 && !utente.getRuoli().contains((RuoliUtente.CURATORE))){
             throw new UtentePOINotValidException("l'utente non è autorizzato a caricare il POI");
+        }
+    }
+    private void verificaElementoComuneAssociato(POI poi, Evento evento, Itinerario itinerario) {
+        if (poi == null && evento == null && itinerario == null) {
+            throw new IllegalArgumentException("l'elemento del comune deve essere settato");
+        } else if ((poi != null && evento != null && itinerario != null) ||
+                (poi != null && evento != null) || (evento != null && itinerario != null) ||
+                (poi != null && itinerario != null)) {
+            throw new IllegalArgumentException("ci deve essere un solo elemento del comune settato");
         }
     }
 

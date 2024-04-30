@@ -30,7 +30,7 @@ public class ControlloContenutoContestService {
         Contest contest = contestRepository.findContestById(idContestAssociato);
         Utente utente = utenteRepository.findUtenteById(idUtente);
         if(contest!=null){
-            if(!utente.getRuoli().contains(RuoliUtente.PARTECIPANTE_CONTEST)){
+            if(!utente.getRuoli().contains(RuoliUtente.PARTECIPANTE_CONTEST) || !contest.getPartecipantiContest().contains(utente)){
                 throw new UtentePOINotValidException("utente non autorizzato a inserire il contenuto nel contest");
             }
         }

@@ -1,6 +1,7 @@
 package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ContenutoMultimedialeMediator;
+import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.ContenutoMultimedialeDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
@@ -15,6 +16,8 @@ import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContenutoMultimedialeService;
 import it.unicam.cs.service.POIService;
 import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.enums.StatoElemento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,39 +36,36 @@ public class CaricamentoContenutoMultimedialeService {
 
     public void caricaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto){
         controlloContenutoMultimedialeService.verificaContenutoMultimediale(contenutoMultimedialeDto);
-        ContenutoMultimediale contenutoMultimediale = new ContenutoMultimediale();
-        costruisciContenutoMultimediale(contenutoMultimediale,contenutoMultimedialeDto);
+        ContenutoMultimediale contenutoMultimediale = costruisciContenutoMultimediale(contenutoMultimedialeDto);
         contenutoMultimedialeMediator.salvaContenutoMultimediale(contenutoMultimediale);
     }
 
-    private void costruisciContenutoMultimediale(ContenutoMultimediale contenutoMultimediale,ContenutoMultimedialeDto contenutoMultimedialeDto) {
+    private ContenutoMultimediale costruisciContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto) {
+        String nome = contenutoMultimedialeDto.getNome();
         Utente utente = utenteService.ottieniUtenteById(contenutoMultimedialeDto.getIdContributore());
         POI poi = consultazioneContenutiService.ottieniPOIdaId(contenutoMultimedialeDto.getIdPoi());
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(contenutoMultimedialeDto.getIdEvento());
         Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(contenutoMultimedialeDto.getIdItinerario());
-        contenutoMultimediale.setNome(contenutoMultimedialeDto.getNome());
-        contenutoMultimediale.setUtenteCreatore(utente);
-        contenutoMultimediale.setStato(utente);
-        setElementoComuneAssociato(poi,evento,itinerario,contenutoMultimediale);
+        StatoElemento statoElemento;
+        if(utente.getRuoli().contains(RuoliUtente.CURATORE.name())||utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
+            statoElemento = StatoElemento.PUBBLICATO;
+        }
+        else {
+            statoElemento = StatoElemento.PENDING;
+        }
+        if(poi!=null){
+            Comune comune = poi.getComuneAssociato();
+            return new ContenutoMultimediale(nome,utente,statoElemento,poi,comune);
+        }
+        else if(evento!=null){
+            Comune comune = evento.getComuneAssociato();
+            return new ContenutoMultimediale(nome,utente,statoElemento,evento,comune);
+        }
+        else {
+            Comune comune = itinerario.getComuneAssociato();
+            return new ContenutoMultimediale(nome,utente,statoElemento,itinerario,comune);
+        }
     }
 
-    private void setElementoComuneAssociato(POI poi, Evento evento, Itinerario itinerario, ContenutoMultimediale contenutoMultimediale) {
-        if(poi == null && evento == null && itinerario == null){
-            throw new IllegalArgumentException("l'elemento del comune deve essere settato");
-        }
-        else if((poi != null && evento != null && itinerario != null) ||
-                (poi != null && evento != null) || (evento != null && itinerario != null) ||
-                (poi != null && itinerario != null)){
-            throw new IllegalArgumentException("ci deve essere un solo elemento del comune settato");
-        }
-        else if(poi != null){
-            contenutoMultimediale.setPoiAssociato(poi);
-        }
-        else if(evento != null){
-            contenutoMultimediale.setEventoAssociato(evento);
-        }
-        else if(itinerario != null){
-            contenutoMultimediale.setItinerarioAssociato(itinerario);
-        }
-    }
+
 }
