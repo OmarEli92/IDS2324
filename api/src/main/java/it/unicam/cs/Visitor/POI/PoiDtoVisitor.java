@@ -5,7 +5,7 @@ import it.unicam.cs.exception.Contenuto.ServiziNotValidException;
 import it.unicam.cs.exception.Contenuto.ServiziUtiliNotValidException;
 import it.unicam.cs.exception.Contenuto.TipoAmministrativoNotValidException;
 import it.unicam.cs.exception.Contenuto.TipoIntrattenimentoNotValidException;
-import it.unicam.cs.model.DTO.*;
+import it.unicam.cs.model.DTO.input.*;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
 import it.unicam.cs.util.enums.*;
 import org.springframework.beans.factory.annotation.Autowired;

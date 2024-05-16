@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import io.swagger.annotations.ApiModel;
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
@@ -8,18 +8,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-@ApiModel("dto per monumento")
-public class MonumentoDto extends PoiDto{
-    private int annoRealizzazione;
-    private String descrizione;
-    private String autore;
-    private double altezza;
-    private double lunghezza;
-    private String architettura;
+@ApiModel("dto per parco")
+public class ParcoDto extends PoiDto{
+    private boolean presenzaSpecieProtetta;
+    private String orarioApertura;
+    private boolean presenzaAnimali;
+    private int estensione;
 
     @Override
     public String getTipoPoi() {
-        return TipoPOI.MONUMENTO.name();
+        return TipoPOI.PARCO.name();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package it.unicam.cs.service.Interfaces;
 
-import it.unicam.cs.model.DTO.UtenteDto;
+import it.unicam.cs.model.DTO.input.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,4 +40,17 @@ public interface IUtenteService {
     /** Rimuove un utente**/
     void rimuoviUtente(Utente utente);
 
+    void aggiornaListaContenutiMultimedialiSegnalati(Integer id);
+
+    void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato);
+
+    void aggiornaListaContestCreatiAperti(Integer idContest);
+
+    void aggiornaListaContestInPartecipazioneAperti(Integer idContest);
+
+    void aggiornaListaContestCreatiChiusi(Integer idContest);
+
+    void aggiornaListaEventiCreatiDaAprire(Integer idEvento);
+
+    void aggiornaListaEventiCreatiDaChiudere(Integer idEvento);
 }

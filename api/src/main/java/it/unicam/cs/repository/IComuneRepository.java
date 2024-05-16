@@ -12,4 +12,6 @@ public interface IComuneRepository extends JpaRepository<Comune,Integer> {
     Comune findByItinerarioId(Integer idRichiesta);
     @Query(value = "SELECT from Comune c JOIN c.eventi e WHERE e.id =: idRichiesta")
     Comune findByEvento(Integer idRichiesta);
+    @Query(value = "SELECT from Comune c join c.contenutiMultimediali co WHERE co.id := idRichiesta")
+    Comune findByContenutoMultimedialeId(Integer idRichiesta);
 }

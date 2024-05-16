@@ -1,7 +1,7 @@
 package it.unicam.cs.service.ControlloService;
 
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
-import it.unicam.cs.model.DTO.*;
+import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.util.Extensions.ValidationPOIExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

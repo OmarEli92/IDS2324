@@ -1,7 +1,6 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
-import it.unicam.cs.model.DTO.PoiDto;
-import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

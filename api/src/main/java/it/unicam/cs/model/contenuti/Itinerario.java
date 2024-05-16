@@ -48,15 +48,8 @@ public class Itinerario{
 
     }
 
-    public void setStato(Utente utente) {
-        for(Ruolo ruolo : utente.getRuoli()){
-            if(ruolo.getNome().equalsIgnoreCase("Curatore") || ruolo.getNome().equalsIgnoreCase("Contributore_Autorizzato")) {
-                this.stato = StatoElemento.PUBBLICATO;
-            }
-            else if (ruolo.getNome().equalsIgnoreCase("Contributore")) {
-                this.stato = StatoElemento.PENDING;
-            }
-        }
+    public void setStato(StatoElemento stato) {
+        this.stato = stato;
     }
 
     @Override

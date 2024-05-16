@@ -1,8 +1,7 @@
 package it.unicam.cs.service;
 
-import io.swagger.models.auth.In;
 import it.unicam.cs.model.Contest;
-import it.unicam.cs.model.DTO.UtenteDto;
+import it.unicam.cs.model.DTO.input.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
@@ -27,7 +26,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service @Slf4j
@@ -177,7 +175,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utente.getItinerariCreati()
                     .stream()
                     .filter(itinerario -> itinerario.getId().equals(idItinerario))
-                    .forEach(itinerario -> itinerario.setStato(utente));
+                    .forEach(itinerario -> itinerario.setStato(StatoElemento.PUBBLICATO));
             utenteRepository.save(utente);
         }
         else{
@@ -207,7 +205,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utente.getContenutiMultimediali()
                     .stream()
                     .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(idContenutoMultimediale))
-                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(utente));
+                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.PUBBLICATO));
             utenteRepository.save(utente);
         }
         else {
@@ -230,5 +228,78 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utente.getContenutoContestCreati().remove(contenutoContest);
             utenteRepository.save(utente);
         }
+    }
+
+    @Override
+    public void aggiornaListaContenutiMultimedialiSegnalati(Integer id) {
+        Utente utente = utenteRepository.findByContenutoMultimedialeId(id);
+        utente.getContenutiMultimediali()
+                .stream()
+                .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(id))
+                .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
+    }
+
+    @Override
+    public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
+        Utente utente = utenteRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
+        ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
+        if(eliminato){
+            utente.getContenutiMultimediali().remove(contenutoMultimediale);
+            utenteRepository.save(utente);
+        }
+        else {
+            utente.getContenutiMultimediali()
+                    .stream()
+                    .filter(contenutoMultimediale1 -> contenutoMultimediale1.getId().equals(idContenutoMultimediale))
+                    .forEach(contenutoMultimediale1 -> contenutoMultimediale1.setStato(StatoElemento.PUBBLICATO));
+            utenteRepository.save(utente);
+        }
+    }
+
+    @Override
+    public void aggiornaListaContestCreatiAperti(Integer idContest) {
+        Utente utente = utenteRepository.findByContestCreatiId(idContest);
+        utente.getContestCreati()
+                .stream()
+                .filter(contest -> contest.getId().equals(idContest))
+                .forEach(contest -> contest.setAttivo(true));
+        utenteRepository.save(utente);
+    }
+
+    @Override
+    public void aggiornaListaContestInPartecipazioneAperti(Integer idContest) {
+        List<Utente> utenti = utenteRepository.findByContestinPartecipazioneId(idContest);
+        utenti.forEach(utente -> {utente.getContestInPartecipazione()
+                .stream()
+                .filter(contest -> contest.getId().equals(idContest))
+                .forEach(contest -> contest.setAttivo(true));
+        utenteRepository.save(utente);});
+    }
+
+    @Override
+    public void aggiornaListaContestCreatiChiusi(Integer idContest) {
+        Utente utente = utenteRepository.findByContestCreatiId(idContest);
+        utente.getContestCreati()
+                .stream()
+                .filter(contest -> contest.getId().equals(idContest))
+                .forEach(contest -> contest.setAttivo(false));
+    }
+
+    @Override
+    public void aggiornaListaEventiCreatiDaAprire(Integer idEvento) {
+        Utente utente = utenteRepository.findByEventoId(idEvento);
+        utente.getEventiCreati()
+                .stream()
+                .filter(evento -> evento.getId().equals(idEvento))
+                .forEach(evento -> evento.setAperto(true));
+        utenteRepository.save(utente);
+    }
+
+    @Override
+    public void aggiornaListaEventiCreatiDaChiudere(Integer idEvento) {
+        Utente utente = utenteRepository.findByEventoId(idEvento);
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
+        utente.getEventiCreati().remove(evento);
+        utenteRepository.save(utente);
     }
 }

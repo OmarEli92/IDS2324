@@ -2,9 +2,9 @@ package it.unicam.cs.service.Interfaces;
 
 
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.EventoDto;
-import it.unicam.cs.model.DTO.ItinerarioDto;
-import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.DTO.input.EventoDto;
+import it.unicam.cs.model.DTO.input.ItinerarioDto;
+import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.Itinerario;

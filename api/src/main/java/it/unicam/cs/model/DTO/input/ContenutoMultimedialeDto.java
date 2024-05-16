@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import jakarta.annotation.Nullable;
 import lombok.Data;

@@ -31,9 +31,9 @@ public class Contest implements ContestObservable<Utente> {
     private Integer id;
     private String descrizione;
     @Column(name = "data_inizio")
-    private Date dataInizio;
+    private LocalDate dataInizio;
     @Column(name = "data_fine")
-    private Date dataFine;
+    private LocalDate dataFine;
     private int partecipanti;
     @ManyToOne
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
@@ -44,10 +44,10 @@ public class Contest implements ContestObservable<Utente> {
     @OneToMany
     private List<ContenutoContest> contenutiCaricati;
     @OneToOne
-    private ContenutoMultimediale contenutoVincitore;
+    private ContenutoContest contenutoVincitore;
     @ManyToOne
     private Utente organizzatore;
-    private boolean attivo = true;
+    private boolean attivo ;
     private TipoInvito tipoInvito;
     @ManyToOne
     private Utente vincitore;
@@ -58,7 +58,7 @@ public class Contest implements ContestObservable<Utente> {
     )
     private List<Utente> partecipantiContest;
 
-    public Contest(String descrizione, Date dataInizio, Date dataFine, int partecipanti, POI poiAssociato, Comune comuneAssociato, Utente organizzatore, TipoInvito tipoInvito) {
+    public Contest(String descrizione, LocalDate dataInizio, LocalDate dataFine, int partecipanti, POI poiAssociato, Comune comuneAssociato, Utente organizzatore, boolean attivo, TipoInvito tipoInvito) {
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
@@ -66,6 +66,7 @@ public class Contest implements ContestObservable<Utente> {
         this.poiAssociato = poiAssociato;
         this.comuneAssociato = comuneAssociato;
         this.organizzatore = organizzatore;
+        this.attivo = attivo;
         this.tipoInvito = tipoInvito;
     }
 
@@ -94,14 +95,13 @@ public class Contest implements ContestObservable<Utente> {
 
     /*** Chiude il contest **/
     public void chiudiContest(){
-        if(LocalDate.now().isAfter(this.dataFine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                || contenutoVincitore != null)
+        if(LocalDate.now().isAfter(this.dataFine) || contenutoVincitore != null)
         this.attivo = false;
     }
 
     /*** Restituisce il contenuto vincitore del contest
      * @return contenuto vincitore **/
-    public void setVincitore(ContenutoMultimediale contenutoVincitore,Utente partecipante) {
+    public void setVincitore(ContenutoContest contenutoVincitore,Utente partecipante) {
         if(this.attivo && this.contenutoVincitore == null)
             this.contenutoVincitore = contenutoVincitore;
         this.vincitore = partecipante;

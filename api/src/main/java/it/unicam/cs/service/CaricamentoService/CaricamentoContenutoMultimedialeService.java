@@ -2,26 +2,19 @@ package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ContenutoMultimedialeMediator;
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.ContenutoMultimedialeDto;
+import it.unicam.cs.model.DTO.input.ContenutoMultimedialeDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
-import it.unicam.cs.repository.IEventoRepository;
-import it.unicam.cs.repository.IItinerarioRepository;
-import it.unicam.cs.repository.IPOIRepository;
-import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContenutoMultimedialeService;
-import it.unicam.cs.service.POIService;
 import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class CaricamentoContenutoMultimedialeService {

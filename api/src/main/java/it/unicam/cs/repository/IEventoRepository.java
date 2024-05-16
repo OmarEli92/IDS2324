@@ -1,13 +1,11 @@
 package it.unicam.cs.repository;
 
-import io.swagger.models.auth.In;
-import it.unicam.cs.model.DTO.EventoDto;
+import it.unicam.cs.model.DTO.input.EventoDto;
 import it.unicam.cs.model.abstractions.Evento;
-import it.unicam.cs.model.abstractions.POI;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /** L'interfaccia EventoRepository è un repository che gestisce la persistenza dei dati relativi agli eventi
@@ -18,6 +16,8 @@ public interface IEventoRepository extends JpaRepository<Evento,Integer> {
     List<Evento> findByComuneAssociatoId(Integer comuneId);
     @Query(value = "SELECT e from Evento e JOIN e.contenutiMultimediali c WHERE c.id =: idRichiesta")
     Evento findEventoByContenutoMultimedialeId(Integer idRichiesta);
+    List<Evento> findByDataInizioBeforeAndApertoIsFalse(LocalDateTime localDateTime);
+    List<Evento> findByDataFineBeforeAndApertoIsTrue(LocalDateTime localDateTime);
     default EventoDto convertiEventoInEventoDTO(Evento evento){
         EventoDto eventoDto = new EventoDto();
         eventoDto.setID(evento.getId());

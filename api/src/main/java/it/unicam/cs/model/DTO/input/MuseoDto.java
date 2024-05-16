@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import io.swagger.annotations.ApiModel;
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
@@ -9,20 +9,21 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+@ApiModel(description = "dto per un museo")
 @Component
 @Data
-@ApiModel("dto per poi intrattenimento")
-public class PoiIntrattenimentoDto extends PoiDto {
-    private String tipo;
-    private int etaConsigliata;
+public class MuseoDto extends PoiDto {
     private String orariApertura;
-    private List<String> serviziOfferti;
+    private String responsabile;
     @Embedded
     private Contatti contatti;
+    private int numeroSale;
+    private List<String> collezioni;
 
     @Override
     public String getTipoPoi() {
-        return TipoPOI.INTRATTENIMENTO.name();
+        return TipoPOI.MUSEO.name();
     }
 
     @Override

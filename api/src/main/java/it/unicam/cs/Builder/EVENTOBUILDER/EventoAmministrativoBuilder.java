@@ -1,19 +1,16 @@
 package it.unicam.cs.Builder.EVENTOBUILDER;
 
 import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
-import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
-import it.unicam.cs.model.DTO.EventoAmministrativoDto;
-import it.unicam.cs.model.DTO.EventoDto;
+import it.unicam.cs.model.DTO.input.EventoAmministrativoDto;
+import it.unicam.cs.model.DTO.input.EventoDto;
 import it.unicam.cs.model.abstractions.Evento;
-import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.EventoAmministrativo;
 import it.unicam.cs.util.enums.TipoAmministrativo;
+import it.unicam.cs.util.enums.TipoEvento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @Data
@@ -33,7 +30,7 @@ public class EventoAmministrativoBuilder extends EventoBuilder{
     @Override
     public Evento build() {
         return new EventoAmministrativo(super.getComuneAssociato(),super.getNome(),
-                super.getDescrizione(),super.getContributore(),super.getStato(),super.getPoiAssociato(),
+                super.getDescrizione(), super.isAttivo(), TipoEvento.AMMINISTRATIVO,super.getContributore(),super.getStato(),super.getPoiAssociato(),
                 super.getDataInizio(),super.getDataFine(), super.getContenutiMultimediali(), tipo, responsabile);
     }
 

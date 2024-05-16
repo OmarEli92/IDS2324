@@ -7,6 +7,7 @@ import it.unicam.cs.model.contenuti.POIIntrattenimento;
 import it.unicam.cs.repository.*;
 import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Posizione;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,12 +49,12 @@ public class DBLoader implements CommandLineRunner {
         comuneRepository.save(comune);
         comuneRepository.save(comune2);
         poiRepository.save(new POIIntrattenimento("Cinema delle palme", new Posizione(12,
-                21), null, StatoElemento.PUBBLICATO, null, null,
+                21), TipoPOI.INTRATTENIMENTO,null, StatoElemento.PUBBLICATO, null, null,
                 null,null,TipoIntrattenimento.CINEMA,14, "16-24",
                 null,null));
         List<POI> pois = new ArrayList<>();
         poiRepository.save(new POIIntrattenimento( "Cinema a Grottammare", new Posizione(12,
-                21), null, StatoElemento.PUBBLICATO, null, null,
+                21),TipoPOI.INTRATTENIMENTO, null, StatoElemento.PUBBLICATO, null, null,
                 null,null,TipoIntrattenimento.CINEMA,14, "16-24",
                 null,null));
 

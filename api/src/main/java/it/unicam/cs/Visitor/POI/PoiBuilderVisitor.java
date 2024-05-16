@@ -1,7 +1,7 @@
 package it.unicam.cs.Visitor.POI;
 
 import it.unicam.cs.Builder.POIBUILDER.*;
-import it.unicam.cs.model.DTO.*;
+import it.unicam.cs.model.DTO.input.*;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.util.enums.*;
 import org.springframework.stereotype.Component;

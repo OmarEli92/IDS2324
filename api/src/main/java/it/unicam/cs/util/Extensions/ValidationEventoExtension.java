@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -75,6 +77,13 @@ public class ValidationEventoExtension {
     public void isEtaConsigliatiValida(int eta){
         if(eta < 0){
             throw new IllegalArgumentException("l'età deve essere maggiore uguale di 0");
+        }
+    }
+    public void verificaDateEvento(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        if(LocalDateTime.now().isAfter(dataInizio) || LocalDateTime.now().isAfter(dataFine) ||
+                dataFine.isBefore(dataInizio)){
+            throw new IllegalArgumentException("le date di inizio e fine non possono essere " +
+                    "prima di quella di oggi, e la data di inizio deve anticipare la data di fine");
         }
     }
 

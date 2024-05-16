@@ -1,7 +1,7 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.Mediators.*;
-import it.unicam.cs.model.DTO.RichiestaValidazioneDto;
+import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

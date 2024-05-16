@@ -2,7 +2,7 @@ package it.unicam.cs.Factory.POI;
 
 import it.unicam.cs.Builder.POIBUILDER.*;
 import it.unicam.cs.exception.Contenuto.TipoPOINotValidException;
-import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.DTO.input.PoiDto;
 
 public class DefaultPOIBuilderFactory implements IPOIBuilderFactory{
 

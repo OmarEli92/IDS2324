@@ -2,19 +2,15 @@ package it.unicam.cs.service.ControlloService;
 
 import it.unicam.cs.exception.Contenuto.POINotValidException;
 import it.unicam.cs.exception.Contest.TipoInvitoException;
-import it.unicam.cs.model.DTO.ContestDto;
+import it.unicam.cs.model.DTO.input.ContestDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 public class ControlloContestService {
     @Autowired
@@ -60,9 +56,9 @@ public class ControlloContestService {
         }
     }
 
-    private void verificaDateContest(Date dataInizio, Date dataFine) {
-        if(LocalDate.now().isAfter(dataFine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) || LocalDate.now().isAfter(dataInizio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()) ||
-                dataFine.before(dataInizio)){
+    private void verificaDateContest(LocalDate dataInizio, LocalDate dataFine) {
+        if(LocalDate.now().isAfter(dataInizio) || LocalDate.now().isAfter(dataFine) ||
+                dataFine.isBefore(dataInizio)){
             throw new IllegalArgumentException("le date di inizio e fine non possono essere " +
                     "prima di quella di oggi, e la data di inizio deve anticipare la data di fine");
         }

@@ -2,17 +2,14 @@ package it.unicam.cs.Builder.EVENTOBUILDER;
 
 import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitable;
 import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
-import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.EventoDto;
-import it.unicam.cs.model.Ruolo;
+import it.unicam.cs.model.DTO.input.EventoDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.info.Posizione;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +26,7 @@ public abstract class EventoBuilder implements IEventoBuilderVisitable {
     private String nome;
     private Posizione posizione;
     private String descrizione;
+    private boolean attivo;
     private Utente contributore;
     private StatoElemento stato;
     private POI poiAssociato;
@@ -64,15 +62,13 @@ public abstract class EventoBuilder implements IEventoBuilderVisitable {
     public void setDataInizio(LocalDateTime dataInizio) {
         this.dataInizio = dataInizio;
     }
-    public void setStato(Utente utente) {
-        for(Ruolo ruolo : utente.getRuoli()){
-            if(ruolo.getNome().equalsIgnoreCase("Curatore") || ruolo.getNome().equalsIgnoreCase("Contributore_Autorizzato")) {
-                this.stato = StatoElemento.PUBBLICATO;
-            }
-            else if (ruolo.getNome().equalsIgnoreCase("Contributore")) {
-                this.stato = StatoElemento.PENDING;
-            }
-        }
+
+    public void setStato(StatoElemento stato) {
+        this.stato = stato;
+    }
+
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
     }
 
     public void setDataFine(LocalDateTime dataFine) {

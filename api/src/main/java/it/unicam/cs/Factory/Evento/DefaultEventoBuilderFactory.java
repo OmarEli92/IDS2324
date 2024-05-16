@@ -4,9 +4,7 @@ import it.unicam.cs.Builder.EVENTOBUILDER.EventoAmministrativoBuilder;
 import it.unicam.cs.Builder.EVENTOBUILDER.EventoBuilder;
 import it.unicam.cs.Builder.EVENTOBUILDER.EventoIntrattenimentoBuilder;
 import it.unicam.cs.Builder.EVENTOBUILDER.EventoTuristicoBuilder;
-import it.unicam.cs.model.DTO.EventoDto;
-import it.unicam.cs.model.DTO.EventoIntrattenimentoDto;
-import it.unicam.cs.model.DTO.EventoTuristicoDto;
+import it.unicam.cs.model.DTO.input.EventoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

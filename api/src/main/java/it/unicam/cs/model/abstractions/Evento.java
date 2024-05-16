@@ -5,6 +5,7 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.util.enums.StatoElemento;
+import it.unicam.cs.util.enums.TipoEvento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,8 @@ public abstract class Evento {
     private Comune comuneAssociato;
     private String nome;
     private String descrizione;
+    private boolean aperto;
+    private TipoEvento tipoEvento;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
@@ -41,10 +44,12 @@ public abstract class Evento {
     @OneToMany(mappedBy = "eventoAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
 
-    public Evento(Comune comuneAssociato, String nome, String descrizione, Utente contributore, StatoElemento stato,POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
+    public Evento(Comune comuneAssociato, String nome, String descrizione, boolean aperto, TipoEvento tipoEvento, Utente contributore, StatoElemento stato,POI poiAssociato, LocalDateTime dataInizio, LocalDateTime dataFine, List<ContenutoMultimediale> contenutiMultimediali) {
         this.comuneAssociato = comuneAssociato;
         this.nome = nome;
         this.descrizione = descrizione;
+        this.aperto = aperto;
+        this.tipoEvento = tipoEvento;
         this.contributore = contributore;
         this.stato = stato;
         this.poiAssociato = poiAssociato;

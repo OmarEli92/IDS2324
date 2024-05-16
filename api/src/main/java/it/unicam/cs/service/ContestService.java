@@ -1,5 +1,6 @@
 package it.unicam.cs.service;
 
+import it.unicam.cs.Mediators.ContestMediator;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
@@ -9,12 +10,16 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -22,11 +27,12 @@ import java.util.stream.StreamSupport;
 @Service
 public class ContestService implements IContestService {
     private final IContestRepository contestRepository;
-    private final IPOIRepository poiRepository;
+    private IUtenteService utenteService;
+    private POIService poiService;
+    private ContestMediator contestMediator;
     private ConsultazioneContenutiService consultazioneContenutiService;
     public ContestService(IContestRepository contestRepository, IPOIRepository poiRepository){
         this.contestRepository = contestRepository;
-        this.poiRepository = poiRepository;
     }
 
     @Override
@@ -78,9 +84,9 @@ public class ContestService implements IContestService {
     }
 
     @Override
-    public void assegnaVincitoreContest(Contest contest, Utente utente) {
+    public void assegnaVincitoreContest(Contest contest, Utente utente, ContenutoContest contenutoContest) {
         if(contest.isAttivo()&& contest.getVincitore() == null){
-            contest.setVincitore(utente);
+            contest.setVincitore(contenutoContest,utente);
             chiudiContest(contest);
             contest.notifica();
         }
@@ -112,5 +118,32 @@ public class ContestService implements IContestService {
     public void chiudiContest(Contest contest) {
         contest.setAttivo(false);
         contestRepository.save(contest);
+    }
+
+    @Override
+    public void apriContest(Contest contest) {
+        contest.setAttivo(true);
+        contestRepository.save(contest);
+    }
+
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * *")
+    public void verificaScadenze(){
+        LocalDate oggi = LocalDate.now();
+        List<Contest> contestScaduti = contestRepository.findByDataFineBeforeAndAttivoIsTrue(oggi);
+        contestScaduti.forEach(contest -> {chiudiContest(contest);
+        List<Utente> utenti = contest.getPartecipantiContest();
+        utenti.forEach(utente -> {contest.rimuoviObserver(utente);
+        utenteService.salvaUtente(utente);});
+        contestMediator.chiudiContest(contest.getId());
+        });
+    }
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * *")
+    public void verificaAperture(){
+        LocalDate oggi = LocalDate.now();
+        List<Contest> contestDaAprire = contestRepository.findByDataInizioBeforeAnsAttivoIsFalse(oggi);
+        contestDaAprire.forEach(contest -> {apriContest(contest);
+        contestMediator.apriContest(contest.getId());});
     }
 }

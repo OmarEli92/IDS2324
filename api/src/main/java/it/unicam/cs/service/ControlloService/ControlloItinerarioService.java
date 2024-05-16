@@ -1,6 +1,6 @@
 package it.unicam.cs.service.ControlloService;
 
-import it.unicam.cs.model.DTO.ItinerarioDto;
+import it.unicam.cs.model.DTO.input.ItinerarioDto;
 import it.unicam.cs.util.Extensions.ValidationItinerarioExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 

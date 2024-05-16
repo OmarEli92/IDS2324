@@ -1,15 +1,12 @@
 package it.unicam.cs.controller;
 
-import it.unicam.cs.model.DTO.UtenteDto;
+import it.unicam.cs.model.DTO.input.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
-import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

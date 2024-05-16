@@ -1,11 +1,12 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
 import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
-import it.unicam.cs.model.DTO.ParcoDto;
-import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.DTO.input.ParcoDto;
+import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.model.contenuti.Parco;
+import it.unicam.cs.util.enums.TipoPOI;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,8 +40,8 @@ public class ParcoBuilder extends POIBuilder{
     }
 
     @Override
-    POI build() {
-        return new Parco(super.getId(),super.getNome(),super.getPosizione(),super.getContributore(), super.getStato(),
+    public POI build() {
+        return new Parco(super.getNome(),super.getPosizione(), TipoPOI.PARCO,super.getContributore(), super.getStato(),
                 super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),
                 presenzaSpecieProtetta,orarioApertura,percorsi,presenzaAnimali,estensione);
     }

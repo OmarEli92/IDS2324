@@ -20,4 +20,15 @@ public class ContestMediator {
         utenteService.aggiungiContest(contest.getOrganizzatore().getId(),contest);
         poiService.salvaContest(contest.getPoiAssociato().getId(),contest);
     }
+
+    public void apriContest(Integer idContest) {
+        poiService.apriContest(idContest);
+        utenteService.aggiornaListaContestCreatiAperti(idContest);
+        utenteService.aggiornaListaContestInPartecipazioneAperti(idContest);
+    }
+
+    public void chiudiContest(Integer idContest) {
+        poiService.chiudiContest(idContest);
+        utenteService.aggiornaListaContestCreatiChiusi(idContest);
+    }
 }

@@ -65,7 +65,7 @@ public class ComuneService {
             comune.getItinerari()
                     .stream()
                     .filter(itinerario -> itinerario.getId().equals(idItinerario))
-                    .forEach(itinerario -> itinerario.setStato(utente));
+                    .forEach(itinerario -> itinerario.setStato(StatoElemento.PUBBLICATO));
             comuneRepository.save(comune);
         }
         else {
@@ -76,7 +76,6 @@ public class ComuneService {
     }
     public void aggiornaListaEvento(Integer idEvento, boolean validato){
         Comune comune = comuneRepository.findByEvento(idEvento);
-        Utente utente = utenteRepository.findByEventoId(idEvento);
         if(validato){
             comune.getEventi()
                     .stream()
@@ -89,5 +88,61 @@ public class ComuneService {
             comune.getEventi().remove(evento);
             comuneRepository.save(comune);
         }
+    }
+
+    public void aggiornaListaContenutiMultimediali(Integer idContenuto, boolean validato) {
+        Comune comune = comuneRepository.findByContenutoMultimedialeId(idContenuto);
+        if(validato){
+            comune.getContenutiMultimediali()
+                    .stream()
+                    .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(idContenuto))
+                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.PUBBLICATO));
+            comuneRepository.save(comune);
+        }
+        else {
+            ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenuto);
+            comune.getContenutiMultimediali().remove(contenutoMultimediale);
+            comuneRepository.save(comune);
+        }
+    }
+
+    public void aggiornaListaContenutiMultimedialiSegnalati(Integer id) {
+        Comune comune = comuneRepository.findByContenutoMultimedialeId(id);
+        comune.getContenutiMultimediali()
+                .stream()
+                .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(id))
+                .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
+    }
+
+    public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
+        Comune comune = comuneRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
+        ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
+        if(eliminato){
+            comune.getContenutiMultimediali().remove(contenutoMultimediale);
+            comuneRepository.save(comune);
+        }
+        else {
+            comune.getContenutiMultimediali()
+                    .stream()
+                    .filter(contenutoMultimediale1 -> contenutoMultimediale1.getId().equals(idContenutoMultimediale))
+                    .forEach(contenutoMultimediale1 -> contenutoMultimediale1.setStato(StatoElemento.PUBBLICATO));
+            comuneRepository.save(comune);
+        }
+    }
+
+    public void aggiornaListaEventiDaAprire(Integer idEvento) {
+        Comune comune = comuneRepository.findByEvento(idEvento);
+        comune.getEventi()
+                .stream()
+                .filter(evento -> evento.getId().equals(idEvento))
+                .forEach(evento -> evento.setAperto(true));
+        comuneRepository.save(comune);
+    }
+
+    public void aggiornaListaEventiDaChiudere(Integer idEvento) {
+        Comune comune = comuneRepository.findByEvento(idEvento);
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
+        comune.getEventi().remove(evento);
+        comuneRepository.save(comune);
     }
 }

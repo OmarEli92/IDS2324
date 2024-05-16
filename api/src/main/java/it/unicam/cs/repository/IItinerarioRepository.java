@@ -2,12 +2,10 @@ package it.unicam.cs.repository;
 
 
 
-import it.unicam.cs.model.DTO.ItinerarioDto;
-import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.DTO.input.ItinerarioDto;
 import it.unicam.cs.model.contenuti.Itinerario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 

@@ -6,11 +6,10 @@ import it.unicam.cs.exception.Contenuto.LinkNotValidException;
 import it.unicam.cs.exception.Contenuto.POINotValidException;
 import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.ContenutoMultimedialeDto;
+import it.unicam.cs.model.DTO.input.ContenutoMultimedialeDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IItinerarioRepository;
@@ -21,7 +20,6 @@ import it.unicam.cs.util.enums.TipoContenuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.regex.Pattern;
 @Service
 public class ControlloContenutoMultimedialeService {

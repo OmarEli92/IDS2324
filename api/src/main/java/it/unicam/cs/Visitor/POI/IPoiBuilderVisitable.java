@@ -1,6 +1,6 @@
 package it.unicam.cs.Visitor.POI;
 
-import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.DTO.input.PoiDto;
 import org.springframework.stereotype.Component;
 
 @Component

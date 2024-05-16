@@ -25,9 +25,8 @@ public class ItinerarioService {
     }
     public void validaItinerario(Integer idItinerario, boolean validato){
         Itinerario itinerario = itinerarioRepository.getReferenceById(idItinerario);
-        Utente utente = utenteRepository.findByIitinerarioId(idItinerario);
         if(validato){
-            itinerario.setStato(utente);
+            itinerario.setStato(StatoElemento.PUBBLICATO);
             itinerarioRepository.save(itinerario);
         }
         else {
@@ -41,12 +40,37 @@ public class ItinerarioService {
             itinerario.getContenutiMultimedialiAssociati()
                     .stream()
                     .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(idContenutoMultimediale))
-                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(utente));
+                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.PUBBLICATO));
             itinerarioRepository.save(itinerario);
         }
         else {
             ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
             itinerario.getContenutiMultimedialiAssociati().remove(contenutoMultimediale);
+            itinerarioRepository.save(itinerario);
+        }
+    }
+
+    public void aggiornaListaContenutoMultimedialeDaSegnalare(Integer id) {
+        Itinerario itinerario = itinerarioRepository.findItinerarioByContenutoMultimedialeId(id);
+        itinerario.getContenutiMultimedialiAssociati()
+                .stream()
+                .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(id))
+                .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
+        itinerarioRepository.save(itinerario);
+    }
+
+    public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
+        Itinerario itinerario = itinerarioRepository.findItinerarioByContenutoMultimedialeId(idContenutoMultimediale);
+        ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
+        if (eliminato){
+            itinerario.getContenutiMultimedialiAssociati().remove(contenutoMultimediale);
+            itinerarioRepository.save(itinerario);
+        }
+        else {
+            itinerario.getContenutiMultimedialiAssociati()
+                    .stream()
+                    .filter(contenutoMultimediale1 -> contenutoMultimediale1.getId().equals(idContenutoMultimediale))
+                    .forEach(contenutoMultimediale1 -> contenutoMultimediale1.setStato(StatoElemento.PUBBLICATO));
             itinerarioRepository.save(itinerario);
         }
     }

@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import io.swagger.annotations.ApiModel;
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
@@ -10,17 +10,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-@ApiModel("dto per poi amministrativo")
-public class PoiAmministrativoDto extends PoiDto {
-    private String tipo;
-    private String orariApertura;
-    private String responsabile;
+@ApiModel("dto per poi servizi utili")
+public class PoiServiziUtiliDto extends PoiDto{
+    private String servizio;
     @Embedded
     private Contatti contatti;
+    private String orariApertura;
 
     @Override
     public String getTipoPoi() {
-        return TipoPOI.AMMINISTRATIVO.name();
+        return TipoPOI.SERVIZI_UTILI.name();
     }
 
     @Override

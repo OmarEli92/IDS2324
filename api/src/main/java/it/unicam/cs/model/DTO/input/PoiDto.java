@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitable;

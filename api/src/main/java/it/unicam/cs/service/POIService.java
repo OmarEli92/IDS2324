@@ -73,7 +73,7 @@ public class POIService {
             poi.getContenutiMultimediali()
                     .stream()
                     .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(idContenutoMultimediale))
-                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(utente));
+                    .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.PUBBLICATO));
             poiRepository.save(poi);
         }
         else {
@@ -81,5 +81,62 @@ public class POIService {
             poi.getContenutiMultimediali().remove(contenutoMultimediale);
             poiRepository.save(poi);
         }
+    }
+
+    public void aggiornaListaContenutoMultimedialeDaSegnalare(Integer id) {
+        POI poi = poiRepository.findByIdContenutoMultimediale(id);
+        poi.getContenutiMultimediali()
+                .stream()
+                .filter(contenutoMultimediale -> contenutoMultimediale.getId().equals(id))
+                .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
+        poiRepository.save(poi);
+    }
+
+    public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
+        POI poi = poiRepository.findByIdContenutoMultimediale(idContenutoMultimediale);
+        ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
+        if(eliminato){
+            poi.getContenutiMultimediali().remove(contenutoMultimediale);
+            poiRepository.save(poi);
+        }
+        else {
+            poi.getContenutiMultimediali()
+                    .stream()
+                    .filter(contenutoMultimediale1 -> contenutoMultimediale1.getId().equals(idContenutoMultimediale))
+                    .forEach(contenutoMultimediale1 -> contenutoMultimediale1.setStato(StatoElemento.PUBBLICATO));
+            poiRepository.save(poi);
+        }
+    }
+
+    public void chiudiContest(Integer idContest) {
+        POI poi = poiRepository.findByIdContest(idContest);
+        poi.getContestAssociati()
+                .stream()
+                .filter(contest -> contest.getId().equals(idContest))
+                .forEach(contest -> contest.setAttivo(false));
+    }
+
+    public void apriContest(Integer idContest) {
+        POI poi = poiRepository.findByIdContest(idContest);
+        poi.getContestAssociati()
+                .stream()
+                .filter(contest1 -> contest1.getId().equals(idContest))
+                .forEach(contest1 -> contest1.setAttivo(true));
+    }
+
+    public void aggiornaListaEventiDaAprire(Integer idEvento) {
+        POI poi = poiRepository.findPOIByIdEvento(idEvento);
+        poi.getEventiAssociati()
+                .stream()
+                .filter(evento -> evento.getId().equals(idEvento))
+                .forEach(evento -> evento.setAperto(true));
+        poiRepository.save(poi);
+    }
+
+    public void aggiornaListaEventiDaChiudere(Integer idEvento) {
+        POI poi = poiRepository.findPOIByIdEvento(idEvento);
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
+        poi.getEventiAssociati().remove(evento);
+        poiRepository.save(poi);
     }
 }

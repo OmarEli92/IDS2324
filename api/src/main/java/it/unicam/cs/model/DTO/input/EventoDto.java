@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.cs.Visitor.Evento.IEventoDtoVisitable;
@@ -6,6 +6,8 @@ import it.unicam.cs.Visitor.Evento.IEventoDtoVisitor;
 import it.unicam.cs.util.info.Posizione;
 import lombok.Data;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 
 /** La classe EventoDto è un Data Transfer Object per la classe Evento serve principlamente per ottenere
@@ -20,8 +22,9 @@ public abstract class EventoDto implements IEventoDtoVisitable {
     @JsonIgnore
     private String tipoEvento;
     private String nome;
-    private Posizione posizione;
     private String descrizione;
+    private LocalDateTime dataInizio;
+    private LocalDateTime dataFine;
     private Integer IDPoi;
     private Integer IDContributore;
     private String tipo;

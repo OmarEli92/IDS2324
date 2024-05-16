@@ -4,13 +4,12 @@ import it.unicam.cs.exception.Contenuto.FotoNotValidExcetion;
 import it.unicam.cs.exception.Contenuto.LinkNotValidException;
 import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Contest;
-import it.unicam.cs.model.DTO.ContenutoContestDto;
+import it.unicam.cs.model.DTO.input.ContenutoContestDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoContenuto;
-import it.unicam.cs.util.enums.TipoInvito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.regex.Pattern;

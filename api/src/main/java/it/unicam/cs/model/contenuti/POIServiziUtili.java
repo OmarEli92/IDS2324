@@ -6,6 +6,7 @@ import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.util.enums.ServiziUtili;
 import it.unicam.cs.util.enums.StatoElemento;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
@@ -25,8 +26,8 @@ public final class POIServiziUtili extends POI {
     private Contatti contatti;
     private String orariApertura;
 
-    public POIServiziUtili(String nome, Posizione posizione, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, ServiziUtili servizio, Contatti contatti, String orariApertura) {
-        super(nome, posizione, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
+    public POIServiziUtili(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, ServiziUtili servizio, Contatti contatti, String orariApertura) {
+        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
         this.servizio = servizio;
         this.contatti = contatti;
         this.orariApertura = orariApertura;

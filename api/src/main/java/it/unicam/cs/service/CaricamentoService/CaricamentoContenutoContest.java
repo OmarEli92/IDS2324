@@ -2,11 +2,9 @@ package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ContenutoContestMediator;
 import it.unicam.cs.model.Contest;
-import it.unicam.cs.model.DTO.ContenutoContestDto;
+import it.unicam.cs.model.DTO.input.ContenutoContestDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
-import it.unicam.cs.repository.IContestRepository;
-import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.ContestService;
 import it.unicam.cs.service.ControlloService.ControlloContenutoContestService;
 import it.unicam.cs.service.UtenteService;

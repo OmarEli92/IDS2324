@@ -1,4 +1,4 @@
-package it.unicam.cs.model.DTO;
+package it.unicam.cs.model.DTO.input;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -11,8 +11,8 @@ import java.util.Date;
 public class ContestDto {
     private Integer id;
     private String descrizione;
-    private Date dataInizio;
-    private Date dataFine;
+    private LocalDate dataInizio;
+    private LocalDate dataFine;
     private int partecipanti;
     private Integer idPoiAssociato;
     private Integer idOrganizzatore;

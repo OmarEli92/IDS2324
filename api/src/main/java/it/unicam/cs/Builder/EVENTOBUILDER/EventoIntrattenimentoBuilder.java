@@ -1,12 +1,12 @@
 package it.unicam.cs.Builder.EVENTOBUILDER;
 
 import it.unicam.cs.Visitor.Evento.IEventoBuilderVisitor;
-import it.unicam.cs.model.DTO.EventoDto;
-import it.unicam.cs.model.DTO.EventoIntrattenimentoDto;
+import it.unicam.cs.model.DTO.input.EventoDto;
+import it.unicam.cs.model.DTO.input.EventoIntrattenimentoDto;
 import it.unicam.cs.model.abstractions.Evento;
-import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.EventoIntrattimento;
 import it.unicam.cs.util.enums.Servizio;
+import it.unicam.cs.util.enums.TipoEvento;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class EventoIntrattenimentoBuilder extends EventoBuilder{
 
     @Override
     public Evento build() {
-        return new EventoIntrattimento(super.getComuneAssociato(),super.getNome(),super.getDescrizione(),
+        return new EventoIntrattimento(super.getComuneAssociato(),super.getNome(),super.getDescrizione(), super.isAttivo(), TipoEvento.INTRATTENIMENTO,
                 super.getContributore(),super.getStato(),super.getPoiAssociato(),super.getDataInizio(),super.getDataFine(),super.getContenutiMultimediali(),tipo,
                 etaConsigliata,serviziOfferti);
     }

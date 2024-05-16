@@ -1,10 +1,11 @@
 package it.unicam.cs.Builder.POIBUILDER;
 
 import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
-import it.unicam.cs.model.DTO.MonumentoDto;
-import it.unicam.cs.model.DTO.PoiDto;
+import it.unicam.cs.model.DTO.input.MonumentoDto;
+import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Monumento;
+import it.unicam.cs.util.enums.TipoPOI;
 
 public class MonumentoBuilder extends POIBuilder {
     private int annoRealizzazione;
@@ -39,8 +40,8 @@ public class MonumentoBuilder extends POIBuilder {
     }
 
     @Override
-    POI build() {
-        return new Monumento(super.getNome(),super.getPosizione(),super.getContributore(),super.getStato(),super.getComuneAssociato(),
+    public POI build() {
+        return new Monumento(super.getNome(),super.getPosizione(), TipoPOI.MONUMENTO,super.getContributore(),super.getStato(),super.getComuneAssociato(),
                 super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),
                 annoRealizzazione,descrizione,autore,altezza,lunghezza,architettura);
     }
