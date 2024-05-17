@@ -107,6 +107,11 @@ public class UtenteService implements IUtenteService,UserDetailsService {
         log.info("Rimosso utente {} dal db", utente.getUsername());
     }
 
+    @Override
+    public Utente ottieniUtente(Integer id) {
+        return utenteRepository.findById(id).orElse(null);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

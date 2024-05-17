@@ -52,4 +52,5 @@ public interface IUtenteService {
     void aggiornaListaEventiCreatiDaAprire(Integer idEvento);
     void aggiornaListaEventiCreatiDaChiudere(Integer idEvento);
 
+    Utente ottieniUtente(Integer id);
 }

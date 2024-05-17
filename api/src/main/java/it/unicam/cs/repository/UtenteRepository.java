@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -49,5 +49,10 @@ public interface UtenteRepository extends JpaRepository<Utente,Integer> {
 
     @Query(value = "SELECT u FROM Utente u JOIN u.contestInPartecipazione c WHERE c.id =: idRichiesta")
     List<Utente> findByContestinPartecipazioneId(Integer idRichiesta);
+    @Query(value = "SELECT u from Utente u JOIN u.ruoli r WHERE r.nome = :ruolo AND u.comuneAssociato.id = :id")
+    Collection<Utente> findByRuoli_NomeAndComuneAssociato_Nome(String ruolo, int id);
+    @Query(value= "SELECT u from Utente u WHERE u.comuneAssociato.nome = :comune")
+    Collection<Utente> findByComuneAssociato(String comune);
+
 }
 

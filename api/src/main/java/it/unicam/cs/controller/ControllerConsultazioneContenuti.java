@@ -1,12 +1,15 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
 import it.unicam.cs.model.DTO.input.PoiDto;
+import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 /**Il controller si occupa di gestire la visualizzazione dei contenuti quando un utente richiede di visionare
@@ -16,10 +19,13 @@ import java.util.List;
 public class ControllerConsultazioneContenuti {
 
     private final IConsultazioneContenutiService consultazioneContenutiService;
+    private final ProxyService proxyService;
     private Integer IDcomuneSelezionato;
     @Autowired
-    public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService){
+    public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
+                                            ProxyService proxyService){
         this.consultazioneContenutiService = consultazioneContenutiService;
+        this.proxyService = proxyService;
 
     }
 

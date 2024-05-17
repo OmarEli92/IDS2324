@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-@Entity @Data
-@NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true)
+
+@Entity @NoArgsConstructor @JsonIgnoreProperties(ignoreUnknown = true) @Data
 public class Comune {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,7 @@ public class Comune {
     public Comune(String nome, Integer id,String provincia,String regione,Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
                   List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune) {
 
+
         this.nome = nome;
         this.id = id;
         this.provincia = provincia;
@@ -71,7 +72,20 @@ public class Comune {
     }
     public void aggiungiEvento(Evento evento){ this.eventi.add(evento); }
     public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
-        this.contenutiMultimediali.add(contenutoMultimediale);
+            this.contenutiMultimediali.add(contenutoMultimediale);
+        }
+
+   public Utente getGestoreComune() {
+       return gestoreComune;
+   }
+
+
+    public List<Utente> getCuratori() {
+        return curatori;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
 
