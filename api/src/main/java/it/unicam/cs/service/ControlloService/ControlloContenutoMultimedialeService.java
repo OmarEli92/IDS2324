@@ -16,6 +16,7 @@ import it.unicam.cs.repository.IItinerarioRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoContenuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,10 @@ public class ControlloContenutoMultimedialeService {
 
     private void verificaIdEvento(Evento evento, Utente utente) {
         if(evento!=null){
+            if (!evento.getStato().equals(StatoElemento.PUBBLICATO)
+            || !evento.isAperto()){
+                throw new IllegalStateException("l'evento non è pubblicato o è chiuso, impossibile aggiungere un contenuto multimediale associato");
+            }
             Comune comuneEvento = evento.getComuneAssociato();
             Comune comuneUtente = utente.getComuneAssociato();
             if(comuneEvento.getId()!=comuneUtente.getId()){
@@ -89,6 +94,9 @@ public class ControlloContenutoMultimedialeService {
 
     private void verificaIdPoi(POI poi, Utente utente) {
         if(poi!=null) {
+            if(!poi.getStato().equals(StatoElemento.PUBBLICATO)){
+                throw new IllegalStateException("il poi non è pubblicato, impossibile aggiungere un contenuto multimediale associato");
+            }
             Comune comunePOI = poi.getComuneAssociato();
             Comune comuneUtente = utente.getComuneAssociato();
             if (comunePOI.getId() != comuneUtente.getId()) {
@@ -98,6 +106,9 @@ public class ControlloContenutoMultimedialeService {
     }
     private void verificaIdItinerario(Itinerario itinerario, Utente utente) {
         if(itinerario!=null){
+            if(!itinerario.getStato().equals(StatoElemento.PUBBLICATO)){
+                throw new IllegalStateException("l'itinerario nonn è pubblicato, impossibile aggiungere un contenuto multimediale associato");
+            }
             Comune comuneItinerario = itinerario.getComuneAssociato();
             Comune comuneUtente = utente.getComuneAssociato();
             if(comuneItinerario.getId() != comuneUtente.getId()){

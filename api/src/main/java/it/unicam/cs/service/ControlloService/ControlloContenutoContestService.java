@@ -22,19 +22,19 @@ public class ControlloContenutoContestService {
 
     public void verificaContenutoContest(ContenutoContestDto contenutoContestDto){
         verificaTipoContenuto(contenutoContestDto);
-        verificaIdUtente(contenutoContestDto.getIdContestAssociato(), contenutoContestDto.getIdContestAssociato());
+        verificaIdUtente(contenutoContestDto.getIdContestAssociato(), contenutoContestDto.getIdUtente());
     }
 
     private void verificaIdUtente(Integer idContestAssociato, Integer idUtente) {
         Contest contest = contestRepository.findContestById(idContestAssociato);
         Utente utente = utenteRepository.findUtenteById(idUtente);
-        if(contest!=null){
+        if(contest!=null && contest.isAttivo()){
             if(!utente.getRuoli().contains(RuoliUtente.PARTECIPANTE_CONTEST) || !contest.getPartecipantiContest().contains(utente)){
                 throw new UtentePOINotValidException("utente non autorizzato a inserire il contenuto nel contest");
             }
         }
         else {
-            throw new NullPointerException("il contest inserito non esiste");
+            throw new NullPointerException("il contest inserito non esiste o è chiuso");
         }
     }
 

@@ -275,9 +275,8 @@ public class UtenteService implements IUtenteService,UserDetailsService {
                 .forEach(contest -> contest.setAttivo(true));
         utenteRepository.save(utente);});
     }
-
     @Override
-    public void aggiornaListaContestCreatiChiusi(Integer idContest) {
+    public void aggiornaListaContestDaChiudere(Integer idContest) {
         Utente utente = utenteRepository.findByContestCreatiId(idContest);
         utente.getContestCreati()
                 .stream()

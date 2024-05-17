@@ -22,13 +22,13 @@ public class ContestMediator {
     }
 
     public void apriContest(Integer idContest) {
-        poiService.apriContest(idContest);
+        poiService.aggiornaListaContestAperti(idContest);
         utenteService.aggiornaListaContestCreatiAperti(idContest);
         utenteService.aggiornaListaContestInPartecipazioneAperti(idContest);
     }
 
     public void chiudiContest(Integer idContest) {
-        poiService.chiudiContest(idContest);
-        utenteService.aggiornaListaContestCreatiChiusi(idContest);
+        poiService.aggiornaListaContestDaChiudere(idContest);
+        utenteService.aggiornaListaContestDaChiudere(idContest);
     }
 }

@@ -7,6 +7,7 @@ public record EventoOutputDto(
         String nome,
         String descrizione,
         String poiAssociato,
+        String tipo,
         String comuneAssociato,
         Integer contributore,
         LocalDateTime dataInizio,

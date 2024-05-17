@@ -15,6 +15,7 @@ public class EventoDtoMapper implements Function<Evento, EventoOutputDto> {
                 evento.getNome(),
                 evento.getDescrizione(),
                 evento.getPoiAssociato().getNome(),
+                evento.getTipoEvento().name(),
                 evento.getComuneAssociato().getNome(),
                 evento.getContributore().getId(),
                 evento.getDataInizio(),

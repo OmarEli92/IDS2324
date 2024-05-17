@@ -47,10 +47,9 @@ public interface IUtenteService {
     void aggiornaListaContestCreatiAperti(Integer idContest);
 
     void aggiornaListaContestInPartecipazioneAperti(Integer idContest);
-
-    void aggiornaListaContestCreatiChiusi(Integer idContest);
+    void aggiornaListaContestDaChiudere(Integer idContest);
 
     void aggiornaListaEventiCreatiDaAprire(Integer idEvento);
-
     void aggiornaListaEventiCreatiDaChiudere(Integer idEvento);
+
 }

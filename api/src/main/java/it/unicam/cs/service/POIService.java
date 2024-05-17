@@ -6,7 +6,6 @@ import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
-import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
@@ -107,8 +106,7 @@ public class POIService {
             poiRepository.save(poi);
         }
     }
-
-    public void chiudiContest(Integer idContest) {
+    public void aggiornaListaContestDaChiudere(Integer idContest) {
         POI poi = poiRepository.findByIdContest(idContest);
         poi.getContestAssociati()
                 .stream()
@@ -116,7 +114,7 @@ public class POIService {
                 .forEach(contest -> contest.setAttivo(false));
     }
 
-    public void apriContest(Integer idContest) {
+    public void aggiornaListaContestAperti(Integer idContest) {
         POI poi = poiRepository.findByIdContest(idContest);
         poi.getContestAssociati()
                 .stream()
@@ -132,7 +130,6 @@ public class POIService {
                 .forEach(evento -> evento.setAperto(true));
         poiRepository.save(poi);
     }
-
     public void aggiornaListaEventiDaChiudere(Integer idEvento) {
         POI poi = poiRepository.findPOIByIdEvento(idEvento);
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
