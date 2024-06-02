@@ -25,6 +25,7 @@ public class ControllerUtenti {
         this.utenteService = utenteService;
     }
 
+    @PreAuthorize("hasRole('Gestore_Comune') or hasRole('Gestore_Piattaforma')")
     @GetMapping(value = "/all")
     public ResponseEntity<List<UtenteDto>> ottieniUtenti(){
         return new ResponseEntity<>(utenteService.ottieniUtenti(0,50), HttpStatus.OK);

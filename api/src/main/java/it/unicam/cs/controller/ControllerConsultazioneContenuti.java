@@ -26,13 +26,8 @@ public class ControllerConsultazioneContenuti {
                                             ProxyService proxyService){
         this.consultazioneContenutiService = consultazioneContenutiService;
         this.proxyService = proxyService;
-
     }
 
-    @GetMapping(value="/home")
-    public ResponseEntity<Object> home(){
-        return new ResponseEntity<>("benvenuto nella home", HttpStatus.OK);
-    }
 @GetMapping(value="/{comune}")
     public ResponseEntity<Object> selezionaComune(@PathVariable("comune") String nomeComune){
         Comune comune = consultazioneContenutiService.ottieniComune(nomeComune);
@@ -71,7 +66,7 @@ public class ControllerConsultazioneContenuti {
        return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerarioDaId(idItinerario),HttpStatus.OK);
     }
 
-    @GetMapping(value="/itinerario")
+    @GetMapping(value="/itinerari")
     public ResponseEntity<Object> visualizzaItinerari(){
         return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato),HttpStatus.OK);
     }

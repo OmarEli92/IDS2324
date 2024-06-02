@@ -8,7 +8,7 @@ import it.unicam.cs.util.info.Posizione;
 
 import java.util.List;
 
-public final class Parco extends POI {
+public class Parco extends POI {
     private boolean presenzaSpecieProtetta;
     private String orarioApertura;
     private List<Itinerario> percorsi;

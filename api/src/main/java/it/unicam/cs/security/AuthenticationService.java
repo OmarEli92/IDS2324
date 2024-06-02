@@ -2,6 +2,7 @@ package it.unicam.cs.security;
 
 import io.jsonwebtoken.Jwt;
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.repository.ITokenRepository;
@@ -9,6 +10,7 @@ import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.security.request.AuthenticationRequest;
 import it.unicam.cs.security.request.RegisterRequest;
 import it.unicam.cs.security.response.AuthenticationResponse;
+import it.unicam.cs.util.enums.RuoliUtente;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +36,13 @@ public class AuthenticationService {
         if(comuneAssociato == null){
             throw new NullPointerException("Il comune associato all'utente non è presente!");
         }
+        List<Ruolo> ruoliUtente = request.getRuoli();
+        if(ruoliUtente.isEmpty() || ruoliUtente == null){
+            ruoliUtente = new ArrayList<>();
+            Ruolo ruolo = new Ruolo();
+            ruolo.setNome(RuoliUtente.CONTRIBUTORE.toString());
+            ruoliUtente.add(ruolo);
+        }
         var utente = Utente.builder()
                 .nome(request.getNome())
                 .cognome(request.getCognome())
@@ -44,6 +53,7 @@ public class AuthenticationService {
                 .comuneAssociato(comuneAssociato)
                 .dataDiNascita(request.getDataDiNascita())
                 .sesso(request.getSesso())
+                .ruoli(ruoliUtente)
                 .build();
         utenteRepository.save(utente);
         log.info("Aggiunto l'utente {} nel db",utente.getUsername());
@@ -72,6 +82,7 @@ public class AuthenticationService {
                 .build();
     }
 
+    /* Salva il token associato all'utente nel db*/
     private void salvaTokenUtente(String jwt, Utente utente){
         Token token = new Token();
         token.setToken(jwt);

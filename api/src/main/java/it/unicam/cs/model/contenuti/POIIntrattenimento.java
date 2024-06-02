@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
  @Entity
-public final class POIIntrattenimento extends POI {
+public class POIIntrattenimento extends POI {
     private int etaConsigliata;
     private String orariApertura;
     @ElementCollection

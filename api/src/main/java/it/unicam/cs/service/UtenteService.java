@@ -49,6 +49,9 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     public void assegnaRuoloAutente(String username, String nomeRuolo) {
         Utente utente = utenteRepository.findByUsername(username);
         Ruolo ruolo = ruoloRepository.findByNome(nomeRuolo);
+        if (ruolo == null) {
+            throw new IllegalArgumentException("Ruolo non trovato: " + nomeRuolo);
+        }
         log.info("Ruolo {} assegnato all'utente {} ",ruolo.getNome(),utente.getUsername());
         utente.getRuoli().add(ruolo);
     }

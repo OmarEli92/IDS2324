@@ -9,7 +9,7 @@ import it.unicam.cs.util.info.Posizione;
 
 import java.util.List;
 
-public final class POIServiziUtili extends POI {
+public class POIServiziUtili extends POI {
 
     private Contatti contatti;
     private String orariApertura;

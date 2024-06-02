@@ -10,7 +10,7 @@ import it.unicam.cs.util.info.Posizione;
 
 import java.util.List;
 
-public final class Museo extends POI {
+public class Museo extends POI {
     private String orariApertura;
     private String responsabile;
     private Contatti contatti;

@@ -8,7 +8,7 @@ import it.unicam.cs.util.info.Posizione;
 
 import java.util.List;
 
-public final class Monumento extends POI {
+public class Monumento extends POI {
 
     private int annoRealizzazione;
     private String descrizione;
