@@ -6,6 +6,7 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.Data;
@@ -20,47 +21,47 @@ public class Comune {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    @Embedded
-    private Posizione posizione;
     private String provincia;
     private String regione;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<POI> POIS;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Itinerario> itinerari;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Evento> eventi;
-    @OneToMany(mappedBy = "comuneAssociato", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ContenutoMultimediale> contenutiMultimediali;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Utente> curatori;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Utente> listaUtenti;
+    @Embedded
+    private Posizione posizione;
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
+    private List<POI> POIS = new ArrayList<>();
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
+    private List<Itinerario> itinerari = new ArrayList<>();
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
+    private List<Evento> eventi = new ArrayList<>();
+    @OneToMany(mappedBy = "comuneAssociato", cascade = CascadeType.ALL)
+    private List<ContenutoMultimediale> contenutiMultimediali = new ArrayList<>();
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
+    private List<Utente> curatori = new ArrayList<>();
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
+    private List<Utente> listaUtenti = new ArrayList<>();
+    @OneToMany(mappedBy = "comuneAssociato", cascade = CascadeType.ALL)
+    private List<Contest> listaContest = new ArrayList<>();
     @OneToOne(fetch = FetchType.LAZY)
     private Utente gestoreComune;
     @ElementCollection
     @CollectionTable(name="perimetro_comune", joinColumns = @JoinColumn(name="id_comune"))
     private List<Posizione> perimetro = new ArrayList<>();
 
-    public Comune(String nome, Integer id,String provincia,String regione,Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
-                  List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune) {
-
-
+    public Comune(String nome, Integer id,String provincia,String regione, Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
+                  List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune, List<Contest> listaContest) {
         this.nome = nome;
         this.id = id;
         this.provincia = provincia;
         this.regione = regione;
-        this.POIS = POIS;
         this.posizione = posizione;
+        this.POIS = POIS;
         this.itinerari = itinerari;
         this.eventi = eventi;
         this.listaUtenti=listaUtenti;
         this.curatori = curatori;
         this.gestoreComune = gestoreComune;
+        this.listaContest = listaContest;
     }
-    public Comune (String nome, List<Posizione> perimetro, Utente gestoreComune){
+    public Comune (String nome, Utente gestoreComune){
         this.nome = nome;
-        this.perimetro = perimetro;
         this.gestoreComune = gestoreComune;
     }
 
@@ -89,4 +90,7 @@ public class Comune {
     }
 
 
+    public void aggiungiContest(Contest contest) {
+        this.listaContest.add(contest);
+    }
 }

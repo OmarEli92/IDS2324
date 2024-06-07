@@ -8,8 +8,6 @@ import it.unicam.cs.model.DTO.input.EventoDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
-@AllArgsConstructor
 public class DefaultEventoBuilderFactory implements IEventoBuilderFactory {
     @Override
     public EventoBuilder creaBuilder(EventoDto eventoDto) {

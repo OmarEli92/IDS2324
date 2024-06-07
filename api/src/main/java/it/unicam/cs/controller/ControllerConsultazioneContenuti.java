@@ -1,6 +1,7 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
 import it.unicam.cs.model.DTO.input.PoiDto;
+import it.unicam.cs.model.DTO.output.PoiOutpuDto;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
@@ -49,9 +50,9 @@ public class ControllerConsultazioneContenuti {
         return new ResponseEntity<>(consultazioneContenutiService.ottieniPOIdaId(idPOI),HttpStatus.OK);
     }
 
-    @GetMapping(value="/poi")
-    public ResponseEntity<Object> visualizzaPOIS(){
-      List<PoiDto> pois = consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato);
+    @GetMapping(value="/poiComune/{idComune}")
+    public ResponseEntity<Object> visualizzaPOIS(@PathVariable("idComune") Integer idComune){
+      List<PoiOutpuDto> pois = consultazioneContenutiService.ottieniPOIS(idComune);
       if(pois.isEmpty())
           return new ResponseEntity<>("Nessun POI trovato",HttpStatus.NOT_FOUND);
       return new ResponseEntity<>(pois,HttpStatus.OK);

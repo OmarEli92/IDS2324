@@ -13,6 +13,7 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.service.*;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,10 +31,8 @@ public class ContenutoMultimedialeMediator {
     private POIService poiService;
     private ItinerarioService itinerarioService;
     private ConsultazioneContenutiService consultazioneContenutiService;
-    private SalvataggioContenutiService salvataggioContenutiService;
-
     public void salvaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
-        salvataggioContenutiService.salvaContenutoMultimediale(contenutoMultimediale);
+        contenutoMultimedialeService.aggiungiContenutoMultimediale(contenutoMultimediale);
         if(contenutoMultimediale.getEventoAssociato()!=null){
             eventoService.salvaContenutoMultimediale(contenutoMultimediale.getEventoAssociato().getId(),contenutoMultimediale);
         }
@@ -46,27 +45,17 @@ public class ContenutoMultimedialeMediator {
         utenteService.aggiungiContenutoMultimediale(contenutoMultimediale.getUtenteCreatore().getId(),contenutoMultimediale);
         comuneService.aggiungiContenutoMultimediale(contenutoMultimediale.getComuneAssociato().getId(),contenutoMultimediale);
     }
+    @Transactional
     public void validaContenuto(RichiestaValidazioneDto richiestaValidazioneDto){
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(richiestaValidazioneDto.getIdContenuto());
         Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
-        List<String> nomi = utente.getRuoli()
-                .stream()
-                .map(Ruolo::getNome)
-                .collect(Collectors.toList());
-        if(contenutoMultimediale==null){
-            throw new NullPointerException("contenuto multimediale da validare non esistente");
-        }
-        else if(!nomi.contains(RuoliUtente.CURATORE.name())){
-            throw new RichiestaValidUtenteNotValidException();
-        }
-        else if(!utente.getComuneAssociato().getId().equals(contenutoMultimediale.getComuneAssociato().getId())){
+        if(!utente.getComuneAssociato().getId().equals(contenutoMultimediale.getComuneAssociato().getId())){
             throw new RichiestaValidComuneNotValidException();
         }
-        else if(!contenutoMultimediale.getStato().equals(StatoElemento.PUBBLICATO)){
+        else if(contenutoMultimediale.getStato().equals(StatoElemento.PUBBLICATO)){
             throw new RichiestaValidContenutoNotValidException();
         }
-        else if(nomi.contains(RuoliUtente.CURATORE.name())
-                && contenutoMultimediale.getStato().equals(StatoElemento.PENDING)
+        else if(contenutoMultimediale.getStato().equals(StatoElemento.PENDING)
                 && utente.getComuneAssociato().getId().equals(contenutoMultimediale.getPoiAssociato().getComuneAssociato().getId())){
             comuneService.aggiornaListaContenutiMultimediali(richiestaValidazioneDto.getIdContenuto(),richiestaValidazioneDto.isValidato());
             utenteService.aggiornaListaContenutiMultimediali(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
@@ -83,12 +72,9 @@ public class ContenutoMultimedialeMediator {
         contenutoMultimedialeService.validaContenutoMultimediale(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
     }
 
-
+    @Transactional
     public void segnalaContenutoMultimediale(RichiestaSegnalazioneDto richiestaSegnalazioneDto) {
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(richiestaSegnalazioneDto.getIdContenuto());
-        if(contenutoMultimediale == null){
-            throw new NullPointerException("contenuto multimediale da segnalare non esistente");
-        }
         if(contenutoMultimediale.getStato().equals(StatoElemento.PUBBLICATO)){
             contenutoMultimedialeService.segnalaContenuto(contenutoMultimediale);
             utenteService.aggiornaListaContenutiMultimedialiSegnalati(contenutoMultimediale.getId());
@@ -111,16 +97,8 @@ public class ContenutoMultimedialeMediator {
     public void accettaSegnalazioneContenuto(EliminazioneContenutoDto eliminazioneContenutoDto) {
         Utente utente = utenteService.ottieniUtenteById(eliminazioneContenutoDto.getIdUtente());
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(eliminazioneContenutoDto.getIdContenutoMultimediale());
-        List<String> nomi = utente.getRuoli()
-                .stream()
-                .map(Ruolo::getNome)
-                .collect(Collectors.toList());
-        if(contenutoMultimediale == null){
-            throw new NullPointerException("accettazione di una segnalazione di un contenuto multimediale non esistente");
-        }
-        else if(contenutoMultimediale.getStato().equals(StatoElemento.SEGNALATO)
-        && contenutoMultimediale.getComuneAssociato().getId().equals(utente.getComuneAssociato().getId())
-        && nomi.contains(RuoliUtente.CURATORE.name())){
+        if(contenutoMultimediale.getStato().equals(StatoElemento.SEGNALATO)
+        && contenutoMultimediale.getComuneAssociato().getId().equals(utente.getComuneAssociato().getId())){
             utenteService.accettaSegnalazioneContenuto(eliminazioneContenutoDto.getIdContenutoMultimediale(), eliminazioneContenutoDto.isEliminato());
             comuneService.accettaSegnalazioneContenuto(eliminazioneContenutoDto.getIdContenutoMultimediale(),eliminazioneContenutoDto.isEliminato());
         }

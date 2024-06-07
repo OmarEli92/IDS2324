@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class ControlloPOIService {
+public class ControlloPOIService {
     @Autowired
     private ValidationPOIExtension validationPOIExtension;
     @Autowired
@@ -15,7 +15,6 @@ public abstract class ControlloPOIService {
 
     public void verificaPOI(PoiDto poiDto) {
         validationPOIExtension.isPOINomeValid(poiDto.getNome());
-        validationPOIExtension.isPOIContributoreValid(poiDto.getIDContributore());
         poiDto.accept(poiDtoVisitor);
     }
 

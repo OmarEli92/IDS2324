@@ -14,10 +14,12 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 @Entity
 @Data
+@NoArgsConstructor
 public class POIAmministrativo extends POI {
     private TipoAmministrativo tipo;
     private String orariApertura;

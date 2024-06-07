@@ -1,61 +1,218 @@
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\GestorePiattaforma.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Interfaces\VerificaContenuto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\repository\IItinerarioRepository.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\abstractions\Evento.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\Interfaces\IConsultazioneContenutiService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\controller\ControllerVerificaContenuto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\ConsultazioneContenutiService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\ServiceVerificaContenuto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\abstractions\Utente.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\EventoIntrattimento.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\repository\IContenutoMultimedialeRepository.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Contributor.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Curatore.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\DTO\EventoDto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\info\Posizione.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\controller\ControllerConsultazioneContenuti.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\POIServiziUtili.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\exception\EventoNotFoundException.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\Itinerario.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\enums\ServiziUtili.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\AppValorizzazioneTerritorio.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\exception\ItinerarioNotFoundException.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\EventoTuristico.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\enums\Servizio.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Comune.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Interfaces\InserimentoContenuto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\info\Contatti.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\Interfaces\IMappaService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\Interfaces\IInserimentoContenutiService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\Parco.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\Interfaces\IGeolocalizzazioneService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\enums\TipoAmministrativo.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\POIAmministrativo.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Turista.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\controller\ControllerInserimentoContenutiInPending.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\ContenutoMultimediale.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\Interfaces\InserimentoContenutoInPending.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\DTO\ItinerarioDto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\ListaComuni.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\abstractions\POI.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\controller\ControllerInserimentoContenuti.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\POIIntrattenimento.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\repository\UtenteRepository.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\GeolocalizzazioneService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\enums\CollezioniMuseo.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\controller\ControllerComuni.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\ContributorAutorizzato.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\enums\TipoIntrattenimento.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\ServiceInserimentoContenutiInPending.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\Monumento.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\ServiceInserimentoContenuti.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\enums\TipoTuristico.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\info\Indirizzo.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\exception\AutenticazioneNegataException.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\DTO\PoiDto.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\repository\IPOIRepository.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\service\Interfaces\IVerificaContenutiService.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\util\DBLoader.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\exception\POINotFoundException.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\repository\IEventoRepository.java
-C:\Users\eloma\OneDrive\Desktop\riprovo progetto\IDS2324\api\src\main\java\it\unicam\cs\model\contenuti\Museo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/FotoNotValidExcetion.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IMappaService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/AccettazioneSegnalazione/AccettSegnalazioneUtenteNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IComuneRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloContenutoContestService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoIntrattenimento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoComuneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/PoiOutpuDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/SegnalazioneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IContenutoContestRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloContestService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ServiceInserimentoContenuti.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/ServiziUtiliNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/UtenteDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerGestionePiattaforma.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/PoiDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/POIAmministrativoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoAmministrativo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IContestRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoInvito.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/PoiServiziUtiliDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/RichiestaValidazione/Controller/RichiestaValidazioneExceptionController.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ConsultazioneContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/StatoElemento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/POIService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/Servizio.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/RichiestaValidazioneDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/RichiestaValidazione/RichiestaValidContenutoNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contest/Controller/ContestExceptionController.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/TipoTuristicoNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contest/TipoInvitoException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Factory/POI/DefaultPOIBuilderFactory.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IPOIRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Mediators/ContenutoContestMediator.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/MonumentoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/SalvataggioContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/POIBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/EVENTOBUILDER/EventoIntrattenimentoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ContenutoMultimedialeService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/ComuneDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoPOI.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Mediators/POIMediator.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/ContenutoMultimedialeDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/proxy/Cache.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/POI/PoiDtoVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/UtenteRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/POIIntrattenimento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/DBLoader.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/ItinerarioNotFoundException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/ContenutoContestDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/EliminazioneContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IGeolocalizzazioneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerUtenti.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/observer/ContestObservable.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/POIAmministrativo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/GestionePiattaformaService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/ParcoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IProxyService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/POI/PoiBuilderVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoPOIService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/GestioneComuneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloEventoService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/EVENTOBUILDER/EventoTuristicoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/CollezioniMuseo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/ContenutoContest.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Mediators/EventoMediator.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Factory/POI/IPOIBuilderFactory.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/OSMService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/EVENTOBUILDER/EventoAmministrativoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/ContattiNonValidiException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/Evento/EventoBuilderVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/RichiestaSegnalazione/ContenutoMultimedialeDaSegnalareException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/Extensions/ValidationItinerarioExtension.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/ContenutoMultimedialeOutputDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoEventoService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/RichiestaSegnalazione/Controller/RichiestaSegnalazioneException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/Extensions/ValidationPOIExtension.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/PoiDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/abstractions/Evento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/RichiestaValidazione/RichiestaValidComuneNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/EventoOutputDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/RichiestaValidazione/RichiestaValidUtenteNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/ITokenRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Mediators/ContenutoMultimedialeMediator.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/TipoContenutoMultimedialeNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/ContenutoMultimediale.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloContenutoMultimedialeService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerContest.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/AccettazioneSegnalazione/Controller/AccettazioneSegnalazioneExceptionController.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/AppConfig.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/POI/IPoiDtoVisitable.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/proxy/LRUCache.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/GestioneContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/EventoTuristicoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ItinerarioService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IContestService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoContenuto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/Evento/EventoDtoVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ComuneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IUtenteService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/abstractions/POI.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/ItinerarioNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/Token.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/ContestOutputDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/Museo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/PoiAmministrativoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoContenutoMultimedialeService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/ContestDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IInserimentoContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ContenutoContestService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ContestService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/ComuneDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/ContestDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/ItinerarioDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerAutenticazione.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/TipoPOINotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/Parco.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/POI/IPOIBuilderVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/MonumentoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/RichiestaSegnalazioneDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/JwtService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/ServiziUtili.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IGestioneContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoTuristico.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/ListaPOINotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/POI/IPoiDtoVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/EventoNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/AppValorizzazioneTerritorio.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/ItinerarioDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/ParcoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/SecurityConfig.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerConsultazioneContenuti.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/Controller/ContenutoExceptionController.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoItinerarioService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/Evento/IEventoBuilderVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IContenutoMultimedialeRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Mediators/ContestMediator.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/JwtAuthenticationFilter.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ValidazioneContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contest/OrganizzatoreNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/proxy/DoubleLinkedList.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/EventoAmministrativo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/EventoTuristico.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/Evento/IEventoDtoVisitor.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/PoiIntrattenimentoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/POINotFoundException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/Monumento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/RuoliUtente.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/EliminazioneContenutoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IRuoloRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/CollezioneNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/Evento/IEventoDtoVisitable.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Factory/Evento/IEventoBuilderFactory.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/UtentePOINotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/ComuneOutputDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/POIServiziUtili.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/Utente.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloComuneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IGestioneComuneService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/ServiziNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/response/AuthenticationResponse.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloItinerarioService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/EventoIntrattenimentoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/MuseoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/UtenteService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/TipoAmministrativoNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoContenutoContest.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/POINotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/ControlloService/ControlloPOIService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IEventoRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/observer/ContestObserver.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/repository/IItinerarioRepository.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/EventoDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/Contest.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/proxy/ProxyService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/Extensions/ValidationEventoExtension.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IGestionePiattaformaService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/EventoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/info/Contatti.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/ComuneDTO.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/AccettazioneSegnalazione/ContenutoMultimedialeNonSegnalatoException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/request/RegisterRequest.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/Ruolo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/Interfaces/IConsultazioneContenutiService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerInserimentoContenuti.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/info/Indirizzo.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/mappers/ContenutoMultimedialeDtoMapper.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/Comune.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/enums/TipoEvento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/CustomLogoutHandler.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/Evento/IEventoBuilderVisitable.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Mediators/ItinerarioMediator.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Visitor/POI/IPoiBuilderVisitable.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/ContenutoContestOutputDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/EVENTOBUILDER/EventoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/request/AuthenticationRequest.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/POIIntrattenimentoBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/EventoNotFoundException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/LinkNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/proxy/Node.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/AutenticazioneNegataException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/DBConfig.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Builder/POIBUILDER/POIServiziUtiliBuilder.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/Factory/Evento/DefaultEventoBuilderFactory.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/MuseoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/Itinerario.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/EventoAmministrativoDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/output/ItinerarioOutputDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/DTO/input/ContenutoContestDto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/security/AuthenticationService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/ListaComuni.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/exception/Contenuto/TipoIntrattenimentoNotValidException.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/controller/ControllerGestioneContenuto.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/EventoService.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/info/Posizione.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/model/contenuti/EventoIntrattimento.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/util/VerificaSomiglianzaContenuti.java
+/Users/nicolasrossi/Spring/IDS2324/api/src/main/java/it/unicam/cs/service/CaricamentoService/CaricamentoContestService.java

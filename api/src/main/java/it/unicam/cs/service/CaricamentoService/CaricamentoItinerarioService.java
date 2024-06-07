@@ -1,8 +1,10 @@
 package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ItinerarioMediator;
+import it.unicam.cs.exception.UtenteNotValidException;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.input.ItinerarioDto;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CaricamentoItinerarioService {
@@ -23,9 +26,9 @@ public class CaricamentoItinerarioService {
     @Autowired
     private UtenteService utenteService;
     @Autowired
-    private IPOIRepository poiRepository;
-    @Autowired
     private ItinerarioMediator itinerarioMediator;
+    @Autowired
+    private IPOIRepository poiRepository;
     public void caricaItinerario(ItinerarioDto itinerarioDto){
         controlloItinerarioService.controllaItinerario(itinerarioDto);
         Itinerario itinerario = costruisciItinerario(itinerarioDto);
@@ -38,15 +41,22 @@ public class CaricamentoItinerarioService {
         String nome = itinerarioDto.getNome();;
         String descrizione = itinerarioDto.getDescrizione();
         Comune comune = utente.getComuneAssociato();
-        StatoElemento stato;
-        if(utente.getRuoli().contains(RuoliUtente.CURATORE.name())|| utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
-            stato = StatoElemento.PUBBLICATO;
-        }
-        else {
-            stato = StatoElemento.PENDING;
-        }
+        StatoElemento stato = isItinerarioContributoreValid(utente);
         Itinerario itinerario = new Itinerario(nome,utente,stato,comune,pois,descrizione);
         return itinerario;
     }
-
+    private StatoElemento isItinerarioContributoreValid(Utente utente) {
+        StatoElemento stato;
+        List<String> nomi = utente.getRuoli()
+                .stream()
+                .map(Ruolo::getNome)
+                .collect(Collectors.toList());
+        if(nomi.contains(RuoliUtente.CURATORE.name()) || nomi.contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
+            stato = StatoElemento.PUBBLICATO;
+        }
+        else{
+            stato = StatoElemento.PENDING;
+        }
+        return stato;
+    }
 }

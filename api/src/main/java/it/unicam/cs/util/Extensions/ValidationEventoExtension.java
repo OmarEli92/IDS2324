@@ -1,25 +1,27 @@
 package it.unicam.cs.util.Extensions;
 
 import it.unicam.cs.exception.Contenuto.POINotFoundException;
-import it.unicam.cs.exception.UtentePOINotValidException;
+import it.unicam.cs.exception.Contenuto.POINotValidException;
+import it.unicam.cs.exception.UtenteNotValidException;
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
-import lombok.AllArgsConstructor;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Component
 public class ValidationEventoExtension {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService utenteService;
 
     public void isNomeValid(String nome){
         if(nome.isBlank()){
@@ -30,31 +32,22 @@ public class ValidationEventoExtension {
             throw new IllegalArgumentException("lunghezza nome incorretta");
         }
     }
-    public void isIdEventovalid(Integer idUtente,Integer idPOI){
+    @Transactional
+    public void isIdPoiEventovalid(Integer idUtente,Integer idPOI){
         if(idPOI == null){
             throw new NullPointerException("id poi non deve essere nullo");
         }
-        Utente utente = utenteRepository.findUtenteById(idUtente);
+        Utente utente = utenteService.ottieniUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
         List<POI> pois = comune.getPOIS();
-        for (POI poi : pois){
-            if(poi.getId().equals(idPOI)){
-                return;
-            }
-        }
-        throw new POINotFoundException();
-    }
-    public void isEventoContributoreValid(Integer idContributore) {
-        if(idContributore == null){
-            throw new NullPointerException("id del contributpre non può essere nullo");
-        }
-        Utente utente = utenteRepository.getReferenceById(idContributore);
-        if (!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
-                && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
-                && !utente.getRuoli().contains((RuoliUtente.CURATORE))) {
-            throw new UtentePOINotValidException("l'utente non è autorizzato a caricare l'evento");
+        if(!pois.stream()
+                .map(POI::getId)
+                .collect(Collectors.toList())
+                .contains(idPOI)){
+            throw new POINotValidException();
         }
     }
+
     public void isDescrizioneValid(String descrizione){
         if(descrizione!=null){
             if(descrizione.trim().length() < 3){
@@ -67,7 +60,7 @@ public class ValidationEventoExtension {
             if (string.trim().length() < 3 && string.trim().length() > 20) {
                 throw new IllegalArgumentException("lunghezza responsabile non corretta");
             }
-            Pattern pattern = Pattern.compile("[^a-zA-Z0-9]+");
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9 ]+");
             boolean valid = pattern.matcher(string).matches();
             if (!valid) {
                 throw new IllegalArgumentException("responsabile non può avere caratteri speciali");

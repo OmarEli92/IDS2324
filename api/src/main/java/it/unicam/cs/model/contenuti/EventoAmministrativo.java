@@ -11,11 +11,13 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity
 @Data
+@NoArgsConstructor
 public class EventoAmministrativo extends Evento {
     private TipoAmministrativo tipo;
     private String responsabile;

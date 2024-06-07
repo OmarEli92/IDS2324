@@ -1,49 +1,25 @@
 package it.unicam.cs.service.ControlloService;
 
-import it.unicam.cs.exception.Contenuto.EventoNotValidException;
 import it.unicam.cs.exception.Contenuto.FotoNotValidExcetion;
 import it.unicam.cs.exception.Contenuto.LinkNotValidException;
-import it.unicam.cs.exception.Contenuto.POINotValidException;
-import it.unicam.cs.exception.UtentePOINotValidException;
-import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.input.ContenutoMultimedialeDto;
-import it.unicam.cs.model.Utente;
-import it.unicam.cs.model.abstractions.Evento;
-import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.model.contenuti.Itinerario;
-import it.unicam.cs.repository.IEventoRepository;
-import it.unicam.cs.repository.IItinerarioRepository;
-import it.unicam.cs.repository.IPOIRepository;
-import it.unicam.cs.repository.UtenteRepository;
-import it.unicam.cs.util.enums.RuoliUtente;
-import it.unicam.cs.util.enums.StatoElemento;
+import it.unicam.cs.service.ConsultazioneContenutiService;
+import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.TipoContenuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
+
 @Service
 public class ControlloContenutoMultimedialeService {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private ConsultazioneContenutiService consultazioneContenutiService;
     @Autowired
-    private IPOIRepository poiRepository;
-    @Autowired
-    private IEventoRepository eventoRepository;
-    @Autowired
-    private IItinerarioRepository itinerarioRepository;
+    private UtenteService utenteService;
 
     public void verificaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto){
-        POI poi = poiRepository.getReferenceById(contenutoMultimedialeDto.getIdPoi());
-        Evento evento = eventoRepository.getReferenceById(contenutoMultimedialeDto.getIdEvento());
-        Utente utente = utenteRepository.findUtenteById(contenutoMultimedialeDto.getIdContributore());
-        Itinerario itinerario = itinerarioRepository.getReferenceById(contenutoMultimedialeDto.getIdItinerario());
-        verificaIdContributore(utente);
         verificaTipoContenuto(contenutoMultimedialeDto);
-        verificaElementoComuneAssociato(poi,evento,itinerario);
-        verificaIdPoi(poi, utente);
-        verificaIdEvento(evento,utente);
-        verificaIdItinerario(itinerario,utente);
     }
 
     private void verificaTipoContenuto(ContenutoMultimedialeDto contenutoMultimedialeDto) {
@@ -78,62 +54,6 @@ public class ControlloContenutoMultimedialeService {
     }
 
 
-    private void verificaIdEvento(Evento evento, Utente utente) {
-        if(evento!=null){
-            if (!evento.getStato().equals(StatoElemento.PUBBLICATO)
-            || !evento.isAperto()){
-                throw new IllegalStateException("l'evento non è pubblicato o è chiuso, impossibile aggiungere un contenuto multimediale associato");
-            }
-            Comune comuneEvento = evento.getComuneAssociato();
-            Comune comuneUtente = utente.getComuneAssociato();
-            if(comuneEvento.getId()!=comuneUtente.getId()){
-                throw new EventoNotValidException();
-            }
-        }
-    }
-
-    private void verificaIdPoi(POI poi, Utente utente) {
-        if(poi!=null) {
-            if(!poi.getStato().equals(StatoElemento.PUBBLICATO)){
-                throw new IllegalStateException("il poi non è pubblicato, impossibile aggiungere un contenuto multimediale associato");
-            }
-            Comune comunePOI = poi.getComuneAssociato();
-            Comune comuneUtente = utente.getComuneAssociato();
-            if (comunePOI.getId() != comuneUtente.getId()) {
-                throw new POINotValidException();
-            }
-        }
-    }
-    private void verificaIdItinerario(Itinerario itinerario, Utente utente) {
-        if(itinerario!=null){
-            if(!itinerario.getStato().equals(StatoElemento.PUBBLICATO)){
-                throw new IllegalStateException("l'itinerario nonn è pubblicato, impossibile aggiungere un contenuto multimediale associato");
-            }
-            Comune comuneItinerario = itinerario.getComuneAssociato();
-            Comune comuneUtente = utente.getComuneAssociato();
-            if(comuneItinerario.getId() != comuneUtente.getId()){
-                throw new IllegalArgumentException("comune dell'itinerario diverso dal comune " +
-                        "dell'utente");
-            }
-        }
-    }
-
-    private void verificaIdContributore(Utente utente) {
-        if(!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
-                && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
-                && !utente.getRuoli().contains((RuoliUtente.CURATORE))){
-            throw new UtentePOINotValidException("l'utente non è autorizzato a caricare il POI");
-        }
-    }
-    private void verificaElementoComuneAssociato(POI poi, Evento evento, Itinerario itinerario) {
-        if (poi == null && evento == null && itinerario == null) {
-            throw new IllegalArgumentException("l'elemento del comune deve essere settato");
-        } else if ((poi != null && evento != null && itinerario != null) ||
-                (poi != null && evento != null) || (evento != null && itinerario != null) ||
-                (poi != null && itinerario != null)) {
-            throw new IllegalArgumentException("ci deve essere un solo elemento del comune settato");
-        }
-    }
 
     private void controllaNome(String nome) {
             if(nome.isBlank()){

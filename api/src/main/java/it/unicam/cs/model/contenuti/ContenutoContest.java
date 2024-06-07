@@ -6,7 +6,7 @@ import it.unicam.cs.util.enums.TipoContenuto;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity @NoArgsConstructor  @AllArgsConstructor @Getter
+@Entity @Getter @NoArgsConstructor
 public class ContenutoContest {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

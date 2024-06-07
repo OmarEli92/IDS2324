@@ -1,14 +1,25 @@
 package it.unicam.cs.controller;
 
 import it.unicam.cs.model.Contest;
+import it.unicam.cs.model.DTO.input.ContenutoContestDto;
+import it.unicam.cs.model.DTO.input.ContestDto;
+import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.security.JwtAuthenticationFilter;
+import it.unicam.cs.security.JwtService;
+import it.unicam.cs.security.Token;
+import it.unicam.cs.service.CaricamentoService.CaricamentoContenutoContestService;
+import it.unicam.cs.service.CaricamentoService.CaricamentoContestService;
 import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.ValidazioneContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,24 +27,54 @@ import java.util.List;
 @RestController("api/contest")
 public class ControllerContest {
     private final IContestService contestService;
+    private final CaricamentoContestService caricamentoContestService;
+    private final CaricamentoContenutoContestService caricamentoContenutoContestService;
+    private final ValidazioneContenutiService validazioneContenutiService;
+    private final JwtService jwtService;
     @Autowired
-    public ControllerContest(IContestService contestService) {
+    public ControllerContest(IContestService contestService, CaricamentoContestService caricamentoContestService, CaricamentoContenutoContestService caricamentoContenutoContestService,
+                             ValidazioneContenutiService validazioneContenutiService, JwtService jwtService) {
         this.contestService = contestService;
+        this.caricamentoContestService = caricamentoContestService;
+        this.caricamentoContenutoContestService = caricamentoContenutoContestService;
+        this.validazioneContenutiService = validazioneContenutiService;
+        this.jwtService = jwtService;
     }
 
     /**
      * Metodo che permette di creare un contest
-     * @param contest contest da creare
+     * @param contestDto contest da creare
      * @return contest creato
      */
     @PostMapping("/creaContest")
-    public ResponseEntity<Object> creaContest(@RequestBody Contest contest){
-        if(contestService.ottieniContest(contest.getId())!= null)
-            return new ResponseEntity<>("Contest già esistente", HttpStatus.BAD_REQUEST);
-        contestService.aggiungiContest(contest);
+    public ResponseEntity<Object> creaContest(@RequestBody ContestDto contestDto){
+        caricamentoContestService.caricaContest(contestDto);
         return new ResponseEntity<>("Contest creato", HttpStatus.CREATED);
     }
 
+    /**
+     * metodo che permette di aggiungere un contenuto al contest
+     * @param contenutoContestDto contenuto del contest da creare
+     * @return contenuto contest creato
+     */
+    @PostMapping(value = "/aggiungi_contenuto_contest")
+    public ResponseEntity<Object> aggiungiContenutoContest(@RequestBody ContenutoContestDto contenutoContestDto){
+        caricamentoContenutoContestService.caricaContenutoContest(contenutoContestDto);
+        return new ResponseEntity<>("contenuto contest creato", HttpStatus.CREATED);
+    }
+    @PutMapping(value = "/valida_contenuto_contest")
+    public ResponseEntity<Object> validaContenutoContest(@RequestBody RichiestaValidazioneDto richiestaValidazioneDto){
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = (String) authentication.getCredentials();
+        String id = jwtService.estraiId(token);*/
+        validazioneContenutiService.validaContenutoContest(richiestaValidazioneDto);
+        if(richiestaValidazioneDto.isValidato()){
+            return new ResponseEntity<>("contenuto contest validato", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("contenuto contest eliminato", HttpStatus.OK);
+        }
+    }
     /**
      * Metodo che permette di rimuovere un contest
      * @param id id del contest da rimuovere
@@ -76,16 +117,15 @@ public class ControllerContest {
 
     /***
      * Metodo che permette di invitare i partecipanti  al contest
-     * @param partecipanti che partecipano al contest
+     * @param idPartecipanti id degli utenti da aggiungere al contest
      * @param idContest
+     * @return partcepianti aggiunti
      */
     @PutMapping(value="/invita/{idContest}")
-    public ResponseEntity<Object> invitaPartecipanti(@RequestBody List<Utente> partecipanti,
+    public ResponseEntity<Object> invitaPartecipanti(@RequestBody List<Integer> idPartecipanti,
                                                      @PathVariable Integer idContest) {
-        if(contestService.aggiungiPartecipanti(idContest,partecipanti))
-            return new ResponseEntity<>("Partecipanti invitati", HttpStatus.OK);
-        else
-            return new ResponseEntity<>("Non sono stati invitati i partecipanti",HttpStatus.BAD_REQUEST);
+        contestService.aggiungiPartecipanti(idContest, idPartecipanti);
+        return new ResponseEntity<>("utenti aggiunti", HttpStatus.OK);
     }
 
     /** Metodo che ottiene tutti i contenuti multimediali del contest

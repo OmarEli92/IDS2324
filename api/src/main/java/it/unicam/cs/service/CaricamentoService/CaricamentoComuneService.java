@@ -29,7 +29,7 @@ public class CaricamentoComuneService {
         String nome = comuneDto.getNome();
         List<Posizione> territorio = comuneDto.getTerritorio();
         Utente gestoreComune = utenteService.ottieniUtenteById(comuneDto.getIdGestore());
-        Comune comune = new Comune(nome,territorio,gestoreComune);
+        Comune comune = new Comune(nome,gestoreComune);
     }
 
 }

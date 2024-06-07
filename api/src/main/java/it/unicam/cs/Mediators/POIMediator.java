@@ -23,33 +23,21 @@ public class POIMediator {
     private ComuneService comuneService;
     private UtenteService utenteService;
     private POIService poiService;
-    private SalvataggioContenutiService salvataggioContenutiService;
     private ConsultazioneContenutiService consultazioneContenutiService;
 
     public void salvaPOI(POI poi){
-        salvataggioContenutiService.salvaPOI(poi);
+        poiService.aggiungiPOI(poi);
         comuneService.aggiungiPOI(poi.getComuneAssociato().getId(),poi);
         utenteService.aggiungiPOI(poi.getContributore().getId(),poi);
     }
     public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto){
         POI poi = consultazioneContenutiService.ottieniPOIdaId(richiestaValidazioneDto.getIdContenuto());
         Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
-        List<String> nomi = utente.getRuoli()
-                .stream()
-                .map(Ruolo::getNome)
-                .collect(Collectors.toList());
-        if(poi==null){
-            throw new NullPointerException("poi da validare non esistente");
-        }
-        else if(nomi.contains(RuoliUtente.CURATORE.name())
-        && poi.getStato().equals(StatoElemento.PENDING)
+        if (poi.getStato().equals(StatoElemento.PENDING)
         && utente.getComuneAssociato().getId().equals(poi.getComuneAssociato().getId())){
-            poiService.validaPOI(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             utenteService.aggiornaListaPOI(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             comuneService.aggiornaListaPOI(richiestaValidazioneDto.getIdContenuto() ,richiestaValidazioneDto.isValidato());
-        }
-        else if(!nomi.contains(RuoliUtente.CURATORE.name())){
-            throw new RichiestaValidUtenteNotValidException();
+            poiService.validaPOI(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
         }
         else if(!utente.getComuneAssociato().getId().equals(poi.getComuneAssociato().getId())){
             throw new RichiestaValidComuneNotValidException();

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-@Component
+
 public class PoiBuilderVisitor implements IPOIBuilderVisitor{
     @Override
     public void visit(POIAmministrativoBuilder poiAmministrativoBuilder, PoiAmministrativoDto poiAmministrativoDto) {

@@ -1,17 +1,14 @@
 package it.unicam.cs.util.Extensions;
 
 import it.unicam.cs.exception.Contenuto.*;
-import it.unicam.cs.exception.UtentePOINotValidException;
-import it.unicam.cs.model.Utente;
-import it.unicam.cs.repository.UtenteRepository;
-import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.info.Contatti;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.regex.Pattern;
+
 /*
 classe che serve per controllare i metodi che possono essere comuni tra le varie classi
 che estendono POI
@@ -19,7 +16,7 @@ che estendono POI
 @Component
 public class ValidationPOIExtension {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private UtenteService utenteService;
 
     public void isOrariAperturaValido(String orari){
         String pattern = "^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$";
@@ -33,7 +30,7 @@ public class ValidationPOIExtension {
             if (string.trim().length() < 3 && string.trim().length() > 20) {
                 throw new IllegalArgumentException("lunghezza responsabile non corretta");
             }
-            Pattern pattern = Pattern.compile("[^a-zA-Z0-9]+");
+            Pattern pattern = Pattern.compile("^[a-zA-Z0-9 ]+");
             boolean valid = pattern.matcher(string).matches();
             if (!valid) {
                 throw new IllegalArgumentException("responsabile non può avere caratteri speciali");
@@ -44,10 +41,12 @@ public class ValidationPOIExtension {
         Pattern pattern = Pattern.compile("\\+39[ ]?\\d{2}[ ]?\\d{3}[ ]?\\d{4}$");
         Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
         Pattern pattern2 = Pattern.compile("^\\\\+?[0-9\\\\-\\\\(\\\\) ]{5,20}$");
-        boolean valid = pattern.matcher(contatti.getTelefono()).matches() && pattern1.matcher(contatti.getEmail()).matches()
-                && pattern2.matcher(contatti.getFax()).matches();
-        if(!valid){
-            throw new ContattiNonValidiException();
+        if(contatti!=null) {
+            boolean valid = pattern.matcher(contatti.getTelefono()).matches() && pattern1.matcher(contatti.getEmail()).matches()
+                        && pattern2.matcher(contatti.getFax()).matches();
+            if (!valid) {
+                throw new ContattiNonValidiException();
+            }
         }
     }
     public void isEtaConsigliatiValida(int eta){
@@ -59,15 +58,6 @@ public class ValidationPOIExtension {
         if(numero < 1){
             throw new IllegalArgumentException("il numero dell'estensione deve essere > 0");
         }
-    }
-    public void isPOIContributoreValid(Integer idContributore) {
-        Utente utente = utenteRepository.findUtenteById(idContributore);
-        if(!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
-                && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
-                && !utente.getRuoli().contains((RuoliUtente.CURATORE))){
-            throw new UtentePOINotValidException("l'utente non è autorizzato a caricare il POI");
-        }
-
     }
 
     public void isPOINomeValid(String nome)  {

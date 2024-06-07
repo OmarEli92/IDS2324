@@ -14,9 +14,9 @@ public class ControlloEventoService {
     private IEventoDtoVisitor eventoDtoVisitor;
 
     public void verificaEvento(EventoDto eventoDto){
-        validationEventoExtension.isIdEventovalid(eventoDto.getIDContributore(),eventoDto.getIDPoi());
-        validationEventoExtension.isEventoContributoreValid(eventoDto.getIDContributore());
+        validationEventoExtension.isIdPoiEventovalid(eventoDto.getIdContributore(),eventoDto.getIdPoi());
         validationEventoExtension.isNomeValid(eventoDto.getNome());
+        validationEventoExtension.isDescrizioneValid(eventoDto.getDescrizione());
         validationEventoExtension.verificaDateEvento(eventoDto.getDataInizio(),eventoDto.getDataFine());
         eventoDto.accept(eventoDtoVisitor);
     }

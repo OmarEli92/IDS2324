@@ -1,19 +1,25 @@
 package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ContestMediator;
+import it.unicam.cs.exception.Contenuto.POINotValidException;
+import it.unicam.cs.exception.Contest.TipoInvitoException;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.input.ContestDto;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContestService;
 import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoInvito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CaricamentoContestService {
@@ -57,5 +63,19 @@ public class CaricamentoContestService {
         Comune comune = poi.getComuneAssociato();
         Contest contest = new Contest(descrizione,dataInizio,dataFine,partecipanti,poi,comune,utente,attivo,tipoInvito);
         return contest;
+    }
+    private void verificaIdPoi(POI poi, Utente organizzatore) {
+        if(organizzatore.getComuneAssociato().getId() != poi.getComuneAssociato().getId()){
+            throw new POINotValidException();
+        }
+    }
+    private void verificaOrganizzatore(Utente organizzatore) {
+        List<String> nomi = organizzatore.getRuoli()
+                .stream()
+                .map(Ruolo::getNome)
+                .collect(Collectors.toList());
+        if(!nomi.contains(RuoliUtente.ANIMATORE.name())){
+            throw new TipoInvitoException();
+        }
     }
 }

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 @Entity
 @Data
-
+@NoArgsConstructor
 public final class Museo extends POI {
     private String orariApertura;
     private String responsabile;

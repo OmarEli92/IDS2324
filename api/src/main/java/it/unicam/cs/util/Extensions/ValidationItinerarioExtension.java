@@ -2,16 +2,12 @@ package it.unicam.cs.util.Extensions;
 
 import it.unicam.cs.exception.Contenuto.ItinerarioNotValidException;
 import it.unicam.cs.exception.Contenuto.ListaPOINotValidException;
-import it.unicam.cs.exception.UtentePOINotValidException;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
-import it.unicam.cs.repository.IComuneRepository;
-import it.unicam.cs.repository.IPOIRepository;
-import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.UtenteService;
-import it.unicam.cs.util.enums.RuoliUtente;
-import lombok.AllArgsConstructor;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +18,7 @@ public class ValidationItinerarioExtension {
     @Autowired
     private UtenteService utenteService;
     @Autowired
-    private IPOIRepository poiRepository;
+    private ConsultazioneContenutiService consultazioneContenutiService;
 
     public void isItinerarioNomeValid(String nome)  {
         if(nome.isBlank()){
@@ -40,6 +36,7 @@ public class ValidationItinerarioExtension {
             }
         }
     }
+    @Transactional
     public void areIdPOISValid (List<Integer> idPois, Integer idUtente){
         if(idPois == null){
             throw new NullPointerException("lista dei poi interessati " +
@@ -47,28 +44,26 @@ public class ValidationItinerarioExtension {
         }
         Utente utente = utenteService.ottieniUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
-        List<POI> pois = poiRepository.findAllById(idPois);
+        List<POI> pois = new ArrayList<>();
+        for(Integer id : idPois){
+            POI poi = consultazioneContenutiService.ottieniPOIdaId(id);
+            if(poi == null){
+                throw new NullPointerException("poi non esistente");
+            }
+            pois.add(poi);
+        }
         Set<POI> setPois = new LinkedHashSet<>(pois);
-        List<POI> arrayPois = new ArrayList<>(pois);
-        if(!pois.equals(arrayPois)){
+        if(setPois.size()!=(pois.size())){
             throw new ListaPOINotValidException();
         }
         boolean valid = pois.stream().allMatch(value -> comuneContienePOI(comune,value));
     }
-
+    @Transactional
     private boolean comuneContienePOI(Comune comune, POI poi) {
         List<POI> listP = comune.getPOIS();
         if(!listP.contains(poi)){
             throw new ItinerarioNotValidException();
         }
         return true;
-    }
-    public void isItinerarioContributoreValid(Integer idContributore) {
-        Utente utente = utenteService.ottieniUtenteById(idContributore);
-        if (!utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE)
-                && !utente.getRuoli().contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO)
-                && !utente.getRuoli().contains((RuoliUtente.CURATORE))) {
-            throw new UtentePOINotValidException("l'utente non è autorizzato a caricare l'evento");
-        }
     }
 }

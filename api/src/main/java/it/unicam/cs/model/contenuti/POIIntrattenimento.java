@@ -14,11 +14,12 @@ import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
- @Entity
- @Data
- @AllArgsConstructor
+@Entity
+@Data
+@NoArgsConstructor
 public final class POIIntrattenimento extends POI {
      private TipoIntrattenimento tipo;
      private int etaConsigliata;
@@ -38,5 +39,5 @@ public final class POIIntrattenimento extends POI {
          this.contatti = contatti;
      }
 
- }
+}
 

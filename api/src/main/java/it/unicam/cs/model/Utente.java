@@ -8,7 +8,6 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.observer.ContestObserver;
 import it.unicam.cs.security.Token;
-import it.unicam.cs.util.enums.RuoliUtente;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 /** Un utente è un entità iscritta alla piattaforma che può partecipare ai contest e contribuire con punti di interesse, eventi e contenuti
  * multimediali e a seconda del ruolo avrà diverse autorizzazioni **/
@@ -32,7 +30,7 @@ public class Utente implements UserDetails,ContestObserver {
     private Integer id;
     @NotNull @Column(unique = true)
     private String username;
-    @NotNull
+    @NotNull@Column(unique = true)
     private String password;
     @NotNull
     private String nome;
@@ -42,6 +40,7 @@ public class Utente implements UserDetails,ContestObserver {
     @NotNull @Column(unique = true)
     private String email;
     private String sesso;
+    @Column(unique = true)
     private String telefono;
     @Builder.Default
     private int numeroDiContribuzioni = 0;
@@ -50,29 +49,23 @@ public class Utente implements UserDetails,ContestObserver {
     private Comune comuneAssociato;
     @ManyToMany(fetch = FetchType.EAGER) @Builder.Default
     private List<Ruolo> ruoli = new ArrayList<>();
-    @ManyToMany  @Builder.Default
+    @ManyToMany   @Builder.Default
     private List<Contest> contestInPartecipazione = new ArrayList<>();
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
     private List<Token> tokens;
     @ElementCollection
     private List<Integer> idContestVinti = new ArrayList<>();
-    @OneToMany
-    @JoinColumn(name = "id_poi_creato", referencedColumnName = "id")
+    @OneToMany(mappedBy = "contributore", cascade = CascadeType.ALL)
     private List<POI> poiCreati;
-    @OneToMany
-    @JoinColumn(name = "id_itinerario_creato", referencedColumnName = "id")
+    @OneToMany(mappedBy = "contributore", cascade = CascadeType.ALL)
     private List<Itinerario> itinerariCreati;
-    @OneToMany
-    @JoinColumn(name = "id_contenuto_multimediale_creato", referencedColumnName = "id")
+    @OneToMany(mappedBy = "utenteCreatore", cascade = CascadeType.ALL)
     private List<ContenutoMultimediale> contenutiMultimediali;
-    @OneToMany
-    @JoinColumn(name = "id_evento_creato", referencedColumnName = "id")
+    @OneToMany(mappedBy = "contributore", cascade = CascadeType.ALL)
     private List<Evento> eventiCreati;
-    @OneToMany
-    @JoinColumn(name = "id_contest_creato", referencedColumnName = "id")
+    @OneToMany(mappedBy = "organizzatore", cascade = CascadeType.ALL)
     private List<Contest> contestCreati;
-    @OneToMany
-    @JoinColumn(name = "id_contenuto_contest_creato", referencedColumnName = "id")
+    @OneToMany(mappedBy = "utenteCreatore", cascade = CascadeType.ALL)
     private List<ContenutoContest> contenutoContestCreati;
 
     @Override

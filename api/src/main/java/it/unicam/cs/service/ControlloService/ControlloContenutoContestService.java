@@ -2,35 +2,50 @@ package it.unicam.cs.service.ControlloService;
 
 import it.unicam.cs.exception.Contenuto.FotoNotValidExcetion;
 import it.unicam.cs.exception.Contenuto.LinkNotValidException;
-import it.unicam.cs.exception.UtentePOINotValidException;
+import it.unicam.cs.exception.UtenteNotValidException;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.input.ContenutoContestDto;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoContenuto;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+@Service
 public class ControlloContenutoContestService {
     @Autowired
-    private UtenteRepository utenteRepository;
+    private IUtenteService utenteService;
+    @Autowired
+    private IContestService contestService;
     @Autowired
     private IContestRepository contestRepository;
 
     public void verificaContenutoContest(ContenutoContestDto contenutoContestDto){
         verificaTipoContenuto(contenutoContestDto);
-        verificaIdUtente(contenutoContestDto.getIdContestAssociato(), contenutoContestDto.getIdUtente());
+        verificaIdUtenteEContest(contenutoContestDto.getIdContestAssociato(), contenutoContestDto.getIdUtente());
     }
-
-    private void verificaIdUtente(Integer idContestAssociato, Integer idUtente) {
-        Contest contest = contestRepository.findContestById(idContestAssociato);
-        Utente utente = utenteRepository.findUtenteById(idUtente);
-        if(contest!=null && contest.isAttivo()){
-            if(!utente.getRuoli().contains(RuoliUtente.PARTECIPANTE_CONTEST) || !contest.getPartecipantiContest().contains(utente)){
-                throw new UtentePOINotValidException("utente non autorizzato a inserire il contenuto nel contest");
+    private void verificaIdUtenteEContest(Integer idContestAssociato, Integer idUtente) {
+        Contest contest = contestRepository.caricaPartecipantiContest(idContestAssociato);
+        Utente utente = utenteService.ottieniUtente(idUtente);
+        List<String> ruoli = utente.getRuoli().stream()
+                .map(Ruolo::getNome)
+                .collect(Collectors.toList());
+        if(contest.isAttivo()){
+            if(contest.getTipoInvito().name().equalsIgnoreCase("invito")) {
+                if (!ruoli.contains(RuoliUtente.PARTECIPANTE_CONTEST.name()) && !contest.getPartecipantiContest().contains(utente)) {
+                    throw new UtenteNotValidException("utente non autorizzato a inserire il contenuto nel contest");
+                }
             }
         }
         else {

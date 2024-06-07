@@ -4,6 +4,7 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Indirizzo;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -29,10 +31,12 @@ public abstract class POI{
     private String nome;
     @Embedded
     private Posizione posizione;
+    @Enumerated(EnumType.STRING)
     private TipoPOI tipoPOI;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
+    @Enumerated(EnumType.STRING)
     private StatoElemento stato;
     @ManyToOne()
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
@@ -45,6 +49,8 @@ public abstract class POI{
     private List<ContenutoMultimediale> contenutiMultimediali;
     @OneToMany(mappedBy = "poiAssociato", cascade = CascadeType.ALL)
     private List<Contest> contestAssociati;
+    @ManyToMany(mappedBy = "poisAssociati")
+    private List<Itinerario> itinerariAssociati;
 
     public POI(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali) {
         this.nome = nome;

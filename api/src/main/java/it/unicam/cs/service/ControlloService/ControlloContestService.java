@@ -3,15 +3,21 @@ package it.unicam.cs.service.ControlloService;
 import it.unicam.cs.exception.Contenuto.POINotValidException;
 import it.unicam.cs.exception.Contest.TipoInvitoException;
 import it.unicam.cs.model.DTO.input.ContestDto;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 public class ControlloContestService {
     @Autowired
     private UtenteService utenteService;
@@ -19,31 +25,17 @@ public class ControlloContestService {
     private ConsultazioneContenutiService consultazioneContenutiService;
 
     public void verificaContest(ContestDto contestDto){
-        verificaOrganizzatore(contestDto.getIdOrganizzatore());
         verificaDescrizione(contestDto.getDescrizione());
         verificaDateContest(contestDto.getDataInizio(),contestDto.getDataFine());
         verificaTipoInvito(contestDto.getTipoInvito());
         verificaNumeroPartecipanti(contestDto);
-        verificaIdPoi(contestDto.getIdPoiAssociato(), contestDto.getIdOrganizzatore());
-    }
-
-    private void verificaIdPoi(Integer idPoiAssociato, Integer idOrganizzatore) {
-        Utente organizzatore = utenteService.ottieniUtenteById(idOrganizzatore);
-        POI poi = consultazioneContenutiService.ottieniPOIdaId(idPoiAssociato);
-        if(organizzatore.getComuneAssociato().getId() != poi.getComuneAssociato().getId()){
-            throw new POINotValidException();
-        }
-    }
-
-    private void verificaOrganizzatore(Integer idOrganizzatore) {
-        Utente utente = utenteService.ottieniUtenteById(idOrganizzatore);
-        if(!utente.getRuoli().contains(RuoliUtente.ANIMATORE)){
-            throw new TipoInvitoException();
-        }
     }
 
     private void verificaTipoInvito(String tipoInvito) {
-        if(!tipoInvito.equalsIgnoreCase("invito") || !tipoInvito.equalsIgnoreCase("pubblico")){
+        if(tipoInvito == null){
+            throw new NullPointerException("la stringa tipoInvito non può essere nulla");
+        }
+        if(!tipoInvito.equalsIgnoreCase("invito") && !tipoInvito.equalsIgnoreCase("pubblico")){
             throw new TipoInvitoException();
         }
     }

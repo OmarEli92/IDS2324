@@ -13,6 +13,8 @@ import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.StatoElemento;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,10 +74,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     @Override
     public Utente ottieniUtenteById(Integer id) {
         log.info("Ottieni utente dall'id",id);
-        Utente utente = utenteRepository.findUtenteById(id);
-        if(utente==null){
-            throw new NullPointerException("utente non trovato");
-        }
+        Utente utente = utenteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Utente non trovato"));
         return utente;
     }
 
@@ -129,36 +128,50 @@ public class UtenteService implements IUtenteService,UserDetailsService {
                                                                        authorities);
         }
     }
+    @Override
+    @Transactional
     public void aggiungiPOI(Integer idUtente,POI poi){
-        Utente utente = utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(() -> new EntityNotFoundException("utente non trovato"));;
         utente.aggiungiPOI(poi);
         utenteRepository.save(utente);
     }
+    @Override
+    @Transactional
     public void aggiungiItinerario(Integer idUtente, Itinerario itinerario){
-        Utente utente = utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(() -> new EntityNotFoundException("utente non trovato"));;
         utente.aggiungiItinerario(itinerario);
         utenteRepository.save(utente);
     }
+    @Override
+    @Transactional
     public void aggiungiContenutoMultimediale(Integer idUtente, ContenutoMultimediale contenutoMultimediale){
-        Utente utente =utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(()->new EntityNotFoundException("utente non trovato"));
         utente.aggiungiContenutoMultimediale(contenutoMultimediale);
         utenteRepository.save(utente);
     }
+    @Override
+    @Transactional
     public void aggiungiEvento(Integer idUtente, Evento evento){
-        Utente utente = utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(() -> new EntityNotFoundException("utente non trovato"));;
         utente.aggiungiEvento(evento);
         utenteRepository.save(utente);
     }
+    @Override
+    @Transactional
     public void aggiungiContest(Integer idUtente, Contest contest){
-        Utente utente = utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(() -> new EntityNotFoundException("utente non trovato"));;
         utente.aggiungiContestCreato(contest);
         utenteRepository.save(utente);
     }
+    @Override
+    @Transactional
     public void aggiungiContenutoContest(Integer idUtente, ContenutoContest contenutoContest){
-        Utente utente = utenteRepository.getReferenceById(idUtente);
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(() -> new EntityNotFoundException("utente non trovato"));;
         utente.aggiungiContenutoContestCreato(contenutoContest);
         utenteRepository.save(utente);
     }
+    @Override
+    @Transactional
     public void aggiornaListaPOI(Integer idPOI, boolean validato){
         Utente utente = utenteRepository.findByPOIid(idPOI);
         if(validato){
@@ -174,6 +187,8 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    @Override
+    @Transactional
     public void aggiornaListaItinerario(Integer idItinerario, boolean validato){
         Utente utente = utenteRepository.findByIitinerarioId(idItinerario);
         if(validato){
@@ -189,6 +204,8 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    @Override
+    @Transactional
     public void aggiornaListaEvento(Integer idEvento, boolean validato){
         Utente utente = utenteRepository.findByEventoId(idEvento);
         if(validato){
@@ -204,6 +221,8 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    @Override
+    @Transactional
     public void aggiornaListaContenutiMultimediali(Integer idContenutoMultimediale, boolean validato){
         Utente utente = utenteRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
         if(validato){
@@ -219,6 +238,8 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
     }
+    @Override
+    @Transactional
     public void aggiornaListaContenutiContest(Integer idContenutoContest, boolean validato){
         Utente utente = utenteRepository.findByContenutoContest(idContenutoContest);
         if(validato){
@@ -236,6 +257,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void aggiornaListaContenutiMultimedialiSegnalati(Integer id) {
         Utente utente = utenteRepository.findByContenutoMultimedialeId(id);
         utente.getContenutiMultimediali()
@@ -245,6 +267,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
         Utente utente = utenteRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
@@ -262,6 +285,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void aggiornaListaContestCreatiAperti(Integer idContest) {
         Utente utente = utenteRepository.findByContestCreatiId(idContest);
         utente.getContestCreati()
@@ -272,6 +296,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void aggiornaListaContestInPartecipazioneAperti(Integer idContest) {
         List<Utente> utenti = utenteRepository.findByContestinPartecipazioneId(idContest);
         utenti.forEach(utente -> {utente.getContestInPartecipazione()
@@ -281,6 +306,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
         utenteRepository.save(utente);});
     }
     @Override
+    @Transactional
     public void aggiornaListaContestDaChiudere(Integer idContest) {
         Utente utente = utenteRepository.findByContestCreatiId(idContest);
         utente.getContestCreati()
@@ -290,6 +316,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void aggiornaListaEventiCreatiDaAprire(Integer idEvento) {
         Utente utente = utenteRepository.findByEventoId(idEvento);
         utente.getEventiCreati()
@@ -300,6 +327,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void aggiornaListaEventiCreatiDaChiudere(Integer idEvento) {
         Utente utente = utenteRepository.findByEventoId(idEvento);
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);

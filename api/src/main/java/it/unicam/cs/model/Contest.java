@@ -77,11 +77,7 @@ public class Contest implements ContestObservable<Utente> {
     /**Aggiunge un contenuto al contest se il contest risulta essere attivo
      * @param contenuto **/
     public void aggiungiContenutoCaricato(ContenutoContest contenuto){
-        if(contenuto == null)
-            throw new NullPointerException("Il contenuto non può essere nullo");
-        if(this.attivo)
             this.contenutiCaricati.add(contenuto);
-        else throw new IllegalStateException("Il contest è chiuso");
     }
 
     /*** Rimuove un contenuto dal contest

@@ -4,6 +4,7 @@ import it.unicam.cs.Builder.POIBUILDER.POIBuilder;
 import it.unicam.cs.Factory.POI.IPOIBuilderFactory;
 import it.unicam.cs.Mediators.POIMediator;
 import it.unicam.cs.Visitor.POI.IPOIBuilderVisitor;
+import it.unicam.cs.exception.UtenteNotValidException;
 import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
@@ -40,19 +41,9 @@ public class CaricamentoPOIService {
     }
     
     private void costrusciPOI(POIBuilder poiBuilder, PoiDto poiDto) {
-        Utente utente = utenteService.ottieniUtenteById(poiDto.getIDContributore());
-        StatoElemento statoElemento;
-        List<String> nomi = utente.getRuoli()
-                        .stream()
-                        .map(Ruolo::getNome)
-                        .collect(Collectors.toList());
-        if(nomi.contains(RuoliUtente.CURATORE.name()) || nomi.contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
-            statoElemento = StatoElemento.PUBBLICATO;
-        }
-        else{
-            statoElemento = StatoElemento.PENDING;
-        }
-        poiBuilder.setNome(poiBuilder.getNome());
+        Utente utente = utenteService.ottieniUtenteById(poiDto.getIdContributore());
+        StatoElemento statoElemento = isPOIContributoreValid(utente);
+        poiBuilder.setNome(poiDto.getNome());
         poiBuilder.setPosizione(poiDto.getPosizione());
         poiBuilder.setContributore(utente);
         poiBuilder.setStato(statoElemento);
@@ -62,5 +53,18 @@ public class CaricamentoPOIService {
         poiBuilder.accept(poiBuilderVisitor,poiDto);
     }
 
-
+    private StatoElemento isPOIContributoreValid(Utente utente) {
+        StatoElemento stato;
+        List<String> nomi = utente.getRuoli()
+                .stream()
+                .map(Ruolo::getNome)
+                .collect(Collectors.toList());
+        if(nomi.contains(RuoliUtente.CURATORE.name()) || nomi.contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
+            stato = StatoElemento.PUBBLICATO;
+        }
+        else{
+            stato = StatoElemento.PENDING;
+        }
+        return stato;
+    }
 }

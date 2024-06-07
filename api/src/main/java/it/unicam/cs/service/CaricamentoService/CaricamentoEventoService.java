@@ -43,12 +43,12 @@ public class CaricamentoEventoService {
         eventoMediator.salvaEvento(eventoBuilder.build());
     }
     private void costrusciEvento(EventoBuilder eventoBuilder, EventoDto eventoDto) {
-        Utente utente = utenteService.ottieniUtenteById(eventoDto.getIDContributore());
+        Utente utente = utenteService.ottieniUtenteById(eventoDto.getIdContributore());
         StatoElemento statoElemento;
         List<String> nomi = utente.getRuoli()
                         .stream()
-                                .map(Ruolo::getNome)
-                                        .collect(Collectors.toList());
+                        .map(Ruolo::getNome)
+                        .collect(Collectors.toList());
         if(nomi.contains(RuoliUtente.CURATORE.name()) || nomi.contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
             statoElemento = StatoElemento.PUBBLICATO;
         }
@@ -67,7 +67,7 @@ public class CaricamentoEventoService {
         eventoBuilder.setAttivo(attivo);
         eventoBuilder.setContributore(utente);
         eventoBuilder.setStato(statoElemento);
-        eventoBuilder.setPoiAssociato(consultazioneContenutiService.ottieniPOIdaId(eventoDto.getIDPoi()));
+        eventoBuilder.setPoiAssociato(consultazioneContenutiService.ottieniPOIdaId(eventoDto.getIdPoi()));
         eventoBuilder.setComuneAssociato(utente.getComuneAssociato());
         eventoBuilder.setContenutiMultimediali(new ArrayList<ContenutoMultimediale>());
         eventoBuilder.accept(eventoBuilderVisitor,eventoDto);

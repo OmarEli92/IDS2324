@@ -4,20 +4,21 @@ import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.abstractions.POI;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 public interface IPOIRepository extends JpaRepository<POI, Integer> {
-        POI findPoiById(Integer id);
-        @Query(value= "SELECT p from POI p WHERE p.comuneAssociato.id = :comuneId")
-        List<POI> findByComuneAssociatoId(Integer comuneId);
-        @Query(value = "SELECT p from POI p JOIN p.eventiAssociati e where e.id =: richiestaId")
-        POI findPOIByIdEvento(Integer idRichiesta);
-        @Query(value = "SELECT p from POI p JOIN p.contenutiMultimediali c where c.id =: idRichiesta")
-        POI findByIdContenutoMultimediale(Integer idRichiesta);
-        @Query(value = "SELECT from POI p JOIN p.contestAssociati c WHERE c.id =: idRichiesta")
-        POI findByIdContest(Integer idRichiesta);
-        default PoiDto convertiPOIinPoiDto(POI poi){
+        @Query(value= "SELECT p from POI p JOIN p.comuneAssociato c WHERE c.id = :comuneId")
+        List<POI> findByComuneAssociatoId(@Param("comuneId") Integer comuneId);
+        @Query(value = "SELECT p from POI p JOIN p.eventiAssociati e where e.id = :idRichiesta")
+        POI findPOIByIdEvento(@Param("idRichiesta")Integer idRichiesta);
+        @Query(value = "SELECT p from POI p JOIN p.contenutiMultimediali c where c.id = :idRichiesta")
+        POI findByIdContenutoMultimediale(@Param("idRichiesta")Integer idRichiesta);
+        @Query(value = "SELECT p from POI p JOIN p.contestAssociati c WHERE c.id = :idRichiesta")
+        POI findByIdContest(@Param("idRichiesta")Integer idRichiesta);
+        /*default PoiDto convertiPOIinPoiDto(POI poi){
                 PoiDto poiDTO = new PoiDto();
                 poiDTO.setID(poi.getId());
                 poiDTO.setNome(poi.getNome());
@@ -25,5 +26,5 @@ public interface IPOIRepository extends JpaRepository<POI, Integer> {
                 poiDTO.setPosizione(poi.getPosizione());
                 poiDTO.setIDContributore(poi.getContributore() != null ?poi.getContributore().getId():null);
                 return poiDTO;
-    }
+    }*/
 }

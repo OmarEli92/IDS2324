@@ -3,10 +3,13 @@ package it.unicam.cs.service;
 import it.unicam.cs.Mediators.EventoMediator;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
+import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.util.VerificaSomiglianzaContenuti;
 import it.unicam.cs.util.enums.StatoElemento;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +24,24 @@ import java.util.List;
 public class EventoService {
     private IEventoRepository eventoRepository;
     private ConsultazioneContenutiService consultazioneContenutiService;
-    private EventoMediator eventoMediator;
+    private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
 
+    public void aggiungiEvento(Evento evento){
+        if(!verificaSomiglianzaContenuti.verificaSomiglianzaEvento(evento,eventoRepository.findAll())){
+            eventoRepository.save(evento);
+        }
+        else {
+            throw new IllegalArgumentException("evento già esistente");
+        }
+    }
+    @Transactional
     public void salvaContenutoMultimediale(Integer idEvento, ContenutoMultimediale contenutoMultimediale){
-        Evento evento = eventoRepository.getReferenceById(idEvento);
+        Evento evento = eventoRepository.findById(idEvento).orElseThrow(()->new EntityNotFoundException("evento non trovato"));
         evento.aggiungiContenutoMultimediale(contenutoMultimediale);
         eventoRepository.save(evento);
     }
     public void validaEvento(Integer idEvento, boolean validato){
-        Evento evento = eventoRepository.getReferenceById(idEvento);
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
         if(validato){
             evento.setStato(StatoElemento.PUBBLICATO);
             eventoRepository.save(evento);
@@ -38,6 +50,7 @@ public class EventoService {
             eventoRepository.deleteById(idEvento);
         }
     }
+    @Transactional
     public void aggiornaListaContenutoMultimediale(Integer idContenutoMultimediale, boolean validato){
         Evento evento = eventoRepository.findEventoByContenutoMultimedialeId(idContenutoMultimediale);
         if(validato){
@@ -53,7 +66,7 @@ public class EventoService {
             eventoRepository.save(evento);
         }
     }
-
+    @Transactional
     public void aggiornaListaContenutoMultimedialeDaSegnalare(Integer id) {
         Evento evento = eventoRepository.findEventoByContenutoMultimedialeId(id);
         evento.getContenutiMultimediali()
@@ -62,7 +75,7 @@ public class EventoService {
                 .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
         eventoRepository.save(evento);
     }
-
+    @Transactional
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
         Evento evento = eventoRepository.findEventoByContenutoMultimedialeId(idContenutoMultimediale);
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
@@ -82,21 +95,7 @@ public class EventoService {
         evento.setAperto(true);
         eventoRepository.save(evento);
     }
-    @Transactional
-    @Scheduled(cron = "0 0 0 0 * *")
-    public void verificaAperture(){
-        LocalDateTime ora = LocalDateTime.now();
-        List<Evento> eventiDaAprire = eventoRepository.findByDataInizioBeforeAndApertoIsFalse(ora);
-        eventiDaAprire.forEach(evento -> {apriEvento(evento);
-            eventoMediator.apriEvento(evento.getId());});
-    }
     public void chiudiEvento(Evento evento){
         eventoRepository.delete(evento);
-    }
-    public void verificaScadenze(){
-        LocalDateTime ora = LocalDateTime.now();
-        List<Evento> eventiDaChiudere = eventoRepository.findByDataFineBeforeAndApertoIsTrue(ora);
-        eventiDaChiudere.forEach(evento -> {eventoMediator.chiudiEvento(evento.getId());
-        chiudiEvento(evento);});
     }
 }

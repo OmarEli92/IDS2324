@@ -6,7 +6,10 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IItinerarioRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.util.VerificaSomiglianzaContenuti;
 import it.unicam.cs.util.enums.StatoElemento;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,14 +20,23 @@ public class ItinerarioService {
     private IItinerarioRepository  itinerarioRepository;
     private UtenteRepository utenteRepository;
     private ConsultazioneContenutiService consultazioneContenutiService;
-
+    private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
+    public void aggiungiItinerario(Itinerario itinerario){
+        if(!verificaSomiglianzaContenuti.verificaSomiglianzaItinerario(itinerario,itinerarioRepository.findAll())){
+            itinerarioRepository.save(itinerario);
+        }
+        else{
+            throw new IllegalArgumentException("itinerario già esistente");
+        }
+    }
+    @Transactional
     public void salvaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale, Integer idItinerario){
-        Itinerario itinerario = itinerarioRepository.getReferenceById(idItinerario);
+        Itinerario itinerario = itinerarioRepository.findById(idItinerario).orElseThrow(()->new EntityNotFoundException("itinerario non trovato"));
         itinerario.aggiungiContenutoMultimediale(contenutoMultimediale);
         itinerarioRepository.save(itinerario);
     }
     public void validaItinerario(Integer idItinerario, boolean validato){
-        Itinerario itinerario = itinerarioRepository.getReferenceById(idItinerario);
+        Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(idItinerario);
         if(validato){
             itinerario.setStato(StatoElemento.PUBBLICATO);
             itinerarioRepository.save(itinerario);
@@ -33,6 +45,7 @@ public class ItinerarioService {
             itinerarioRepository.deleteById(idItinerario);
         }
     }
+    @Transactional
     public void aggiornaListaContenutoMultimediale(Integer idContenutoMultimediale, boolean validato){
         Itinerario itinerario = itinerarioRepository.findItinerarioByContenutoMultimedialeId(idContenutoMultimediale);
         Utente utente = utenteRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
@@ -49,7 +62,7 @@ public class ItinerarioService {
             itinerarioRepository.save(itinerario);
         }
     }
-
+    @Transactional
     public void aggiornaListaContenutoMultimedialeDaSegnalare(Integer id) {
         Itinerario itinerario = itinerarioRepository.findItinerarioByContenutoMultimedialeId(id);
         itinerario.getContenutiMultimedialiAssociati()
@@ -58,7 +71,7 @@ public class ItinerarioService {
                 .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
         itinerarioRepository.save(itinerario);
     }
-
+    @Transactional
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
         Itinerario itinerario = itinerarioRepository.findItinerarioByContenutoMultimedialeId(idContenutoMultimediale);
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);

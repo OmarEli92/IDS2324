@@ -1,5 +1,7 @@
 package it.unicam.cs.exception.Contest.Controller;
 
+import it.unicam.cs.exception.Contest.DataContestNotValidException;
+import it.unicam.cs.exception.Contest.ListaPartecipantiNotValidException;
 import it.unicam.cs.exception.Contest.OrganizzatoreNotValidException;
 import it.unicam.cs.exception.Contest.TipoInvitoException;
 import org.springframework.http.HttpStatus;
@@ -16,5 +18,13 @@ public class ContestExceptionController {
     @ExceptionHandler(value = OrganizzatoreNotValidException.class)
     public ResponseEntity<Object> organizzatoreNotValidException(OrganizzatoreNotValidException organizzatoreNotValidException){
         return new ResponseEntity<>("l'utente deve avere tra i ruoli quello di animartore per inserire un contest", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = ListaPartecipantiNotValidException.class)
+    public ResponseEntity<Object> listaPartecipantiException(ListaPartecipantiNotValidException listaPartecipantiNotValidException){
+        return new ResponseEntity<>("nessun partecipante da aggiungere è esistente", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler( value = DataContestNotValidException.class)
+    public ResponseEntity<Object> dataContestNotValidException(DataContestNotValidException dataContestNotValidException){
+        return new ResponseEntity<>("contest chiuso, impossibile aggiungere utenti", HttpStatus.BAD_REQUEST);
     }
 }

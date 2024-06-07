@@ -4,6 +4,8 @@ import it.unicam.cs.model.DTO.input.EventoDto;
 import it.unicam.cs.model.abstractions.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,12 +15,12 @@ import java.util.List;
 public interface IEventoRepository extends JpaRepository<Evento,Integer> {
     Evento findEventoById(Integer id);
     @Query(value= "SELECT e from Evento e WHERE e.comuneAssociato.id  = :comuneId")
-    List<Evento> findByComuneAssociatoId(Integer comuneId);
-    @Query(value = "SELECT e from Evento e JOIN e.contenutiMultimediali c WHERE c.id =: idRichiesta")
-    Evento findEventoByContenutoMultimedialeId(Integer idRichiesta);
+    List<Evento> findByComuneAssociatoId(@Param("comuneId") Integer comuneId);
+    @Query(value = "SELECT e from Evento e JOIN e.contenutiMultimediali c WHERE c.id = :idRichiesta")
+    Evento findEventoByContenutoMultimedialeId(@Param("idRichiesta") Integer idRichiesta);
     List<Evento> findByDataInizioBeforeAndApertoIsFalse(LocalDateTime localDateTime);
     List<Evento> findByDataFineBeforeAndApertoIsTrue(LocalDateTime localDateTime);
-    default EventoDto convertiEventoInEventoDTO(Evento evento){
+    /*default EventoDto convertiEventoInEventoDTO(Evento evento){
         EventoDto eventoDto = new EventoDto();
         eventoDto.setID(evento.getId());
         eventoDto.setNome(evento.getNome());
@@ -27,5 +29,5 @@ public interface IEventoRepository extends JpaRepository<Evento,Integer> {
         eventoDto.setIDContributore(evento.getContributore() != null ?evento.getContributore().getId() :null);
         eventoDto.setIDComune(evento.getComuneAssociato() != null ? evento.getComuneAssociato().getId() :null);
         return eventoDto;
-    }
+    }*/
 }

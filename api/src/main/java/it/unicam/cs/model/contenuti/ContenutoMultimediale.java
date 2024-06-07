@@ -23,8 +23,9 @@ public class ContenutoMultimediale {
     private String nome;
     @ManyToOne(fetch = FetchType.LAZY)
     private Utente utenteCreatore;
+    @Enumerated(EnumType.STRING)
     private StatoElemento stato;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
     @ManyToOne

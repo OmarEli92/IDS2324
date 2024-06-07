@@ -4,6 +4,7 @@ import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -37,7 +38,8 @@ public interface IContestService {
     List<Contest> ottieniContests();
 
     /** Metodo che permette di aggiungere i partecipanti**/
-    boolean aggiungiPartecipanti(Integer idContest,List<Utente> partecipanti);
+    @Transactional
+    void aggiungiPartecipanti(Integer idContest,List<Integer> idPartecipanti);
 
 
     /**Assegna il vincitore del contest**/
@@ -46,7 +48,10 @@ public interface IContestService {
 
     /**L'animatore visiona i contenuti caricati per poi decidere il vincitore**/
     Page<ContenutoContest> visionaContenutiCaricati(Integer idContest, int page, int size);
+    @Transactional
     void aggiungiContenutoContest(Integer idContest, ContenutoContest contenutoContest);
+    @Transactional
+    public void aggiornaListaContenutoContest(Integer idContest, boolean validato);
 
     /**Chiudi il contest**/
     void chiudiContest(Contest contest);

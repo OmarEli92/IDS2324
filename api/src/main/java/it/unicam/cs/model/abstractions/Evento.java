@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,12 +30,14 @@ public abstract class Evento {
     private String nome;
     private String descrizione;
     private boolean aperto;
+    @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
+    @Enumerated(EnumType.STRING)
     private StatoElemento stato;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
     private POI poiAssociato;
     @Column(name = "data_inizio")

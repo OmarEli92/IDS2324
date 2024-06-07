@@ -60,7 +60,7 @@ public class ContenutoExceptionController {
     public ResponseEntity<Object> poiNotValidException (POINotValidException poiNotValidException){
         return new ResponseEntity<>("poi non appartennente al comune dell'utente", HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(value = EventoNotFoundException.class)
+    @ExceptionHandler(value = EventoNotValidException.class)
     public ResponseEntity<Object> eventoNotValidException(EventoNotValidException eventoNotValidException){
         return new ResponseEntity<>("evento non appartentente al comune dell'utente", HttpStatus.BAD_REQUEST);
     }

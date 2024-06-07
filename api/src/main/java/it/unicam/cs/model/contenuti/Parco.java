@@ -8,16 +8,22 @@ import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 @Entity
 @Data
+@NoArgsConstructor
 public final class Parco extends POI {
     private boolean presenzaSpecieProtetta;
     private String orarioApertura;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Itinerario> percorsi;
     private boolean presenzaAnimali;
     private int estensione;

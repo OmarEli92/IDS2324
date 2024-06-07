@@ -10,12 +10,13 @@ import it.unicam.cs.util.info.Indirizzo;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 @Entity
 @Data
+@NoArgsConstructor
 public final class Monumento extends POI {
-
     private int annoRealizzazione;
     private String descrizione;
     private String autore;

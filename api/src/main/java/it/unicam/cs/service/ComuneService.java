@@ -1,6 +1,7 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
@@ -9,9 +10,13 @@ import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.util.enums.StatoElemento;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
@@ -22,27 +27,37 @@ public class ComuneService {
     ConsultazioneContenutiService consultazioneContenutiService;
     @Autowired
     private  UtenteRepository utenteRepository;
-
+    @Transactional
     public void aggiungiPOI(Integer idComune, POI poi){
-        Comune comune = comuneRepository.getReferenceById(idComune);
+        Comune comune = comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non trovato"));
         comune.aggiungiPOI(poi);
         comuneRepository.save(comune);
     }
+    @Transactional
     public void aggiungiItinerario(Integer idComune, Itinerario itinerario){
-        Comune comune = comuneRepository.getReferenceById(idComune);
+        Comune comune = comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non trovato"));
         comune.aggiugniItinerario(itinerario);
         comuneRepository.save(comune);
     }
+    @Transactional
     public void aggiungiEvento(Integer idComune, Evento evento){
-        Comune comune = comuneRepository.getReferenceById(idComune);
+        Comune comune = comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non trovato"));
         comune.aggiungiEvento(evento);
         comuneRepository.save(comune);
     }
+    @Transactional
     public void aggiungiContenutoMultimediale(Integer idComune, ContenutoMultimediale contenutoMultimediale){
-        Comune comune = comuneRepository.getReferenceById(idComune);
+        Comune comune = comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non trovato"));
         comune.aggiungiContenutoMultimediale(contenutoMultimediale);
         comuneRepository.save(comune);
     }
+    @Transactional
+    public void aggiungiContest(Integer idComune, Contest contest){
+        Comune comune = comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non trovato"));
+        comune.aggiungiContest(contest);
+        comuneRepository.save(comune);
+    }
+    @Transactional
     public void aggiornaListaPOI(Integer idPOI, boolean validato){
         Comune comune = comuneRepository.findByPOIId(idPOI);
         if(validato){
@@ -58,6 +73,7 @@ public class ComuneService {
             comuneRepository.save(comune);
         }
     }
+    @Transactional
     public void aggiornaListaItinerario(Integer idItinerario, boolean validato){
         Comune comune = comuneRepository.findByItinerarioId(idItinerario);
         Utente utente = utenteRepository.findByIitinerarioId(idItinerario);
@@ -74,6 +90,7 @@ public class ComuneService {
             comuneRepository.save(comune);
         }
     }
+    @Transactional
     public void aggiornaListaEvento(Integer idEvento, boolean validato){
         Comune comune = comuneRepository.findByEvento(idEvento);
         if(validato){
@@ -89,7 +106,7 @@ public class ComuneService {
             comuneRepository.save(comune);
         }
     }
-
+    @Transactional
     public void aggiornaListaContenutiMultimediali(Integer idContenuto, boolean validato) {
         Comune comune = comuneRepository.findByContenutoMultimedialeId(idContenuto);
         if(validato){
@@ -105,7 +122,7 @@ public class ComuneService {
             comuneRepository.save(comune);
         }
     }
-
+    @Transactional
     public void aggiornaListaContenutiMultimedialiSegnalati(Integer id) {
         Comune comune = comuneRepository.findByContenutoMultimedialeId(id);
         comune.getContenutiMultimediali()
@@ -114,6 +131,7 @@ public class ComuneService {
                 .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
     }
 
+    @Transactional
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
         Comune comune = comuneRepository.findByContenutoMultimedialeId(idContenutoMultimediale);
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);

@@ -10,11 +10,13 @@ import it.unicam.cs.util.enums.TipoEvento;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity
 @Data
+@NoArgsConstructor
 public class EventoIntrattimento extends Evento {
     private TipoIntrattenimento tipo;
     private int etaConsigliata;

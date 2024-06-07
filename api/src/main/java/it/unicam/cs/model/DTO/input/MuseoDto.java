@@ -1,6 +1,8 @@
 package it.unicam.cs.model.DTO.input;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import it.unicam.cs.Visitor.POI.IPoiDtoVisitor;
 import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Contatti;
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@ApiModel(description = "dto per un museo")
-@Component
+//@ApiModel(description = "dto per un museo", parent = PoiDto.class)
 @Data
+@JsonTypeName("Museo")
 public class MuseoDto extends PoiDto {
     private String orariApertura;
     private String responsabile;
