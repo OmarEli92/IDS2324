@@ -19,13 +19,11 @@ import java.util.List;
 public class ControllerConsultazioneContenuti {
 
     private final IConsultazioneContenutiService consultazioneContenutiService;
-    private final ProxyService proxyService;
     private Integer IDcomuneSelezionato;
     @Autowired
     public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
                                             ProxyService proxyService){
         this.consultazioneContenutiService = consultazioneContenutiService;
-        this.proxyService = proxyService;
     }
 
 @GetMapping(value="/{comune}")

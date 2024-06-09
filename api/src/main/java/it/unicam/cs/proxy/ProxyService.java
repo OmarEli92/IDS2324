@@ -9,17 +9,22 @@ import it.unicam.cs.service.OSMService;
 import it.unicam.cs.util.info.Posizione;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ProxyService implements IGeolocalizzazioneService {
     private final OSMService osmService;
-    private final Cache<String, Comune> cache = new LRUCache(5);
+    private final int maxSize = 10; // grandezza mappa
+    private Map<String, Comune> cache;
 
     public ProxyService(OSMService osmService){
         this.osmService = osmService;
-
+        this.cache = new LinkedHashMap<>(maxSize, 0.75f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, Comune> menoRecente) {
+                return size() > maxSize;
+            }
+        };
     }
 
     @Override
@@ -32,6 +37,7 @@ public class ProxyService implements IGeolocalizzazioneService {
     }
 
 
+
     @Override
     public boolean verificaPuntoNelComune(Posizione posizionePunto, Posizione[] posizioneComune) {
         return osmService.verificaPuntoNelComune(posizionePunto,posizioneComune);
@@ -42,9 +48,29 @@ public class ProxyService implements IGeolocalizzazioneService {
         return osmService.ottieniPerimetro(comune);
     }
 
+    public void aggiungiComune(Comune comune){
+        if(comune == null){
+            throw new NullPointerException("Il comune non può essere null");
+        }
+        if(!cache.containsKey(comune.getNome())){
+            cache.put(comune.getNome(),comune);
+        }
+        else {
+            throw new IllegalArgumentException("Il comune è gia salvato nella cache");
+        }
+    }
+
     public Comune ottieniComune(String nomeComune){
         Comune comune = cache.get(nomeComune);
         return comune;
+    }
+
+    public Comune ottieniComuneDaId(int IdComune){
+        return cache.values()
+                .stream()
+                .filter(comune -> comune.getId() == IdComune)
+                .findAny()
+                .orElse(null);
     }
 
     public List<POI> ottieniPOI(String nomeComune){

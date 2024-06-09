@@ -22,11 +22,11 @@ public class Comune {
     private Posizione posizione;
     private String provincia;
     private String regione;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     private List<POI> POIS;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Itinerario> itinerari;
-    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Evento> eventi;
     @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Evento> eventiInPending;

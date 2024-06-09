@@ -3,33 +3,49 @@ package it.unicam.cs.service;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.ComuneDTO;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.info.Posizione;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
+@Service @Slf4j
 public class GestionePiattaformaService implements IGestionePiattaformaService {
     private final IComuneRepository comuneRepository;
     private final IUtenteService utenteService;
-    public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService){
+    private final ProxyService proxyService;
+
+    public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService, ProxyService proxyService){
         this.comuneRepository = comuneRepository;
         this.utenteService = utenteService;
+        this.proxyService = proxyService;
+
     }
     @Override
     public void aggiungiComune(Comune comune) {
         Comune comuneTrovato = comuneRepository.findByNome(comune.getNome());
         if(comuneTrovato == null){
+            log.info("il comune non c'è nella repo");
+            List<Posizione> perimetro = proxyService.ottieniPerimetro(comune.getNome());
+            comune.setPerimetro(perimetro);
             comuneRepository.save(comune);
+            log.info("Ho salvato il comune{} nella repo",comune.getNome());
         }
-        throw new IllegalArgumentException("Il comune è già stato registrato");
+        else {
+
+            throw new IllegalArgumentException("Il comune" + comuneTrovato.getNome() + " è già stato registrato");
+        }
     }
 
     @Override

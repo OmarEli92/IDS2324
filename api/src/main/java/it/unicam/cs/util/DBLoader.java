@@ -6,6 +6,7 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIIntrattenimento;
 import it.unicam.cs.repository.*;
+import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
@@ -30,11 +31,13 @@ public class DBLoader implements CommandLineRunner {
     UtenteRepository utenteRepository;
     IUtenteService utenteService;
     IRuoloRepository ruoloRepository;
+    IGestionePiattaformaService gestionePiattaformaService;
     @Autowired
     public DBLoader(IPOIRepository poiRepository, IEventoRepository eventoRepository,
                     IItinerarioRepository itinerarioRepository, IComuneRepository comuneRepository,
-                    UtenteRepository utenteRepository,IRuoloRepository ruoloRepository,
-                    IUtenteService utenteService) {
+                    UtenteRepository utenteRepository, IRuoloRepository ruoloRepository,
+                    IUtenteService utenteService,
+                    IGestionePiattaformaService gestionePiattaformaService) {
 
         this.poiRepository = poiRepository;
         this.eventoRepository = eventoRepository;
@@ -43,6 +46,7 @@ public class DBLoader implements CommandLineRunner {
         this.utenteRepository = utenteRepository;
         this.ruoloRepository = ruoloRepository;
         this.utenteService = utenteService;
+        this.gestionePiattaformaService = gestionePiattaformaService;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -54,8 +58,10 @@ public class DBLoader implements CommandLineRunner {
                 21),new ArrayList<>(),null,null,
                 null,null,null,
                 null,null, null,50000);
-        comuneRepository.save(comune);
-        comuneRepository.save(comune2);
+        gestionePiattaformaService.aggiungiComune(comune);
+        gestionePiattaformaService.aggiungiComune(comune2);
+        //comuneRepository.save(comune);
+        //comuneRepository.save(comune2);
         poiRepository.save(new POIIntrattenimento(1, "Cinema delle palme", new Posizione(12,
                 21), TipoIntrattenimento.CINEMA.getDescrizione(),
                 null, comune, null, null,

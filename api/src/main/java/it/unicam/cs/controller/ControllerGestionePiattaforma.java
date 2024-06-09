@@ -19,12 +19,10 @@ public class ControllerGestionePiattaforma {
 
     private final IGestionePiattaformaService gestionePiattaformaService;
     private final IUtenteService utenteService;
-    private final OSMService osmService;
     public ControllerGestionePiattaforma(IGestionePiattaformaService gestionePiattaformaService,
-                                         IUtenteService utenteService, OSMService osmService){
+                                         IUtenteService utenteService){
         this.gestionePiattaformaService = gestionePiattaformaService;
         this.utenteService = utenteService;
-        this.osmService = osmService;
     }
 
     @GetMapping(value="comuni")
@@ -47,8 +45,6 @@ public class ControllerGestionePiattaforma {
 
             return new ResponseEntity<>("Comune già registrato", HttpStatus.BAD_REQUEST);
         }
-        List<Posizione> perimetro = osmService.ottieniPerimetro(comune.getNome());
-        comune.setPerimetro(perimetro);
         gestionePiattaformaService.aggiungiComune(comune);
         return new ResponseEntity<>("Comune registrato", HttpStatus.CREATED);
     }
