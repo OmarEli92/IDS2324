@@ -1,5 +1,7 @@
 package it.unicam.cs.proxy;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,5 +56,10 @@ public class LRUCache<K,V> implements Cache<K,V>{
             throw new NullPointerException("Non esiste nessun oggetto con tale chiave");
         }
         map.remove(key);
+    }
+
+    @Override
+    public Collection<Node<V>> getAll() {
+        return map.values();
     }
 }

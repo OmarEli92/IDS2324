@@ -6,6 +6,7 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,5 +1,8 @@
 package it.unicam.cs.proxy;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface Cache<K,V> {
 
     /*** Restituisce una chiave di tipo K
@@ -16,4 +19,7 @@ public interface Cache<K,V> {
      * @param key di tipo K
      * **/
     void remove(K key);
+
+
+    Collection<Node<V>> getAll();
 }

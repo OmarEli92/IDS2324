@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProxyService implements IGeolocalizzazioneService {
@@ -19,7 +20,6 @@ public class ProxyService implements IGeolocalizzazioneService {
 
     public ProxyService(OSMService osmService){
         this.osmService = osmService;
-
     }
 
     @Override
@@ -45,6 +45,13 @@ public class ProxyService implements IGeolocalizzazioneService {
     public Comune ottieniComune(String nomeComune){
         Comune comune = cache.get(nomeComune);
         return comune;
+    }
+    public Comune ottieniComuneDaId(int IdComune){
+        Optional<Node<Comune>> comuneTrovato =  cache.getAll()
+                .stream()
+                .filter(comune -> comune.getValue().getId() == IdComune)
+                .findAny();
+        return comuneTrovato.orElse(null).getValue();
     }
 
     public List<POI> ottieniPOI(String nomeComune){

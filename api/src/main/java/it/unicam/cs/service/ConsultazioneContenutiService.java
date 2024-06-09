@@ -9,6 +9,7 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.*;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import jdk.jfr.Event;
@@ -26,18 +27,22 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     private final IItinerarioRepository itinerarioRepository;
     private final IContenutoMultimedialeRepository contenutoMultimedialeRepository;
     private final IComuneRepository comuneRepository;
+    private final ProxyService proxyService;
+
 
 
     public ConsultazioneContenutiService(IPOIRepository poiRepository,
                                          IEventoRepository eventoRepository,
                                          IItinerarioRepository itinerarioRepository,
                                          IContenutoMultimedialeRepository contenutoMultimedialeRepository,
-                                         IComuneRepository comuneRepository) {
+                                         IComuneRepository comuneRepository,
+                                         ProxyService proxyService) {
         this.poiRepository = poiRepository;
         this.eventoRepository = eventoRepository;
         this.itinerarioRepository = itinerarioRepository;
         this.contenutoMultimedialeRepository = contenutoMultimedialeRepository;
         this.comuneRepository = comuneRepository;
+        this.proxyService = proxyService;
     }
 
     public Comune ottieniComuneDaId(Integer idComune){
@@ -52,11 +57,21 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<PoiDto> ottieniPOIS(final Integer comuneId) {
-        List<POI> pois = poiRepository.findByComuneAssociatoId(comuneId);
-        return pois.stream()
-                .map(poi -> poiRepository.convertiPOIinPoiDto(poi))
-                .collect(Collectors.toList());
+    public List<PoiDto> ottieniPOIS(final Integer idComune) {
+        Comune comune = proxyService.ottieniComuneDaId(idComune);
+        List<POI> pois;
+        if(comune != null){
+            pois = proxyService.ottieniPOI(comune.getNome());
+            return pois.stream()
+                    .map(poi -> poiRepository.convertiPOIinPoiDto(poi))
+                    .collect(Collectors.toList());
+        }
+        else{
+            pois = poiRepository.findByComuneAssociatoId(idComune);
+            return pois.stream()
+                    .map(poi -> poiRepository.convertiPOIinPoiDto(poi))
+                    .collect(Collectors.toList());
+        }
     }
 
 
@@ -67,10 +82,21 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
 
     @Override
     public List<EventoDto> ottieniEventi(final Integer idComune) {
-        List<Evento> eventi = eventoRepository.findByComuneAssociatoId(idComune);
-        return eventi.stream()
-                .map(evento -> eventoRepository.convertiEventoInEventoDTO(evento))
-                .collect(Collectors.toList());
+        Comune comune = proxyService.ottieniComuneDaId(idComune);
+        List<Evento> eventi;
+        if(comune != null){
+            eventi = proxyService.ottieniEventi(comune.getNome());
+            return eventi.stream()
+                    .map(evento -> eventoRepository.convertiEventoInEventoDTO(evento))
+                    .collect(Collectors.toList());
+        }
+        else{
+            eventi = eventoRepository.findByComuneAssociatoId(idComune);
+            return eventi.stream()
+                    .map(evento -> eventoRepository.convertiEventoInEventoDTO(evento))
+                    .collect(Collectors.toList());
+        }
+
     }
 
 
@@ -81,10 +107,20 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
 
     @Override
     public List<ItinerarioDto> ottieniItinerari(final Integer idComune) {
-        List<Itinerario> itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
-        return itinerari.stream()
-                .map(itinerario -> itinerarioRepository.convertiItinerarioAItinerarioDto(itinerario))
-                .collect(Collectors.toList());
+        Comune comune = proxyService.ottieniComuneDaId(idComune);
+        List<Itinerario> itinerari;
+        if(comune != null){
+            itinerari = proxyService.ottieniItinerari(comune.getNome());
+            return itinerari.stream()
+                    .map(itinerario -> itinerarioRepository.convertiItinerarioAItinerarioDto(itinerario))
+                    .collect(Collectors.toList());
+        }
+        else{
+            itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
+            return itinerari.stream()
+                    .map(itinerario -> itinerarioRepository.convertiItinerarioAItinerarioDto(itinerario))
+                    .collect(Collectors.toList());
+        }
     }
 
 
