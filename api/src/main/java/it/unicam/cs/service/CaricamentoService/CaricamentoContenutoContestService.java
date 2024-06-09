@@ -5,24 +5,26 @@ import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.input.ContenutoContestDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
-import it.unicam.cs.service.ContestService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContenutoContestService;
+
 import it.unicam.cs.service.ControlloService.ControlloContenutoContestService;
-import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.TipoContenuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CaricamentoContenutoContestService {
+public class CaricamentoContenutoContestService implements ICaricamentoContenutoContestService {
     @Autowired
     ControlloContenutoContestService controlloContenutoContestService;
     @Autowired
-    private UtenteService utenteService;
+    private IUtenteService utenteService;
     @Autowired
-    private ContestService contestService;
+    private IContestService contestService;
     @Autowired
     private ContenutoContestMediator contenutoContestMediator;
-
+    @Override
     public void caricaContenutoContest(ContenutoContestDto contenutoContestDto){
         controlloContenutoContestService.verificaContenutoContest(contenutoContestDto);
         ContenutoContest contenutoContest =  costruisciContenutoContest(contenutoContestDto);

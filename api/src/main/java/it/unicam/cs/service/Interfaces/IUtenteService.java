@@ -68,20 +68,20 @@ public interface IUtenteService {
     public void aggiornaListaContenutiContest(Integer idContenutoContest, boolean validato);
     /** Rimuove un utente**/
     void rimuoviUtente(Utente utente);
-    @Transactional
+
     void aggiornaListaContenutiMultimedialiSegnalati(Integer id);
-    @Transactional
     void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato);
-    @Transactional
+
     void aggiornaListaContestCreatiAperti(Integer idContest);
-    @Transactional
+
     void aggiornaListaContestInPartecipazioneAperti(Integer idContest);
-    @Transactional
+
     void aggiornaListaContestDaChiudere(Integer idContest);
-    @Transactional
+
     void aggiornaListaEventiCreatiDaAprire(Integer idEvento);
-    @Transactional
+
     void aggiornaListaEventiCreatiDaChiudere(Integer idEvento);
 
     Utente ottieniUtente(Integer id);
+
 }

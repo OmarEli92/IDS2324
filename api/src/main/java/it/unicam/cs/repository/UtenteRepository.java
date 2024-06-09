@@ -15,8 +15,6 @@ import java.util.List;
 public interface UtenteRepository extends JpaRepository<Utente,Integer> {
     Utente findByUsername(String username);
 
-    Utente findUtenteById(Integer id);
-
     @Transactional
     default UtenteDto convertiUtenteinDto(Utente utente) {
         Comune comune = utente.getComuneAssociato();

@@ -3,6 +3,7 @@ package it.unicam.cs.service;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.repository.*;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IContenutoContestService;
 import it.unicam.cs.util.VerificaSomiglianzaContenuti;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -12,16 +13,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor_ = @Autowired)
-public class ContenutoContestService {
+public class ContenutoContestService implements IContenutoContestService {
     private IContenutoContestRepository contenutoContestRepository;
     private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
     private IConsultazioneContenutiService consultazioneContenutiService;
-
+    @Override
     public void aggiungiContenutoContest(ContenutoContest contenutoContest){
         if(!verificaSomiglianzaContenuti.verificaSomiglianzaContenutoContest(contenutoContest, contenutoContestRepository.findAll())){
             contenutoContestRepository.save(contenutoContest);
         }
     }
+    @Override
     @Transactional
     public void validaContenutoContest(Integer idContenutoContest, boolean validato){
         ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(idContenutoContest);

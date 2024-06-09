@@ -3,6 +3,7 @@ package it.unicam.cs.service;
 import it.unicam.cs.Mediators.ContestMediator;
 import it.unicam.cs.exception.Contest.DataContestNotValidException;
 import it.unicam.cs.exception.Contest.ListaPartecipantiNotValidException;
+import it.unicam.cs.exception.Contest.ProprietaContestException;
 import it.unicam.cs.exception.UtenteNotValidException;
 import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Ruolo;
@@ -14,6 +15,7 @@ import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.service.Interfaces.IContestService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.VerificaSomiglianzaContenuti;
@@ -39,7 +41,7 @@ public class ContestService implements IContestService {
     private final IContestRepository contestRepository;
     private IRuoloRepository ruoloRepository;
     private UtenteRepository utenteRepository;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
     private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
 
     @Override
@@ -59,7 +61,7 @@ public class ContestService implements IContestService {
 
     @Override
     public Contest ottieniContest(Integer id) {
-        return this.contestRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("contest non esistente"));
+        return this.contestRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -70,10 +72,11 @@ public class ContestService implements IContestService {
 
     @Override
     @Transactional
-    public void aggiungiPartecipanti(Integer idContest, List<Integer> idPartecipanti) {
+    public void aggiungiPartecipanti(Integer idContest, List<Integer> idPartecipanti, Integer curatoreId) {
+        Utente curatore = utenteRepository.findById(curatoreId).orElse(null);
         List<Utente> partecipanti = utenteRepository.findAllById(idPartecipanti);
         Contest contest = contestRepository.caricaPartecipantiContest(idContest);
-        contestValido(contest);
+        contestValido(contest, curatore);
         for(Utente partecipante : partecipanti) {
             if (contest.getPartecipantiContest().contains(partecipante)) {
                 partecipanti.remove(partecipante);
@@ -98,12 +101,16 @@ public class ContestService implements IContestService {
         }
         contestRepository.save(contest);
     }
-
-    private void contestValido(Contest contest) {
+    @Transactional
+    private void contestValido(Contest contest, Utente curatore) {
+        if(!curatore.getContestCreati().stream()
+                .map(Contest::getId).collect(Collectors.toList())
+                .contains(contest.getId())){
+            throw new ProprietaContestException();
+        }
         if(contest.getDataFine().isBefore(LocalDate.now())){
             throw new DataContestNotValidException();
         }
-
     }
 
     @Override

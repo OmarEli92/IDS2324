@@ -11,6 +11,7 @@ import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.Interfaces.IContestService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.Match;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoContenuto;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,8 +28,6 @@ public class ControlloContenutoContestService {
     @Autowired
     private IUtenteService utenteService;
     @Autowired
-    private IContestService contestService;
-    @Autowired
     private IContestRepository contestRepository;
 
     public void verificaContenutoContest(ContenutoContestDto contenutoContestDto){
@@ -37,6 +36,9 @@ public class ControlloContenutoContestService {
     }
     private void verificaIdUtenteEContest(Integer idContestAssociato, Integer idUtente) {
         Contest contest = contestRepository.caricaPartecipantiContest(idContestAssociato);
+        if(contest == null){
+            throw new NullPointerException("il contest non esiste");
+        }
         Utente utente = utenteService.ottieniUtente(idUtente);
         List<String> ruoli = utente.getRuoli().stream()
                 .map(Ruolo::getNome)
@@ -49,7 +51,7 @@ public class ControlloContenutoContestService {
             }
         }
         else {
-            throw new NullPointerException("il contest inserito non esiste o è chiuso");
+            throw new IllegalArgumentException("il contest inserito è chiuso");
         }
     }
 
@@ -71,7 +73,7 @@ public class ControlloContenutoContestService {
             throw new IllegalArgumentException("il nome non può essere nullo, vuoto e non può " +
                     "contenere solo spazi bianchi ");
         }
-        if (nome.trim().length()<3 && nome.trim().length()>20){
+        if (nome.trim().length()<3 || nome.trim().length()>20){
             throw new IllegalArgumentException("lunghezza nome incorretta");
         }
     }
@@ -80,9 +82,8 @@ public class ControlloContenutoContestService {
         if(nome == null){
             throw new NullPointerException("la stringa per il link non può esssre nulla");
         }
-        Pattern pattern = Pattern.compile("^(http(s)?://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/[a-zA-Z0-9-_.~%]+)*(/\\?[a-zA-Z0-9-_.~&=]+)?$");
-        boolean valid = pattern.matcher(nome).matches();
-        if(!valid){
+        boolean match = Match.isLink(nome);
+        if(!match){
             throw new LinkNotValidException();
         }
     }

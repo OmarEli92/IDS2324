@@ -11,6 +11,7 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class UtenteService implements IUtenteService,UserDetailsService {
     private final UtenteRepository utenteRepository;
     private final IRuoloRepository ruoloRepository;
-    private final ConsultazioneContenutiService consultazioneContenutiService;
+    private final IConsultazioneContenutiService consultazioneContenutiService;
 
     public UtenteService(UtenteRepository utenteRepository,
                          IRuoloRepository ruoloRepository,

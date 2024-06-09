@@ -4,6 +4,10 @@ import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.IContestRepository;
 import it.unicam.cs.service.*;
+import it.unicam.cs.service.Interfaces.IComuneService;
+import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.Interfaces.IPOIService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.VerificaSomiglianzaContenuti;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -17,10 +21,10 @@ import java.util.List;
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ContestMediator {
-    private UtenteService utenteService;
-    private ContestService contestService;
-    private POIService poiService;
-    private ComuneService comuneService;
+    private IUtenteService utenteService;
+    private IContestService contestService;
+    private IPOIService poiService;
+    private IComuneService comuneService;
     private IContestRepository contestRepository;
 
     public void salvaContest(Contest contest){

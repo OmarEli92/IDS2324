@@ -2,16 +2,21 @@ package it.unicam.cs.service;
 
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.ComuneDTO;
+import it.unicam.cs.model.DTO.input.ComuneDto;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
+import it.unicam.cs.service.Interfaces.IProxyService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.info.Posizione;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,17 +24,23 @@ import java.util.stream.Collectors;
 public class GestionePiattaformaService implements IGestionePiattaformaService {
     private final IComuneRepository comuneRepository;
     private final IUtenteService utenteService;
-    public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService){
+    private final OSMService osmService;
+    public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService, OSMService osmService){
         this.comuneRepository = comuneRepository;
         this.utenteService = utenteService;
+        this.osmService = osmService;
     }
     @Override
-    public void aggiungiComune(Comune comune) {
-        Comune comuneTrovato = comuneRepository.findByNome(comune.getNome());
-        if(comuneTrovato == null){
-            comuneRepository.save(comune);
+    public void aggiungiComune(Integer userId, ComuneDto comuneDto) {
+        Comune comuneTrovato = comuneRepository.findByNome(comuneDto.getNome());
+        Utente utente = utenteService.ottieniUtenteById(userId);
+        if(comuneTrovato != null){
+            throw new IllegalArgumentException("Il comune è già stato registrato");
         }
-        throw new IllegalArgumentException("Il comune è già stato registrato");
+        List<Posizione> perimetro = osmService.ottieniPerimetro(comuneDto.getNome());
+        Posizione posizione = osmService.ottieniPosizioneComune(comuneDto.getNome());
+        Comune comune1 = new Comune(comuneDto.getNome(),utente,posizione,perimetro);
+
     }
 
     @Override
@@ -45,8 +56,9 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     }
 
     @Override
-    public int aggiungiGestoreComune(Utente gestoreComune, String comune) {
+    public int aggiungiGestoreComune(Integer idGestoreComune, String comune) {
         Comune comuneTrovato = comuneRepository.findByNome(comune);
+        Utente gestoreComune = utenteService.ottieniUtenteById(idGestoreComune);
         if(comuneTrovato != null){
             comuneTrovato.setGestoreComune(gestoreComune);
             comuneRepository.save(comuneTrovato);
@@ -65,13 +77,13 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     }
 
     @Override
-    public Optional<Comune> ottieniComune(int idComune) {
-        return comuneRepository.findById(idComune);
+    public Comune ottieniComune(int idComune) {
+        return comuneRepository.findById(idComune).orElse(null);
     }
 
     @Override
-    public Optional<Comune> ottieniComune(String nomeComune) {
-        return Optional.of(comuneRepository.findByNome(nomeComune));
+    public Comune ottieniComune(String nomeComune) {
+        return comuneRepository.findByNome(nomeComune);
     }
     @Override
     public Collection<ComuneDTO> ottieniComuni(int pageNo, int pageSize){

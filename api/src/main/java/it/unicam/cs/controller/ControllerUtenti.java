@@ -33,7 +33,7 @@ public class ControllerUtenti {
         return new ResponseEntity<>(utenteService.ottieniUtente(username),HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('GESTORE_COMUNE') or hasRole('GESTOERE_PIATTAFORMA')")
+    @PreAuthorize("hasRole('GESTORE_COMUNE') or hasRole('GESTORE_PIATTAFORMA')")
     @PostMapping(value = "/aggiungi")
     public ResponseEntity<Utente> aggiungiUtente(@RequestBody Utente utente){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().

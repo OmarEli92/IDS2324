@@ -11,6 +11,7 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.service.*;
+import it.unicam.cs.service.Interfaces.*;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.transaction.Transactional;
@@ -24,13 +25,13 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ContenutoMultimedialeMediator {
-    private UtenteService utenteService;
-    private EventoService eventoService;
-    private ComuneService comuneService;
-    private ContenutoMultimedialeService contenutoMultimedialeService;
-    private POIService poiService;
-    private ItinerarioService itinerarioService;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IUtenteService utenteService;
+    private IEventoService eventoService;
+    private IComuneService comuneService;
+    private IContenutoMultimedialeService contenutoMultimedialeService;
+    private IPOIService poiService;
+    private IItinerarioService itinerarioService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
     public void salvaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
         contenutoMultimedialeService.aggiungiContenutoMultimediale(contenutoMultimediale);
         if(contenutoMultimediale.getEventoAssociato()!=null){

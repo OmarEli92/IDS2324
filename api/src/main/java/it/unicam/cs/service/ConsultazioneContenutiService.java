@@ -88,7 +88,6 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     public List<EventoOutputDto> ottieniEventi(final Integer idComune) {
         List<Evento> eventi = eventoRepository.findByComuneAssociatoId(idComune);
         return eventi.stream()
-                .filter(evento -> evento.getStato().equals(StatoElemento.PUBBLICATO))
                 .map(eventoDtoMapper)
                 .collect(Collectors.toList());
     }
@@ -103,7 +102,6 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     public List<ItinerarioOutputDto> ottieniItinerari(final Integer idComune) {
         List<Itinerario> itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
         return itinerari.stream()
-                .filter(itinerario -> itinerario.getStato().equals(StatoElemento.PUBBLICATO))
                 .map(itinerarioDtoMapper)
                 .collect(Collectors.toList());
     }

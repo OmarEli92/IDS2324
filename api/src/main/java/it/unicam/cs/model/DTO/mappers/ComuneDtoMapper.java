@@ -12,7 +12,9 @@ public class ComuneDtoMapper implements Function<Comune, ComuneOutputDto> {
     public ComuneOutputDto apply(Comune comune) {
         return new ComuneOutputDto(
                 comune.getId(),
-                comune.getNome()
+                comune.getNome(),
+                comune.getPosizione(),
+                comune.getPerimetro()
         );
     }
 }

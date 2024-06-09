@@ -56,10 +56,7 @@ public class PoiDtoVisitor implements IPoiDtoVisitor{
         }
     }
     private <T extends Enum<T>> boolean contieneValoreServizio(Class<T> servizioClass, String name) {
-        Servizio servizio = Enum.valueOf(Servizio.class, name.toUpperCase());
-        if(servizio == null){
-            return false;
-        }
+        Servizio servizio = (Servizio) Enum.valueOf(servizioClass, name.toUpperCase());
         return  true;
     }
 
@@ -81,10 +78,7 @@ public class PoiDtoVisitor implements IPoiDtoVisitor{
         boolean valid = collezioni.stream().allMatch(value -> contieneValoreEnum(CollezioniMuseo.class,value));
     }
     private <T extends Enum<T>> boolean contieneValoreEnum(Class<T> collezioniMuseoClass, String value) {
-        CollezioniMuseo collezione = Enum.valueOf(CollezioniMuseo.class,value.toUpperCase());
-        if(collezione == null){
-            throw new CollezioneNotValidException();
-        }
+        CollezioniMuseo collezione = (CollezioniMuseo) Enum.valueOf(collezioniMuseoClass,value.toUpperCase());
         return true;
     }
 

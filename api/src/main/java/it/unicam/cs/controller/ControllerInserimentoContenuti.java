@@ -11,6 +11,10 @@ import it.unicam.cs.service.CaricamentoService.CaricamentoContenutoMultimedialeS
 import it.unicam.cs.service.CaricamentoService.CaricamentoEventoService;
 import it.unicam.cs.service.CaricamentoService.CaricamentoItinerarioService;
 import it.unicam.cs.service.CaricamentoService.CaricamentoPOIService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContenutoMultimedialeService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoEventoService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoItinerarioService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoPOIService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +25,10 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @RequestMapping(value = "/api/inserimento")
 public class ControllerInserimentoContenuti {
-    private CaricamentoContenutoMultimedialeService caricamentoContenutoMultimedialeService;
-    private CaricamentoEventoService caricamentoEventoService;
-    private CaricamentoItinerarioService caricamentoItinerarioService;
-    private CaricamentoPOIService caricamentoPOIService;
+    private ICaricamentoContenutoMultimedialeService caricamentoContenutoMultimedialeService;
+    private ICaricamentoEventoService caricamentoEventoService;
+    private ICaricamentoItinerarioService caricamentoItinerarioService;
+    private ICaricamentoPOIService caricamentoPOIService;
 
     @PostMapping(value = "aggiungi_poi")
     public ResponseEntity<Object> aggiungiPOI(@RequestBody PoiDto poiDto){

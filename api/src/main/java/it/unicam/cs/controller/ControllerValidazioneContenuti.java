@@ -1,6 +1,7 @@
 package it.unicam.cs.controller;
 
 import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
+import it.unicam.cs.service.Interfaces.IValidazioneContenutiService;
 import it.unicam.cs.service.ValidazioneContenutiService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/validazione")
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ControllerValidazioneContenuti {
-    private final ValidazioneContenutiService validazioneContenutiService;
+    private final IValidazioneContenutiService validazioneContenutiService;
 
     @PutMapping(value = "valida_poi")
     public ResponseEntity<Object> validaPOI(@RequestBody RichiestaValidazioneDto richiestaValidazioneDto){

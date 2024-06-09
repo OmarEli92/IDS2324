@@ -36,7 +36,10 @@ public class JwtService {
     public String estraiUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
-    public String estraiId(String token) { return extractClaim(token, Claims::getId); }
+    public Integer estraiId(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("id", Integer.class);
+    }
 
     public String generaToken(UserDetails userDetails, Integer id){
         return generaToken(new HashMap<>(),userDetails, id);

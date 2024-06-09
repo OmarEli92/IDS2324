@@ -15,14 +15,14 @@ public class VerificaSomiglianzaContenuti {
 
     public boolean verificaSomiglianzaPOI(POI poi, List<POI> pois){
         for (POI p : pois) {
-            if (poi.getNome().equalsIgnoreCase(p.getNome()) && poi.getComuneAssociato().equals(p.getComuneAssociato()) && p != poi)
+            if (poi.getNome().equalsIgnoreCase(p.getNome()) && poi.getComuneAssociato().equals(p.getComuneAssociato()) && poi.getPosizione().equals(p.getPosizione()) && p != poi)
                 return true;
         }
         return false;
     }
     public boolean verificaSomiglianzaItinerario(Itinerario itinerario, List<Itinerario> itinerarioList){
         for (Itinerario t : itinerarioList){
-            if(itinerario.getNome().equalsIgnoreCase(t.getNome()) && itinerario.getPoisAssociati().equals(t.getPoisAssociati())){
+            if(itinerario.getNome().equalsIgnoreCase(t.getNome()) && itinerario.getPoisAssociati().equals(t.getPoisAssociati()) && itinerario != t){
                 return true;
             }
         }

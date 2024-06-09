@@ -9,6 +9,10 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.service.*;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IContenutoContestService;
+import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -21,10 +25,10 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ContenutoContestMediator {
-    private UtenteService utenteService;
-    private ContestService contestService;
-    private ContenutoContestService contenutoContestService;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IUtenteService utenteService;
+    private IContestService contestService;
+    private IContenutoContestService contenutoContestService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
 
     public void salvaContenutoContest(ContenutoContest contenutoContest){
         contenutoContestService.aggiungiContenutoContest(contenutoContest);

@@ -2,6 +2,7 @@ package it.unicam.cs.controller;
 
 import it.unicam.cs.model.DTO.input.EliminazioneContenutoDto;
 import it.unicam.cs.service.EliminazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IEliminazioneContenutiService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @RequestMapping(value = "/api/verifica_segnalazione")
 public class ControllerVerificaSegnalazione {
-    private final EliminazioneContenutiService eliminazioneContenutiService;
+    private final IEliminazioneContenutiService eliminazioneContenutiService;
     @PutMapping
     public ResponseEntity<Object> verificaSegnalazione(@RequestBody EliminazioneContenutoDto eliminazioneContenutoDto){
         eliminazioneContenutiService.accettaSegnalazioneContenuto(eliminazioneContenutoDto);

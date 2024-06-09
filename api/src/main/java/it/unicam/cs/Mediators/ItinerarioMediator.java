@@ -8,6 +8,9 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.service.*;
+import it.unicam.cs.service.Interfaces.IComuneService;
+import it.unicam.cs.service.Interfaces.IItinerarioService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
 import lombok.AllArgsConstructor;
@@ -20,9 +23,9 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ItinerarioMediator {
-    private ComuneService comuneService;
-    private UtenteService utenteService;
-    private ItinerarioService itinerarioService;
+    private IComuneService comuneService;
+    private IUtenteService utenteService;
+    private IItinerarioService itinerarioService;
     private ConsultazioneContenutiService consultazioneContenutiService;
 
     public void salvaItinerario(Itinerario itinerario){

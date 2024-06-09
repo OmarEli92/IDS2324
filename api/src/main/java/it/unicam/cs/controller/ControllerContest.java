@@ -4,6 +4,9 @@ import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.input.ContenutoContestDto;
 import it.unicam.cs.model.DTO.input.ContestDto;
 import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
+import it.unicam.cs.model.DTO.mappers.ContenutoContestDtoMapper;
+import it.unicam.cs.model.DTO.mappers.ContestDtoMapper;
+import it.unicam.cs.model.DTO.output.ContenutoContestOutputDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
@@ -12,7 +15,10 @@ import it.unicam.cs.security.JwtService;
 import it.unicam.cs.security.Token;
 import it.unicam.cs.service.CaricamentoService.CaricamentoContenutoContestService;
 import it.unicam.cs.service.CaricamentoService.CaricamentoContestService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContenutoContestService;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContestService;
 import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.service.Interfaces.IValidazioneContenutiService;
 import it.unicam.cs.service.ValidazioneContenutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,23 +28,29 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController("api/contest")
 public class ControllerContest {
     private final IContestService contestService;
-    private final CaricamentoContestService caricamentoContestService;
-    private final CaricamentoContenutoContestService caricamentoContenutoContestService;
-    private final ValidazioneContenutiService validazioneContenutiService;
+    private final ICaricamentoContestService caricamentoContestService;
+    private final ICaricamentoContenutoContestService caricamentoContenutoContestService;
+    private final IValidazioneContenutiService validazioneContenutiService;
     private final JwtService jwtService;
+    private final ContestDtoMapper contestDtoMapper;
+    private final ContenutoContestDtoMapper contenutoContestDtoMapper;
     @Autowired
     public ControllerContest(IContestService contestService, CaricamentoContestService caricamentoContestService, CaricamentoContenutoContestService caricamentoContenutoContestService,
-                             ValidazioneContenutiService validazioneContenutiService, JwtService jwtService) {
+                             ValidazioneContenutiService validazioneContenutiService, JwtService jwtService, ContestDtoMapper contestDtoMapper,
+                             ContenutoContestDtoMapper contenutoContestDtoMapper) {
         this.contestService = contestService;
         this.caricamentoContestService = caricamentoContestService;
         this.caricamentoContenutoContestService = caricamentoContenutoContestService;
         this.validazioneContenutiService = validazioneContenutiService;
         this.jwtService = jwtService;
+        this.contestDtoMapper = contestDtoMapper;
+        this.contenutoContestDtoMapper = contenutoContestDtoMapper;
     }
 
     /**
@@ -99,7 +111,7 @@ public class ControllerContest {
         Contest contest = contestService.ottieniContest(id);
         if(contest == null)
             return new ResponseEntity<>("Contest non presente", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(contest, HttpStatus.OK);
+        return new ResponseEntity<>(contestDtoMapper.apply(contest), HttpStatus.OK);
     }
 
     /***
@@ -111,7 +123,8 @@ public class ControllerContest {
         List<Contest> contests = contestService.ottieniContests();
         if(contests.isEmpty())
             return new ResponseEntity<>("Nessun contest presente", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(contests, HttpStatus.OK);
+        return new ResponseEntity<>(contests.stream().map(contestDtoMapper)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
 
@@ -123,8 +136,11 @@ public class ControllerContest {
      */
     @PutMapping(value="/invita/{idContest}")
     public ResponseEntity<Object> invitaPartecipanti(@RequestBody List<Integer> idPartecipanti,
-                                                     @PathVariable Integer idContest) {
-        contestService.aggiungiPartecipanti(idContest, idPartecipanti);
+                                                     @PathVariable Integer idContest,
+                                                     @RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.substring(7);
+        Integer userId = jwtService.estraiId(token);
+        contestService.aggiungiPartecipanti(idContest, idPartecipanti, userId);
         return new ResponseEntity<>("utenti aggiunti", HttpStatus.OK);
     }
 
@@ -133,9 +149,11 @@ public class ControllerContest {
      * @param page
      * @param size **/
     @GetMapping(value = "/visualizza_contenuti/{idContest}")
-    public ResponseEntity<Page<ContenutoContest>> visualizzaContenuti(@PathVariable Integer idContest,
-                                                                      @RequestParam(value = "page", defaultValue = "0") int page,
-                                                                      @RequestParam(value = "size", defaultValue = "50") int size){
-        return new ResponseEntity<>(contestService.visionaContenutiCaricati(idContest,page,size),HttpStatus.OK);
+    public ResponseEntity<Page<ContenutoContestOutputDto>> visualizzaContenuti(@PathVariable Integer idContest,
+                                                                               @RequestParam(value = "page", defaultValue = "0") int page,
+                                                                               @RequestParam(value = "size", defaultValue = "50") int size){
+        Page<ContenutoContest> contenutiPage = contestService.visionaContenutiCaricati(idContest, page, size);
+        Page<ContenutoContestOutputDto> dtoPage = contenutiPage.map(contenutoContestDtoMapper);
+        return new ResponseEntity<>(dtoPage, HttpStatus.OK);
     }
 }

@@ -38,8 +38,7 @@ public interface IContestService {
     List<Contest> ottieniContests();
 
     /** Metodo che permette di aggiungere i partecipanti**/
-    @Transactional
-    void aggiungiPartecipanti(Integer idContest,List<Integer> idPartecipanti);
+    void aggiungiPartecipanti(Integer idContest,List<Integer> idPartecipanti, Integer userId);
 
 
     /**Assegna il vincitore del contest**/
@@ -48,9 +47,9 @@ public interface IContestService {
 
     /**L'animatore visiona i contenuti caricati per poi decidere il vincitore**/
     Page<ContenutoContest> visionaContenutiCaricati(Integer idContest, int page, int size);
-    @Transactional
+
     void aggiungiContenutoContest(Integer idContest, ContenutoContest contenutoContest);
-    @Transactional
+
     public void aggiornaListaContenutoContest(Integer idContest, boolean validato);
 
     /**Chiudi il contest**/

@@ -53,6 +53,8 @@ public class SecurityConfig {
                         "/api/contest/**").hasAnyAuthority("GESTORE_COMUNE","ANIMATORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/validazione/**")
                         .hasAnyAuthority("CURATORE"))
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/Amministrazione")
+                        .hasAnyAuthority("GESTORE_PIATTAFORMA"))
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/verifica_segnalazione")
                         .hasAnyAuthority("CURATORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/inserimento")

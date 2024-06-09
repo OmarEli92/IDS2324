@@ -1,9 +1,7 @@
 package it.unicam.cs.exception.Contest.Controller;
 
-import it.unicam.cs.exception.Contest.DataContestNotValidException;
-import it.unicam.cs.exception.Contest.ListaPartecipantiNotValidException;
-import it.unicam.cs.exception.Contest.OrganizzatoreNotValidException;
-import it.unicam.cs.exception.Contest.TipoInvitoException;
+import ch.qos.logback.core.model.processor.ProcessorException;
+import it.unicam.cs.exception.Contest.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,5 +24,9 @@ public class ContestExceptionController {
     @ExceptionHandler( value = DataContestNotValidException.class)
     public ResponseEntity<Object> dataContestNotValidException(DataContestNotValidException dataContestNotValidException){
         return new ResponseEntity<>("contest chiuso, impossibile aggiungere utenti", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = ProprietaContestException.class)
+    public ResponseEntity<Object> proprietaContestException(ProprietaContestException proprietaContestException){
+        return new ResponseEntity<>("il contest inserito non è stato creato da te", HttpStatus.OK);
     }
 }

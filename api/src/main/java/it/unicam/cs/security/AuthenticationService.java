@@ -1,5 +1,6 @@
 package it.unicam.cs.security;
 
+import it.unicam.cs.Mediators.UtenteMediator;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @Service @RequiredArgsConstructor @Slf4j
 public class AuthenticationService {
     private final UtenteRepository utenteRepository;
+    private final UtenteMediator utenteMediator;
     private final JwtService  jwtService;
     private final AuthenticationManager authenticationManager;
     private final IComuneRepository comuneRepository;
@@ -35,16 +37,23 @@ public class AuthenticationService {
 
     /** Registra un utente nel db**/
     public AuthenticationResponse registraUtente(RegisterRequest request){
-        Comune comuneAssociato = comuneRepository.findByNome(request.getComuneAssociato());
-        if(comuneAssociato == null){
-            throw new NullPointerException("Il comune associato all'utente non è presente!");
-        }
         Ruolo ruolo = ruoloRepository.findByNome(request.getRuolo().toUpperCase());
         if(ruolo == null){
             throw new NullPointerException("il ruolo associato all'utente non è presente!");
         }
+        Comune comuneAssociato = comuneRepository.findByNome(request.getComuneAssociato());
+        if(ruolo.getNome().equalsIgnoreCase("gestore_piattaforma")){
+            comuneAssociato = null;
+        }
+        else {
+            if(comuneAssociato==null) {
+                throw new NullPointerException("Il comune associato all'utente non è presente!");
+            }
+        }
+
         ArrayList<Ruolo> ruoli = new ArrayList<>();
         ruoli.add(ruolo);
+
         var utente = Utente.builder()
                 .nome(request.getNome())
                 .cognome(request.getCognome())
@@ -57,7 +66,7 @@ public class AuthenticationService {
                 .sesso(request.getSesso())
                 .ruoli(ruoli)
                 .build();
-        utenteRepository.save(utente);
+        utenteMediator.aggiungiUtente(utente);
         log.info("Aggiunto l'utente {} nel db",utente.getUsername());
         var jwtToken = jwtService.generaToken(utente, utente.getId());
         salvaTokenUtente(jwtToken,utente);

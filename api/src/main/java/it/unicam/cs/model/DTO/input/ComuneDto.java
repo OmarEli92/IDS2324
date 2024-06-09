@@ -11,5 +11,4 @@ import java.util.List;
 public class ComuneDto {
     private Integer idGestore;
     private String nome;
-    private List<Posizione> territorio;
 }

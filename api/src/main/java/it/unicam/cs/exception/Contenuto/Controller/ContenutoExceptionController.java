@@ -76,4 +76,8 @@ public class ContenutoExceptionController {
     public ResponseEntity<Object> fotoNotValidException(FotoNotValidExcetion fotoNotValidExcetion){
         return new ResponseEntity<>("la foto deve essere un jpg, jpeg o png file",HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = PosizionePOINotValidException.class)
+    public ResponseEntity<Object> posizionePOINotValidException(PosizionePOINotValidException posizionePOINotValidException){
+        return new ResponseEntity<>("posizione poi fuori dal comune", HttpStatus.BAD_REQUEST);
+    }
 }

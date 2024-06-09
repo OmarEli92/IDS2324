@@ -1,10 +1,16 @@
 package it.unicam.cs.controller;
 import it.unicam.cs.model.*;
 import it.unicam.cs.model.DTO.input.PoiDto;
+import it.unicam.cs.model.DTO.mappers.EventoDtoMapper;
+import it.unicam.cs.model.DTO.mappers.ItinerarioDtoMapper;
+import it.unicam.cs.model.DTO.mappers.PoiDtoMapper;
 import it.unicam.cs.model.DTO.output.PoiOutpuDto;
+import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +28,18 @@ public class ControllerConsultazioneContenuti {
     private final IConsultazioneContenutiService consultazioneContenutiService;
     private final ProxyService proxyService;
     private Integer IDcomuneSelezionato;
+    private final PoiDtoMapper poiDtoMapper;
+    private final ItinerarioDtoMapper itinerarioDtoMapper;
+    private final EventoDtoMapper eventoDtoMapper;
     @Autowired
     public ControllerConsultazioneContenuti(IConsultazioneContenutiService consultazioneContenutiService,
-                                            ProxyService proxyService){
+                                            ProxyService proxyService, PoiDtoMapper poiDtoMapper, ItinerarioDtoMapper itinerarioDtoMapper,
+                                            EventoDtoMapper eventoDtoMapper){
         this.consultazioneContenutiService = consultazioneContenutiService;
         this.proxyService = proxyService;
-
+        this.poiDtoMapper = poiDtoMapper;
+        this.itinerarioDtoMapper = itinerarioDtoMapper;
+        this.eventoDtoMapper = eventoDtoMapper;
     }
 
     @GetMapping(value="/home")
@@ -47,12 +59,14 @@ public class ControllerConsultazioneContenuti {
 
   @GetMapping(value="/poi/{idPOI}")
     public ResponseEntity<Object> visualizzaPOI(@PathVariable("idPOI") Integer idPOI){
-        return new ResponseEntity<>(consultazioneContenutiService.ottieniPOIdaId(idPOI),HttpStatus.OK);
+        POI poi = consultazioneContenutiService.ottieniPOIdaId(idPOI);
+        return new ResponseEntity<>(poiDtoMapper.apply(poi), HttpStatus.OK);
+      //return new ResponseEntity<>(consultazioneContenutiService.ottieniPOIdaId(idPOI),HttpStatus.OK);
     }
 
-    @GetMapping(value="/poiComune/{idComune}")
-    public ResponseEntity<Object> visualizzaPOIS(@PathVariable("idComune") Integer idComune){
-      List<PoiOutpuDto> pois = consultazioneContenutiService.ottieniPOIS(idComune);
+    @GetMapping(value="/poiComune")
+    public ResponseEntity<Object> visualizzaPOIS(){
+      List<PoiOutpuDto> pois = consultazioneContenutiService.ottieniPOIS(IDcomuneSelezionato);
       if(pois.isEmpty())
           return new ResponseEntity<>("Nessun POI trovato",HttpStatus.NOT_FOUND);
       return new ResponseEntity<>(pois,HttpStatus.OK);
@@ -60,7 +74,8 @@ public class ControllerConsultazioneContenuti {
 
     @GetMapping(value="/evento/{idEvento}")
     public ResponseEntity<Object> visualizzaEvento(@PathVariable("idEvento") Integer idEvento){
-        return new ResponseEntity<>(consultazioneContenutiService.ottieniEventoDaId(idEvento),HttpStatus.OK);
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
+        return new ResponseEntity<>(eventoDtoMapper.apply(evento),HttpStatus.OK);
     }
 
     @GetMapping(value="/eventi")
@@ -69,12 +84,18 @@ public class ControllerConsultazioneContenuti {
     }
     @GetMapping(value="/itinerario/{idItinerario}")
     public ResponseEntity<Object> visualizzaItinerario(@PathVariable("idItinerario") Integer idItinerario){
-       return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerarioDaId(idItinerario),HttpStatus.OK);
+        Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(idItinerario);
+        return new ResponseEntity<>(itinerarioDtoMapper.apply(itinerario), HttpStatus.OK);
+        //return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerarioDaId(idItinerario),HttpStatus.OK);
     }
 
     @GetMapping(value="/itinerario")
     public ResponseEntity<Object> visualizzaItinerari(){
         return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato),HttpStatus.OK);
+    }
+    @GetMapping(value = "/territorio")
+    public ResponseEntity<Object> visualizzaTerritorioComune(String comune){
+        return new ResponseEntity<>(proxyService.ottieniPerimetro(comune), HttpStatus.OK);
     }
 
 

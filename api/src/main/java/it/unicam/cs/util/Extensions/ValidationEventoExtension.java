@@ -8,7 +8,9 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.util.Match;
 import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,7 @@ public class ValidationEventoExtension {
             throw new IllegalArgumentException("il nome non può essere nullo, vuoto e non può " +
                     "contenere solo spazi bianchi ");
         }
-        if (nome.trim().length()<3 && nome.trim().length()>20){
+        if (nome.trim().length()<3 || nome.trim().length()>20){
             throw new IllegalArgumentException("lunghezza nome incorretta");
         }
     }
@@ -39,7 +41,9 @@ public class ValidationEventoExtension {
         }
         Utente utente = utenteService.ottieniUtenteById(idUtente);
         Comune comune = utente.getComuneAssociato();
-        List<POI> pois = comune.getPOIS();
+        List<POI> pois = comune.getPOIS().stream()
+                .filter(poi -> poi.getStato().equals(StatoElemento.PUBBLICATO))
+                .collect(Collectors.toList());
         if(!pois.stream()
                 .map(POI::getId)
                 .collect(Collectors.toList())
@@ -55,14 +59,13 @@ public class ValidationEventoExtension {
             }
         }
     }
-    public void isResponsabileValido (String string){
-        if(string != null) {
-            if (string.trim().length() < 3 && string.trim().length() > 20) {
+    public void isResponsabileValido (String responsabile){
+        if(responsabile != null) {
+            if (responsabile.trim().length() < 3 || responsabile.trim().length() > 20) {
                 throw new IllegalArgumentException("lunghezza responsabile non corretta");
             }
-            Pattern pattern = Pattern.compile("^[a-zA-Z0-9 ]+");
-            boolean valid = pattern.matcher(string).matches();
-            if (!valid) {
+            boolean match  = Match.contieneCaratteriSpeiali(responsabile);
+            if (match) {
                 throw new IllegalArgumentException("responsabile non può avere caratteri speciali");
             }
         }
@@ -73,6 +76,9 @@ public class ValidationEventoExtension {
         }
     }
     public void verificaDateEvento(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        if(dataInizio == null || dataFine == null){
+            throw new NullPointerException("data di inizio e fine non possono essere nulle");
+        }
         if(LocalDateTime.now().isAfter(dataInizio) || LocalDateTime.now().isAfter(dataFine) ||
                 dataFine.isBefore(dataInizio)){
             throw new IllegalArgumentException("le date di inizio e fine non possono essere " +

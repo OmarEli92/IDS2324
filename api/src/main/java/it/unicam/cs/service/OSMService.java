@@ -50,7 +50,7 @@ public class OSMService implements IGeolocalizzazioneService {
     @Override
     public List<Posizione> ottieniPerimetro(String comune) {
         double[] latAndLonRanges = new double[4];
-        String risposta = ottieniRisultatoDaOSM(comune);
+        String risposta = ottieniRisultatoDaOSM(BASE_URL+comune);
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode rootNode = mapper.readTree(risposta.toString());

@@ -1,8 +1,18 @@
 package it.unicam.cs.util.Extensions;
 
 import it.unicam.cs.exception.Contenuto.*;
+import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.DTO.input.PoiDto;
+import it.unicam.cs.model.Utente;
+import it.unicam.cs.repository.IComuneRepository;
+import it.unicam.cs.service.Interfaces.IComuneService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.service.OSMService;
 import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.util.Match;
 import it.unicam.cs.util.info.Contatti;
+import it.unicam.cs.util.info.Posizione;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,35 +26,34 @@ che estendono POI
 @Component
 public class ValidationPOIExtension {
     @Autowired
-    private UtenteService utenteService;
+    private OSMService osmService;
+    @Autowired
+    private IUtenteService utenteService;
 
-    public void isOrariAperturaValido(String orari){
-        String pattern = "^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$";
-        boolean match = Pattern.matches(pattern,orari);
-        if(!match){
-            throw new IllegalArgumentException("formato orario non corretto");
+    public void isOrariAperturaValido(String orario){
+        if(!orario.isBlank()) {
+            boolean match = Match.isOrarioValido(orario);
+            if (!match) {
+                throw new IllegalArgumentException("formato orario non corretto");
+            }
         }
     }
     public void isResponsabileValido (String string){
         if(string != null) {
-            if (string.trim().length() < 3 && string.trim().length() > 20) {
+            if (string.trim().length() < 3 || string.trim().length() > 20) {
                 throw new IllegalArgumentException("lunghezza responsabile non corretta");
             }
-            Pattern pattern = Pattern.compile("^[a-zA-Z0-9 ]+");
-            boolean valid = pattern.matcher(string).matches();
-            if (!valid) {
+            boolean match = Match.contieneCaratteriSpeiali(string);
+            if (match) {
                 throw new IllegalArgumentException("responsabile non può avere caratteri speciali");
             }
         }
     }
     public void areContattiValidi(Contatti contatti){
-        Pattern pattern = Pattern.compile("\\+39[ ]?\\d{2}[ ]?\\d{3}[ ]?\\d{4}$");
-        Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
-        Pattern pattern2 = Pattern.compile("^\\\\+?[0-9\\\\-\\\\(\\\\) ]{5,20}$");
         if(contatti!=null) {
-            boolean valid = pattern.matcher(contatti.getTelefono()).matches() && pattern1.matcher(contatti.getEmail()).matches()
-                        && pattern2.matcher(contatti.getFax()).matches();
-            if (!valid) {
+            boolean match = Match.isNumeroDiTelefono(contatti.getTelefono()) && Match.isEmail(contatti.getEmail())
+                        && Match.isFax(contatti.getFax());
+            if (!match) {
                 throw new ContattiNonValidiException();
             }
         }
@@ -65,7 +74,7 @@ public class ValidationPOIExtension {
             throw new IllegalArgumentException("il nome non può essere nullo, vuoto e non può " +
                     "contenere solo spazi bianchi ");
         }
-        if (nome.trim().length()<3 && nome.trim().length()>20){
+        if (nome.trim().length()<3 || nome.trim().length()>20){
             throw new IllegalArgumentException("lunghezza nome incorretta");
         }
     }
@@ -89,7 +98,7 @@ public class ValidationPOIExtension {
     }
     public void isAutoreValid (String autore){
         if(autore != null){
-            if (autore.trim().length() < 3 && autore.trim().length() > 20){
+            if (autore.trim().length() < 3 || autore.trim().length() > 20){
                 throw new IllegalArgumentException("lunghezza autore non corretta");
             }
         }
@@ -106,9 +115,17 @@ public class ValidationPOIExtension {
     }
     public void isArchitetturaValid(String architettura){
         if(architettura != null){
-            if(architettura.trim().length() < 3 && architettura.trim().length() > 20){
+            if(architettura.trim().length() < 3 || architettura.trim().length() > 20){
                 throw new IllegalArgumentException("lunghezza architettura non corretta");
             }
+        }
+    }
+    public void isPOIInComune(PoiDto poiDto){
+        Utente utente = utenteService.ottieniUtente(poiDto.getIdContributore());
+        Comune comune = utente.getComuneAssociato();
+        boolean inside = osmService.verificaPuntoNelComune(poiDto.getPosizione(), (Posizione[]) comune.getPerimetro().toArray());
+        if(!inside){
+            throw new PosizionePOINotValidException();
         }
     }
 }

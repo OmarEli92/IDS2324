@@ -7,6 +7,8 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.ConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import jakarta.validation.constraints.Null;
@@ -19,11 +21,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ControlloContestService {
-    @Autowired
-    private UtenteService utenteService;
-    @Autowired
-    private ConsultazioneContenutiService consultazioneContenutiService;
-
     public void verificaContest(ContestDto contestDto){
         verificaDescrizione(contestDto.getDescrizione());
         verificaDateContest(contestDto.getDataInizio(),contestDto.getDataFine());

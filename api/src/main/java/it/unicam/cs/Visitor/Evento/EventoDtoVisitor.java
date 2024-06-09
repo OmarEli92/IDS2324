@@ -59,10 +59,7 @@ public class EventoDtoVisitor implements IEventoDtoVisitor{
         }
     }
     private <T extends Enum<T>> boolean contieneValoreServizio(Class<T> servizioClass, String name) {
-        Servizio servizio = Enum.valueOf(Servizio.class, name.toUpperCase());
-        if(servizio == null){
-            return false;
-        }
+        Servizio servizio = (Servizio) Enum.valueOf(servizioClass, name.toUpperCase());
         return  true;
     }
 

@@ -9,6 +9,8 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IPOIService;
 import it.unicam.cs.util.VerificaSomiglianzaContenuti;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,10 +21,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(onConstructor_ = @Autowired)
-public class POIService {
+public class POIService implements IPOIService {
     private IPOIRepository poiRepository;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
     private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
+    @Override
     public void aggiungiPOI(POI poi){
         if(!verificaSomiglianzaContenuti.verificaSomiglianzaPOI(poi, poiRepository.findAll())){
             poiRepository.save(poi);
@@ -31,28 +34,28 @@ public class POIService {
             throw new IllegalArgumentException("poi già esistente");
         }
     }
+    @Override
     @Transactional
     public void salvaContenutoMultimediale(Integer idPoi, ContenutoMultimediale contenutoMultimediale){
         POI poi = poiRepository.findById(idPoi).orElseThrow(()->new EntityNotFoundException("poi non trovato"));
         poi.aggiungiContenutoMultimediale(contenutoMultimediale);
         poiRepository.save(poi);
     }
+    @Override
     @Transactional
     public void salvaEvento(Integer idPoi, Evento evento){
         POI poi = poiRepository.findById(idPoi).orElseThrow(()->new EntityNotFoundException("poi non trovato"));
         poi.aggiungiEvento(evento);
         poiRepository.save(poi);
     }
+    @Override
     @Transactional
     public void salvaContest(Integer idPoi, Contest contest){
         POI poi = poiRepository.findById(idPoi).orElseThrow(()->new EntityNotFoundException("poi non trovato"));
         poi.aggiungiContest(contest);
         poiRepository.save(poi);
     }
-    public void salvaContenutoContest(Integer idPoi, ContenutoContest contenutoContest){
-        POI poi = poiRepository.getReferenceById(idPoi);
-
-    }
+    @Override
     public void validaPOI(Integer id, boolean validato){
         POI poi = consultazioneContenutiService.ottieniPOIdaId(id);
         if (validato){
@@ -63,6 +66,7 @@ public class POIService {
             poiRepository.deleteById(id);
         }
     }
+    @Override
     @Transactional
     public void aggiornaListaEvento(Integer idEvento, boolean validato){
         POI poi = poiRepository.findPOIByIdEvento(idEvento);
@@ -79,6 +83,7 @@ public class POIService {
             poiRepository.save(poi);
         }
     }
+    @Override
     @Transactional
     public void aggiornaListaContenutoMultimediale(Integer idContenutoMultimediale, boolean validato){
         POI poi = poiRepository.findByIdContenutoMultimediale(idContenutoMultimediale);
@@ -95,6 +100,7 @@ public class POIService {
             poiRepository.save(poi);
         }
     }
+    @Override
     @Transactional
     public void aggiornaListaContenutoMultimedialeDaSegnalare(Integer id) {
         POI poi = poiRepository.findByIdContenutoMultimediale(id);
@@ -104,6 +110,7 @@ public class POIService {
                 .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
         poiRepository.save(poi);
     }
+    @Override
     @Transactional
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
         POI poi = poiRepository.findByIdContenutoMultimediale(idContenutoMultimediale);
@@ -120,6 +127,8 @@ public class POIService {
             poiRepository.save(poi);
         }
     }
+    @Override
+    @Transactional
     public void aggiornaListaContestDaChiudere(Integer idContest) {
         POI poi = poiRepository.findByIdContest(idContest);
         poi.getContestAssociati()
@@ -127,7 +136,8 @@ public class POIService {
                 .filter(contest -> contest.getId().equals(idContest))
                 .forEach(contest -> contest.setAttivo(false));
     }
-
+    @Override
+    @Transactional
     public void aggiornaListaContestAperti(Integer idContest) {
         POI poi = poiRepository.findByIdContest(idContest);
         poi.getContestAssociati()
@@ -135,7 +145,8 @@ public class POIService {
                 .filter(contest1 -> contest1.getId().equals(idContest))
                 .forEach(contest1 -> contest1.setAttivo(true));
     }
-
+    @Override
+    @Transactional
     public void aggiornaListaEventiDaAprire(Integer idEvento) {
         POI poi = poiRepository.findPOIByIdEvento(idEvento);
         poi.getEventiAssociati()
@@ -144,6 +155,8 @@ public class POIService {
                 .forEach(evento -> evento.setAperto(true));
         poiRepository.save(poi);
     }
+    @Override
+    @Transactional
     public void aggiornaListaEventiDaChiudere(Integer idEvento) {
         POI poi = poiRepository.findPOIByIdEvento(idEvento);
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);

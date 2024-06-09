@@ -19,4 +19,16 @@ public class Match {
         Pattern pattern = Pattern.compile("^\\\\+?[0-9\\\\-\\\\(\\\\) ]{5,20}$");
         return pattern.matcher(fax).matches();
     }
+    public static boolean isOrarioValido(String orario){
+        Pattern pattern = Pattern.compile("^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$");
+        return pattern.matcher(orario).matches();
+    }
+    public static boolean contieneCaratteriSpeiali(String string){
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9 ]+");
+        return pattern.matcher(string).matches();
+    }
+    public static boolean isLink(String link){
+        Pattern pattern = Pattern.compile("^(http(s)?://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/[a-zA-Z0-9-_.~%]+)*(/\\?[a-zA-Z0-9-_.~&=]+)?$");
+        return pattern.matcher(link).matches();
+    }
 }

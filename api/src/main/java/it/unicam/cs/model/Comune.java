@@ -60,9 +60,11 @@ public class Comune {
         this.gestoreComune = gestoreComune;
         this.listaContest = listaContest;
     }
-    public Comune (String nome, Utente gestoreComune){
+    public Comune (String nome, Utente gestoreComune, Posizione posizione, List<Posizione> perimetro){
         this.nome = nome;
         this.gestoreComune = gestoreComune;
+        this.posizione = posizione;
+        this.perimetro = perimetro;
     }
 
     public void aggiungiPOI(POI poi){
@@ -93,4 +95,6 @@ public class Comune {
     public void aggiungiContest(Contest contest) {
         this.listaContest.add(contest);
     }
+    public void aggiungiUtente(Utente utente){ this.listaUtenti.add(utente);}
+    public void aggiungiCuratore (Utente curatore){ this.curatori.add(curatore);}
 }

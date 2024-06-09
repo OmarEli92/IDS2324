@@ -9,6 +9,7 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.service.*;
+import it.unicam.cs.service.Interfaces.*;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.transaction.Transactional;
@@ -24,12 +25,12 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class EventoMediator {
-    private UtenteService utenteService;
-    private POIService poiService;
-    private EventoService eventoService;
+    private IUtenteService utenteService;
+    private IPOIService poiService;
+    private IEventoService eventoService;
     private IEventoRepository eventoRepository;
-    private ComuneService comuneService;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IComuneService comuneService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
     public void salvaEvento(Evento evento){
         eventoService.aggiungiEvento(evento);
         poiService.salvaEvento(evento.getPoiAssociato().getId(),evento);

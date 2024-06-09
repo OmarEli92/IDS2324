@@ -8,6 +8,10 @@ import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.*;
+import it.unicam.cs.service.Interfaces.IComuneService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IPOIService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
 import lombok.AllArgsConstructor;
@@ -20,10 +24,10 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class POIMediator {
-    private ComuneService comuneService;
-    private UtenteService utenteService;
-    private POIService poiService;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IComuneService comuneService;
+    private IUtenteService utenteService;
+    private IPOIService poiService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
 
     public void salvaPOI(POI poi){
         poiService.aggiungiPOI(poi);

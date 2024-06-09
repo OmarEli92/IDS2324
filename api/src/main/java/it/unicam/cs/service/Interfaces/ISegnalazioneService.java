@@ -1,4 +1,7 @@
 package it.unicam.cs.service.Interfaces;
 
-public class ISegnalazioneService {
+import it.unicam.cs.model.DTO.input.RichiestaSegnalazioneDto;
+
+public interface ISegnalazioneService {
+    public void segnalaContenutoMultimediale(RichiestaSegnalazioneDto richiestaSegnalazioneDto);
 }

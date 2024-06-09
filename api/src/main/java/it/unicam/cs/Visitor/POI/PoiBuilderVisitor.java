@@ -45,6 +45,7 @@ public class PoiBuilderVisitor implements IPOIBuilderVisitor{
         museoBuilder.setContatti(museoDto.getContatti());
         museoBuilder.setNumeroSale(museoDto.getNumeroSale());
         museoBuilder.setCollezioni(museoDto.getCollezioni().stream()
+                .map(String::toUpperCase)
                 .map(CollezioniMuseo :: valueOf)
                 .collect(Collectors.toList()));
     }

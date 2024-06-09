@@ -9,10 +9,14 @@ import it.unicam.cs.model.DTO.input.ContestDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContestService;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContestService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.util.enums.TipoInvito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +26,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CaricamentoContestService {
+public class CaricamentoContestService implements ICaricamentoContestService {
     @Autowired
     private ControlloContestService controlloContestService;
     @Autowired
-    private UtenteService utenteService;
+    private IUtenteService utenteService;
     @Autowired
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
     @Autowired
     private ContestMediator contestMediator;
-
+    @Override
     public void caricaContest(ContestDto contestDto){
         controlloContestService.verificaContest(contestDto);
         Contest contest = costruisciContest(contestDto);
@@ -41,6 +45,8 @@ public class CaricamentoContestService {
     private Contest costruisciContest(ContestDto contestDto) {
         Utente utente = utenteService.ottieniUtenteById(contestDto.getIdOrganizzatore());
         POI poi = consultazioneContenutiService.ottieniPOIdaId(contestDto.getIdPoiAssociato());
+        verificaOrganizzatore(utente);
+        verificaIdPoi(poi,utente);
         String descrizione = contestDto.getDescrizione();
         LocalDate dataInizio = contestDto.getDataInizio();
         LocalDate dataFine = contestDto.getDataFine();
@@ -65,7 +71,11 @@ public class CaricamentoContestService {
         return contest;
     }
     private void verificaIdPoi(POI poi, Utente organizzatore) {
-        if(organizzatore.getComuneAssociato().getId() != poi.getComuneAssociato().getId()){
+        if(!organizzatore.getComuneAssociato().getPOIS()
+                .stream()
+                .filter(poi1 -> poi1.getStato().equals(StatoElemento.PUBBLICATO))
+                .collect(Collectors.toList())
+                .contains(poi)){
             throw new POINotValidException();
         }
     }

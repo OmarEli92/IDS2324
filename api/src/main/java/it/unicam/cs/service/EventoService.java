@@ -7,6 +7,8 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.repository.UtenteRepository;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IEventoService;
 import it.unicam.cs.util.VerificaSomiglianzaContenuti;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,11 +23,11 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor(onConstructor_ = @Autowired)
-public class EventoService {
+public class EventoService implements IEventoService {
     private IEventoRepository eventoRepository;
-    private ConsultazioneContenutiService consultazioneContenutiService;
+    private IConsultazioneContenutiService consultazioneContenutiService;
     private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
-
+   @Override
     public void aggiungiEvento(Evento evento){
         if(!verificaSomiglianzaContenuti.verificaSomiglianzaEvento(evento,eventoRepository.findAll())){
             eventoRepository.save(evento);
@@ -34,12 +36,14 @@ public class EventoService {
             throw new IllegalArgumentException("evento già esistente");
         }
     }
+    @Override
     @Transactional
     public void salvaContenutoMultimediale(Integer idEvento, ContenutoMultimediale contenutoMultimediale){
         Evento evento = eventoRepository.findById(idEvento).orElseThrow(()->new EntityNotFoundException("evento non trovato"));
         evento.aggiungiContenutoMultimediale(contenutoMultimediale);
         eventoRepository.save(evento);
     }
+    @Override
     public void validaEvento(Integer idEvento, boolean validato){
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
         if(validato){
@@ -50,6 +54,7 @@ public class EventoService {
             eventoRepository.deleteById(idEvento);
         }
     }
+    @Override
     @Transactional
     public void aggiornaListaContenutoMultimediale(Integer idContenutoMultimediale, boolean validato){
         Evento evento = eventoRepository.findEventoByContenutoMultimedialeId(idContenutoMultimediale);
@@ -66,6 +71,7 @@ public class EventoService {
             eventoRepository.save(evento);
         }
     }
+    @Override
     @Transactional
     public void aggiornaListaContenutoMultimedialeDaSegnalare(Integer id) {
         Evento evento = eventoRepository.findEventoByContenutoMultimedialeId(id);
@@ -75,6 +81,7 @@ public class EventoService {
                 .forEach(contenutoMultimediale -> contenutoMultimediale.setStato(StatoElemento.SEGNALATO));
         eventoRepository.save(evento);
     }
+    @Override
     @Transactional
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato) {
         Evento evento = eventoRepository.findEventoByContenutoMultimedialeId(idContenutoMultimediale);
@@ -91,10 +98,12 @@ public class EventoService {
             eventoRepository.save(evento);
         }
     }
+    @Override
     public void apriEvento(Evento evento){
         evento.setAperto(true);
         eventoRepository.save(evento);
     }
+    @Override
     public void chiudiEvento(Evento evento){
         eventoRepository.delete(evento);
     }

@@ -15,6 +15,7 @@ public class ControlloPOIService {
 
     public void verificaPOI(PoiDto poiDto) {
         validationPOIExtension.isPOINomeValid(poiDto.getNome());
+        validationPOIExtension.isPOIInComune(poiDto);
         poiDto.accept(poiDtoVisitor);
     }
 

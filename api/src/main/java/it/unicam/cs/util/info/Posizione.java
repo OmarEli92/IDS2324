@@ -1,6 +1,8 @@
 package it.unicam.cs.util.info;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 

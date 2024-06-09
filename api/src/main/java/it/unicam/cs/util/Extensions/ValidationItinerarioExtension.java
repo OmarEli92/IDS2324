@@ -25,7 +25,7 @@ public class ValidationItinerarioExtension {
             throw new IllegalArgumentException("il nome non può essere nullo, vuoto e non può " +
                     "contenere solo spazi bianchi ");
         }
-        if (nome.trim().length()<3 && nome.trim().length()>20){
+        if (nome.trim().length()<3 || nome.trim().length()>20){
             throw new IllegalArgumentException("lunghezza nome incorretta");
         }
     }
@@ -47,9 +47,6 @@ public class ValidationItinerarioExtension {
         List<POI> pois = new ArrayList<>();
         for(Integer id : idPois){
             POI poi = consultazioneContenutiService.ottieniPOIdaId(id);
-            if(poi == null){
-                throw new NullPointerException("poi non esistente");
-            }
             pois.add(poi);
         }
         Set<POI> setPois = new LinkedHashSet<>(pois);

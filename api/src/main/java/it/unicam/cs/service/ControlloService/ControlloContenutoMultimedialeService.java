@@ -4,7 +4,10 @@ import it.unicam.cs.exception.Contenuto.FotoNotValidExcetion;
 import it.unicam.cs.exception.Contenuto.LinkNotValidException;
 import it.unicam.cs.model.DTO.input.ContenutoMultimedialeDto;
 import it.unicam.cs.service.ConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.util.Match;
 import it.unicam.cs.util.enums.TipoContenuto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +16,6 @@ import java.util.regex.Pattern;
 
 @Service
 public class ControlloContenutoMultimedialeService {
-    @Autowired
-    private ConsultazioneContenutiService consultazioneContenutiService;
-    @Autowired
-    private UtenteService utenteService;
 
     public void verificaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto){
         verificaTipoContenuto(contenutoMultimedialeDto);
@@ -39,9 +38,8 @@ public class ControlloContenutoMultimedialeService {
         if(nome == null){
             throw new NullPointerException("la stringa per il link non può esssre nulla");
         }
-        Pattern pattern = Pattern.compile("^(http(s)?://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/[a-zA-Z0-9-_.~%]+)*(/\\?[a-zA-Z0-9-_.~&=]+)?$");
-        boolean valid = pattern.matcher(nome).matches();
-        if(!valid){
+        boolean match = Match.isLink(nome);
+        if(!match){
             throw new LinkNotValidException();
         }
     }
@@ -60,7 +58,7 @@ public class ControlloContenutoMultimedialeService {
                 throw new IllegalArgumentException("il nome non può essere nullo, vuoto e non può " +
                         "contenere solo spazi bianchi ");
             }
-            if (nome.trim().length()<3 && nome.trim().length()>20){
+            if (nome.trim().length()<3 || nome.trim().length()>20){
                 throw new IllegalArgumentException("lunghezza nome incorretta");
             }
     }
