@@ -47,10 +47,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/utenti/**")
-                        .hasAnyAuthority("Gestore_Piattaforma","Gestore_Comune",
-                                "Animatore","Curatore"))
+                        .hasAnyAuthority("GESTORE_PIATTAFORMA","GESTORE_COMUNE",
+                                "ANIMATORE","CURATORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers(
-                        "/api/contest/**").hasAnyAuthority("Gestore_Comune","Animatore"))
+                        "/api/contest/**").hasAnyAuthority("GESTORE_COMUNE","ANIMATORE"))
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/validazione/**")
+                        .hasAnyAuthority("CURATORE"))
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/Amministrazione")
+                        .hasAnyAuthority("GESTORE_PIATTAFORMA"))
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/verifica_segnalazione")
+                        .hasAnyAuthority("CURATORE"))
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/inserimento")
+                        .hasAnyAuthority("CURATORE", "CONTRIBUTORE_AUTORIZZATO", "CONTRIBUTORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers("swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html", "/webjars/**",

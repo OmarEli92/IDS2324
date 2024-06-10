@@ -6,10 +6,12 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIIntrattenimento;
 import it.unicam.cs.repository.*;
+import it.unicam.cs.util.enums.StatoElemento;
 import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Posizione;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,41 +53,35 @@ public class DBLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Comune comune = new Comune("Camerino",1,"MC","Marche",new Posizione(12,
-                21),new ArrayList<>(),null,null,
-                null,null,null,
-                null,null, null, 40000);
-        Comune comune2 = new Comune("Grottammare",2,"MC","Marche",new Posizione(12,
-                21),new ArrayList<>(),null,null,
-                null,null,null,
-                null,null, null,50000);
-        gestionePiattaformaService.aggiungiComune(comune);
-        gestionePiattaformaService.aggiungiComune(comune2);
+                21),new ArrayList<>(),
+                null,null,null,null,null,null);
+        Comune comune2 = new Comune("Grottammare",2,"MC","Marche",new Posizione(12,21), new ArrayList<>(),null,null,
+                null,null,null,null);
+        comuneRepository.save(comune);
+        comuneRepository.save(comune2);
+        poiRepository.save(new POIIntrattenimento("cinema delle palme", new Posizione(12,21),
+                        TipoPOI.INTRATTENIMENTO,null,StatoElemento.PUBBLICATO,comune,null,null,null, TipoIntrattenimento.CINEMA,14,
+                        "16-24",null,null));
         //comuneRepository.save(comune);
         //comuneRepository.save(comune2);
-        poiRepository.save(new POIIntrattenimento(1, "Cinema delle palme", new Posizione(12,
-                21), TipoIntrattenimento.CINEMA.getDescrizione(),
-                null, comune, null, null,
-                null,null,14, "16-24",
-                null,null));
         List<POI> pois = new ArrayList<>();
-        poiRepository.save(new POIIntrattenimento(4, "Cinema a Grottammare", new Posizione(12,
-                21), TipoIntrattenimento.CINEMA.getDescrizione(),
-                null, comune2, null, null,
-                null,null,14, "16-24",
+        poiRepository.save(new POIIntrattenimento( "Cinema a Grottammare", new Posizione(12,
+                21),TipoPOI.INTRATTENIMENTO, null, StatoElemento.PUBBLICATO, comune, null,
+                null,null,TipoIntrattenimento.CINEMA,14, "16-24",
                 null,null));
         for(RuoliUtente ruoli: RuoliUtente.values() ){
             Ruolo ruolo = new Ruolo();
-            ruolo.setNome(ruoli.toString());
+            ruolo.setNome(ruoli.name());
             ruoloRepository.save(ruolo);
         }
         pois.add(poiRepository.findById(2).get());
-        utenteRepository.save(
-                new Utente(1,"Omar1","password","Omar","El Idrissi",
-                        LocalDate.of(1992,11,20),
-                        "omar.elidrissi@hotmail.com","maschio","1234567890",
-                        0,comune2,new ArrayList<>(), new ArrayList<>(),
-                        new ArrayList<>(),new ArrayList<>())
-        );
+        Utente utente = new Utente(1,"Omar92","password","Omar","El Idrissi",
+                LocalDate.of(1992,11,20),
+                "omarel@hotmail.com","maschio","3480032789",
+                0,comune2,null, new ArrayList<>(),
+                new ArrayList<>(),new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                new ArrayList<>(), new ArrayList<>(),new ArrayList<>());
+        utenteRepository.save(utente);
         utenteService.assegnaRuoloAutente("Omar1","CONTRIBUTORE");
     }
 

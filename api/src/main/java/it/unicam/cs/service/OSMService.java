@@ -43,8 +43,8 @@ public class OSMService implements IGeolocalizzazioneService {
         /** Formato posizioneComune: {min lat, min long}, {max lat, max long}**/
         return (posizioneComune[0].getLatitudine() <= posizionePunto.getLatitudine()) &&
                 (posizionePunto.getLatitudine()<= posizioneComune[1].getLatitudine())
-                && (posizioneComune[2].getLongitudine() <= posizionePunto.getLongitudine())
-                && (posizioneComune[3].getLongitudine() >= posizionePunto.getLongitudine());
+                && (posizioneComune[0].getLongitudine() <= posizionePunto.getLongitudine())
+                && (posizioneComune[1].getLongitudine() >= posizionePunto.getLongitudine());
     }
 
     @Override

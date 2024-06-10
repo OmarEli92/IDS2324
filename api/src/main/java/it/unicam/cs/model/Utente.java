@@ -1,6 +1,11 @@
 package it.unicam.cs.model;
 
 
+import it.unicam.cs.model.abstractions.Evento;
+import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.model.contenuti.ContenutoContest;
+import it.unicam.cs.model.contenuti.ContenutoMultimediale;
+import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.observer.ContestObserver;
 import it.unicam.cs.security.Token;
 import jakarta.persistence.*;
@@ -14,18 +19,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 /** Un utente è un entità iscritta alla piattaforma che può partecipare ai contest e contribuire con punti di interesse, eventi e contenuti
  * multimediali e a seconda del ruolo avrà diverse autorizzazioni **/
 @Entity @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class Utente implements UserDetails,ContestObserver {
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull @Column(unique = true)
     private String username;
-    @NotNull
+    @NotNull@Column(unique = true)
     private String password;
     @NotNull
     private String nome;
@@ -35,6 +40,7 @@ public class Utente implements UserDetails,ContestObserver {
     @NotNull @Column(unique = true)
     private String email;
     private String sesso;
+    @Column(unique = true)
     private String telefono;
     @Builder.Default
     private int numeroDiContribuzioni = 0;
@@ -43,12 +49,24 @@ public class Utente implements UserDetails,ContestObserver {
     private Comune comuneAssociato;
     @ManyToMany(fetch = FetchType.EAGER) @Builder.Default
     private List<Ruolo> ruoli = new ArrayList<>();
-    @ManyToMany  @Builder.Default
+    @ManyToMany   @Builder.Default
     private List<Contest> contestInPartecipazione = new ArrayList<>();
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
     private List<Token> tokens;
     @ElementCollection
     private List<Integer> idContestVinti = new ArrayList<>();
+    @OneToMany(mappedBy = "contributore", cascade = CascadeType.ALL)
+    private List<POI> poiCreati;
+    @OneToMany(mappedBy = "contributore", cascade = CascadeType.ALL)
+    private List<Itinerario> itinerariCreati;
+    @OneToMany(mappedBy = "utenteCreatore", cascade = CascadeType.ALL)
+    private List<ContenutoMultimediale> contenutiMultimediali;
+    @OneToMany(mappedBy = "contributore", cascade = CascadeType.ALL)
+    private List<Evento> eventiCreati;
+    @OneToMany(mappedBy = "organizzatore", cascade = CascadeType.ALL)
+    private List<Contest> contestCreati;
+    @OneToMany(mappedBy = "utenteCreatore", cascade = CascadeType.ALL)
+    private List<ContenutoContest> contenutoContestCreati;
 
     @Override
     public void update(Integer idContest) {
@@ -62,6 +80,24 @@ public class Utente implements UserDetails,ContestObserver {
             authorities.add(new SimpleGrantedAuthority(ruolo.getNome()));
         }
         return authorities;
+    }
+    public void aggiungiPOI(POI poi){
+        this.poiCreati.add(poi);
+    }
+    public void aggiungiItinerario(Itinerario itinerario){
+        this.itinerariCreati.add(itinerario);
+    }
+    public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
+        this.contenutiMultimediali.add(contenutoMultimediale);
+    }
+    public void aggiungiEvento(Evento evento){
+        this.eventiCreati.add(evento);
+    }
+    public void aggiungiContestCreato(Contest contest){
+        this.contestCreati.add(contest);
+    }
+    public void aggiungiContenutoContestCreato(ContenutoContest contenutoContest){
+        this.contenutoContestCreati.add(contenutoContest);
     }
 
     @Override

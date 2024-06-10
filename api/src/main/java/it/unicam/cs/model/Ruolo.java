@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@NoArgsConstructor
 public class Ruolo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-
+    public Ruolo(String nome) {
+        this.nome = nome;
+    }
 }

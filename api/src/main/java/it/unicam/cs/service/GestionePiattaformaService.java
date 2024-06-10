@@ -2,11 +2,16 @@ package it.unicam.cs.service;
 
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.ComuneDTO;
+import it.unicam.cs.model.DTO.input.ComuneDto;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
+import it.unicam.cs.service.Interfaces.IProxyService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.info.Posizione;
 import it.unicam.cs.util.info.Posizione;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -25,27 +30,21 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     private final IComuneRepository comuneRepository;
     private final IUtenteService utenteService;
     private final ProxyService proxyService;
-
     public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService, ProxyService proxyService){
         this.comuneRepository = comuneRepository;
         this.utenteService = utenteService;
         this.proxyService = proxyService;
-
     }
     @Override
-    public void aggiungiComune(Comune comune) {
-        Comune comuneTrovato = comuneRepository.findByNome(comune.getNome());
-        if(comuneTrovato == null){
-            log.info("il comune non c'è nella repo");
-            List<Posizione> perimetro = proxyService.ottieniPerimetro(comune.getNome());
-            comune.setPerimetro(perimetro);
-            comuneRepository.save(comune);
-            log.info("Ho salvato il comune{} nella repo",comune.getNome());
+    public void aggiungiComune(ComuneDto comuneDto) {
+        Comune comuneTrovato = comuneRepository.findByNome(comuneDto.getNome());
+        if (comuneTrovato != null) {
+            throw new IllegalArgumentException("Il comune è già stato registrato");
         }
-        else {
-
-            throw new IllegalArgumentException("Il comune" + comuneTrovato.getNome() + " è già stato registrato");
-        }
+        List<Posizione> perimetro = proxyService.ottieniPerimetro(comuneDto.getNome());
+        Posizione posizione = proxyService.ottieniPosizioneComune(comuneDto.getNome());
+        Comune comune1 = new Comune(comuneDto.getNome(), posizione, perimetro);
+        comuneRepository.save(comune1);
     }
 
     @Override
@@ -61,11 +60,18 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     }
 
     @Override
-    public int aggiungiGestoreComune(Utente gestoreComune, String comune) {
+    public Integer aggiungiGestoreComune(Integer idGestoreComune, String comune) {
         Comune comuneTrovato = comuneRepository.findByNome(comune);
-        if(comuneTrovato != null){
+        Utente gestoreComune = utenteService.ottieniUtenteById(idGestoreComune);
+        if(comuneTrovato != null && gestoreComune.getComuneAssociato().getNome().equalsIgnoreCase(comune)){
+            if(!gestoreComune.getRuoli().stream().map(Ruolo::getNome).collect(Collectors.toList()).contains(RuoliUtente.GESTORE_PIATTAFORMA.name())){
+                utenteService.assegnaRuoloAutente(gestoreComune.getUsername(), RuoliUtente.GESTORE_COMUNE.name());
+            }
             comuneTrovato.setGestoreComune(gestoreComune);
             comuneRepository.save(comuneTrovato);
+        }
+        else {
+            throw new IllegalArgumentException("comune non esistente o utente non appartentente al comune");
         }
         return gestoreComune.getId();
     }
@@ -81,13 +87,13 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     }
 
     @Override
-    public Optional<Comune> ottieniComune(int idComune) {
-        return comuneRepository.findById(idComune);
+    public Comune ottieniComune(int idComune) {
+        return comuneRepository.findById(idComune).orElse(null);
     }
 
     @Override
-    public Optional<Comune> ottieniComune(String nomeComune) {
-        return Optional.of(comuneRepository.findByNome(nomeComune));
+    public Comune ottieniComune(String nomeComune) {
+        return comuneRepository.findByNome(nomeComune);
     }
     @Override
     public Collection<ComuneDTO> ottieniComuni(int pageNo, int pageSize){

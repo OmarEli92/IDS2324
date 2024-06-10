@@ -4,10 +4,13 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.observer.ContestObservable;
+import it.unicam.cs.util.enums.TipoInvito;
+import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -20,29 +23,32 @@ import java.util.UUID;
  * e che prevede la selezione di un vincitore **/
 
 @Entity
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Contest implements ContestObservable<Utente> {
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Integer id;
-    private String oggetto;
     private String descrizione;
     @Column(name = "data_inizio")
-    private Date dataInizio;
+    private LocalDate dataInizio;
     @Column(name = "data_fine")
-    private Date dataFine;
-    @Embedded
-    private Posizione luogo;
-    private String tipoPOI;
+    private LocalDate dataFine;
     private int partecipanti;
+    @ManyToOne
+    @JoinColumn(name = "id_poi_associato", referencedColumnName = "id")
+    private POI poiAssociato;
+    @ManyToOne()
+    @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
+    private Comune comuneAssociato;
     @OneToMany
     private List<ContenutoContest> contenutiCaricati;
     @OneToOne
-    private ContenutoMultimediale contenutoVincitore;
+    private ContenutoContest contenutoVincitore;
     @ManyToOne
     private Utente organizzatore;
-    private boolean attivo = true;
+    private boolean attivo ;
+    private TipoInvito tipoInvito;
     @ManyToOne
     private Utente vincitore;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -52,15 +58,26 @@ public class Contest implements ContestObservable<Utente> {
     )
     private List<Utente> partecipantiContest;
 
+    public Contest(String descrizione, LocalDate dataInizio, LocalDate dataFine, int partecipanti, POI poiAssociato, Comune comuneAssociato, Utente organizzatore, boolean attivo, TipoInvito tipoInvito) {
+        this.descrizione = descrizione;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.partecipanti = partecipanti;
+        this.poiAssociato = poiAssociato;
+        this.comuneAssociato = comuneAssociato;
+        this.organizzatore = organizzatore;
+        this.attivo = attivo;
+        this.tipoInvito = tipoInvito;
+    }
+
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
+    }
 
     /**Aggiunge un contenuto al contest se il contest risulta essere attivo
      * @param contenuto **/
     public void aggiungiContenutoCaricato(ContenutoContest contenuto){
-        if(contenuto == null)
-            throw new NullPointerException("Il contenuto non può essere nullo");
-        if(this.attivo)
             this.contenutiCaricati.add(contenuto);
-        else throw new IllegalStateException("Il contest è chiuso");
     }
 
     /*** Rimuove un contenuto dal contest
@@ -74,16 +91,14 @@ public class Contest implements ContestObservable<Utente> {
 
     /*** Chiude il contest **/
     public void chiudiContest(){
-        if(LocalDate.now().isAfter(this.dataFine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                || contenutoVincitore != null)
+        if(LocalDate.now().isAfter(this.dataFine) || contenutoVincitore != null)
         this.attivo = false;
     }
 
     /*** Restituisce il contenuto vincitore del contest
      * @return contenuto vincitore **/
-    public void setVincitore(ContenutoMultimediale contenutoVincitore,Utente partecipante) {
-        if(this.attivo && this.contenutoVincitore == null)
-            this.contenutoVincitore = contenutoVincitore;
+    public void setVincitore(ContenutoContest contenutoVincitore,Utente partecipante) {
+        this.contenutoVincitore = contenutoVincitore;
         this.vincitore = partecipante;
         chiudiContest();
     }
@@ -102,8 +117,9 @@ public class Contest implements ContestObservable<Utente> {
 
     @Override
     public void notifica() {
-        vincitore.getIdContestVinti().add(this.id);
+        vincitore.update(this.id);
         partecipantiContest.stream()
                 .map(partecipante -> partecipante.getContestInPartecipazione().remove(this));
     }
+
 }

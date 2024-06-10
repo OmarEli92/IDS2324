@@ -1,10 +1,11 @@
 package it.unicam.cs.security;
 
-import io.jsonwebtoken.Jwt;
+import it.unicam.cs.Mediators.UtenteMediator;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.repository.IComuneRepository;
+import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.ITokenRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.security.request.AuthenticationRequest;
@@ -19,30 +20,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor @Slf4j
 public class AuthenticationService {
     private final UtenteRepository utenteRepository;
+    private final UtenteMediator utenteMediator;
     private final JwtService  jwtService;
     private final AuthenticationManager authenticationManager;
     private final IComuneRepository comuneRepository;
     private final PasswordEncoder passwordEncoder;
     private final ITokenRepository tokenRepository;
+    private final IRuoloRepository ruoloRepository;
 
     /** Registra un utente nel db**/
     public AuthenticationResponse registraUtente(RegisterRequest request){
+        Ruolo ruolo = ruoloRepository.findByNome(request.getRuolo().toUpperCase());
+        if(ruolo == null){
+            throw new NullPointerException("il ruolo associato all'utente non è presente!");
+        }
         Comune comuneAssociato = comuneRepository.findByNome(request.getComuneAssociato());
-        if(comuneAssociato == null){
-            throw new NullPointerException("Il comune associato all'utente non è presente!");
+        if(ruolo.getNome().equalsIgnoreCase("gestore_piattaforma")){
+            comuneAssociato = null;
         }
-        List<Ruolo> ruoliUtente = request.getRuoli();
-        if(ruoliUtente.isEmpty() || ruoliUtente == null){
-            ruoliUtente = new ArrayList<>();
-            Ruolo ruolo = new Ruolo();
-            ruolo.setNome(RuoliUtente.CONTRIBUTORE.toString());
-            ruoliUtente.add(ruolo);
+        else {
+            if(comuneAssociato==null) {
+                throw new NullPointerException("Il comune associato all'utente non è presente!");
+            }
         }
+        ArrayList<Ruolo> ruoli = new ArrayList<>();
+        ruoli.add(ruolo);
         var utente = Utente.builder()
                 .nome(request.getNome())
                 .cognome(request.getCognome())
@@ -53,11 +62,11 @@ public class AuthenticationService {
                 .comuneAssociato(comuneAssociato)
                 .dataDiNascita(request.getDataDiNascita())
                 .sesso(request.getSesso())
-                .ruoli(ruoliUtente)
+                .ruoli(ruoli)
                 .build();
-        utenteRepository.save(utente);
+        utenteMediator.aggiungiUtente(utente);
         log.info("Aggiunto l'utente {} nel db",utente.getUsername());
-        var jwtToken = jwtService.generaToken(utente);
+        var jwtToken = jwtService.generaToken(utente, utente.getId());
         salvaTokenUtente(jwtToken,utente);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
@@ -73,7 +82,7 @@ public class AuthenticationService {
         );
         log.info("tentativo di login");
         var utente = utenteRepository.findByUsername(request.getUsername());
-        var jwtToken = jwtService.generaToken(utente);
+        var jwtToken = jwtService.generaToken(utente, utente.getId());
         rimuoviTokenAssociatiAUtente(utente);
         salvaTokenUtente(jwtToken,utente);
         log.info("L'utente {} ha effettuato il login", utente.getUsername());
