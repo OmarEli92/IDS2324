@@ -7,6 +7,9 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.POIIntrattenimento;
 import it.unicam.cs.repository.*;
 import it.unicam.cs.util.enums.StatoElemento;
+import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
+import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.TipoIntrattenimento;
 import it.unicam.cs.util.enums.TipoPOI;
 import it.unicam.cs.util.info.Posizione;
@@ -28,11 +31,15 @@ public class DBLoader implements CommandLineRunner {
     IItinerarioRepository itinerarioRepository;
     IComuneRepository comuneRepository;
     UtenteRepository utenteRepository;
+    IUtenteService utenteService;
     IRuoloRepository ruoloRepository;
+    IGestionePiattaformaService gestionePiattaformaService;
     @Autowired
     public DBLoader(IPOIRepository poiRepository, IEventoRepository eventoRepository,
                     IItinerarioRepository itinerarioRepository, IComuneRepository comuneRepository,
-                    UtenteRepository utenteRepository, IRuoloRepository ruoloRepository) {
+                    UtenteRepository utenteRepository, IRuoloRepository ruoloRepository,
+                    IUtenteService utenteService,
+                    IGestionePiattaformaService gestionePiattaformaService) {
 
         this.poiRepository = poiRepository;
         this.eventoRepository = eventoRepository;
@@ -40,6 +47,8 @@ public class DBLoader implements CommandLineRunner {
         this.comuneRepository = comuneRepository;
         this.utenteRepository = utenteRepository;
         this.ruoloRepository = ruoloRepository;
+        this.utenteService = utenteService;
+        this.gestionePiattaformaService = gestionePiattaformaService;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -50,41 +59,32 @@ public class DBLoader implements CommandLineRunner {
                 null,null,null,null);
         comuneRepository.save(comune);
         comuneRepository.save(comune2);
-        Ruolo ruolo = new Ruolo("Gestore_Piattaforma".toUpperCase());
-        Ruolo ruolo2 = new Ruolo("Curatore".toUpperCase());
-        Ruolo ruolo3 = new Ruolo("Contributore".toUpperCase());
-        Ruolo ruolo4 = new Ruolo("Gestore_Comune".toUpperCase());
-        Ruolo ruolo5 = new Ruolo("Animatore".toUpperCase());
-        Ruolo ruolo6 = new Ruolo("Contributore_Autorizzato".toUpperCase());
-        Ruolo ruolo7 = new Ruolo("Partecipante_Contest".toUpperCase());
-        ruoloRepository.save(ruolo);
-        ruoloRepository.save(ruolo2);
-        ruoloRepository.save(ruolo3);
-        ruoloRepository.save(ruolo4);
-        ruoloRepository.save(ruolo5);
-        ruoloRepository.save(ruolo6);
-        ruoloRepository.save(ruolo7);
-        List<Ruolo> ruoli = new ArrayList<>();
-        ruoli.add(ruolo);
+        poiRepository.save(new POIIntrattenimento("cinema delle palme", new Posizione(12,21),
+                        TipoPOI.INTRATTENIMENTO,null,StatoElemento.PUBBLICATO,comune,null,null,null, TipoIntrattenimento.CINEMA,14,
+                        "16-24",null,null));
+        //comuneRepository.save(comune);
+        //comuneRepository.save(comune2);
+        List<POI> pois = new ArrayList<>();
+        poiRepository.save(new POIIntrattenimento( "Cinema a Grottammare", new Posizione(12,
+                21),TipoPOI.INTRATTENIMENTO, null, StatoElemento.PUBBLICATO, comune, null,
+                null,null,TipoIntrattenimento.CINEMA,14, "16-24",
+                null,null));
+        for(RuoliUtente ruoli: RuoliUtente.values() ){
+            Ruolo ruolo = new Ruolo();
+            ruolo.setNome(ruoli.name());
+            ruoloRepository.save(ruolo);
+        }
+        pois.add(poiRepository.findById(2).get());
         Utente utente = new Utente(1,"Omar92","password","Omar","El Idrissi",
                 LocalDate.of(1992,11,20),
                 "omarel@hotmail.com","maschio","3480032789",
-                0,comune2,ruoli, new ArrayList<>(),
+                0,comune2,null, new ArrayList<>(),
                 new ArrayList<>(),new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(),new ArrayList<>());
         utenteRepository.save(utente);
-        poiRepository.save(new POIIntrattenimento("Cinema delle palme", new Posizione(12,
-                21), TipoPOI.INTRATTENIMENTO,utente, StatoElemento.PUBBLICATO, comune, null,
-                null,null,TipoIntrattenimento.CINEMA,14, "16-24",
-                null,null));
-        List<POI> pois = new ArrayList<>();
-        poiRepository.save(new POIIntrattenimento( "Cinema a Grottammare", new Posizione(12,
-                21),TipoPOI.INTRATTENIMENTO, utente, StatoElemento.PUBBLICATO, comune, null,
-                null,null,TipoIntrattenimento.CINEMA,14, "16-24",
-                null,null));
-
-        pois.add(poiRepository.findById(2).get());
-        utenteRepository.save(utente);
-
+        utenteService.assegnaRuoloAutente("Omar1","CONTRIBUTORE");
     }
+
+
+
 }

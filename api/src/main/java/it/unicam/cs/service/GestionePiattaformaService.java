@@ -12,6 +12,9 @@ import it.unicam.cs.service.Interfaces.IProxyService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.info.Posizione;
+import it.unicam.cs.util.info.Posizione;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,27 +25,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
+@Service @Slf4j
 public class GestionePiattaformaService implements IGestionePiattaformaService {
     private final IComuneRepository comuneRepository;
     private final IUtenteService utenteService;
-    private final OSMService osmService;
-    public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService, OSMService osmService){
+    private final ProxyService proxyService;
+    public GestionePiattaformaService(IComuneRepository comuneRepository, IUtenteService utenteService, ProxyService proxyService){
         this.comuneRepository = comuneRepository;
         this.utenteService = utenteService;
-        this.osmService = osmService;
+        this.proxyService = proxyService;
     }
     @Override
     public void aggiungiComune(ComuneDto comuneDto) {
         Comune comuneTrovato = comuneRepository.findByNome(comuneDto.getNome());
-        if(comuneTrovato != null){
+        if (comuneTrovato != null) {
             throw new IllegalArgumentException("Il comune è già stato registrato");
         }
-        List<Posizione> perimetro = osmService.ottieniPerimetro(comuneDto.getNome());
-        Posizione posizione = osmService.ottieniPosizioneComune(comuneDto.getNome());
-        Comune comune1 = new Comune(comuneDto.getNome(),posizione,perimetro);
+        List<Posizione> perimetro = proxyService.ottieniPerimetro(comuneDto.getNome());
+        Posizione posizione = proxyService.ottieniPosizioneComune(comuneDto.getNome());
+        Comune comune1 = new Comune(comuneDto.getNome(), posizione, perimetro);
         comuneRepository.save(comune1);
-
     }
 
     @Override

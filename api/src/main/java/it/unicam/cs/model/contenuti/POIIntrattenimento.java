@@ -29,7 +29,6 @@ public final class POIIntrattenimento extends POI {
      private List<Servizio> serviziOfferti;
      @Embedded
      private Contatti contatti;
-
      public POIIntrattenimento(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, TipoIntrattenimento tipo, int etaConsigliata, String orariApertura, List<Servizio> serviziOfferti, Contatti contatti) {
          super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
          this.tipo = tipo;

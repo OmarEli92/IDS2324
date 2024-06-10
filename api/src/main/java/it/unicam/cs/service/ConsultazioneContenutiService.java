@@ -15,6 +15,7 @@ import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.*;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.util.enums.StatoElemento;
@@ -22,6 +23,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import jdk.jfr.Event;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ConsultazioneContenutiService implements IConsultazioneContenutiService {
     private IPOIRepository poiRepository;
@@ -42,21 +47,7 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     private EventoDtoMapper eventoDtoMapper;
     private ContenutoMultimedialeDtoMapper contenutoMultimedialeDtoMapper;
     private ContenutoContestDtoMapper contenutoContestDtoMapper;
-
-
-
-    /*public ConsultazioneContenutiService(IPOIRepository poiRepository,
-                                         IEventoRepository eventoRepository,
-                                         IItinerarioRepository itinerarioRepository,
-                                         IContenutoMultimedialeRepository contenutoMultimedialeRepository,
-                                         IComuneRepository comuneRepository,IContenutoContestRepository contenutoContestRepository) {
-        this.poiRepository = poiRepository;
-        this.eventoRepository = eventoRepository;
-        this.itinerarioRepository = itinerarioRepository;
-        this.contenutoMultimedialeRepository = contenutoMultimedialeRepository;
-        this.comuneRepository = comuneRepository;
-        this.contenutoContestRepository=contenutoContestRepository;
-    }*/
+    private ProxyService proxyService;
 
     public Comune ottieniComuneDaId(Integer idComune){
         return comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non esistente"));
@@ -70,12 +61,24 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<PoiOutpuDto> ottieniPOIS(final Integer comuneId) {
-        List<POI> pois = poiRepository.findByComuneAssociatoId(comuneId);
-        return pois.stream()
-                .filter(poi -> poi.getStato().equals(StatoElemento.PUBBLICATO))
-                .map(poiDtoMapper)
-                .collect(Collectors.toList());
+    public List<PoiOutpuDto> ottieniPOIS(final Integer idComune) {
+        Comune comune = proxyService.ottieniComuneDaId(idComune);
+        List<POI> pois;
+        if(comune != null){
+            pois = proxyService.ottieniPOI(comune.getNome());
+            log.info("Ho trovato dei poi nella cache");
+            return pois.stream()
+                    .map(poiDtoMapper)
+                    .collect(Collectors.toList());
+        }
+        else{
+            pois = poiRepository.findByComuneAssociatoId(idComune);
+            Comune comuneAssociato = comuneRepository.findById(idComune).orElse(null);
+            proxyService.aggiungiComune(comuneAssociato);
+            return pois.stream()
+                    .map(poiDtoMapper)
+                    .collect(Collectors.toList());
+        }
     }
 
 
@@ -86,10 +89,23 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
 
     @Override
     public List<EventoOutputDto> ottieniEventi(final Integer idComune) {
-        List<Evento> eventi = eventoRepository.findByComuneAssociatoId(idComune);
-        return eventi.stream()
-                .map(eventoDtoMapper)
-                .collect(Collectors.toList());
+        Comune comune = proxyService.ottieniComuneDaId(idComune);
+        List<Evento> eventi;
+        if(comune != null){
+            eventi = proxyService.ottieniEventi(comune.getNome());
+            return eventi.stream()
+                    .map(eventoDtoMapper)
+                    .collect(Collectors.toList());
+        }
+        else{
+            eventi = eventoRepository.findByComuneAssociatoId(idComune);
+            Comune comuneAssociato = comuneRepository.findById(idComune).orElse(null);
+            proxyService.aggiungiComune(comuneAssociato);
+            return eventi.stream()
+                    .map(eventoDtoMapper)
+                    .collect(Collectors.toList());
+        }
+
     }
 
 
@@ -100,10 +116,23 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
 
     @Override
     public List<ItinerarioOutputDto> ottieniItinerari(final Integer idComune) {
-        List<Itinerario> itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
-        return itinerari.stream()
-                .map(itinerarioDtoMapper)
-                .collect(Collectors.toList());
+        Comune comune = proxyService.ottieniComuneDaId(idComune);
+        List<Itinerario> itinerari;
+        if(comune != null){
+            itinerari = proxyService.ottieniItinerari(comune.getNome());
+
+            return itinerari.stream()
+                    .map(itinerarioDtoMapper)
+                    .collect(Collectors.toList());
+        }
+        else{
+            itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
+            Comune comuneAssociato = comuneRepository.findById(idComune).orElse(null);
+            proxyService.aggiungiComune(comuneAssociato);
+            return itinerari.stream()
+                    .map(itinerarioDtoMapper)
+                    .collect(Collectors.toList());
+        }
     }
 
 

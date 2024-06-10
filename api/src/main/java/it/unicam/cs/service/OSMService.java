@@ -92,8 +92,37 @@ public class OSMService implements IGeolocalizzazioneService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-            connessione.disconnect();
+            if (connessione != null) {
+                connessione.disconnect();
+            }
         }
         return response;
     }
+        /*
+        String response = "";
+        HttpURLConnection connessione = null;
+        try {
+            URL url = new URL(Url);
+            connessione = (HttpURLConnection) url.openConnection();
+            connessione.setRequestMethod("GET");
+            connessione.setRequestProperty("Accept", "application/json");
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connessione.getInputStream()))) {
+                StringBuilder risposta = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    risposta.append(line);
+                }
+                response = risposta.toString();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            connessione.disconnect();
+        }
+        return response;
+
+         */
+
 }

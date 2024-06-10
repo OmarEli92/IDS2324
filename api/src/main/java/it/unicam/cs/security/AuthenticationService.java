@@ -50,10 +50,8 @@ public class AuthenticationService {
                 throw new NullPointerException("Il comune associato all'utente non è presente!");
             }
         }
-
         ArrayList<Ruolo> ruoli = new ArrayList<>();
         ruoli.add(ruolo);
-
         var utente = Utente.builder()
                 .nome(request.getNome())
                 .cognome(request.getCognome())
@@ -93,6 +91,7 @@ public class AuthenticationService {
                 .build();
     }
 
+    /* Salva il token associato all'utente nel db*/
     private void salvaTokenUtente(String jwt, Utente utente){
         Token token = new Token();
         token.setToken(jwt);

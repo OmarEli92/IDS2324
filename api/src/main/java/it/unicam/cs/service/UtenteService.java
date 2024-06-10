@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,6 +63,9 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     public void assegnaRuoloAutente(String username, String nomeRuolo) {
         Utente utente = utenteRepository.findByUsername(username);
         Ruolo ruolo = ruoloRepository.findByNome(nomeRuolo);
+        if (ruolo == null) {
+            throw new IllegalArgumentException("Ruolo non trovato: " + nomeRuolo);
+        }
         log.info("Ruolo {} assegnato all'utente {} ",ruolo.getNome(),utente.getUsername());
         utente.getRuoli().add(ruolo);
         utenteRepository.save(utente);
