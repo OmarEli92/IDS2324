@@ -75,7 +75,7 @@ public class DBLoader implements CommandLineRunner {
             ruoloRepository.save(ruolo);
         }
         pois.add(poiRepository.findById(2).get());
-        Utente utente = new Utente(1,"Omar92","password","Omar","El Idrissi",
+        Utente utente = new Utente(1,"Omar1","password","Omar","El Idrissi",
                 LocalDate.of(1992,11,20),
                 "omarel@hotmail.com","maschio","3480032789",
                 0,comune2,null, new ArrayList<>(),
