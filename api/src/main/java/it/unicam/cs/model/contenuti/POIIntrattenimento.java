@@ -18,14 +18,14 @@ public class POIIntrattenimento extends POI {
     @Enumerated(EnumType.STRING)
     private List<Servizio> serviziOfferti;
     private Contatti contatti;
-    public POIIntrattenimento(Integer id, String nome, Posizione posizione, String tipo,
+    public POIIntrattenimento(Integer id, String nome, Posizione posizione,
                               Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                              List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                              List contenutiMultimediali, List eventiAssociati,
                               int etaConsigliata, String orariApertura,
                               List<Servizio> serviziOfferti, Contatti contatti) {
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                eventiAssociati);
 
         this.etaConsigliata = etaConsigliata;
         this.orariApertura = orariApertura;

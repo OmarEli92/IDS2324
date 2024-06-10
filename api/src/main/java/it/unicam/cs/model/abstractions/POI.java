@@ -20,7 +20,6 @@ public abstract class POI{
     private String nome;
     @Embedded
     private Posizione posizione;
-    private String tipo;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contributore", referencedColumnName = "id")
     private Utente contributore;
@@ -33,23 +32,19 @@ public abstract class POI{
     private List<Evento> eventiAssociati;
     @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ContenutoMultimediale> contenutiMultimediali;
-    @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<ContenutoMultimediale> contenutiMultimedialiInPending;
 
 
-    public POI(Integer id, String nome,Posizione posizione, String tipo, Utente contributore,
+    public POI(Integer id, String nome,Posizione posizione, Utente contributore,
                Comune comuneAssociato, Indirizzo indirizzo, List<ContenutoMultimediale> contenutiMultimediali,
-               List<ContenutoMultimediale> contenutiMultimedialiInPending, List<Evento> eventiAssociati) {
+                List<Evento> eventiAssociati) {
         this.id = id;
         this.nome = nome;
         this.posizione = posizione;
-        this.tipo = tipo;
         this.contributore = contributore;
         this.comuneAssociato = comuneAssociato;
         this.indirizzo = indirizzo;
         this.eventiAssociati = eventiAssociati;
-        this.contenutiMultimediali=contenutiMultimediali;
-        this.contenutiMultimedialiInPending=contenutiMultimedialiInPending;
+        this.contenutiMultimediali = contenutiMultimediali;
     }
 
     public POI() {
@@ -82,10 +77,6 @@ public abstract class POI{
 
     public Posizione getPosizione() {
         return posizione;
-    }
-
-    public String getTipo() {
-        return tipo;
     }
 
     public Utente getContributore() {

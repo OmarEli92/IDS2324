@@ -16,12 +16,12 @@ public class Museo extends POI {
     private Contatti contatti;
     private int numeroSale;
     private List<CollezioniMuseo> collezioni;
-    public Museo(Integer id, String nome, Posizione posizione, String tipo,
+    public Museo(Integer id, String nome, Posizione posizione,
                  Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                 List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                 List contenutiMultimediali, List eventiAssociati,
                  String orariApertura, String responsabile, Contatti contatti, int numeroSale, List<CollezioniMuseo> collezioni) {
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                eventiAssociati);
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;
         this.contatti = contatti;

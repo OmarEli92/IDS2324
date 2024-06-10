@@ -14,13 +14,13 @@ public class POIServiziUtili extends POI {
     private Contatti contatti;
     private String orariApertura;
 
-    public POIServiziUtili(Integer id, String nome, Posizione posizione, String tipo,
+    public POIServiziUtili(Integer id, String nome, Posizione posizione,
                            Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                           List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati,
+                           List contenutiMultimediali, List eventiAssociati,
                            Contatti contatti, String orariApertura) {
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                eventiAssociati);
         this.contatti = contatti;
         this.orariApertura = orariApertura;
     }

@@ -15,13 +15,13 @@ public class Parco extends POI {
     private boolean presenzaAnimali;
     private int estensione;
 
-    public Parco(Integer id, String nome, Posizione posizione, String tipo,
+    public Parco(Integer id, String nome, Posizione posizione,
                  Utente contributore, Comune comuneAssociato, Indirizzo indirizzo,
-                 List contenutiMultimediali, List contenutiMultimedialiInPending, List eventiAssociati, boolean presenzaSpecieProtetta,
+                 List contenutiMultimediali, List eventiAssociati, boolean presenzaSpecieProtetta,
                  String orarioApertura, List<Itinerario> percorsi, boolean presenzaAnimali, int estensione) {
 
-        super(id, nome, posizione, tipo, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
-                contenutiMultimedialiInPending, eventiAssociati);
+        super(id, nome, posizione, contributore, comuneAssociato, indirizzo, contenutiMultimediali,
+                eventiAssociati);
 
         this.presenzaSpecieProtetta = presenzaSpecieProtetta;
         this.orarioApertura = orarioApertura;
