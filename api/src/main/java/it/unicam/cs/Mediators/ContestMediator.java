@@ -44,8 +44,8 @@ public class ContestMediator {
             List<Utente> utenti = contest.getPartecipantiContest();
             utenti.forEach(utente -> {contest.rimuoviObserver(utente);
                 utenteService.salvaUtente(utente);});
-            poiService.aggiornaListaContestDaChiudere(contest.getId());
-            utenteService.aggiornaListaContestDaChiudere(contest.getId());
+                poiService.aggiornaListaContestDaChiudere(contest.getId());
+                utenteService.aggiornaListaContestDaChiudere(contest.getId());
         });
 
     }

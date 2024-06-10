@@ -33,10 +33,8 @@ import org.springframework.stereotype.Component;
 @Schema(description = "Base class for all POI types")
 public abstract class PoiDto implements IPoiDtoVisitable {
     private String tipoPoi;
-    private Integer ID;
     private String nome;
     private Posizione posizione;
-    private Integer IdContributore;
 
     public abstract void accept (IPoiDtoVisitor poiDtoVisitor);
 }

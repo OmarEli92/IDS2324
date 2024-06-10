@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class EliminazioneContenutoDto {
-   private Integer idUtente;
    private Integer idContenutoMultimediale;
    private boolean eliminato;
 }

@@ -60,9 +60,8 @@ public class Comune {
         this.gestoreComune = gestoreComune;
         this.listaContest = listaContest;
     }
-    public Comune (String nome, Utente gestoreComune, Posizione posizione, List<Posizione> perimetro){
+    public Comune (String nome, Posizione posizione, List<Posizione> perimetro){
         this.nome = nome;
-        this.gestoreComune = gestoreComune;
         this.posizione = posizione;
         this.perimetro = perimetro;
     }

@@ -7,11 +7,13 @@ import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.UtenteService;
+import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class ValidationItinerarioExtension {
@@ -57,7 +59,8 @@ public class ValidationItinerarioExtension {
     }
     @Transactional
     private boolean comuneContienePOI(Comune comune, POI poi) {
-        List<POI> listP = comune.getPOIS();
+        List<POI> listP = comune.getPOIS().stream()
+                .filter(poi1 -> poi1.getStato().equals(StatoElemento.PUBBLICATO)).collect(Collectors.toList());
         if(!listP.contains(poi)){
             throw new ItinerarioNotValidException();
         }

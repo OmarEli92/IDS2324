@@ -98,8 +98,7 @@ public class Contest implements ContestObservable<Utente> {
     /*** Restituisce il contenuto vincitore del contest
      * @return contenuto vincitore **/
     public void setVincitore(ContenutoContest contenutoVincitore,Utente partecipante) {
-        if(this.attivo && this.contenutoVincitore == null)
-            this.contenutoVincitore = contenutoVincitore;
+        this.contenutoVincitore = contenutoVincitore;
         this.vincitore = partecipante;
         chiudiContest();
     }
@@ -118,7 +117,7 @@ public class Contest implements ContestObservable<Utente> {
 
     @Override
     public void notifica() {
-        vincitore.getIdContestVinti().add(this.id);
+        vincitore.update(this.id);
         partecipantiContest.stream()
                 .map(partecipante -> partecipante.getContestInPartecipazione().remove(this));
     }

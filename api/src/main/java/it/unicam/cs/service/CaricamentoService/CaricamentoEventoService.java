@@ -42,15 +42,15 @@ public class CaricamentoEventoService implements ICaricamentoEventoService {
     @Autowired
     private EventoMediator eventoMediator;
     @Override
-    public void caricaEvento(EventoDto eventoDto){
-        controlloEventoService.verificaEvento(eventoDto);
+    public void caricaEvento(EventoDto eventoDto, Integer userId){
+        controlloEventoService.verificaEvento(eventoDto, userId);
         EventoBuilder eventoBuilder = eventoBuilderFactory.creaBuilder(eventoDto);
-        costrusciEvento(eventoBuilder,eventoDto);
+        costrusciEvento(eventoBuilder,eventoDto, userId);
         eventoMediator.salvaEvento(eventoBuilder.build());
     }
     @Transactional
-    private void costrusciEvento(EventoBuilder eventoBuilder, EventoDto eventoDto) {
-        Utente utente = utenteService.ottieniUtenteById(eventoDto.getIdContributore());
+    private void costrusciEvento(EventoBuilder eventoBuilder, EventoDto eventoDto, Integer userId) {
+        Utente utente = utenteService.ottieniUtenteById(userId);
         Comune comune = utente.getComuneAssociato();
         StatoElemento statoElemento;
         List<String> nomi = utente.getRuoli()

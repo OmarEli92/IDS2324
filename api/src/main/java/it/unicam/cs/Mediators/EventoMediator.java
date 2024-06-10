@@ -37,9 +37,9 @@ public class EventoMediator {
         comuneService.aggiungiEvento(evento.getComuneAssociato().getId(),evento);
         utenteService.aggiungiEvento(evento.getContributore().getId(),evento);
     }
-    public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto){
+    public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto, Integer userId){
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(richiestaValidazioneDto.getIdContenuto());
-        Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
+        Utente utente = utenteService.ottieniUtenteById(userId);
         if(evento.getStato().equals(StatoElemento.PENDING)
                 && utente.getComuneAssociato().getId().equals(evento.getComuneAssociato().getId())){
             utenteService.aggiornaListaEvento(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());

@@ -20,6 +20,12 @@ public interface IComuneRepository extends JpaRepository<Comune,Integer> {
     Comune findByEvento(@Param("idRichiesta")Integer idRichiesta);
     @Query(value = "SELECT c from Comune c join c.contenutiMultimediali co WHERE co.id = :idRichiesta")
     Comune findByContenutoMultimedialeId(@Param("idRichiesta")Integer idRichiesta);
+    @Query("SELECT c FROM Comune c LEFT JOIN FETCH c.POIS WHERE c.nome = :nome")
+    Comune findByNomeWithPOIs(@Param("nome") String nome);
+    @Query("SELECT c FROM Comune c LEFT JOIN FETCH c.itinerari WHERE c.nome = :nome")
+    Comune findByNomeWithItinerari(@Param("nome") String nome);
+    @Query("SELECT c FROM Comune c LEFT JOIN FETCH c.eventi WHERE c.nome = :nome")
+    Comune findByNomeWithEventi(@Param("nome") String nome);
 
     default ComuneDTO convertiComuneinDto(Comune comune){
         ComuneDTO comuneDTO = new ComuneDTO();

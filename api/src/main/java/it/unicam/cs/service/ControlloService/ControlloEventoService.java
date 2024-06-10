@@ -13,8 +13,8 @@ public class ControlloEventoService {
     @Autowired
     private IEventoDtoVisitor eventoDtoVisitor;
 
-    public void verificaEvento(EventoDto eventoDto){
-        validationEventoExtension.isIdPoiEventovalid(eventoDto.getIdContributore(),eventoDto.getIdPoi());
+    public void verificaEvento(EventoDto eventoDto, Integer id){
+        validationEventoExtension.isIdPoiEventovalid(id ,eventoDto.getIdPoi());
         validationEventoExtension.isNomeValid(eventoDto.getNome());
         validationEventoExtension.isDescrizioneValid(eventoDto.getDescrizione());
         validationEventoExtension.verificaDateEvento(eventoDto.getDataInizio(),eventoDto.getDataFine());

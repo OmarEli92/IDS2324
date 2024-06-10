@@ -14,5 +14,4 @@ public class ItinerarioDto {
     private String nome;
     private String descrizione;
     private List<Integer> PoisId;
-    private Integer IDContributore;
 }

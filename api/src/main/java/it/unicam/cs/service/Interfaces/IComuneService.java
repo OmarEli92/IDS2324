@@ -22,5 +22,5 @@ public interface IComuneService {
     public void aggiornaListaEventiDaAprire(Integer idEvento);
     public void aggiornaListaEventiDaChiudere(Integer idEvento);
 
-    void aggiungiUtente(Utente utente, Integer idComune);
+    void aggiungiUtente(Integer idUtente, Integer idComune);
 }

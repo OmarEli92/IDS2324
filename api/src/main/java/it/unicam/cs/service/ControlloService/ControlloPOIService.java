@@ -13,9 +13,9 @@ public class ControlloPOIService {
     @Autowired
     private IPoiDtoVisitor poiDtoVisitor;
 
-    public void verificaPOI(PoiDto poiDto) {
+    public void verificaPOI(PoiDto poiDto, Integer userId) {
         validationPOIExtension.isPOINomeValid(poiDto.getNome());
-        validationPOIExtension.isPOIInComune(poiDto);
+        validationPOIExtension.isPOIInComune(poiDto, userId);
         poiDto.accept(poiDtoVisitor);
     }
 

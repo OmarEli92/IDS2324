@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class EliminazioneContenutiService implements IEliminazioneContenutiService {
     private ContenutoMultimedialeMediator contenutoMultimedialeMediator;
     @Override
-    public void accettaSegnalazioneContenuto(EliminazioneContenutoDto eliminazioneContenutoDto){
-        contenutoMultimedialeMediator.accettaSegnalazioneContenuto(eliminazioneContenutoDto);
+    public void accettaSegnalazioneContenuto(EliminazioneContenutoDto eliminazioneContenutoDto, Integer userId){
+        contenutoMultimedialeMediator.accettaSegnalazioneContenuto(eliminazioneContenutoDto, userId);
     }
 }

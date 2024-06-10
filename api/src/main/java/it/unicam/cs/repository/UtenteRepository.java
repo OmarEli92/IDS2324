@@ -1,6 +1,7 @@
 package it.unicam.cs.repository;
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.input.UtenteDto;
 import it.unicam.cs.model.Utente;
 import jakarta.transaction.Transactional;
@@ -52,6 +53,8 @@ public interface UtenteRepository extends JpaRepository<Utente,Integer> {
     Collection<Utente> findByRuoli_NomeAndComuneAssociato_Nome(String ruolo, int id);
     @Query(value= "SELECT u from Utente u WHERE u.comuneAssociato.nome = :comune")
     Collection<Utente> findByComuneAssociato(String comune);
+    @Query(value =  "SELECT u FROM Utente u LEFT JOIN FETCH u.contestCreati WHERE u.id = :idRichiesta")
+    Utente caricaCreatoreContest(@Param("idRichiesta") Integer idRichiesta);
 
 }
 

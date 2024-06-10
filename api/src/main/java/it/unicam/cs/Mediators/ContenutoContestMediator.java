@@ -36,27 +36,19 @@ public class ContenutoContestMediator {
         utenteService.aggiungiContenutoContest(contenutoContest.getUtenteCreatore().getId(),contenutoContest);
     }
     @Transactional
-    public void validaContenutoContest(RichiestaValidazioneDto richiestaValidazioneDto){
+    public void validaContenutoContest(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
         ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(richiestaValidazioneDto.getIdContenuto());
-        Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
+        Utente utente = utenteService.ottieniUtenteById(validatoreId);
         List<Integer> idContestCreati = utente.getContestCreati()
                 .stream()
                 .map(Contest::getId)
                 .collect(Collectors.toList());
-        List<String> nomi = utente.getRuoli()
-                .stream()
-                .map(Ruolo::getNome)
-                .collect(Collectors.toList());
-        if(nomi.contains(RuoliUtente.ANIMATORE.name())
-        && contenutoContest.isPending()==true
+        if(contenutoContest.isPending()==true
         && idContestCreati.contains(contenutoContest.getContestAssociato().getId())
         ){
             utenteService.aggiornaListaContenutiContest(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             contestService.aggiornaListaContenutoContest(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
             contenutoContestService.validaContenutoContest(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());
-        }
-        else if(!nomi.contains(RuoliUtente.ANIMATORE.name())){
-            throw new RichiestaValidUtenteNotValidException();
         }
         else if(!utente.getComuneAssociato().getId().equals(contenutoContest.getContestAssociato().getComuneAssociato().getId())){
             throw new RichiestaValidComuneNotValidException();

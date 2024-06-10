@@ -9,6 +9,5 @@ import java.util.List;
 @Component
 @Data
 public class ComuneDto {
-    private Integer idGestore;
     private String nome;
 }

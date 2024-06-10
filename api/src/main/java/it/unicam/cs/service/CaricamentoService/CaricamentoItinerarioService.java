@@ -33,15 +33,15 @@ public class CaricamentoItinerarioService implements ICaricamentoItinerarioServi
     @Autowired
     private IPOIRepository poiRepository;
     @Override
-    public void caricaItinerario(ItinerarioDto itinerarioDto){
-        controlloItinerarioService.controllaItinerario(itinerarioDto);
-        Itinerario itinerario = costruisciItinerario(itinerarioDto);
+    public void caricaItinerario(ItinerarioDto itinerarioDto, Integer userId){
+        controlloItinerarioService.controllaItinerario(itinerarioDto, userId);
+        Itinerario itinerario = costruisciItinerario(itinerarioDto, userId);
         itinerarioMediator.salvaItinerario(itinerario);
     }
 
-    private Itinerario costruisciItinerario(ItinerarioDto itinerarioDto) {
+    private Itinerario costruisciItinerario(ItinerarioDto itinerarioDto, Integer userId) {
         List<POI> pois = poiRepository.findAllById(itinerarioDto.getPoisId());
-        Utente utente = utenteService.ottieniUtenteById(itinerarioDto.getIDContributore());
+        Utente utente = utenteService.ottieniUtenteById(userId);
         String nome = itinerarioDto.getNome();;
         String descrizione = itinerarioDto.getDescrizione();
         Comune comune = utente.getComuneAssociato();
@@ -56,11 +56,6 @@ public class CaricamentoItinerarioService implements ICaricamentoItinerarioServi
                 .stream()
                 .map(Ruolo::getNome)
                 .collect(Collectors.toList());
-        List<Utente> utenti = comune.getListaUtenti();
-        List<Utente> curatori = comune.getCuratori();
-        if(!utenti.contains(utente) && !curatori.contains(utente)){
-            throw new UtenteNotValidException("utente non appartiene al comune");
-        }
         if(nomi.contains(RuoliUtente.CURATORE.name()) || nomi.contains(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
             stato = StatoElemento.PUBBLICATO;
         }

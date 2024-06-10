@@ -25,14 +25,14 @@ public class CaricamentoContenutoContestService implements ICaricamentoContenuto
     @Autowired
     private ContenutoContestMediator contenutoContestMediator;
     @Override
-    public void caricaContenutoContest(ContenutoContestDto contenutoContestDto){
-        controlloContenutoContestService.verificaContenutoContest(contenutoContestDto);
-        ContenutoContest contenutoContest =  costruisciContenutoContest(contenutoContestDto);
+    public void caricaContenutoContest(ContenutoContestDto contenutoContestDto, Integer userId){
+        controlloContenutoContestService.verificaContenutoContest(contenutoContestDto, userId);
+        ContenutoContest contenutoContest =  costruisciContenutoContest(contenutoContestDto, userId);
         contenutoContestMediator.salvaContenutoContest(contenutoContest);
     }
 
-    private ContenutoContest costruisciContenutoContest(ContenutoContestDto contenutoContestDto) {
-        Utente utente = utenteService.ottieniUtenteById(contenutoContestDto.getIdUtente());
+    private ContenutoContest costruisciContenutoContest(ContenutoContestDto contenutoContestDto, Integer userId) {
+        Utente utente = utenteService.ottieniUtenteById(userId);
         Contest contest = contestService.ottieniContest(contenutoContestDto.getIdContestAssociato());
         String nome = contenutoContestDto.getNome();
         TipoContenuto tipo = TipoContenuto.valueOf(contenutoContestDto.getTipoContenuto().toUpperCase());

@@ -13,6 +13,7 @@ import it.unicam.cs.service.UtenteService;
 import it.unicam.cs.util.Match;
 import it.unicam.cs.util.info.Contatti;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -120,10 +121,11 @@ public class ValidationPOIExtension {
             }
         }
     }
-    public void isPOIInComune(PoiDto poiDto){
-        Utente utente = utenteService.ottieniUtente(poiDto.getIdContributore());
+    @Transactional
+    public void isPOIInComune(PoiDto poiDto, Integer userId){
+        Utente utente = utenteService.ottieniUtente(userId);
         Comune comune = utente.getComuneAssociato();
-        boolean inside = osmService.verificaPuntoNelComune(poiDto.getPosizione(), (Posizione[]) comune.getPerimetro().toArray());
+        boolean inside = osmService.verificaPuntoNelComune(poiDto.getPosizione(), comune.getPerimetro().toArray(new Posizione[0]));
         if(!inside){
             throw new PosizionePOINotValidException();
         }

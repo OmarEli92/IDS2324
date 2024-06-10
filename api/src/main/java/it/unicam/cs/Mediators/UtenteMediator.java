@@ -23,7 +23,7 @@ public class UtenteMediator {
                 .map(Ruolo::getNome)
                 .collect(Collectors.toList())
                 .contains(RuoliUtente.GESTORE_PIATTAFORMA.name())){
-            comuneService.aggiungiUtente(utente, utente.getComuneAssociato().getId());
+            comuneService.aggiungiUtente(utente.getId(), utente.getComuneAssociato().getId());
         }
     }
 }

@@ -76,7 +76,7 @@ public class ContestService implements IContestService {
         Utente curatore = utenteRepository.findById(curatoreId).orElse(null);
         List<Utente> partecipanti = utenteRepository.findAllById(idPartecipanti);
         Contest contest = contestRepository.caricaPartecipantiContest(idContest);
-        contestValido(contest, curatore);
+        contestValido(contest, curatore.getId());
         for(Utente partecipante : partecipanti) {
             if (contest.getPartecipantiContest().contains(partecipante)) {
                 partecipanti.remove(partecipante);
@@ -101,8 +101,8 @@ public class ContestService implements IContestService {
         }
         contestRepository.save(contest);
     }
-    @Transactional
-    private void contestValido(Contest contest, Utente curatore) {
+    private void contestValido(Contest contest, Integer idCuratore) {
+        Utente curatore = utenteRepository.caricaCreatoreContest(idCuratore);
         if(!curatore.getContestCreati().stream()
                 .map(Contest::getId).collect(Collectors.toList())
                 .contains(contest.getId())){
@@ -128,10 +128,10 @@ public class ContestService implements IContestService {
 
     @Override
     public void assegnaVincitoreContest(Contest contest, Utente utente, ContenutoContest contenutoContest) {
-        if(contest.isAttivo()&& contest.getVincitore() == null){
+        if(!contest.isAttivo()&& contest.getVincitore() == null){
             contest.setVincitore(contenutoContest,utente);
-            chiudiContest(contest);
             contest.notifica();
+            utenteRepository.save(utente);
         }
     }
 

@@ -59,8 +59,10 @@ public class ControllerContest {
      * @return contest creato
      */
     @PostMapping("/creaContest")
-    public ResponseEntity<Object> creaContest(@RequestBody ContestDto contestDto){
-        caricamentoContestService.caricaContest(contestDto);
+    public ResponseEntity<Object> creaContest(@RequestBody ContestDto contestDto, @RequestHeader("Authorization") String authorizationHeader){
+        String token = authorizationHeader.substring(7);
+        Integer userId = jwtService.estraiId(token);
+        caricamentoContestService.caricaContest(contestDto, userId);
         return new ResponseEntity<>("Contest creato", HttpStatus.CREATED);
     }
 
@@ -70,16 +72,17 @@ public class ControllerContest {
      * @return contenuto contest creato
      */
     @PostMapping(value = "/aggiungi_contenuto_contest")
-    public ResponseEntity<Object> aggiungiContenutoContest(@RequestBody ContenutoContestDto contenutoContestDto){
-        caricamentoContenutoContestService.caricaContenutoContest(contenutoContestDto);
+    public ResponseEntity<Object> aggiungiContenutoContest(@RequestBody ContenutoContestDto contenutoContestDto, @RequestHeader("Authorization") String authorizationHeader){
+        String token = authorizationHeader.substring(7);
+        Integer userId = jwtService.estraiId(token);
+        caricamentoContenutoContestService.caricaContenutoContest(contenutoContestDto, userId);
         return new ResponseEntity<>("contenuto contest creato", HttpStatus.CREATED);
     }
     @PutMapping(value = "/valida_contenuto_contest")
-    public ResponseEntity<Object> validaContenutoContest(@RequestBody RichiestaValidazioneDto richiestaValidazioneDto){
-        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String token = (String) authentication.getCredentials();
-        String id = jwtService.estraiId(token);*/
-        validazioneContenutiService.validaContenutoContest(richiestaValidazioneDto);
+    public ResponseEntity<Object> validaContenutoContest(@RequestBody RichiestaValidazioneDto richiestaValidazioneDto, @RequestHeader("Authorization") String authorizationHeader){
+        String token = authorizationHeader.substring(7);
+        Integer validatoreId = jwtService.estraiId(token);
+        validazioneContenutiService.validaContenutoContest(richiestaValidazioneDto, validatoreId);
         if(richiestaValidazioneDto.isValidato()){
             return new ResponseEntity<>("contenuto contest validato", HttpStatus.OK);
         }

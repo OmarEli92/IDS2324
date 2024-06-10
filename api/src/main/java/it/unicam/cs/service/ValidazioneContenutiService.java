@@ -16,23 +16,23 @@ public class ValidazioneContenutiService implements IValidazioneContenutiService
     private ContenutoMultimedialeMediator contenutoMultimedialeMediator;
     private ContenutoContestMediator contenutoContestMediator;
     @Override
-    public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto){
-        poiMediator.validaPOI(richiestaValidazioneDto);
+    public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
+        poiMediator.validaPOI(richiestaValidazioneDto, validatoreId);
     }
     @Override
-    public void validaItinerario(RichiestaValidazioneDto richiestaValidazioneDto){
-        itinerarioMediator.validaItinerario(richiestaValidazioneDto);
+    public void validaItinerario(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
+        itinerarioMediator.validaItinerario(richiestaValidazioneDto, validatoreId);
     }
     @Override
-    public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto){
-        eventoMediator.validaEvento(richiestaValidazioneDto);
+    public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto, Integer id){
+        eventoMediator.validaEvento(richiestaValidazioneDto, id);
     }
     @Override
-    public void validaContenutoMultimediale(RichiestaValidazioneDto richiestaValidazioneDto){
-        contenutoMultimedialeMediator.validaContenuto(richiestaValidazioneDto);
+    public void validaContenutoMultimediale(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
+        contenutoMultimedialeMediator.validaContenuto(richiestaValidazioneDto, validatoreId);
     }
     @Override
-    public void validaContenutoContest(RichiestaValidazioneDto richiestaValidazioneDto){
-        contenutoContestMediator.validaContenutoContest(richiestaValidazioneDto);
+    public void validaContenutoContest(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
+        contenutoContestMediator.validaContenutoContest(richiestaValidazioneDto, validatoreId);
     }
 }

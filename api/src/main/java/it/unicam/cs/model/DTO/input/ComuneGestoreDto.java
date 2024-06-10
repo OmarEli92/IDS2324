@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-public class RichiestaSegnalazioneDto {
-    private Integer idContenuto;
+public class ComuneGestoreDto {
+    String nomeComune;
+    Integer idGestoreComune;
 }

@@ -3,12 +3,14 @@ package it.unicam.cs.service;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.ComuneDTO;
 import it.unicam.cs.model.DTO.input.ComuneDto;
+import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
 import it.unicam.cs.service.Interfaces.IProxyService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.info.Posizione;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,15 +33,15 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
         this.osmService = osmService;
     }
     @Override
-    public void aggiungiComune(Integer userId, ComuneDto comuneDto) {
+    public void aggiungiComune(ComuneDto comuneDto) {
         Comune comuneTrovato = comuneRepository.findByNome(comuneDto.getNome());
-        Utente utente = utenteService.ottieniUtenteById(userId);
         if(comuneTrovato != null){
             throw new IllegalArgumentException("Il comune è già stato registrato");
         }
         List<Posizione> perimetro = osmService.ottieniPerimetro(comuneDto.getNome());
         Posizione posizione = osmService.ottieniPosizioneComune(comuneDto.getNome());
-        Comune comune1 = new Comune(comuneDto.getNome(),utente,posizione,perimetro);
+        Comune comune1 = new Comune(comuneDto.getNome(),posizione,perimetro);
+        comuneRepository.save(comune1);
 
     }
 
@@ -56,12 +58,18 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     }
 
     @Override
-    public int aggiungiGestoreComune(Integer idGestoreComune, String comune) {
+    public Integer aggiungiGestoreComune(Integer idGestoreComune, String comune) {
         Comune comuneTrovato = comuneRepository.findByNome(comune);
         Utente gestoreComune = utenteService.ottieniUtenteById(idGestoreComune);
-        if(comuneTrovato != null){
+        if(comuneTrovato != null && gestoreComune.getComuneAssociato().getNome().equalsIgnoreCase(comune)){
+            if(!gestoreComune.getRuoli().stream().map(Ruolo::getNome).collect(Collectors.toList()).contains(RuoliUtente.GESTORE_PIATTAFORMA.name())){
+                utenteService.assegnaRuoloAutente(gestoreComune.getUsername(), RuoliUtente.GESTORE_COMUNE.name());
+            }
             comuneTrovato.setGestoreComune(gestoreComune);
             comuneRepository.save(comuneTrovato);
+        }
+        else {
+            throw new IllegalArgumentException("comune non esistente o utente non appartentente al comune");
         }
         return gestoreComune.getId();
     }

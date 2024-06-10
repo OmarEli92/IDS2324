@@ -9,12 +9,10 @@ import java.util.Date;
 @Component
 @Data
 public class ContestDto {
-    private Integer id;
     private String descrizione;
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private int partecipanti;
     private Integer idPoiAssociato;
-    private Integer idOrganizzatore;
     private String tipoInvito;
 }

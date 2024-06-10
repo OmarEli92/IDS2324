@@ -30,9 +30,9 @@ public class ControlloContenutoContestService {
     @Autowired
     private IContestRepository contestRepository;
 
-    public void verificaContenutoContest(ContenutoContestDto contenutoContestDto){
+    public void verificaContenutoContest(ContenutoContestDto contenutoContestDto, Integer userId){
         verificaTipoContenuto(contenutoContestDto);
-        verificaIdUtenteEContest(contenutoContestDto.getIdContestAssociato(), contenutoContestDto.getIdUtente());
+        verificaIdUtenteEContest(contenutoContestDto.getIdContestAssociato(), userId);
     }
     private void verificaIdUtenteEContest(Integer idContestAssociato, Integer idUtente) {
         Contest contest = contestRepository.caricaPartecipantiContest(idContestAssociato);

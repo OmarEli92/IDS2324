@@ -9,6 +9,7 @@ import it.unicam.cs.model.DTO.input.ContestDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContestService;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContestService;
@@ -35,15 +36,17 @@ public class CaricamentoContestService implements ICaricamentoContestService {
     private IConsultazioneContenutiService consultazioneContenutiService;
     @Autowired
     private ContestMediator contestMediator;
+    @Autowired
+    private IComuneRepository comuneRepository;
     @Override
-    public void caricaContest(ContestDto contestDto){
+    public void caricaContest(ContestDto contestDto, Integer userId){
         controlloContestService.verificaContest(contestDto);
-        Contest contest = costruisciContest(contestDto);
+        Contest contest = costruisciContest(contestDto,userId);
         contestMediator.salvaContest(contest);
     }
 
-    private Contest costruisciContest(ContestDto contestDto) {
-        Utente utente = utenteService.ottieniUtenteById(contestDto.getIdOrganizzatore());
+    private Contest costruisciContest(ContestDto contestDto, Integer userId) {
+        Utente utente = utenteService.ottieniUtenteById(userId);
         POI poi = consultazioneContenutiService.ottieniPOIdaId(contestDto.getIdPoiAssociato());
         verificaOrganizzatore(utente);
         verificaIdPoi(poi,utente);
@@ -71,7 +74,8 @@ public class CaricamentoContestService implements ICaricamentoContestService {
         return contest;
     }
     private void verificaIdPoi(POI poi, Utente organizzatore) {
-        if(!organizzatore.getComuneAssociato().getPOIS()
+        Comune comune = comuneRepository.findByNomeWithPOIs(organizzatore.getComuneAssociato().getNome());
+        if(!comune.getPOIS()
                 .stream()
                 .filter(poi1 -> poi1.getStato().equals(StatoElemento.PUBBLICATO))
                 .collect(Collectors.toList())

@@ -15,6 +15,7 @@ public interface IContestRepository extends JpaRepository<Contest,Integer> {
     Contest findContestByContenutoContestId(@Param("idRichiesta")Integer dRichiesta);
     @Query(value =  "SELECT c FROM Contest c LEFT JOIN FETCH c.partecipantiContest WHERE c.id = :idRichiesta")
     Contest caricaPartecipantiContest(@Param("idRichiesta") Integer idRichiesta);
+
     List<Contest> findByDataFineBeforeAndAttivoIsTrue(LocalDate localDate);
     List<Contest> findByDataInizioBeforeAndAttivoIsFalse(LocalDate localDate);
 }

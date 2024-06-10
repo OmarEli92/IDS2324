@@ -38,15 +38,15 @@ public class CaricamentoPOIService implements ICaricamentoPOIService {
     @Autowired
     private POIMediator poiMediator;
     @Override
-    public void caricaPOI(PoiDto poiDto){
-        controlloPOIService.verificaPOI(poiDto);
+    public void caricaPOI(PoiDto poiDto, Integer userId){
+        controlloPOIService.verificaPOI(poiDto, userId);
         POIBuilder poiBuilder = poiBuilderFactory.creaBuilder(poiDto);
-        costrusciPOI(poiBuilder,poiDto);
+        costrusciPOI(poiBuilder,poiDto, userId);
         poiMediator.salvaPOI(poiBuilder.build());
     }
     
-    private void costrusciPOI(POIBuilder poiBuilder, PoiDto poiDto) {
-        Utente utente = utenteService.ottieniUtenteById(poiDto.getIdContributore());
+    private void costrusciPOI(POIBuilder poiBuilder, PoiDto poiDto, Integer userId) {
+        Utente utente = utenteService.ottieniUtenteById(userId);
         Comune comune = utente.getComuneAssociato();
         StatoElemento statoElemento = isPOIContributoreValid(utente, comune);
         poiBuilder.setNome(poiDto.getNome());

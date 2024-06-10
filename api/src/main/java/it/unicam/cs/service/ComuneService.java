@@ -35,8 +35,9 @@ public class ComuneService implements IComuneService {
 
     @Override
     @Transactional
-    public void aggiungiUtente(Utente utente, Integer idComune) {
+    public void aggiungiUtente(Integer idUtente, Integer idComune) {
         Comune comune = comuneRepository.findById(idComune).orElseThrow(() -> new EntityNotFoundException("comune non trovato"));
+        Utente utente = utenteRepository.findById(idUtente).orElseThrow(() -> new EntityNotFoundException("utente non trovato"));
         if(utente.getRuoli().stream().map(Ruolo::getNome)
                 .collect(Collectors.toList()).contains(RuoliUtente.CURATORE.name())){
             comune.aggiungiCuratore(utente);

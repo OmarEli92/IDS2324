@@ -34,9 +34,9 @@ public class POIMediator {
         comuneService.aggiungiPOI(poi.getComuneAssociato().getId(),poi);
         utenteService.aggiungiPOI(poi.getContributore().getId(),poi);
     }
-    public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto){
+    public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
         POI poi = consultazioneContenutiService.ottieniPOIdaId(richiestaValidazioneDto.getIdContenuto());
-        Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
+        Utente utente = utenteService.ottieniUtenteById(validatoreId);
         if (poi.getStato().equals(StatoElemento.PENDING)
         && utente.getComuneAssociato().getId().equals(poi.getComuneAssociato().getId())){
             utenteService.aggiornaListaPOI(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());

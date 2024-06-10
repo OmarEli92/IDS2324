@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class ContenutoMultimedialeDto {
-    private Integer id;
     private String nome;
-    private Integer idContributore;
     private String tipoContenuto;
     private Integer idPoi;
     private Integer idEvento;

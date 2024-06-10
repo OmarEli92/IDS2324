@@ -64,6 +64,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
         Ruolo ruolo = ruoloRepository.findByNome(nomeRuolo);
         log.info("Ruolo {} assegnato all'utente {} ",ruolo.getNome(),utente.getUsername());
         utente.getRuoli().add(ruolo);
+        utenteRepository.save(utente);
     }
 
     @Override

@@ -6,13 +6,13 @@ import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class VerificaSomiglianzaContenuti {
-
     public boolean verificaSomiglianzaPOI(POI poi, List<POI> pois){
         for (POI p : pois) {
             if (poi.getNome().equalsIgnoreCase(p.getNome()) && poi.getComuneAssociato().equals(p.getComuneAssociato()) && poi.getPosizione().equals(p.getPosizione()) && p != poi)

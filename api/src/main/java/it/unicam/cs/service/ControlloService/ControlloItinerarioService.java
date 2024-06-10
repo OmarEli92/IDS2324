@@ -11,9 +11,9 @@ public class ControlloItinerarioService {
     @Autowired
     ValidationItinerarioExtension validationItinerarioExtension;
 
-    public void controllaItinerario(ItinerarioDto itinerarioDto){
+    public void controllaItinerario(ItinerarioDto itinerarioDto, Integer userId){
         validationItinerarioExtension.isItinerarioNomeValid(itinerarioDto.getNome());
         validationItinerarioExtension.isDescrizioneValid(itinerarioDto.getDescrizione());
-        validationItinerarioExtension.areIdPOISValid(itinerarioDto.getPoisId(), itinerarioDto.getIDContributore());
+        validationItinerarioExtension.areIdPOISValid(itinerarioDto.getPoisId(), userId);
     }
 }

@@ -2,6 +2,7 @@ package it.unicam.cs.controller;
 
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.input.ComuneDto;
+import it.unicam.cs.model.DTO.input.ComuneGestoreDto;
 import it.unicam.cs.model.DTO.mappers.ComuneDtoMapper;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
@@ -18,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Struct;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -62,22 +64,14 @@ public class ControllerGestionePiattaforma {
     }
 
     @PostMapping(value="registra")
-    public ResponseEntity<Object> aggiungiComune(@RequestBody ComuneDto comuneDto, @RequestHeader("Authorization") String authorizationHeader){
-        String token = authorizationHeader.substring(7);
-        Integer userId = jwtService.estraiId(token);
-        gestionePiattaformaService.aggiungiComune(userId, comuneDto);
+    public ResponseEntity<Object> aggiungiComune(@RequestBody ComuneDto comuneDto){
+        gestionePiattaformaService.aggiungiComune(comuneDto);
         return new ResponseEntity<>("Comune registrato", HttpStatus.CREATED);
     }
 
     @PostMapping(value="aggiungi_Gestore")
-    public ResponseEntity<Object> aggiungiGestoreComune(@RequestBody String nomeComune, @RequestHeader("Authorization") String authorizationHeader){
-        String token = authorizationHeader.substring(7);
-        Integer userId = jwtService.estraiId(token);
-        Comune comune = gestionePiattaformaService.ottieniComune(nomeComune);
-        if(comune==null) {
-            return new ResponseEntity<>("Il comune non è registrato", HttpStatus.BAD_REQUEST);
-        }
-        gestionePiattaformaService.aggiungiGestoreComune(userId,nomeComune);
+    public ResponseEntity<Object> aggiungiGestoreComune(@RequestBody ComuneGestoreDto comuneGestoreDto){
+        gestionePiattaformaService.aggiungiGestoreComune(comuneGestoreDto.getIdGestoreComune(), comuneGestoreDto.getNomeComune());
         return new ResponseEntity<>("Gestore piattaforma assegnato al comune", HttpStatus.CREATED);
     }
 }

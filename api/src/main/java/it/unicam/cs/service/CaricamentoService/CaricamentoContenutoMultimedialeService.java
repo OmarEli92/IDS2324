@@ -2,6 +2,7 @@ package it.unicam.cs.service.CaricamentoService;
 
 import it.unicam.cs.Mediators.ContenutoMultimedialeMediator;
 import it.unicam.cs.exception.Contenuto.EventoNotValidException;
+import it.unicam.cs.exception.Contenuto.ItinerarioNotValidException;
 import it.unicam.cs.exception.Contenuto.POINotValidException;
 import it.unicam.cs.exception.UtenteNotValidException;
 import it.unicam.cs.model.Comune;
@@ -12,6 +13,7 @@ import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
+import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContenutoMultimedialeService;
 import it.unicam.cs.service.ConsultazioneContenutiService;
 import it.unicam.cs.service.ControlloService.ControlloContenutoMultimedialeService;
@@ -37,20 +39,22 @@ public class CaricamentoContenutoMultimedialeService implements ICaricamentoCont
     private IConsultazioneContenutiService consultazioneContenutiService;
     @Autowired
     private ContenutoMultimedialeMediator contenutoMultimedialeMediator;
+    @Autowired
+    private IComuneRepository comuneRepository;
     private POI poi;
     private Itinerario itinerario;
     private Evento evento;
     private Comune comune;
     @Override
-    public void caricaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto){
+    public void caricaContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto, Integer userId){
         controlloContenutoMultimedialeService.verificaContenutoMultimediale(contenutoMultimedialeDto);
-        ContenutoMultimediale contenutoMultimediale = costruisciContenutoMultimediale(contenutoMultimedialeDto);
+        ContenutoMultimediale contenutoMultimediale = costruisciContenutoMultimediale(contenutoMultimedialeDto, userId);
         contenutoMultimedialeMediator.salvaContenutoMultimediale(contenutoMultimediale);
     }
 
-    private ContenutoMultimediale costruisciContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto) {
+    private ContenutoMultimediale costruisciContenutoMultimediale(ContenutoMultimedialeDto contenutoMultimedialeDto, Integer userId) {
         String nome = contenutoMultimedialeDto.getNome();
-        Utente utente = utenteService.ottieniUtenteById(contenutoMultimedialeDto.getIdContributore());
+        Utente utente = utenteService.ottieniUtenteById(userId);
         verificaElementoComuneAssociato(contenutoMultimedialeDto.getIdPoi(), contenutoMultimedialeDto.getIdEvento(), contenutoMultimedialeDto.getIdItinerario(),utente);
         StatoElemento statoElemento = isContributoreValid(utente);
         if(this.poi!=null){
@@ -91,24 +95,16 @@ public class CaricamentoContenutoMultimedialeService implements ICaricamentoCont
         }
     }
     private void verificaEvento(Evento evento, Utente utente) {
-            if (!evento.getStato().equals(StatoElemento.PUBBLICATO)
-                    || !evento.isAperto()){
-                throw new IllegalStateException("l'evento non è pubblicato o è chiuso, impossibile aggiungere un contenuto multimediale associato");
-            }
-            Comune comuneUtente = utente.getComuneAssociato();
+            Comune comuneUtente = comuneRepository.findByNomeWithEventi(utente.getComuneAssociato().getNome());
             if(!comuneUtente.getEventi().stream()
-                    .filter(evento1 -> evento1.getStato().equals(StatoElemento.PUBBLICATO) && evento.isAperto())
+                    .filter(evento1 -> evento1.getStato().equals(StatoElemento.PUBBLICATO) && evento1.isAperto())
                     .collect(Collectors.toList()).contains(evento)){
                 throw new EventoNotValidException();
                 }
             this.comune = comuneUtente;
     }
-
     private void verificaPoi(POI poi, Utente utente) {
-            if(!poi.getStato().equals(StatoElemento.PUBBLICATO)){
-                throw new IllegalStateException("il poi non è pubblicato, impossibile aggiungere un contenuto multimediale associato");
-            }
-            Comune comuneUtente = utente.getComuneAssociato();
+            Comune comuneUtente = comuneRepository.findByNomeWithPOIs(utente.getComuneAssociato().getNome());
             if (!comuneUtente.getPOIS().stream()
                     .filter(poi1 -> poi1.getStato().equals(StatoElemento.PUBBLICATO))
                     .collect(Collectors.toList()).contains(poi)) {
@@ -117,17 +113,12 @@ public class CaricamentoContenutoMultimedialeService implements ICaricamentoCont
             this.comune = comuneUtente;
 
     }
-    @Transactional
     private void verificaItinerario(Itinerario itinerario, Utente utente) {
-            if(!itinerario.getStato().equals(StatoElemento.PUBBLICATO)){
-                throw new IllegalStateException("l'itinerario nonn è pubblicato, impossibile aggiungere un contenuto multimediale associato");
-            }
-            Comune comuneUtente = utente.getComuneAssociato();
+            Comune comuneUtente = comuneRepository.findByNomeWithItinerari(utente.getComuneAssociato().getNome());
             if(!comuneUtente.getItinerari().stream()
                     .filter(itinerario1->itinerario1.getStato().equals(StatoElemento.PUBBLICATO))
                     .collect(Collectors.toList()).contains(itinerario)){
-                throw new IllegalArgumentException("comune dell'itinerario diverso dal comune " +
-                        "dell'utente");
+                throw new ItinerarioNotValidException();
             }
             this.comune = comuneUtente;
 

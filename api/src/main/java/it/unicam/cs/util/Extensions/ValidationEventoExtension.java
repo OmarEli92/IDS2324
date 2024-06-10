@@ -65,7 +65,7 @@ public class ValidationEventoExtension {
                 throw new IllegalArgumentException("lunghezza responsabile non corretta");
             }
             boolean match  = Match.contieneCaratteriSpeiali(responsabile);
-            if (match) {
+            if (!match) {
                 throw new IllegalArgumentException("responsabile non può avere caratteri speciali");
             }
         }

@@ -33,9 +33,9 @@ public class ItinerarioMediator {
         comuneService.aggiungiItinerario(itinerario.getComuneAssociato().getId(),itinerario);
         utenteService.aggiungiItinerario(itinerario.getComuneAssociato().getId(),itinerario);
     }
-    public void validaItinerario(RichiestaValidazioneDto richiestaValidazioneDto){
+    public void validaItinerario(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
         Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(richiestaValidazioneDto.getIdContenuto());
-        Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
+        Utente utente = utenteService.ottieniUtenteById(validatoreId);
         if(itinerario.getStato().equals(StatoElemento.PENDING)
                 && utente.getComuneAssociato().getId().equals(itinerario.getComuneAssociato().getId())){
             utenteService.aggiornaListaItinerario(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());

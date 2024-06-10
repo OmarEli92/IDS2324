@@ -91,7 +91,7 @@ public class ControllerConsultazioneContenuti {
 
     @GetMapping(value="/itinerario")
     public ResponseEntity<Object> visualizzaItinerari(){
-        return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato),HttpStatus.OK);
+        return new ResponseEntity<>(consultazioneContenutiService.ottieniItinerari(IDcomuneSelezionato).stream(),HttpStatus.OK);
     }
     @GetMapping(value = "/territorio")
     public ResponseEntity<Object> visualizzaTerritorioComune(String comune){

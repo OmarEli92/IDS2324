@@ -30,14 +30,12 @@ import java.time.LocalDateTime;
 @Component
 @Data
 public abstract class EventoDto implements IEventoDtoVisitable {
-    private Integer Id;
     private String tipoEvento;
     private String nome;
     private String descrizione;
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
     private Integer IdPoi;
-    private Integer IdContributore;
 
     @Override
     public abstract void accept(IEventoDtoVisitor eventoDtoVisitor);

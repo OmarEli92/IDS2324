@@ -47,9 +47,9 @@ public class ContenutoMultimedialeMediator {
         comuneService.aggiungiContenutoMultimediale(contenutoMultimediale.getComuneAssociato().getId(),contenutoMultimediale);
     }
     @Transactional
-    public void validaContenuto(RichiestaValidazioneDto richiestaValidazioneDto){
+    public void validaContenuto(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(richiestaValidazioneDto.getIdContenuto());
-        Utente utente = utenteService.ottieniUtenteById(richiestaValidazioneDto.getIdUtenteValidatore());
+        Utente utente = utenteService.ottieniUtenteById(validatoreId);
         if(!utente.getComuneAssociato().getId().equals(contenutoMultimediale.getComuneAssociato().getId())){
             throw new RichiestaValidComuneNotValidException();
         }
@@ -95,12 +95,12 @@ public class ContenutoMultimedialeMediator {
         }
     }
 
-    public void accettaSegnalazioneContenuto(EliminazioneContenutoDto eliminazioneContenutoDto) {
-        Utente utente = utenteService.ottieniUtenteById(eliminazioneContenutoDto.getIdUtente());
+    public void accettaSegnalazioneContenuto(EliminazioneContenutoDto eliminazioneContenutoDto, Integer userId) {
+        Utente utente = utenteService.ottieniUtenteById(userId);
         ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(eliminazioneContenutoDto.getIdContenutoMultimediale());
         if(contenutoMultimediale.getStato().equals(StatoElemento.SEGNALATO)
         && contenutoMultimediale.getComuneAssociato().getId().equals(utente.getComuneAssociato().getId())){
-            utenteService.accettaSegnalazioneContenuto(eliminazioneContenutoDto.getIdContenutoMultimediale(), eliminazioneContenutoDto.isEliminato());
+            utenteService.accettaSegnalazioneContenuto(contenutoMultimediale.getId(), eliminazioneContenutoDto.isEliminato());
             comuneService.accettaSegnalazioneContenuto(eliminazioneContenutoDto.getIdContenutoMultimediale(),eliminazioneContenutoDto.isEliminato());
         }
         if(contenutoMultimediale.getPoiAssociato()!=null){
