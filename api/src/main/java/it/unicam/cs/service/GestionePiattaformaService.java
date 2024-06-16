@@ -1,19 +1,16 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.ComuneDTO;
 import it.unicam.cs.model.DTO.input.ComuneDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.IComuneRepository;
 import it.unicam.cs.service.Interfaces.IGestionePiattaformaService;
-import it.unicam.cs.service.Interfaces.IProxyService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
 import it.unicam.cs.util.enums.RuoliUtente;
+import it.unicam.cs.util.info.DettagliComune;
 import it.unicam.cs.util.info.Posizione;
-import it.unicam.cs.util.info.Posizione;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service @Slf4j
@@ -43,7 +39,7 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
             throw new IllegalArgumentException("Il comune è già stato registrato");
         }
         List<Posizione> perimetro = proxyService.ottieniPerimetro(comuneDto.getNome());
-        Posizione posizione = proxyService.ottieniPosizioneComune(comuneDto.getNome());
+        DettagliComune posizione = proxyService.ottieniPosizioneComune(comuneDto.getNome());
         Comune comune1 = new Comune(comuneDto.getNome(), posizione, perimetro);
         comuneRepository.save(comune1);
     }

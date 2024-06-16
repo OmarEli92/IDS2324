@@ -4,7 +4,9 @@ import it.unicam.cs.exception.Contenuto.*;
 import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.Utente;
+import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.repository.IComuneRepository;
+import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.service.Interfaces.IComuneService;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /*
@@ -30,6 +33,8 @@ public class ValidationPOIExtension {
     private OSMService osmService;
     @Autowired
     private IUtenteService utenteService;
+    @Autowired
+    private IPOIRepository poiRepository;
 
     public void isOrariAperturaValido(String orario){
         if(!orario.isBlank()) {
@@ -129,5 +134,16 @@ public class ValidationPOIExtension {
         if(!inside){
             throw new PosizionePOINotValidException();
         }
+    }
+
+    public void posizioneLibera(PoiDto poiDto, Integer userId){
+        Utente utente = utenteService.ottieniUtente(userId);
+        Comune comune = utente.getComuneAssociato();
+        List<POI> poiEsistenti = poiRepository.findByPosizioneAndComune(poiDto.getPosizione().getLatitudine(),poiDto.getPosizione().getLongitudine(),
+                comune.getId());
+        if (!poiEsistenti.isEmpty()) {
+            throw new PosizioneOccupataException();
+        }
+
     }
 }

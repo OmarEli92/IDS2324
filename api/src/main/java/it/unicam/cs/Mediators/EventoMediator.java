@@ -7,6 +7,7 @@ import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.repository.IEventoRepository;
 import it.unicam.cs.service.*;
 import it.unicam.cs.service.Interfaces.*;
@@ -31,11 +32,13 @@ public class EventoMediator {
     private IEventoRepository eventoRepository;
     private IComuneService comuneService;
     private IConsultazioneContenutiService consultazioneContenutiService;
+    private ProxyService proxyService;
     public void salvaEvento(Evento evento){
         eventoService.aggiungiEvento(evento);
         poiService.salvaEvento(evento.getPoiAssociato().getId(),evento);
         comuneService.aggiungiEvento(evento.getComuneAssociato().getId(),evento);
         utenteService.aggiungiEvento(evento.getContributore().getId(),evento);
+        proxyService.invalidaComuneNellaCache(evento.getComuneAssociato().getNome());
     }
     public void validaEvento(RichiestaValidazioneDto richiestaValidazioneDto, Integer userId){
         Evento evento = consultazioneContenutiService.ottieniEventoDaId(richiestaValidazioneDto.getIdContenuto());

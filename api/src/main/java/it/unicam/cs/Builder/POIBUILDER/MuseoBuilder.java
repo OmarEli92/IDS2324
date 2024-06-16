@@ -42,7 +42,7 @@ public class MuseoBuilder extends POIBuilder {
     @Override
     public POI build() {
         return new Museo(super.getNome(),super.getPosizione(), TipoPOI.MUSEO, super.getContributore(), super.getStato(),
-                super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),
+                super.getComuneAssociato(),super.getEventiAssociati(),super.getContenutiMultimediali(),
                 orariApertura,responsabile,contatti,numeroSale,collezioni);
     }
 

@@ -41,8 +41,6 @@ public abstract class POI{
     @ManyToOne()
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;
-    @Embedded
-    private Indirizzo indirizzo;
     @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL)
     private List<Evento> eventiAssociati;
     @OneToMany(mappedBy = "poiAssociato",cascade = CascadeType.ALL)
@@ -52,14 +50,13 @@ public abstract class POI{
     @ManyToMany(mappedBy = "poisAssociati")
     private List<Itinerario> itinerariAssociati;
 
-    public POI(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali) {
+    public POI(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali) {
         this.nome = nome;
         this.posizione = posizione;
         this.tipoPOI = tipoPOI;
         this.contributore = contributore;
         this.stato = stato;
         this.comuneAssociato = comuneAssociato;
-        this.indirizzo = indirizzo;
         this.eventiAssociati = eventiAssociati;
         this.contenutiMultimediali = contenutiMultimediali;
     }
@@ -100,10 +97,6 @@ public abstract class POI{
 
     public Comune getComuneAssociato() {
         return comuneAssociato;
-    }
-
-    public Indirizzo getIndirizzo() {
-        return indirizzo;
     }
 
     public List<Evento> getEventiAssociati() {

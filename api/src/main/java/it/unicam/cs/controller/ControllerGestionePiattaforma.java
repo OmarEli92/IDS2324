@@ -75,6 +75,6 @@ public class ControllerGestionePiattaforma {
         String token = authorizationHeader.substring(7);
         Integer userId = jwtService.estraiId(token);
         gestionePiattaformaService.aggiungiGestoreComune(comuneGestoreDto.getIdGestoreComune(), comuneGestoreDto.getNomeComune(), userId);
-        return new ResponseEntity<>("Gestore piattaforma assegnato al comune", HttpStatus.CREATED);
+        return new ResponseEntity<>("Gestore comune assegnato al comune", HttpStatus.CREATED);
     }
 }

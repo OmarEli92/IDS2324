@@ -15,7 +15,7 @@ import java.util.List;
 public class VerificaSomiglianzaContenuti {
     public boolean verificaSomiglianzaPOI(POI poi, List<POI> pois){
         for (POI p : pois) {
-            if (poi.getNome().equalsIgnoreCase(p.getNome()) && poi.getComuneAssociato().equals(p.getComuneAssociato()) && poi.getPosizione().equals(p.getPosizione()) && p != poi)
+            if (poi.getNome().equalsIgnoreCase(p.getNome()) && poi.getComuneAssociato().equals(p.getComuneAssociato()) && p != poi)
                 return true;
         }
         return false;

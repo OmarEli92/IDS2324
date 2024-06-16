@@ -28,8 +28,8 @@ public final class Parco extends POI {
     private boolean presenzaAnimali;
     private int estensione;
 
-    public Parco(String nome, Posizione posizione, TipoPOI tipoPOI,Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, boolean presenzaSpecieProtetta, String orarioApertura, List<Itinerario> percorsi, boolean presenzaAnimali, int estensione) {
-        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
+    public Parco(String nome, Posizione posizione, TipoPOI tipoPOI,Utente contributore, StatoElemento stato, Comune comuneAssociato, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, boolean presenzaSpecieProtetta, String orarioApertura, List<Itinerario> percorsi, boolean presenzaAnimali, int estensione) {
+        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, eventiAssociati, contenutiMultimediali);
         this.presenzaSpecieProtetta = presenzaSpecieProtetta;
         this.orarioApertura = orarioApertura;
         this.percorsi = percorsi;

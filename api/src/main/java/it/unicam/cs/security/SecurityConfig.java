@@ -48,8 +48,6 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/utenti/**")
                         .hasAnyAuthority("GESTORE_PIATTAFORMA","GESTORE_COMUNE"))
-                .authorizeHttpRequests(request -> request.requestMatchers(
-                        "/api/contest/**").hasAnyAuthority("GESTORE_COMUNE","ANIMATORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/validazione/**")
                         .hasAnyAuthority("CURATORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/Amministrazione")

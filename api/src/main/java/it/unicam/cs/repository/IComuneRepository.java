@@ -1,13 +1,9 @@
 package it.unicam.cs.repository;
 
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.ComuneDTO;
-import it.unicam.cs.model.Utente;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 public interface IComuneRepository extends JpaRepository<Comune,Integer> {
     Comune findByNome(String nome);
@@ -29,10 +25,4 @@ public interface IComuneRepository extends JpaRepository<Comune,Integer> {
     @Query(value = "SELECT c from Comune c join c.listaContest l WHERE l.id = :idRichiesta")
     Comune findByContest(@Param("idRichiesta") Integer idRichiesta);
 
-    default ComuneDTO convertiComuneinDto(Comune comune){
-        ComuneDTO comuneDTO = new ComuneDTO();
-        comuneDTO.setId(comune.getId());
-        comuneDTO.setNome(comune.getNome());
-        return comuneDTO;
-    }
 }

@@ -1,12 +1,9 @@
 package it.unicam.cs.service.Interfaces;
 
 import it.unicam.cs.model.Comune;
-import it.unicam.cs.model.DTO.ComuneDTO;
 import it.unicam.cs.model.DTO.input.ComuneDto;
-import it.unicam.cs.model.Utente;
 
 import java.util.Collection;
-import java.util.Optional;
 
 public interface IGestionePiattaformaService {
     /** Aggiunge comune

@@ -10,6 +10,7 @@ import it.unicam.cs.model.contenuti.Itinerario;
 import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.service.Interfaces.IContestService;
+import it.unicam.cs.util.enums.StatoElemento;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,7 +70,7 @@ public class ControllerConsultazioneContenuti {
       if(pois.isEmpty()) {
           return new ResponseEntity<>("Nessun POI trovato", HttpStatus.NOT_FOUND);
       }
-      return new ResponseEntity<>(pois.stream().map(poiDtoMapper), HttpStatus.OK);
+      return new ResponseEntity<>(pois.stream().filter(poi -> poi.getStato().equals(StatoElemento.PUBBLICATO)).map(poiDtoMapper), HttpStatus.OK);
     }
 
     @GetMapping(value="/evento/{idEvento}")
@@ -84,7 +85,8 @@ public class ControllerConsultazioneContenuti {
         if(eventi.isEmpty()) {
             return new ResponseEntity<>("Nessun evento trovato", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(eventi.stream().map(eventoDtoMapper),HttpStatus.OK);
+        return new ResponseEntity<>(eventi.stream()
+                .filter(evento -> evento.getStato().equals(StatoElemento.PUBBLICATO)).map(eventoDtoMapper),HttpStatus.OK);
     }
     @GetMapping(value="/itinerario/{idItinerario}")
     public ResponseEntity<Object> visualizzaItinerario(@PathVariable("idItinerario") Integer idItinerario){
@@ -99,7 +101,7 @@ public class ControllerConsultazioneContenuti {
         if(itinerari.isEmpty()) {
             return new ResponseEntity<>("Nessun itinerario trovato", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(itinerari.stream().map(itinerarioDtoMapper),HttpStatus.OK);
+        return new ResponseEntity<>(itinerari.stream().filter(itinerario -> itinerario.getStato().equals(StatoElemento.PUBBLICATO)).map(itinerarioDtoMapper),HttpStatus.OK);
     }
     @GetMapping(value = "/territorio")
     public ResponseEntity<Object> visualizzaTerritorioComune(String comune){
@@ -116,7 +118,7 @@ public class ControllerConsultazioneContenuti {
         if(contenutiMultimediali.isEmpty()) {
             return new ResponseEntity<>("Nessun contenuto multimediale trovato", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(contenutiMultimediali.stream().map(contenutoMultimedialeDtoMapper), HttpStatus.OK);
+        return new ResponseEntity<>(contenutiMultimediali.stream().filter(contenutoMultimediale -> contenutoMultimediale.getStato().equals(StatoElemento.PUBBLICATO)).map(contenutoMultimedialeDtoMapper), HttpStatus.OK);
     }
 }
 

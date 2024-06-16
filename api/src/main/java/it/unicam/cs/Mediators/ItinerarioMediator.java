@@ -7,6 +7,7 @@ import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.Itinerario;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.service.*;
 import it.unicam.cs.service.Interfaces.IComuneService;
 import it.unicam.cs.service.Interfaces.IItinerarioService;
@@ -27,11 +28,13 @@ public class ItinerarioMediator {
     private IUtenteService utenteService;
     private IItinerarioService itinerarioService;
     private ConsultazioneContenutiService consultazioneContenutiService;
+    private ProxyService proxyService;
 
     public void salvaItinerario(Itinerario itinerario){
         itinerarioService.aggiungiItinerario(itinerario);
         comuneService.aggiungiItinerario(itinerario.getComuneAssociato().getId(),itinerario);
-        utenteService.aggiungiItinerario(itinerario.getComuneAssociato().getId(),itinerario);
+        utenteService.aggiungiItinerario(itinerario.getContributore().getId(),itinerario);
+        proxyService.invalidaComuneNellaCache(itinerario.getComuneAssociato().getNome());
     }
     public void validaItinerario(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
         Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(richiestaValidazioneDto.getIdContenuto());

@@ -80,4 +80,8 @@ public class ContenutoExceptionController {
     public ResponseEntity<Object> posizionePOINotValidException(PosizionePOINotValidException posizionePOINotValidException){
         return new ResponseEntity<>("posizione poi fuori dal comune", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = PosizioneOccupataException.class)
+    public ResponseEntity<Object> posizioneOccupataException(PosizioneOccupataException posizioneOccupataException){
+        return new ResponseEntity<>("Esiste già un POI in questa posizione nel comune specificato.", HttpStatus.BAD_REQUEST);
+    }
 }

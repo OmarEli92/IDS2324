@@ -40,7 +40,7 @@ public class POIIntrattenimentoBuilder extends POIBuilder{
     @Override
     public POI build() {
         return new POIIntrattenimento(super.getNome(),super.getPosizione(), TipoPOI.INTRATTENIMENTO,
-                super.getContributore(),super.getStato(),super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),
+                super.getContributore(),super.getStato(),super.getComuneAssociato(),super.getEventiAssociati(),
                 super.getContenutiMultimediali(),tipo, etaConsigliata,orariApertura,serviziOfferti,contatti);
     }
 

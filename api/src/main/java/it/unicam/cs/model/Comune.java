@@ -5,6 +5,7 @@ import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.contenuti.Itinerario;
+import it.unicam.cs.util.info.DettagliComune;
 import it.unicam.cs.util.info.Posizione;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -21,10 +22,8 @@ public class Comune {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private String provincia;
-    private String regione;
     @Embedded
-    private Posizione posizione;
+    private DettagliComune posizione;
     @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
     private List<POI> POIS = new ArrayList<>();
     @OneToMany(mappedBy = "comuneAssociato",cascade = CascadeType.ALL)
@@ -45,12 +44,10 @@ public class Comune {
     @CollectionTable(name="perimetro_comune", joinColumns = @JoinColumn(name="id_comune"))
     private List<Posizione> perimetro = new ArrayList<>();
 
-    public Comune(String nome, Integer id,String provincia,String regione, Posizione posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
+    public Comune(String nome, Integer id, DettagliComune posizione, List<POI> POIS, List<Itinerario> itinerari, List<Evento> eventi,
                   List<Utente>listaUtenti, List<Utente> curatori, Utente gestoreComune, List<Contest> listaContest) {
         this.nome = nome;
         this.id = id;
-        this.provincia = provincia;
-        this.regione = regione;
         this.posizione = posizione;
         this.POIS = POIS;
         this.itinerari = itinerari;
@@ -60,7 +57,7 @@ public class Comune {
         this.gestoreComune = gestoreComune;
         this.listaContest = listaContest;
     }
-    public Comune (String nome, Posizione posizione, List<Posizione> perimetro){
+    public Comune (String nome, DettagliComune posizione, List<Posizione> perimetro){
         this.nome = nome;
         this.posizione = posizione;
         this.perimetro = perimetro;

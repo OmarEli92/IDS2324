@@ -35,7 +35,7 @@ public class POIAmministrativoBuilder extends POIBuilder {
     @Override
     public POI build() {
         return new POIAmministrativo(super.getNome(),super.getPosizione(), TipoPOI.AMMINISTRATIVO,
-                super.getContributore(),super.getStato(),super.getComuneAssociato(),super.getIndirizzo(),
+                super.getContributore(),super.getStato(),super.getComuneAssociato(),
                 super.getEventiAssociati(),super.getContenutiMultimediali(),tipo,orariApertura,responsabile,contatti);
     }
 

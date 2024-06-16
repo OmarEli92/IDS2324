@@ -24,8 +24,8 @@ public final class Monumento extends POI {
     private double lunghezza;
     private String architettura;
 
-    public Monumento(String nome, Posizione posizione, TipoPOI tipoPOI,Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, int annoRealizzazione, String descrizione, String autore, double altezza, double lunghezza, String architettura) {
-        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
+    public Monumento(String nome, Posizione posizione, TipoPOI tipoPOI,Utente contributore, StatoElemento stato, Comune comuneAssociato, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, int annoRealizzazione, String descrizione, String autore, double altezza, double lunghezza, String architettura) {
+        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, eventiAssociati, contenutiMultimediali);
         this.annoRealizzazione = annoRealizzazione;
         this.descrizione = descrizione;
         this.autore = autore;

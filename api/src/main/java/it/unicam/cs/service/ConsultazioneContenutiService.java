@@ -18,6 +18,7 @@ import it.unicam.cs.repository.*;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

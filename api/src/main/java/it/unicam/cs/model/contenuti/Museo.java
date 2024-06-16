@@ -26,8 +26,8 @@ public final class Museo extends POI {
     private int numeroSale;
     private List<CollezioniMuseo> collezioni;
 
-    public Museo(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, Indirizzo indirizzo, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, String orariApertura, String responsabile, Contatti contatti, int numeroSale, List<CollezioniMuseo> collezioni) {
-        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, indirizzo, eventiAssociati, contenutiMultimediali);
+    public Museo(String nome, Posizione posizione, TipoPOI tipoPOI, Utente contributore, StatoElemento stato, Comune comuneAssociato, List<Evento> eventiAssociati, List<ContenutoMultimediale> contenutiMultimediali, String orariApertura, String responsabile, Contatti contatti, int numeroSale, List<CollezioniMuseo> collezioni) {
+        super(nome, posizione, tipoPOI, contributore, stato, comuneAssociato, eventiAssociati, contenutiMultimediali);
         this.orariApertura = orariApertura;
         this.responsabile = responsabile;
         this.contatti = contatti;

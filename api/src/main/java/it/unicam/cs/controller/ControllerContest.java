@@ -147,6 +147,7 @@ public class ControllerContest {
      * @param idContest
      * @param page
      * @param size **/
+    @PreAuthorize("hasAuthority('ANIMATORE')")
     @GetMapping(value = "/visualizza_contenuti/{idContest}")
     public ResponseEntity<Page<ContenutoContestOutputDto>> visualizzaContenuti(@PathVariable Integer idContest,
                                                                                @RequestParam(value = "page", defaultValue = "0") int page,

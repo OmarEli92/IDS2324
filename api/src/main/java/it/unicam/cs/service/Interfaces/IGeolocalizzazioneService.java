@@ -1,6 +1,7 @@
 package it.unicam.cs.service.Interfaces;
 
 
+import it.unicam.cs.util.info.DettagliComune;
 import it.unicam.cs.util.info.Posizione;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /** Interfaccia che espone i metodi per la geocodifica e la geocodifica inversa  */
 public interface IGeolocalizzazioneService {
     /** Restituisce la posizione del comune**/
-    Posizione ottieniPosizioneComune(String comune);
+    DettagliComune ottieniPosizioneComune(String comune);
 
 
 

@@ -7,6 +7,7 @@ import it.unicam.cs.model.DTO.input.RichiestaValidazioneDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.POI;
+import it.unicam.cs.proxy.ProxyService;
 import it.unicam.cs.service.*;
 import it.unicam.cs.service.Interfaces.IComuneService;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
@@ -28,11 +29,13 @@ public class POIMediator {
     private IUtenteService utenteService;
     private IPOIService poiService;
     private IConsultazioneContenutiService consultazioneContenutiService;
+    private ProxyService proxyService;
 
     public void salvaPOI(POI poi){
         poiService.aggiungiPOI(poi);
         comuneService.aggiungiPOI(poi.getComuneAssociato().getId(),poi);
         utenteService.aggiungiPOI(poi.getContributore().getId(),poi);
+        proxyService.invalidaComuneNellaCache(poi.getComuneAssociato().getNome());
     }
     public void validaPOI(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
         POI poi = consultazioneContenutiService.ottieniPOIdaId(richiestaValidazioneDto.getIdContenuto());

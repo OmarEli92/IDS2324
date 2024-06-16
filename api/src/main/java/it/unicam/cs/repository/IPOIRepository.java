@@ -18,6 +18,8 @@ public interface IPOIRepository extends JpaRepository<POI, Integer> {
         POI findByIdContenutoMultimediale(@Param("idRichiesta")Integer idRichiesta);
         @Query(value = "SELECT p from POI p JOIN p.contestAssociati c WHERE c.id = :idRichiesta")
         POI findByIdContest(@Param("idRichiesta")Integer idRichiesta);
+        @Query("SELECT p FROM POI p WHERE p.posizione.latitudine = :latitudine AND p.posizione.longitudine = :longitudine AND p.comuneAssociato.id = :comuneId")
+        List<POI> findByPosizioneAndComune(@Param("latitudine") double latitudine, @Param("longitudine") double longitudine, @Param("comuneId") int comuneId);
         /*default PoiDto convertiPOIinPoiDto(POI poi){
                 PoiDto poiDTO = new PoiDto();
                 poiDTO.setID(poi.getId());

@@ -3,6 +3,7 @@ package it.unicam.cs.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unicam.cs.service.Interfaces.IGeolocalizzazioneService;
+import it.unicam.cs.util.info.DettagliComune;
 import it.unicam.cs.util.info.Posizione;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class OSMService implements IGeolocalizzazioneService {
     private final String BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&q=";
     @Override
-    public Posizione ottieniPosizioneComune(String comune) {
+    public DettagliComune ottieniPosizioneComune(String comune) {
         String risposta = ottieniRisultatoDaOSM(BASE_URL+comune);
         Posizione posizione = new Posizione();
+        String provincia = null;
+        String regione = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode rootNode = mapper.readTree(risposta.toString());
@@ -27,12 +30,18 @@ public class OSMService implements IGeolocalizzazioneService {
                 JsonNode primoElemento = rootNode.get(0);
                 posizione.setLatitudine(primoElemento.path("lat").asDouble());
                 posizione.setLongitudine(primoElemento.path("lon").asDouble());
+                String displayName = primoElemento.path("display_name").asText();
+                String[] parts = displayName.split(", ");
+                if (parts.length >= 3) {
+                    provincia = parts[0].trim();  // Ad esempio "Terni"
+                    regione = parts[1].trim();
+                }
             }
         }
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return posizione;
+        return new DettagliComune(posizione,provincia,regione);
     }
 
     @Override

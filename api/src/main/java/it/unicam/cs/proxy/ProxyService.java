@@ -4,9 +4,15 @@ import it.unicam.cs.model.Comune;
 import it.unicam.cs.model.abstractions.Evento;
 import it.unicam.cs.model.abstractions.POI;
 import it.unicam.cs.model.contenuti.Itinerario;
+import it.unicam.cs.repository.IComuneRepository;
+import it.unicam.cs.repository.IEventoRepository;
+import it.unicam.cs.repository.IPOIRepository;
 import it.unicam.cs.service.Interfaces.IGeolocalizzazioneService;
 import it.unicam.cs.service.OSMService;
+import it.unicam.cs.util.info.DettagliComune;
 import it.unicam.cs.util.info.Posizione;
+import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,7 +23,7 @@ public class ProxyService implements IGeolocalizzazioneService {
     private final int maxSize = 10; // grandezza mappa
     private Map<String, Comune> cache;
 
-    public ProxyService(OSMService osmService){
+    public ProxyService(OSMService osmService, IComuneRepository comuneRepository){
         this.osmService = osmService;
         this.cache = new LinkedHashMap<>(maxSize, 0.75f, true) {
             @Override
@@ -28,9 +34,9 @@ public class ProxyService implements IGeolocalizzazioneService {
     }
 
     @Override
-    public Posizione ottieniPosizioneComune(String comune) {
+    public DettagliComune ottieniPosizioneComune(String comune) {
         Comune comuneTrovato = cache.get(comune);
-        Posizione posizione = null;
+        DettagliComune posizione = null;
         if(comuneTrovato!=null){
             posizione = comuneTrovato.getPosizione();
         }
@@ -51,7 +57,6 @@ public class ProxyService implements IGeolocalizzazioneService {
     public List<Posizione> ottieniPerimetro(String comune) {
         return osmService.ottieniPerimetro(comune);
     }
-
     public void aggiungiComune(Comune comune){
         if(comune == null){
             throw new NullPointerException("Il comune non può essere null");
@@ -64,8 +69,17 @@ public class ProxyService implements IGeolocalizzazioneService {
         }
     }
 
+    public void invalidaComuneNellaCache(String nomeComune) {
+        if(ottieniComune(nomeComune) != null) {
+            cache.remove(nomeComune);
+        }
+    }
     public Comune ottieniComune(String nomeComune){
-        Comune comune = cache.get(nomeComune);
+        Comune comune = cache.values()
+                .stream()
+                .filter(comune1 -> comune1.getNome() .equals(nomeComune))
+                .findAny()
+                .orElse(null);
         return comune;
     }
 

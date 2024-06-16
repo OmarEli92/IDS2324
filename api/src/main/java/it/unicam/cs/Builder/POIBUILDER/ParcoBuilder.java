@@ -42,7 +42,7 @@ public class ParcoBuilder extends POIBuilder{
     @Override
     public POI build() {
         return new Parco(super.getNome(),super.getPosizione(), TipoPOI.PARCO,super.getContributore(), super.getStato(),
-                super.getComuneAssociato(),super.getIndirizzo(),super.getEventiAssociati(),super.getContenutiMultimediali(),
+                super.getComuneAssociato(),super.getEventiAssociati(),super.getContenutiMultimediali(),
                 presenzaSpecieProtetta,orarioApertura,percorsi,presenzaAnimali,estensione);
     }
 
