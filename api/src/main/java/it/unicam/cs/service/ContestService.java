@@ -126,6 +126,8 @@ public class ContestService implements IContestService {
     public void assegnaVincitoreContest(Contest contest, Utente utente, ContenutoContest contenutoContest) {
         if(LocalDate.now().isAfter(contest.getDataFine())&& contest.getVincitore() == null){
             contest.setVincitore(contenutoContest,utente);
+            List<Utente> utenti = contest.getPartecipantiContest();
+            utenti.forEach(utente1 -> {contest.rimuoviObserver(utente);});
             contest.notifica();
             utenteRepository.save(utente);
         }

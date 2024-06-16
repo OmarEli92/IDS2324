@@ -42,8 +42,6 @@ public class ContestMediator {
         List<Contest> contestScaduti = contestRepository.findByDataFineBeforeAndAttivoIsTrue(oggi);
         contestScaduti.forEach(contest -> {contestService.chiudiContest(contest);
             List<Utente> utenti = contest.getPartecipantiContest();
-            utenti.forEach(utente -> {contest.rimuoviObserver(utente);
-                utenteService.salvaUtente(utente);});
                 poiService.aggiornaListaContestDaChiudere(contest.getId());
                 utenteService.aggiornaListaContestDaChiudere(contest.getId());
                 comuneService.aggiornaListaContestDaChiudere(contest.getId());

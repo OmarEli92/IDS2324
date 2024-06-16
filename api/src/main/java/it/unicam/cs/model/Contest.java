@@ -118,8 +118,8 @@ public class Contest implements ContestObservable<Utente> {
     @Override
     public void notifica() {
         vincitore.update(this.id);
-        partecipantiContest.stream()
-                .map(partecipante -> partecipante.getContestInPartecipazione().remove(this));
+        //partecipantiContest.stream()
+                //.map(partecipante -> partecipante.getContestInPartecipazione().remove(this));
     }
 
 }
