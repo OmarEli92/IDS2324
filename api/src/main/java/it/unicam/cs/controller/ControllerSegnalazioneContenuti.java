@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor(onConstructor_ = @Autowired)
 public class ControllerSegnalazioneContenuti {
     private final ISegnalazioneService segnalazioneService;
-    private final JwtService jwtService;
 
     @PutMapping
     public ResponseEntity<Object> segnalaContenutoMultimediale(@RequestBody RichiestaSegnalazioneDto richiestaSegnalazioneDto){

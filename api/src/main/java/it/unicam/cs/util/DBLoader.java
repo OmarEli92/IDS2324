@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DBLoader implements CommandLineRunner {
@@ -62,8 +63,6 @@ public class DBLoader implements CommandLineRunner {
         poiRepository.save(new POIIntrattenimento("cinema delle palme", new Posizione(12,21),
                         TipoPOI.INTRATTENIMENTO,null,StatoElemento.PUBBLICATO,comune,null,null,null, TipoIntrattenimento.CINEMA,14,
                         "16-24",null,null));
-        //comuneRepository.save(comune);
-        //comuneRepository.save(comune2);
         List<POI> pois = new ArrayList<>();
         poiRepository.save(new POIIntrattenimento( "Cinema a Grottammare", new Posizione(12,
                 21),TipoPOI.INTRATTENIMENTO, null, StatoElemento.PUBBLICATO, comune, null,
@@ -75,14 +74,14 @@ public class DBLoader implements CommandLineRunner {
             ruoloRepository.save(ruolo);
         }
         pois.add(poiRepository.findById(2).get());
-        Utente utente = new Utente(1,"Omar1","password","Omar","El Idrissi",
+        /*Utente utente = new Utente(1,"Omar1","password","Omar","El Idrissi",
                 LocalDate.of(1992,11,20),
                 "omarel@hotmail.com","maschio","3480032789",
                 0,comune2,null, new ArrayList<>(),
                 new ArrayList<>(),new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(),new ArrayList<>());
         utenteRepository.save(utente);
-        utenteService.assegnaRuoloAutente("Omar1","CONTRIBUTORE");
+        utenteService.assegnaRuoloAutente("Omar1","CONTRIBUTORE", utente.getId());*/
     }
 
 

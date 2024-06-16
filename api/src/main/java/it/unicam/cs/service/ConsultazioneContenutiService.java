@@ -2,14 +2,12 @@ package it.unicam.cs.service;
 
 
 import it.unicam.cs.model.Comune;
+import it.unicam.cs.model.Contest;
 import it.unicam.cs.model.DTO.input.EventoDto;
 import it.unicam.cs.model.DTO.input.ItinerarioDto;
 import it.unicam.cs.model.DTO.input.PoiDto;
 import it.unicam.cs.model.DTO.mappers.*;
-import it.unicam.cs.model.DTO.output.ContenutoMultimedialeOutputDto;
-import it.unicam.cs.model.DTO.output.EventoOutputDto;
-import it.unicam.cs.model.DTO.output.ItinerarioOutputDto;
-import it.unicam.cs.model.DTO.output.PoiOutpuDto;
+import it.unicam.cs.model.DTO.output.*;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
 import it.unicam.cs.model.abstractions.Evento;
@@ -41,12 +39,8 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     private IItinerarioRepository itinerarioRepository;
     private IContenutoMultimedialeRepository contenutoMultimedialeRepository;
     private IComuneRepository comuneRepository;
+    private final IContestRepository contestRepository;
     private IContenutoContestRepository contenutoContestRepository;
-    private PoiDtoMapper poiDtoMapper;
-    private ItinerarioDtoMapper itinerarioDtoMapper;
-    private EventoDtoMapper eventoDtoMapper;
-    private ContenutoMultimedialeDtoMapper contenutoMultimedialeDtoMapper;
-    private ContenutoContestDtoMapper contenutoContestDtoMapper;
     private ProxyService proxyService;
 
     public Comune ottieniComuneDaId(Integer idComune){
@@ -61,23 +55,19 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<PoiOutpuDto> ottieniPOIS(final Integer idComune) {
+    public List<POI> ottieniPOIS(final Integer idComune) {
         Comune comune = proxyService.ottieniComuneDaId(idComune);
         List<POI> pois;
         if(comune != null){
             pois = proxyService.ottieniPOI(comune.getNome());
             log.info("Ho trovato dei poi nella cache");
-            return pois.stream()
-                    .map(poiDtoMapper)
-                    .collect(Collectors.toList());
+            return new ArrayList<>(pois);
         }
         else{
             pois = poiRepository.findByComuneAssociatoId(idComune);
             Comune comuneAssociato = comuneRepository.findById(idComune).orElse(null);
             proxyService.aggiungiComune(comuneAssociato);
-            return pois.stream()
-                    .map(poiDtoMapper)
-                    .collect(Collectors.toList());
+            return new ArrayList<>(pois);
         }
     }
 
@@ -88,22 +78,18 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<EventoOutputDto> ottieniEventi(final Integer idComune) {
+    public List<Evento> ottieniEventi(final Integer idComune) {
         Comune comune = proxyService.ottieniComuneDaId(idComune);
         List<Evento> eventi;
         if(comune != null){
             eventi = proxyService.ottieniEventi(comune.getNome());
-            return eventi.stream()
-                    .map(eventoDtoMapper)
-                    .collect(Collectors.toList());
+            return new ArrayList<>(eventi);
         }
         else{
             eventi = eventoRepository.findByComuneAssociatoId(idComune);
             Comune comuneAssociato = comuneRepository.findById(idComune).orElse(null);
             proxyService.aggiungiComune(comuneAssociato);
-            return eventi.stream()
-                    .map(eventoDtoMapper)
-                    .collect(Collectors.toList());
+            return new ArrayList<>(eventi);
         }
 
     }
@@ -115,23 +101,19 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<ItinerarioOutputDto> ottieniItinerari(final Integer idComune) {
+    public List<Itinerario> ottieniItinerari(final Integer idComune) {
         Comune comune = proxyService.ottieniComuneDaId(idComune);
         List<Itinerario> itinerari;
         if(comune != null){
             itinerari = proxyService.ottieniItinerari(comune.getNome());
 
-            return itinerari.stream()
-                    .map(itinerarioDtoMapper)
-                    .collect(Collectors.toList());
+            return new ArrayList<>(itinerari);
         }
         else{
             itinerari = itinerarioRepository.findByComuneAssociatoId(idComune);
             Comune comuneAssociato = comuneRepository.findById(idComune).orElse(null);
             proxyService.aggiungiComune(comuneAssociato);
-            return itinerari.stream()
-                    .map(itinerarioDtoMapper)
-                    .collect(Collectors.toList());
+            return new ArrayList<>(itinerari);
         }
     }
 
@@ -142,20 +124,22 @@ public class ConsultazioneContenutiService implements IConsultazioneContenutiSer
     }
 
     @Override
-    public List<ContenutoMultimedialeOutputDto> ottieniContenutiMultimedialiPOI(Integer idPOI) {
+    public List<ContenutoMultimediale> ottieniContenutiMultimedialiComune(Integer idComune) {
         Iterable<ContenutoMultimediale> it = contenutoMultimedialeRepository.findAll();
         List<ContenutoMultimediale> contenutiMultimediali = new ArrayList<>();
         for(ContenutoMultimediale cont : it){
-            if(cont.getPoiAssociato().getId().equals(idPOI))
+            if(cont.getPoiAssociato().getId().equals(idComune))
                 contenutiMultimediali.add(cont);
         }
-        return contenutiMultimediali.stream()
-                .map(contenutoMultimedialeDtoMapper)
-                .collect(Collectors.toList());
-    }
-    @Override
-    public ContenutoContest ottieniContenutoContestDaid(Integer idContenutoContest){
-        return contenutoContestRepository.findById(idContenutoContest).orElseThrow(() -> new EntityNotFoundException("contenuto contest non trovato"));
+        return new ArrayList<>(contenutiMultimediali);
     }
 
+    @Override
+    public Contest ottieniContestDaId(Integer idContest) {
+        return contestRepository.findById(idContest).orElseThrow(()-> new EntityNotFoundException("contest non esistente"));
+    }
+    @Override
+    public ContenutoContest ottieniContenutoContest(Integer id){
+        return contenutoContestRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("contenuto contest non trovato"));
+    }
 }

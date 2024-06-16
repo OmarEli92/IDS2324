@@ -47,8 +47,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/utenti/**")
-                        .hasAnyAuthority("GESTORE_PIATTAFORMA","GESTORE_COMUNE",
-                                "ANIMATORE","CURATORE"))
+                        .hasAnyAuthority("GESTORE_PIATTAFORMA","GESTORE_COMUNE"))
                 .authorizeHttpRequests(request -> request.requestMatchers(
                         "/api/contest/**").hasAnyAuthority("GESTORE_COMUNE","ANIMATORE"))
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/validazione/**")

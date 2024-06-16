@@ -19,7 +19,7 @@ public interface IGestionePiattaformaService {
 
     /**Aggiunge gestore Comune
      *@Return id gestore Comune **/
-    Integer aggiungiGestoreComune(Integer gestoreComune,String comune);
+    Integer aggiungiGestoreComune(Integer gestoreComune,String comune, Integer userId);
     /**Rimuove gestore comune**/
     void rimuoviGestoreComune(int idGestore, String comune);
     /** Ottieni comune da id**/
@@ -27,5 +27,5 @@ public interface IGestionePiattaformaService {
     /** Ottieni comune da nome**/
     Comune ottieniComune(String nomeComune);
 
-    Collection<ComuneDTO> ottieniComuni(int pageNo, int pageSize);
+    Collection<Comune> ottieniComuni(int pageNo, int pageSize);
 }

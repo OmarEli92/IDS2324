@@ -26,7 +26,7 @@ public class ContenutoContestService implements IContenutoContestService {
     @Override
     @Transactional
     public void validaContenutoContest(Integer idContenutoContest, boolean validato){
-        ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(idContenutoContest);
+        ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContest(idContenutoContest);
         if(validato){
             contenutoContest.setPending(false);
             contenutoContestRepository.save(contenutoContest);
@@ -35,4 +35,9 @@ public class ContenutoContestService implements IContenutoContestService {
             contenutoContestRepository.deleteById(idContenutoContest);
         }
     }
+    @Override
+    public ContenutoContest ottieniContenutoContestDaId(Integer idContenutoContest){
+        return contenutoContestRepository.findById(idContenutoContest).orElseThrow(() -> new EntityNotFoundException("contenuto contest non trovato"));
+    }
+
 }

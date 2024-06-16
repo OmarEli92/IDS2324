@@ -26,6 +26,8 @@ public interface IComuneRepository extends JpaRepository<Comune,Integer> {
     Comune findByNomeWithItinerari(@Param("nome") String nome);
     @Query("SELECT c FROM Comune c LEFT JOIN FETCH c.eventi WHERE c.nome = :nome")
     Comune findByNomeWithEventi(@Param("nome") String nome);
+    @Query(value = "SELECT c from Comune c join c.listaContest l WHERE l.id = :idRichiesta")
+    Comune findByContest(@Param("idRichiesta") Integer idRichiesta);
 
     default ComuneDTO convertiComuneinDto(Comune comune){
         ComuneDTO comuneDTO = new ComuneDTO();

@@ -1,6 +1,7 @@
 package it.unicam.cs.service.Interfaces;
 
 import it.unicam.cs.model.Contest;
+import it.unicam.cs.model.DTO.input.ContestDto;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.contenuti.ContenutoContest;
 import it.unicam.cs.model.contenuti.ContenutoMultimediale;
@@ -29,14 +30,17 @@ public interface IContestService {
      * @param id id del contest
      * @return contest
      */
-    Contest ottieniContest(Integer id);
+
 
     /**
      * Metodo che permette di ottenere tutti i contest
      * @return lista di contest
      */
     List<Contest> ottieniContests();
-
+    /**
+     * metodo che permette di ottenere un contesta dato l'id
+     */
+    Contest ottieniContest(Integer id);
     /** Metodo che permette di aggiungere i partecipanti**/
     void aggiungiPartecipanti(Integer idContest,List<Integer> idPartecipanti, Integer userId);
 

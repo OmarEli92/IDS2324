@@ -18,5 +18,4 @@ public class RegisterRequest {
     private String sesso;
     private LocalDate dataDiNascita;
     private String comuneAssociato;
-    private String ruolo;
 }

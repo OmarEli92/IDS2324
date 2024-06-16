@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class ContenutoMultimedialeService implements IContenutoMultimedialeService {
     private IContenutoMultimedialeRepository contenutoMultimedialeRepository;
     private VerificaSomiglianzaContenuti verificaSomiglianzaContenuti;
+    private ConsultazioneContenutiService consultazioneContenutiService;
     @Override
     public void aggiungiContenutoMultimediale(ContenutoMultimediale contenutoMultimediale){
         if(!verificaSomiglianzaContenuti.verificaSomiglianzaContenutoMultimediale(contenutoMultimediale, contenutoMultimedialeRepository.findAll())){
@@ -26,7 +27,7 @@ public class ContenutoMultimedialeService implements IContenutoMultimedialeServi
     }
     @Override
     public void validaContenutoMultimediale(Integer idContenutoMultimediale, boolean validato){
-        ContenutoMultimediale contenutoMultimediale = contenutoMultimedialeRepository.getReferenceById(idContenutoMultimediale);
+        ContenutoMultimediale contenutoMultimediale = consultazioneContenutiService.ottieniContenutoMultimedialeDaId(idContenutoMultimediale);
         if(validato){
             contenutoMultimediale.setStato(StatoElemento.PUBBLICATO);
             contenutoMultimedialeRepository.save(contenutoMultimediale);

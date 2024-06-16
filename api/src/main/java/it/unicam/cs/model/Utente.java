@@ -40,10 +40,7 @@ public class Utente implements UserDetails,ContestObserver {
     @NotNull @Column(unique = true)
     private String email;
     private String sesso;
-    @Column(unique = true)
     private String telefono;
-    @Builder.Default
-    private int numeroDiContribuzioni = 0;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_comune_associato", referencedColumnName = "id")
     private Comune comuneAssociato;

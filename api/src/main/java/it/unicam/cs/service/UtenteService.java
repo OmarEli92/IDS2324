@@ -1,7 +1,8 @@
 package it.unicam.cs.service;
 
 import it.unicam.cs.model.Contest;
-import it.unicam.cs.model.DTO.input.UtenteDto;
+import it.unicam.cs.model.DTO.mappers.UtenteDtoMapper;
+import it.unicam.cs.model.DTO.output.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
@@ -13,6 +14,7 @@ import it.unicam.cs.repository.IRuoloRepository;
 import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.service.Interfaces.IUtenteService;
+import it.unicam.cs.util.enums.RuoliUtente;
 import it.unicam.cs.util.enums.StatoElemento;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -26,10 +28,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service @Slf4j
@@ -60,14 +59,31 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
-    public void assegnaRuoloAutente(String username, String nomeRuolo) {
+    public void assegnaRuoloAutente(String username, String nomeRuolo, Integer id) {
         Utente utente = utenteRepository.findByUsername(username);
         Ruolo ruolo = ruoloRepository.findByNome(nomeRuolo);
+        Utente gestore = ottieniUtente(id);
+        List<String> nomiRuoli = utente.getRuoli().stream().map(Ruolo::getNome).toList();
+        List<String> nomiRuoliGestore = gestore.getRuoli().stream().map(Ruolo::getNome).toList();
         if (ruolo == null) {
             throw new IllegalArgumentException("Ruolo non trovato: " + nomeRuolo);
         }
+        if(nomiRuoli.contains(ruolo.getNome())){
+            throw new IllegalArgumentException("ruolo "+nomeRuolo+" gia associato all'utente");
+        }
+        if(nomiRuoliGestore.contains(RuoliUtente.GESTORE_COMUNE.name())){
+            if(!utente.getComuneAssociato().getId().equals(gestore.getComuneAssociato().getId())){
+                throw new IllegalArgumentException("non puoi assegnare ruoli ad utenti appartenenti ad altri comuni");
+            }
+        }
         log.info("Ruolo {} assegnato all'utente {} ",ruolo.getNome(),utente.getUsername());
         utente.getRuoli().add(ruolo);
+        if(ruolo.getNome().equals(RuoliUtente.CURATORE.name()) || ruolo.getNome().equals(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name())){
+            utente.getRuoli().removeIf(r -> r.getNome().equals(RuoliUtente.CONTRIBUTORE.name()));
+        }
+        else if(ruolo.getNome().equals(RuoliUtente.CONTRIBUTORE.name())) {
+            utente.getRuoli().removeIf(r -> r.getNome().equals(RuoliUtente.CONTRIBUTORE_AUTORIZZATO.name()) || r.getNome().equals(RuoliUtente.CURATORE.name()));
+        }
         utenteRepository.save(utente);
     }
 
@@ -85,12 +101,11 @@ public class UtenteService implements IUtenteService,UserDetailsService {
     }
 
     @Override
-    public List<UtenteDto> ottieniUtenti(int pageNo, int pageSize) {
+    public List<Utente> ottieniUtenti(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo,pageSize);
         Page<Utente> utenti = utenteRepository.findAll(pageable);
         log.info("Ottieni lista utenti ");
-        return utenti.getContent().stream().map((utente -> utenteRepository.convertiUtenteinDto(utente)))
-                .collect(Collectors.toList());
+        return new ArrayList<>(utenti.stream().toList());
     }
 
     @Override
@@ -256,7 +271,7 @@ public class UtenteService implements IUtenteService,UserDetailsService {
             utenteRepository.save(utente);
         }
         else{
-            ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(idContenutoContest);
+            ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContest(idContenutoContest);
             utente.getContenutoContestCreati().remove(contenutoContest);
             utenteRepository.save(utente);
         }

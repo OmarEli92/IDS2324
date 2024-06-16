@@ -31,6 +31,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -73,19 +74,17 @@ public class ContestService implements IContestService {
     @Override
     @Transactional
     public void aggiungiPartecipanti(Integer idContest, List<Integer> idPartecipanti, Integer curatoreId) {
-        Utente curatore = utenteRepository.findById(curatoreId).orElse(null);
         List<Utente> partecipanti = utenteRepository.findAllById(idPartecipanti);
         Contest contest = contestRepository.caricaPartecipantiContest(idContest);
-        contestValido(contest, curatore.getId());
-        for(Utente partecipante : partecipanti) {
-            if (contest.getPartecipantiContest().contains(partecipante)) {
-                partecipanti.remove(partecipante);
-            }
+        Iterator<Utente> iterator = partecipanti.iterator();
+        contestValido(contest, curatoreId);
+        while (iterator.hasNext()){
+            Utente partecipante = iterator.next();
             if (partecipante.getRuoli().stream()
                     .map(Ruolo::getNome).collect(Collectors.toList()).contains(RuoliUtente.ANIMATORE.name())
                     && partecipante.getContestCreati().stream()
                     .map(Contest::getId).collect(Collectors.toList()).contains(contest.getId())) {
-               partecipanti.remove(partecipante);
+                iterator.remove();
             }
             if(!partecipante.getRuoli().stream()
                     .map(Ruolo::getNome).collect(Collectors.toList())
@@ -96,7 +95,7 @@ public class ContestService implements IContestService {
                 contest.aggiungiObserver(partecipante);
             }
         }
-        if(!(partecipanti.size() > 0)){
+        if(partecipanti.isEmpty()){
             throw new ListaPartecipantiNotValidException();
         }
         contestRepository.save(contest);
@@ -115,10 +114,7 @@ public class ContestService implements IContestService {
 
     @Override
     public Page<ContenutoContest> visionaContenutiCaricati(Integer idContest,int page, int size){
-        Contest contest = contestRepository.getReferenceById(idContest);
-        if(contest == null){
-            return null;
-        }
+        Contest contest = ottieniContest(idContest);
         int startIndex = page * size;
         int endIndex = Math.min(startIndex + size, contest.getContenutiCaricati().size());
         List<ContenutoContest> pageContent = contest.getContenutiCaricati().subList(startIndex, endIndex);
@@ -128,7 +124,7 @@ public class ContestService implements IContestService {
 
     @Override
     public void assegnaVincitoreContest(Contest contest, Utente utente, ContenutoContest contenutoContest) {
-        if(!contest.isAttivo()&& contest.getVincitore() == null){
+        if(LocalDate.now().isAfter(contest.getDataFine())&& contest.getVincitore() == null){
             contest.setVincitore(contenutoContest,utente);
             contest.notifica();
             utenteRepository.save(utente);
@@ -138,7 +134,7 @@ public class ContestService implements IContestService {
     @Override
     @Transactional
     public void aggiungiContenutoContest(Integer idContest, ContenutoContest contenutoContest) {
-        Contest contest = contestRepository.findById(idContest).orElseThrow(() -> new EntityNotFoundException("contest non trovato"));
+        Contest contest = ottieniContest(idContest);
         contest.aggiungiContenutoCaricato(contenutoContest);
         contestRepository.save(contest);
     }
@@ -154,7 +150,7 @@ public class ContestService implements IContestService {
             contestRepository.save(contest);
         }
         else {
-            ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(idContest);
+            ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContest(idContest);
             contest.getContenutiCaricati().remove(contenutoContest);
             contestRepository.save(contest);
         }

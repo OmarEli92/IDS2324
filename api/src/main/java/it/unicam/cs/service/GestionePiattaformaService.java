@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -60,12 +61,15 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
     }
 
     @Override
-    public Integer aggiungiGestoreComune(Integer idGestoreComune, String comune) {
+    public Integer aggiungiGestoreComune(Integer idGestoreComune, String comune, Integer userId) {
         Comune comuneTrovato = comuneRepository.findByNome(comune);
         Utente gestoreComune = utenteService.ottieniUtenteById(idGestoreComune);
         if(comuneTrovato != null && gestoreComune.getComuneAssociato().getNome().equalsIgnoreCase(comune)){
-            if(!gestoreComune.getRuoli().stream().map(Ruolo::getNome).collect(Collectors.toList()).contains(RuoliUtente.GESTORE_PIATTAFORMA.name())){
-                utenteService.assegnaRuoloAutente(gestoreComune.getUsername(), RuoliUtente.GESTORE_COMUNE.name());
+            if(!gestoreComune.getRuoli().stream().map(Ruolo::getNome).collect(Collectors.toList()).contains(RuoliUtente.GESTORE_COMUNE.name())){
+                utenteService.assegnaRuoloAutente(gestoreComune.getUsername(), RuoliUtente.GESTORE_COMUNE.name(), userId);
+            }
+            else {
+                throw new IllegalArgumentException("l'utente è già gestore del comune");
             }
             comuneTrovato.setGestoreComune(gestoreComune);
             comuneRepository.save(comuneTrovato);
@@ -96,10 +100,9 @@ public class GestionePiattaformaService implements IGestionePiattaformaService {
         return comuneRepository.findByNome(nomeComune);
     }
     @Override
-    public Collection<ComuneDTO> ottieniComuni(int pageNo, int pageSize){
+    public Collection<Comune> ottieniComuni(int pageNo, int pageSize){
         Pageable pageable = PageRequest.of(pageNo,pageSize);
         Page<Comune> comuni = comuneRepository.findAll(pageable);
-        return comuni.getContent().stream().map((comune -> comuneRepository.convertiComuneinDto(comune)))
-                .collect(Collectors.toList());
+        return new ArrayList<>(comuni.getContent());
     }
 }

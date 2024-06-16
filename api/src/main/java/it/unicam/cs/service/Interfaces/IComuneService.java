@@ -21,6 +21,8 @@ public interface IComuneService {
     public void accettaSegnalazioneContenuto(Integer idContenutoMultimediale, boolean eliminato);
     public void aggiornaListaEventiDaAprire(Integer idEvento);
     public void aggiornaListaEventiDaChiudere(Integer idEvento);
+    public void aggiornaListaContestDaAprire(Integer idContest);
+    public void aggiornaListaContestDaChiudere(Integer idContest);
 
     void aggiungiUtente(Integer idUtente, Integer idComune);
 }

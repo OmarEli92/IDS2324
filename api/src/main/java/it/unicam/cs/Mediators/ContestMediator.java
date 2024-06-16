@@ -46,6 +46,7 @@ public class ContestMediator {
                 utenteService.salvaUtente(utente);});
                 poiService.aggiornaListaContestDaChiudere(contest.getId());
                 utenteService.aggiornaListaContestDaChiudere(contest.getId());
+                comuneService.aggiornaListaContestDaChiudere(contest.getId());
         });
 
     }
@@ -57,6 +58,8 @@ public class ContestMediator {
         contestDaAprire.forEach(contest -> {contestService.apriContest(contest);
             poiService.aggiornaListaContestAperti(contest.getId());
             utenteService.aggiornaListaContestCreatiAperti(contest.getId());
-            utenteService.aggiornaListaContestInPartecipazioneAperti(contest.getId());});
+            utenteService.aggiornaListaContestInPartecipazioneAperti(contest.getId());
+            comuneService.aggiornaListaContestDaAprire(contest.getId());
+        });
     }
 }

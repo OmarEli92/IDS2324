@@ -5,4 +5,5 @@ import it.unicam.cs.model.contenuti.ContenutoContest;
 public interface IContenutoContestService {
     public void aggiungiContenutoContest(ContenutoContest contenutoContest);
     public void validaContenutoContest(Integer idContenutoContest, boolean validato);
+    public ContenutoContest ottieniContenutoContestDaId(Integer idContenutoContest);
 }

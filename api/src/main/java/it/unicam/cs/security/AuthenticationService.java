@@ -11,6 +11,7 @@ import it.unicam.cs.repository.UtenteRepository;
 import it.unicam.cs.security.request.AuthenticationRequest;
 import it.unicam.cs.security.request.RegisterRequest;
 import it.unicam.cs.security.response.AuthenticationResponse;
+import it.unicam.cs.service.ControlloService.ControlloRichiestaRegistrazioneService;
 import it.unicam.cs.util.enums.RuoliUtente;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class AuthenticationService {
     private final UtenteRepository utenteRepository;
     private final UtenteMediator utenteMediator;
     private final JwtService  jwtService;
+    private final ControlloRichiestaRegistrazioneService controlloRichiestaRegistrazioneService;
     private final AuthenticationManager authenticationManager;
     private final IComuneRepository comuneRepository;
     private final PasswordEncoder passwordEncoder;
@@ -37,17 +39,19 @@ public class AuthenticationService {
 
     /** Registra un utente nel db**/
     public AuthenticationResponse registraUtente(RegisterRequest request){
-        Ruolo ruolo = ruoloRepository.findByNome(request.getRuolo().toUpperCase());
-        if(ruolo == null){
-            throw new NullPointerException("il ruolo associato all'utente non è presente!");
-        }
-        Comune comuneAssociato = comuneRepository.findByNome(request.getComuneAssociato());
-        if(ruolo.getNome().equalsIgnoreCase("gestore_piattaforma")){
+        controlloRichiestaRegistrazioneService.verificaRichiestaRegistrazione(request);
+        Ruolo ruolo;
+        Comune comuneAssociato;
+        List<Utente> utentiPresenti = utenteRepository.findAll().stream().toList();
+        if(utentiPresenti.isEmpty()){
+            ruolo = ruoloRepository.findByNome(RuoliUtente.GESTORE_PIATTAFORMA.name());
             comuneAssociato = null;
         }
         else {
-            if(comuneAssociato==null) {
-                throw new NullPointerException("Il comune associato all'utente non è presente!");
+            ruolo = ruoloRepository.findByNome(RuoliUtente.CONTRIBUTORE.name());
+            comuneAssociato = comuneRepository.findByNome(request.getComuneAssociato());
+            if(comuneAssociato == null){
+                throw new IllegalArgumentException("comune non esistente");
             }
         }
         ArrayList<Ruolo> ruoli = new ArrayList<>();

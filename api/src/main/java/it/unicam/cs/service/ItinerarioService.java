@@ -35,7 +35,7 @@ public class ItinerarioService implements IItinerarioService {
     @Override
     @Transactional
     public void salvaContenutoMultimediale(ContenutoMultimediale contenutoMultimediale, Integer idItinerario){
-        Itinerario itinerario = itinerarioRepository.findById(idItinerario).orElseThrow(()->new EntityNotFoundException("itinerario non trovato"));
+        Itinerario itinerario = consultazioneContenutiService.ottieniItinerarioDaId(idItinerario);
         itinerario.aggiungiContenutoMultimediale(contenutoMultimediale);
         itinerarioRepository.save(itinerario);
     }

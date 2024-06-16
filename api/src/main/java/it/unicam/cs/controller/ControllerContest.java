@@ -17,6 +17,7 @@ import it.unicam.cs.service.CaricamentoService.CaricamentoContenutoContestServic
 import it.unicam.cs.service.CaricamentoService.CaricamentoContestService;
 import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContenutoContestService;
 import it.unicam.cs.service.CaricamentoService.Interfaces.ICaricamentoContestService;
+import it.unicam.cs.service.Interfaces.IConsultazioneContenutiService;
 import it.unicam.cs.service.Interfaces.IContestService;
 import it.unicam.cs.service.Interfaces.IValidazioneContenutiService;
 import it.unicam.cs.service.ValidazioneContenutiService;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +39,14 @@ public class ControllerContest {
     private final ICaricamentoContestService caricamentoContestService;
     private final ICaricamentoContenutoContestService caricamentoContenutoContestService;
     private final IValidazioneContenutiService validazioneContenutiService;
+    private final IConsultazioneContenutiService consultazioneContenutiService;
     private final JwtService jwtService;
     private final ContestDtoMapper contestDtoMapper;
     private final ContenutoContestDtoMapper contenutoContestDtoMapper;
     @Autowired
     public ControllerContest(IContestService contestService, CaricamentoContestService caricamentoContestService, CaricamentoContenutoContestService caricamentoContenutoContestService,
                              ValidazioneContenutiService validazioneContenutiService, JwtService jwtService, ContestDtoMapper contestDtoMapper,
-                             ContenutoContestDtoMapper contenutoContestDtoMapper) {
+                             ContenutoContestDtoMapper contenutoContestDtoMapper, IConsultazioneContenutiService consultazioneContenutiService) {
         this.contestService = contestService;
         this.caricamentoContestService = caricamentoContestService;
         this.caricamentoContenutoContestService = caricamentoContenutoContestService;
@@ -51,6 +54,7 @@ public class ControllerContest {
         this.jwtService = jwtService;
         this.contestDtoMapper = contestDtoMapper;
         this.contenutoContestDtoMapper = contenutoContestDtoMapper;
+        this.consultazioneContenutiService = consultazioneContenutiService;
     }
 
     /**
@@ -58,6 +62,7 @@ public class ControllerContest {
      * @param contestDto contest da creare
      * @return contest creato
      */
+    @PreAuthorize("hasAuthority('ANIMATORE')")
     @PostMapping("/creaContest")
     public ResponseEntity<Object> creaContest(@RequestBody ContestDto contestDto, @RequestHeader("Authorization") String authorizationHeader){
         String token = authorizationHeader.substring(7);
@@ -71,6 +76,7 @@ public class ControllerContest {
      * @param contenutoContestDto contenuto del contest da creare
      * @return contenuto contest creato
      */
+    @PreAuthorize("hasAuthority('PARTECIPANTE_CONTEST')")
     @PostMapping(value = "/aggiungi_contenuto_contest")
     public ResponseEntity<Object> aggiungiContenutoContest(@RequestBody ContenutoContestDto contenutoContestDto, @RequestHeader("Authorization") String authorizationHeader){
         String token = authorizationHeader.substring(7);
@@ -78,6 +84,7 @@ public class ControllerContest {
         caricamentoContenutoContestService.caricaContenutoContest(contenutoContestDto, userId);
         return new ResponseEntity<>("contenuto contest creato", HttpStatus.CREATED);
     }
+    @PreAuthorize("hasAuthority('ANIMATORE')")
     @PutMapping(value = "/valida_contenuto_contest")
     public ResponseEntity<Object> validaContenutoContest(@RequestBody RichiestaValidazioneDto richiestaValidazioneDto, @RequestHeader("Authorization") String authorizationHeader){
         String token = authorizationHeader.substring(7);
@@ -96,6 +103,7 @@ public class ControllerContest {
      * @param contest contest da rimuovere
      * @return contest rimosso
      */
+    @PreAuthorize("hasAuthority('ANIMATORE')")
     @PutMapping(value="/rimuoviContest{id}")
     public ResponseEntity<Object> rimuoviContest(@PathVariable Integer id,@RequestBody Contest contest){
         if(contestService.ottieniContest(id)!= null)
@@ -104,18 +112,6 @@ public class ControllerContest {
         return new ResponseEntity<>("Contest rimosso", HttpStatus.OK);
     }
 
-        /**
-         * Metodo che permette di ottenere un contest a partire dal suo id
-         * @param id id del contest
-         * @return contest
-         */
-    @GetMapping(value="/contest/{id}")
-    public ResponseEntity<Object> getContest(@PathVariable Integer id){
-        Contest contest = contestService.ottieniContest(id);
-        if(contest == null)
-            return new ResponseEntity<>("Contest non presente", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(contestDtoMapper.apply(contest), HttpStatus.OK);
-    }
 
     /***
      * Metodo che permette di ottenere tutti i contest presenti
@@ -126,8 +122,7 @@ public class ControllerContest {
         List<Contest> contests = contestService.ottieniContests();
         if(contests.isEmpty())
             return new ResponseEntity<>("Nessun contest presente", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(contests.stream().map(contestDtoMapper)
-                .collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(contests.stream().map(contestDtoMapper), HttpStatus.OK);
     }
 
 
@@ -137,6 +132,7 @@ public class ControllerContest {
      * @param idContest
      * @return partcepianti aggiunti
      */
+    @PreAuthorize("hasAuthority('ANIMATORE')")
     @PutMapping(value="/invita/{idContest}")
     public ResponseEntity<Object> invitaPartecipanti(@RequestBody List<Integer> idPartecipanti,
                                                      @PathVariable Integer idContest,

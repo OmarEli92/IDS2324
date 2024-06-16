@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IContestRepository extends JpaRepository<Contest,Integer> {
-    Contest findContestById(Integer id);
     @Query(value = "SELECT c from Contest c JOIN c.contenutiCaricati co WHERE co.id = :idRichiesta")
     Contest findContestByContenutoContestId(@Param("idRichiesta")Integer dRichiesta);
     @Query(value =  "SELECT c FROM Contest c LEFT JOIN FETCH c.partecipantiContest WHERE c.id = :idRichiesta")

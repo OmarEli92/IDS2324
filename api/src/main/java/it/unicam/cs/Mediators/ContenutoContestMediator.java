@@ -37,13 +37,13 @@ public class ContenutoContestMediator {
     }
     @Transactional
     public void validaContenutoContest(RichiestaValidazioneDto richiestaValidazioneDto, Integer validatoreId){
-        ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContestDaid(richiestaValidazioneDto.getIdContenuto());
+        ContenutoContest contenutoContest = consultazioneContenutiService.ottieniContenutoContest(richiestaValidazioneDto.getIdContenuto());
         Utente utente = utenteService.ottieniUtenteById(validatoreId);
         List<Integer> idContestCreati = utente.getContestCreati()
                 .stream()
                 .map(Contest::getId)
                 .collect(Collectors.toList());
-        if(contenutoContest.isPending()==true
+        if(contenutoContest.isPending()
         && idContestCreati.contains(contenutoContest.getContestAssociato().getId())
         ){
             utenteService.aggiornaListaContenutiContest(richiestaValidazioneDto.getIdContenuto(), richiestaValidazioneDto.isValidato());

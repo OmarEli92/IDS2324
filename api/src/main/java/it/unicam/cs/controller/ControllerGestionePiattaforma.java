@@ -43,7 +43,8 @@ public class ControllerGestionePiattaforma {
 
     @GetMapping(value="comuni")
     public ResponseEntity<Object> ottieniComuni(){
-        return new ResponseEntity<>(gestionePiattaformaService.ottieniComuni(0,50), HttpStatus.OK);
+        return new ResponseEntity<>(gestionePiattaformaService.ottieniComuni(0,50).stream()
+                .map(comuneDtoMapper).collect(Collectors.toList()), HttpStatus.OK);
     }
     @GetMapping(value="comune/{idComune}")
     public ResponseEntity<Object> ottieniComune(@PathVariable("idComune") int idComune){
@@ -70,8 +71,10 @@ public class ControllerGestionePiattaforma {
     }
 
     @PostMapping(value="aggiungi_Gestore")
-    public ResponseEntity<Object> aggiungiGestoreComune(@RequestBody ComuneGestoreDto comuneGestoreDto){
-        gestionePiattaformaService.aggiungiGestoreComune(comuneGestoreDto.getIdGestoreComune(), comuneGestoreDto.getNomeComune());
+    public ResponseEntity<Object> aggiungiGestoreComune(@RequestBody ComuneGestoreDto comuneGestoreDto, @RequestHeader("Authorization") String authorizationHeader){
+        String token = authorizationHeader.substring(7);
+        Integer userId = jwtService.estraiId(token);
+        gestionePiattaformaService.aggiungiGestoreComune(comuneGestoreDto.getIdGestoreComune(), comuneGestoreDto.getNomeComune(), userId);
         return new ResponseEntity<>("Gestore piattaforma assegnato al comune", HttpStatus.CREATED);
     }
 }

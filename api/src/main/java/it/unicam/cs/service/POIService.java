@@ -44,14 +44,14 @@ public class POIService implements IPOIService {
     @Override
     @Transactional
     public void salvaEvento(Integer idPoi, Evento evento){
-        POI poi = poiRepository.findById(idPoi).orElseThrow(()->new EntityNotFoundException("poi non trovato"));
+        POI poi = consultazioneContenutiService.ottieniPOIdaId(idPoi);
         poi.aggiungiEvento(evento);
         poiRepository.save(poi);
     }
     @Override
     @Transactional
     public void salvaContest(Integer idPoi, Contest contest){
-        POI poi = poiRepository.findById(idPoi).orElseThrow(()->new EntityNotFoundException("poi non trovato"));
+        POI poi = consultazioneContenutiService.ottieniPOIdaId(idPoi);
         poi.aggiungiContest(contest);
         poiRepository.save(poi);
     }

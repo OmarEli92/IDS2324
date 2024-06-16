@@ -29,7 +29,11 @@ public class ProxyService implements IGeolocalizzazioneService {
 
     @Override
     public Posizione ottieniPosizioneComune(String comune) {
-        Posizione posizione = cache.get(comune).getPosizione();
+        Comune comuneTrovato = cache.get(comune);
+        Posizione posizione = null;
+        if(comuneTrovato!=null){
+            posizione = comuneTrovato.getPosizione();
+        }
         if(posizione == null){
             posizione = osmService.ottieniPosizioneComune(comune);
         }

@@ -39,7 +39,7 @@ public class EventoService implements IEventoService {
     @Override
     @Transactional
     public void salvaContenutoMultimediale(Integer idEvento, ContenutoMultimediale contenutoMultimediale){
-        Evento evento = eventoRepository.findById(idEvento).orElseThrow(()->new EntityNotFoundException("evento non trovato"));
+        Evento evento = consultazioneContenutiService.ottieniEventoDaId(idEvento);
         evento.aggiungiContenutoMultimediale(contenutoMultimediale);
         eventoRepository.save(evento);
     }

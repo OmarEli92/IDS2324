@@ -31,4 +31,11 @@ public class Match {
         Pattern pattern = Pattern.compile("^(http(s)?://)?([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}(/[a-zA-Z0-9-_.~%]+)*(/\\?[a-zA-Z0-9-_.~&=]+)?$");
         return pattern.matcher(link).matches();
     }
+    public static boolean isSesso(String sesso){
+        return sesso.equalsIgnoreCase("maschio") || sesso.equalsIgnoreCase("femmina");
+    }
+    public static boolean isPassword(String password){
+        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+        return pattern.matcher(password).matches();
+    }
 }

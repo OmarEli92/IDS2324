@@ -1,7 +1,7 @@
 package it.unicam.cs.service.Interfaces;
 
 import it.unicam.cs.model.Contest;
-import it.unicam.cs.model.DTO.input.UtenteDto;
+import it.unicam.cs.model.DTO.output.UtenteDto;
 import it.unicam.cs.model.Ruolo;
 import it.unicam.cs.model.Utente;
 import it.unicam.cs.model.abstractions.Evento;
@@ -24,7 +24,7 @@ public interface IUtenteService {
     /**Assegna un ruolo all'utente
      * @param ruolo
      * @param username **/
-    void assegnaRuoloAutente(String username, String ruolo);
+    void assegnaRuoloAutente(String username, String ruolo, Integer userId);
     /** Ottieni utente tramite username
      * @param username **/
     Utente ottieniUtente(String username) throws NullPointerException;
@@ -39,7 +39,7 @@ public interface IUtenteService {
     /**Ottieni utenti
      * @param pageNo
      * @param pageSize **/
-    List<UtenteDto> ottieniUtenti(int pageNo, int pageSize);
+    List<Utente> ottieniUtenti(int pageNo, int pageSize);
     /** Ottini ruoli dell'utente
      * @param utente **/
     List<Ruolo> ottieniRuoliUtente(String utente);
